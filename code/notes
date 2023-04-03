@@ -1,0 +1,20 @@
+
+
+## Questions about Data
+
+## Stops Data
+
+There are 3 districts that are labeled 31, 41, 51. Not sure what these are as they are not official police districts.
+These only account for approximately 2k stops, but they are uniformly distributed across each of the years.
+Stops data is not geocoded so I cannot see where these are. However, could possibly look into block-level code.
+
+## Shotspotter Data
+
+It appears that the shots are not aligned with the official document. While much of this is due to bleed from neighboring districts, this is not always the case. In some cases, the rollout month seems incredibly off. I have made notes of this in the cleaning code.
+
+
+## Traffic Data
+
+3 data sets. Data goes back to 2014. 
+Of the three data sets, there is only 1 observation that is duplicated after pasting all of them together. My guess is that this data was just arbitrarily split into 3 sections and probably did even splits among years...weird but likely true. This amounts to 3 million stops over the time period of 2014-2023. Would like to ask Toshio is this is similar with his stops data that is not connected to badge number. On my own digging, it looks like appending all of these sheets together is correct. The totals match what other industries find as shown in this article: https://blockclubchicago.org/2023/03/30/the-new-stop-and-frisk-chicago-police-make-millions-of-traffic-stops-while-searching-for-guns/. Likely should append all of them together unless there is critical evidence otherwise. 
+
