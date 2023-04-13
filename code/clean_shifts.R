@@ -24,17 +24,17 @@ filter_shifts <- function(shift_sheet) {
 # 2016 --------------------------------------------------------------------
 
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2016-JAN-JUN.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2016-JAN-JUN.xlsx")
 
-shifts_16_1 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2016-JAN-JUN.xlsx",
+shifts_16_1 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2016-JAN-JUN.xlsx",
                                    sheet = .) %>% 
          janitor::clean_names() %>% 
          filter_shifts())
 
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2016-JUL-DEC.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2016-JUL-DEC.xlsx")
 
-shifts_16_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2016-JUL-DEC.xlsx",
+shifts_16_2 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2016-JUL-DEC.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
@@ -42,16 +42,16 @@ shifts_16_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2016-JUL-DEC.xls
 
 # 2017 --------------------------------------------------------------------
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2017-JAN-JUN.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2017-JAN-JUN.xlsx")
 
-sheets_17_1 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2017-JAN-JUN.xlsx",
+sheets_17_1 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2017-JAN-JUN.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2017-JUL-DEC.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2017-JUL-DEC.xlsx")
 
-sheets_17_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2017-JUL-DEC.xlsx",
+sheets_17_2 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2017-JUL-DEC.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
@@ -59,16 +59,16 @@ sheets_17_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2017-JUL-DEC.xls
 
 # 2018 --------------------------------------------------------------------
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2018-JAN-JUN.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2018-JAN-JUN.xlsx")
 
-sheets_18_1 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2018-JAN-JUN.xlsx",
+sheets_18_1 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2018-JAN-JUN.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2018-JUL-DEC.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2018-JUL-DEC.xlsx")
 
-sheets_18_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2018-JUL-DEC.xlsx",
+sheets_18_2 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2018-JUL-DEC.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
@@ -76,16 +76,16 @@ sheets_18_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2018-JUL-DEC.xls
 
 # 2019 --------------------------------------------------------------------
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2019-JAN-JUN.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2019-JAN-JUN.xlsx")
 
-sheets_19_1 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2019-JAN-JUN.xlsx",
+sheets_19_1 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2019-JAN-JUN.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
 
-sheets <- readxl::excel_sheets("raw_data/A_A-2019-JUL-DEC.xlsx")
+sheets <- readxl::excel_sheets("raw_data/shifts/A_A-2019-JUL-DEC.xlsx")
 
-sheets_19_2 <- map_df(sheets, ~readxl::read_excel("raw_data/A_A-2019-JUL-DEC.xlsx",
+sheets_19_2 <- map_df(sheets, ~readxl::read_excel("raw_data/shifts/A_A-2019-JUL-DEC.xlsx",
                                                   sheet = .) %>% 
                         janitor::clean_names() %>% 
                         filter_shifts())
