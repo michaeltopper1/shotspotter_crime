@@ -50,21 +50,20 @@ stops_panel <- panel_dates %>%
 
 # rollout dates -----------------------------------------------------------
 
+
 rollout_dates <- tribble(~district, ~shotspot_activate,
-                         2, mdy("5-6-2018"), 
+                         2, mdy("5-16-2018"), 
                          3, mdy("1-29-2018"), 
                          4, mdy("1-29-2018"),
-                         5, mdy("3-13-2018"),
-                         6, mdy("9-23-2017"),
+                         5, mdy("3-16-2018"),
+                         6, mdy("10-6-2017"),
                          7, mdy("1-13-2017"),
-                         8, mdy("3-30-2018"),## differes from 4/1/2018. there are some beforehand, but not as consistent..looks like bleed form district 7
+                         8, mdy("3-28-2018"),## differes from 4/1/2018. there are some beforehand, but not as consistent..looks like bleed form district 7
                          9, mdy("6-16-2017"), ## differences from 3/1/2017
                          10, mdy("10-12-2017"),
-                         11, mdy("3-1-2017"), ## probably later, actually loosk ok
+                         11, mdy("3-1-2017"), ## partially treated in january 1/2017 less extreme than 25.
                          15, mdy("5-11-2017"), ## differs from 3/1/2018
-                         16, mdy("9-1-2020"), ## redacted. Looks like only on certain blocks
-                         17, mdy("9-1-2020"), ## redacted. Looks like only on one block
-                         25, mdy("4-1-2017"))
+                         25, mdy("4-24-2018")) ### partiailly treated as early as january 2017
 
 stops_panel <- stops_panel %>% 
   left_join(rollout_dates)

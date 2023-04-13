@@ -32,6 +32,7 @@ crimes <- crimes %>%
          domestic = ifelse(domestic == T, 1, 0)) 
 
 
+
 crimes %>% 
   write_csv("created_data/crimes_cleaned.csv")
   

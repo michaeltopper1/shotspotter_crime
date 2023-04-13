@@ -2,24 +2,29 @@
 ##
 ## Author: Michael Topper
 ##
-## Date Last Edited: 2023-03-24
+## Date Last Edited: 2023-04-12
 ##
 
 library(tidyverse)
 
-shotspotter <- read_csv("raw_data/Violence_Reduction_-_Shotspotter_Alerts.csv")
-
-shotspotter <- shotspotter %>% 
+shotspotter <- read_csv("raw_data/shotspotter_alerts.csv") %>% 
   janitor::clean_names()
 
 shotspotter <- shotspotter %>% 
-  mutate(date = mdy_hms(date)) %>% 
-  mutate(shotspot_year = year(date),
-         shotspot_month = month(date),
-         shotspot_year_month = mdy(paste0(shotspot_month, "-1-", shotspot_year)))
+  mutate(datetime = mdy_hms(date),
+         date = as_date(datetime))
 
-# shotspotter %>% 
-#   write_csv("analysis_data/shotspotter_cleaned.csv")
+shotspotter <- shotspotter %>% 
+  mutate(multiple_gunshots = ifelse(incident_type_description == "MULTIPLE GUNSHOTS", 1, 0)) 
+
+shotspotter <- shotspotter %>% 
+  mutate(year= year(date),
+         month = month(date))
+
+shotspotter %>%
+  write_csv("created_data/shotspotter_cleaned.csv")
+
+
 # shotspotter %>% 
 #   group_by(district, shotspot_year_month) %>% 
 #   summarize(n = n()) %>% 

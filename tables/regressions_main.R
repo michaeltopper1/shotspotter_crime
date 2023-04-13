@@ -13,9 +13,11 @@ stops_panel <- read_csv("analysis_data/stops_panel.csv")
 
 
 stops_panel %>% 
-  mutate(treatment = ifelse(district == 16 | district == 17, 0, treatment)) %>% 
   feols(c(number_stops,
           number_black_stops,
-          number_firearm_found) ~ treatment | district + date,
+          number_firearm_found,
+          number_investigatory_stop,
+          number_asian_stops,
+          number_hispanic_stops) ~ treatment | district + date,
         cluster = ~district) %>% 
-  modelsummary::modelsummary()
+  modelsummary::modelsummary(stars = T)

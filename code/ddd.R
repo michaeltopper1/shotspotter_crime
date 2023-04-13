@@ -50,6 +50,12 @@ stops_ddd_twfe <- stops_ddd %>%
   mutate(treatment = ifelse(is.na(treatment), 0, treatment)) %>% 
   mutate(treatment = ifelse(district == 16 | district == 17, 0, treatment)) 
 
+
+
+
+
+
+
 stops_ddd_twfe %>% 
   mutate(black_stop = ifelse(type_stop == "black",1 ,0)) %>%
   feols(number_stops ~treatment*black_stop | district^black_stop + date^black_stop, 
