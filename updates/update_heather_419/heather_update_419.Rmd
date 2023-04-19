@@ -1,0 +1,202 @@
+---
+title: "ShotSpotter Update"
+output: 
+  pdf_document:
+    number_sections: true
+author: 
+  - Michael Topper
+date: "Last Updated: `r Sys.Date()`"
+citation_package: natbib
+editor_options: 
+  chunk_output_type: console
+header-includes:
+- \usepackage{amsfonts}
+- \usepackage{amsthm}
+- \usepackage{amsmath}
+- \usepackage{bbm}
+- \usepackage[english]{babel}
+- \usepackage{bm}
+- \usepackage{float}
+- \usepackage{indentfirst}
+- \usepackage[fontsize=12pt]{scrextend}
+- \usepackage{graphicx}
+- \usepackage[utf8]{inputenc}
+- \usepackage{pdfpages}
+- \usepackage[round,authoryear]{natbib}
+- \usepackage{setspace}\onehalfspacing
+- \usepackage{subfig}
+- \usepackage{placeins}
+- \usepackage{rotating}
+- \usepackage{fancyhdr}
+- \usepackage{times}
+- \usepackage{endnotes}
+- \floatplacement{figure}{H}
+linkcolor: blue
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(fixest)
+library(modelsummary)
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.align = "center")
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+
+# Figures
+\FloatBarrier
+
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, out.width="95%", fig.align='center'}
+
+knitr::include_graphics(path = here::here("figures/map.jpeg"), error = F)
+```
+```{=latex}
+\caption{Number of ShotSpotter Alerts in Chicago by Police Beat/District \label{map}}
+\textit{Note:} There are a total of 18 police districts in Chicago. Each of these districts contains beats which are designated by the boxes within the district lines. ShotSpotter began implementation in 2017 and rolled out over the next two years. The table to the left of the map shows the number of ShotSpotter Alerts from 2016-2022. Districts with a star next to them denote districts that do not have ShotSpotter implemented and are therefore likely heard from microphones in neighboring districts.
+\end{figure}
+```
+
+```{r}
+source("figures/event_studies_all.R")
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+gun_arrests_es
+```
+```{=latex}
+\caption{Event Study for Gun Arrests Outcome (OLS) \label{gun_arrests_es}}
+\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+other_arrest_es
+```
+```{=latex}
+\caption{Event Study for All Other Arrests Outcome \label{other_arrest_es}}
+\textit{Note:}Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+other_arrest_es
+```
+```{=latex}
+\caption{Event Study for All Other Arrests Outcome \label{other_arrest_es}}
+\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+gun_involved_es
+```
+```{=latex}
+\caption{Event Study for Gun Involved Outcome \label{gun_involved_es}}
+\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+number_firearm_found_es
+```
+```{=latex}
+\caption{Event Study for Number Firearms Found \label{number_firearm_found_es}}
+\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+number_black_stops_es
+```
+```{=latex}
+\caption{Event Study Number of Black Stops \label{number_black_stops_es}}
+\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
+\end{figure}
+```
+
+
+# Tables
+\FloatBarrier
+
+```{r}
+## crimes table
+source("tables/regressions_crime_main.R")
+
+## stops tables
+source("tables/regressions_stops_main.R")
+```
+
+```{r}
+gun_table
+```
+
+```{r}
+stops_table
+```
+
+```{=latex}
+\begin{table}
+\begin{tabular}{l cc cc}
+\toprule
+                                     &          &          & \multicolumn{2}{c}{Without 2020}   \\
+                                     \cmidrule(lr){4-5}
+                                     & (1)       & (2)       & (2)                                     & (4) \\
+                                     & OLS       & Poisson   & OLS                                     & Poisson \\
+                                     \midrule
+Outcome: Gun Involved Crime         &          &          &                                        & \\
+\quad Shotspotter Enacted           & 0.318***  & 0.049**   & 0.283***                                & 0.038** \\
+                                     & (-0.089)  & (-0.044)  & (-0.088)                                & (-0.044) \\
+\quad Shotspotter Enacted in Border & 0.038     & 0.017     & 0.019                                   & 0.003 \\
+                                     & (-0.07)   & (-0.049)  & (-0.07)                                 & (-0.05) \\
+N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
+Outcome: Gun Involved Arrests       &          &          &                                        & \\
+\quad Shotspotter Enacted           & 0.156***  & -0.053**  & 0.144***                                & -0.047 \\
+                                     & (-0.046)  & (-0.075)  & (-0.042)                                & (-0.075) \\
+\quad Shotspotter Enacted in Border & 0.059**   & -0.004    & 0.058**                                 & 0.004 \\
+                                     & (-0.056)  & (-0.095)  & (-0.051)                                & (-0.09) \\
+N                                   & 56,254  & 56,232  & 48,202                                & 48,180 \\
+Outcome: Non-Gun Involved Crime     &          &          &                                        & \\
+\quad Shotspotter Enacted           & -1.392**  & -0.019**  & -1.719***                               & -0.036** \\
+                                     & (-0.62)   & (-0.016)  & (-0.508)                                & (-0.015) \\
+\quad Shotspotter Enacted in Border & -1.507**  & -0.058*** & -1.694***                               & -0.064*** \\
+                                     & (-0.681)  & (-0.019)  & (-0.589)                                & (-0.02) \\
+N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
+Outcome: Non-Gun Involved Arrests   &          &          &                                        & \\
+\quad Shotspotter Enacted           & -1.067*** & -0.069*** & -1.012***                               & -0.072*** \\
+                                     & (-0.227)  & (-0.024)  & (-0.212)                                & (-0.025) \\
+\quad Shotspotter Enacted in Border & -0.184    & -0.017    & -0.210**                                & -0.027** \\
+                                     & (-0.299)  & (-0.035)  & (-0.282)                                & (-0.037) \\
+N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
+\toprule
+\end{tabular}
+\end{table}
+
+```
+

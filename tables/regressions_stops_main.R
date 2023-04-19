@@ -103,6 +103,7 @@ stops_table <- panelsummary(list(c1_stops, c2_stops, c3_stops, c4_stops),
              gof_map = gof_mapping,
              coef_map = c("treatment" = "ShotSpotter Activated"),
              collapse_fe = T,
+             italic = T,
              caption = "\\label{stops_table}Effect of ShotSpotter Activations on Investigatory Street Stops (OLS/Poisson)") %>% 
   add_header_above(c(" " = 1, 
                      "OLS" =1, 

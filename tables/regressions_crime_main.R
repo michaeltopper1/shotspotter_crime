@@ -131,6 +131,7 @@ gun_table <- panelsummary(list(c1_gun, c2_gun, c3_gun, c4_gun),
              coef_map = c( "treatment" = "ShotSpotter Activated"),
              gof_omit = "^R|A|B|S",
              gof_map = gof_mapping,
+             italic  = T,
              stars = "econ",
              caption = "\\label{gun_table}Effect of ShotSpotter Activations on Various Outcomes (OLS/Poisson)") %>% 
   add_header_above(c(" " = 1, 
