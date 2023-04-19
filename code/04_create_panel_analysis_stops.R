@@ -27,17 +27,22 @@ panel_dates <- panel_dates %>%
 
 # aggregating the stops --------------------------------------------------
   
+stops <- stops %>% 
+  mutate(black_male_stop = ifelse(person_stopped_race_black ==1 & person_stopped_sex_m == 1, 1, 0)) 
+ 
 stops_aggregated <- stops %>%
   group_by(stop_district, stop_date) %>% 
   summarize(number_stops = n(),
             number_black_stops = sum(person_stopped_race_black, na.rm = T),
-            number_investigatory_stop = sum(stop_type_investigatory_stop, na.rm = T),
+            number_investigatory_stops = sum(stop_type_investigatory_stop, na.rm = T),
             number_hispanic_stops = sum(person_stopped_race_hispanic, na.rm = T),
             number_asian_stops = sum(person_stopped_race_asian, na.rm = T),
             number_males_stopped = sum(person_stopped_sex_m, na.rm = T),
             number_gang_stops = sum(stop_type_gang_and_narcotics_related_loitering,na.rm = T),
             number_firearm_found = sum(firearm_found, na.rm = T),
-            number_pat_down = sum(pat_down_y_n, na.rm = T)) %>% 
+            number_pat_down = sum(pat_down_y_n, na.rm = T),
+            number_black_males_stops = sum(black_male_stop, na.rm = T),
+            number_search_beyond_patdown = sum(search_beyond_a_protective_pat_down_conducted_of_the_person_y_n, na.rm = T)) %>% 
   mutate(across(starts_with("number"), ~ifelse(is.na(.), 0, .))) %>% 
   ungroup()
 

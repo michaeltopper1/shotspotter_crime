@@ -11,10 +11,6 @@ library(modelsummary)
 
 stops_panel <- read_csv("analysis_data/stops_panel.csv")
 
-
-stops_panel <- stops_panel %>% 
-  mutate(treatment = ifelse(district == 16 | district == 17, 0, treatment))
-
 leead <- function(x, v){
   xx <- rep(0, length(x))
   for(i in v){
@@ -77,14 +73,20 @@ stops_panel_es <- stops_panel_es %>%
 iplot_test <- stops_panel %>% 
   mutate(months_to_treat = ifelse(date < shotspot_activate, (interval(shotspot_activate, date) %/% months(1)) - 1,
                                   interval(shotspot_activate, date) %/% months(1)),.before = 1) %>% 
-  mutate(months_to_treat = ifelse(never_treated == 1 | district == 16 | district == 17, -1000, months_to_treat)) %>% 
+  mutate(months_to_treat = ifelse(never_treated == 1, -1000, months_to_treat)) %>% 
   mutate(months_to_treat = ifelse(months_to_treat > 5, 5, months_to_treat)) %>% 
   mutate(months_to_treat = ifelse(months_to_treat < -5, -5, months_to_treat)) 
 
-
 iplot_test %>% 
-  filter(year < 2020) %>% 
-  feols(number_black_stops ~ i(months_to_treat, ref = c(-1, -1000)) |district + date,
+  mutate(cohort = ifelse(months_to_treat == 0, 0, NA)) %>% 
+  feols(number_black_stops ~ sunab(cohort, months_to_treat) |district + date,
+        cluster = ~district, data = .) %>% iplot()
+
+base_stagg %>% View()
+iplot_test %>% 
+  mutate(treated = ifelse(never_treated == 0, 1, 0)) %>% 
+  mutate(year_treated = ifelse(never_treated == 1, -1000))
+  feols(number_stops ~ sunab(months_to_treat, treated, ref = c(-1, -1000)) |district + date,
                                cluster = ~district, data = .) %>% iplot()
   summary()
 

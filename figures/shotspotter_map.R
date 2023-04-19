@@ -57,7 +57,7 @@ x <- district_graph %>%
 
 
 
-x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows=NULL, 
+map <- x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows=NULL, 
                                                         theme = ggpp::ttheme_gtlight(base_size = 7)),
                                               xmin = -87.98011,
                                               xmax = -87.88,
@@ -65,7 +65,7 @@ x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows=NULL,
                                               ymax = 41.83455) +
   theme(legend.position = "bottom")
 
-
+ggsave(map, filename = "figures/map.jpeg")
 # ## this gets the scales of the ggplot
 # layer_scales(x)$y$range$range
 

@@ -118,7 +118,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   not all of these end in arrests. Columns 3 and 4 omit year 2020 (Covid-19).
                   "), ~str_remove_all(., "\n"))
 
-panelsummary(list(c1_gun, c2_gun, c3_gun, c4_gun),
+gun_table <- panelsummary(list(c1_gun, c2_gun, c3_gun, c4_gun),
              list(c1_guna, c2_guna, c3_guna, c4_guna),
              list(c1_crime, c2_crime, c3_crime, c4_crime),
              list(c1_crimea, c2_crimea, c3_crimea, c4_crimea),
@@ -131,7 +131,8 @@ panelsummary(list(c1_gun, c2_gun, c3_gun, c4_gun),
              coef_map = c( "treatment" = "ShotSpotter Activated"),
              gof_omit = "^R|A|B|S",
              gof_map = gof_mapping,
-             stars = "econ") %>% 
+             stars = "econ",
+             caption = "\\label{gun_table}Effect of ShotSpotter Activations on Various Outcomes (OLS/Poisson)") %>% 
   add_header_above(c(" " = 1, 
                      "OLS" =1, 
                      "Poisson" =1,
