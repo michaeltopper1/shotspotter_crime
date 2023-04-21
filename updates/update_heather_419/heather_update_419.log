@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.7)  19 APR 2023 00:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.4.7)  21 APR 2023 14:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -629,10 +629,10 @@ File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box75
 ) (./heather_update_419.aux
 
-LaTeX Warning: Label `other_arrest_es' multiply defined.
+LaTeX Warning: Label `tab:unnamed-chunk-11' multiply defined.
 
 
-LaTeX Warning: Label `tab:unnamed-chunk-9' multiply defined.
+LaTeX Warning: Label `tab:unnamed-chunk-11' multiply defined.
 
 )
 \openout1 = `heather_update_419.aux'.
@@ -740,71 +740,86 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 112.
 (/Users/michaeltopper/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<../../figures/map.jpeg, id=12, 2492.31125pt x 2203.23125pt>
+) [1
+
+{/Users/michaeltopper/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 217.
+(/Users/michaeltopper/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [3]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 269.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 269.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 269.
+[4{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [5]
+<heather_update_419_files/figure-latex/unnamed-chunk-2-1.pdf, id=101, 469.755pt x 325.215pt>
+File: heather_update_419_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+<use heather_update_419_files/figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-2-1.pdf  used on input line 338.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<../../figures/map.jpeg, id=102, 2492.31125pt x 2203.23125pt>
 File: ../../figures/map.jpeg Graphic file (type jpg)
 <use ../../figures/map.jpeg>
-Package pdftex.def Info: ../../figures/map.jpeg  used on input line 120.
+Package pdftex.def Info: ../../figures/map.jpeg  used on input line 346.
 (pdftex.def)             Requested size: 446.23885pt x 394.48016pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-3-1.pdf, id=13, 469.755pt x 325.215pt>
-File: heather_update_419_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
-<use heather_update_419_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-3-1.pdf  used on input line 128.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-4-1.pdf, id=14, 469.755pt x 325.215pt>
-File: heather_update_419_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
-<use heather_update_419_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-4-1.pdf  used on input line 136.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf, id=15, 469.755pt x 325.215pt>
+<heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf, id=103, 469.755pt x 325.215pt>
 File: heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 144.
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf  used on input line 354.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf, id=16, 469.755pt x 325.215pt>
+<heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf, id=104, 469.755pt x 325.215pt>
 File: heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 152.
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 362.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf, id=17, 469.755pt x 325.215pt>
+<heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf, id=105, 469.755pt x 325.215pt>
 File: heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 160.
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 370.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf, id=18, 469.755pt x 325.215pt>
+<heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf, id=106, 469.755pt x 325.215pt>
 File: heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 168.
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 378.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[1
+<heather_update_419_files/figure-latex/unnamed-chunk-9-1.pdf, id=107, 469.755pt x 325.215pt>
+File: heather_update_419_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
+<use heather_update_419_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 386.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<heather_update_419_files/figure-latex/unnamed-chunk-10-1.pdf, id=108, 469.755pt x 325.215pt>
+File: heather_update_419_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+<use heather_update_419_files/figure-latex/unnamed-chunk-10-1.pdf>
+Package pdftex.def Info: heather_update_419_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 394.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[6 <./heather_update_419_files/figure-latex/unnamed-chunk-2-1.pdf>] [7 <../../figures/map.jpeg>] [8 <./heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf>] [9 <./heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf>] [10 <./heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf>] [11 <./heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf>] [12 <./heather_update_419_files/figure-latex/unnamed-chunk-9-1.pdf>] [13 <./heather_update_419_files/figure-latex/unnamed-chunk-10-1.pdf>]
 
-{/Users/michaeltopper/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2 <../../figures/map.jpeg>] [3 <./heather_update_419_files/figure-latex/unnamed-chunk-3-1.pdf>] [4 <./heather_update_419_files/figure-latex/unnamed-chunk-4-1.pdf>] [5 <./heather_update_419_files/figure-latex/unnamed-chunk-5-1.pdf>] [6 <./heather_update_419_files/figure-latex/unnamed-chunk-6-1.pdf>] [7 <./heather_update_419_files/figure-latex/unnamed-chunk-7-1.pdf>] [8 <./heather_update_419_files/figure-latex/unnamed-chunk-8-1.pdf>]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 184.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 184.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 184.
-[9] [10] [11] (./heather_update_419.aux)
+LaTeX Warning: Float too large for page by 90.61038pt on input line 560.
+
+[14
+
+] [15] [16] [17] (./heather_update_419.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `heather_update_419.out' has not changed.
-(rerunfilecheck)             Checksum: 03A3A0EC22044886CE193E0C4E79B623;151.
+(rerunfilecheck)             Checksum: D1E70CED99F94C1C21098AC94EF80942;1397.
  ) 
 Here is how much of TeX's memory you used:
- 17974 strings out of 477977
- 302808 string characters out of 5838230
- 1884666 words of memory out of 5000000
- 37776 multiletter control sequences out of 15000+600000
- 581406 words of font info for 96 fonts, out of 8000000 for 9000
+ 18066 strings out of 477977
+ 304519 string characters out of 5838230
+ 1887666 words of memory out of 5000000
+ 37827 multiletter control sequences out of 15000+600000
+ 584523 words of font info for 99 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 108i,12n,106p,642b,469s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on heather_update_419.pdf (11 pages, 822671 bytes).
+ 108i,12n,106p,872b,565s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on heather_update_419.pdf (17 pages, 880032 bytes).
 PDF statistics:
- 137 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 52 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 256 PDF objects out of 1000 (max. 8388607)
+ 207 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
+ 129 words of extra memory for PDF output out of 10000 (max. 10000000)
 

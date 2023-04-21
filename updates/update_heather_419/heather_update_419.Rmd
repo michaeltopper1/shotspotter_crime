@@ -3,8 +3,9 @@ title: "ShotSpotter Update"
 output: 
   pdf_document:
     number_sections: true
+    extra_dependencies: ["float"]
 author: 
-  - Michael Topper
+  - Michael Topper and Toshio Ferrazares
 date: "Last Updated: `r Sys.Date()`"
 citation_package: natbib
 editor_options: 
@@ -40,7 +41,8 @@ library(tidyverse)
 library(kableExtra)
 library(fixest)
 library(modelsummary)
-knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.align = "center")
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.align = "center",fig.pos = "H", out.extra = "")
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 ```
 
@@ -52,7 +54,7 @@ ShotSpotter is a gunshot detection software that utilizes external microphones a
 
 ## ShotSpotter in Chicago
 
-Chicago's police districts began a staggered rollout of the ShotSpotter technology beginning in 2017.  Figure \ref{rollout} shows the staggered implementation dates of the ShotSpotter technology by police district. Of the 18 Chicago Police districts, 12 (66%) possess ShotSpotter's gunshot detection microphones. 
+Chicago's police districts began a staggered rollout of the ShotSpotter technology beginning in 2017.  Figure \ref{rollout_figure} shows the staggered implementation dates of the ShotSpotter technology by police district. Of the 18 Chicago Police districts, 12 (66%) possess ShotSpotter's gunshot detection microphones. 
 
 ## How Does ShotSpotter Work?
 
@@ -112,18 +114,45 @@ While the TWFE model works well in our setting, we also have other forms of vari
 
 * *Gunshot Occurrance* - Conditional on ShotSpotter being implemented, a gunshot could be considered a random event. Or, similarly, the number of gunshots fired within a district on a given day may also be random. We are still unsure what to do with this variation, although we believe it will be useful down the line to look at mechanisms. 
 
+# Preliminary Results
 
+Our preliminary results show evidence of the following:
 
+* Table \ref{gun_table} shows  ShotSpotter *increases* the number of gun-involved arrests and gun-related crime. While the increase in gun-related crime may seem counterintuitive, this is likely because police are reporting these gun-related crimes more. Hence, we do not know about the underlying distribution of these gun-related crimes. We will try to answer this using 911 data later on. Note that in Panel C and D, other crime and arrests that are unrelated to guns are decreasing. This hints that poice may be substituting away from performing other kinds of stops/arrests, and focusing more on the ShotSpotter cases.
+
+* Table \ref{stops_table} shows that ShotSpotter *decreases* the number of investigatory street reports for all individuals, and more dramatically, Black individuals. Moreover, there appears to be a significant increase in the number of firearms found (Panel C), conditional on a stop.
+
+* Table \ref{border_table} shows that adjacent police districts have little evidence of Shotspotter effects through spillovers. 
+
+\newpage
+\FloatBarrier
 
 # Figures
-\FloatBarrier
+
+
+```{r}
+source("figures/rollout_date_figure.R")
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+rollout_figure
+```
+```{=latex}
+\caption{ShotSpotter Rollout Dates by District in Chicago \label{rollout_figure}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. 
+\end{figure}
+```
 
 
 
 ```{=latex}
 \begin{figure}[t!]
 ```
-```{r, out.width="95%", fig.align='center'}
+```{r, out.width="95%", fig.align='center', fig.pos="H"}
 
 knitr::include_graphics(path = here::here("figures/map.jpeg"), error = F)
 ```
@@ -155,10 +184,10 @@ gun_arrests_es
 \begin{figure}[t!]
 ```
 ```{r}
-other_arrest_es
+other_crime_es
 ```
 ```{=latex}
-\caption{Event Study for All Other Arrests Outcome \label{other_arrest_es}}
+\caption{Event Study for All Other Crime Outcome \label{other_crime_es}}
 \textit{Note:}Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
 \end{figure}
 ```
@@ -211,9 +240,12 @@ number_black_stops_es
 \end{figure}
 ```
 
+\newpage
 
-# Tables
 \FloatBarrier
+# Tables
+
+
 
 ```{r}
 ## crimes table
@@ -221,6 +253,9 @@ source("tables/regressions_crime_main.R")
 
 ## stops tables
 source("tables/regressions_stops_main.R")
+
+## border table
+source("tables/regressions_crime_borders.R")
 ```
 
 ```{r}
@@ -231,42 +266,7 @@ gun_table
 stops_table
 ```
 
-```{=latex}
-\begin{table}
-\begin{tabular}{l cc cc}
-\toprule
-                                     &          &          & \multicolumn{2}{c}{Without 2020}   \\
-                                     \cmidrule(lr){4-5}
-                                     & (1)       & (2)       & (2)                                     & (4) \\
-                                     & OLS       & Poisson   & OLS                                     & Poisson \\
-                                     \midrule
-Outcome: Gun Involved Crime         &          &          &                                        & \\
-\quad Shotspotter Enacted           & 0.318***  & 0.049**   & 0.283***                                & 0.038** \\
-                                     & (-0.089)  & (-0.044)  & (-0.088)                                & (-0.044) \\
-\quad Shotspotter Enacted in Border & 0.038     & 0.017     & 0.019                                   & 0.003 \\
-                                     & (-0.07)   & (-0.049)  & (-0.07)                                 & (-0.05) \\
-N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
-Outcome: Gun Involved Arrests       &          &          &                                        & \\
-\quad Shotspotter Enacted           & 0.156***  & -0.053**  & 0.144***                                & -0.047 \\
-                                     & (-0.046)  & (-0.075)  & (-0.042)                                & (-0.075) \\
-\quad Shotspotter Enacted in Border & 0.059**   & -0.004    & 0.058**                                 & 0.004 \\
-                                     & (-0.056)  & (-0.095)  & (-0.051)                                & (-0.09) \\
-N                                   & 56,254  & 56,232  & 48,202                                & 48,180 \\
-Outcome: Non-Gun Involved Crime     &          &          &                                        & \\
-\quad Shotspotter Enacted           & -1.392**  & -0.019**  & -1.719***                               & -0.036** \\
-                                     & (-0.62)   & (-0.016)  & (-0.508)                                & (-0.015) \\
-\quad Shotspotter Enacted in Border & -1.507**  & -0.058*** & -1.694***                               & -0.064*** \\
-                                     & (-0.681)  & (-0.019)  & (-0.589)                                & (-0.02) \\
-N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
-Outcome: Non-Gun Involved Arrests   &          &          &                                        & \\
-\quad Shotspotter Enacted           & -1.067*** & -0.069*** & -1.012***                               & -0.072*** \\
-                                     & (-0.227)  & (-0.024)  & (-0.212)                                & (-0.025) \\
-\quad Shotspotter Enacted in Border & -0.184    & -0.017    & -0.210**                                & -0.027** \\
-                                     & (-0.299)  & (-0.035)  & (-0.282)                                & (-0.037) \\
-N                                   & 56,254  & 56,254  & 48,202                                & 48,202 \\
-\toprule
-\end{tabular}
-\end{table}
-
+```{r}
+border_table
 ```
 

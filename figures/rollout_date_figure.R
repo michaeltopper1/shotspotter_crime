@@ -17,7 +17,7 @@ rollouts <- read_csv("created_data/rollout_dates.csv")
 graph_data <- districts %>% 
   left_join(rollouts)
 
-graph_data %>% 
+rollout_figure <- graph_data %>% 
   mutate(treatment_days = days(as_date("2023-01-01") - shotspot_activate) %>% 
            day() %>% 
            scales::comma()) %>% 
