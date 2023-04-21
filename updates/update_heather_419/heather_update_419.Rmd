@@ -44,6 +44,76 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.align = "center")
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 ```
 
+At this time, we are attempting to solidify our main results. Below is an informal write-up of the setting and basic estimation strategy of our paper. In addition, it also includes some background information, and some ideas for other directions to take the paper. 
+
+# What is ShotSpotter?
+
+ShotSpotter is a gunshot detection software that utilizes external microphones across cities to triangulate the location of gunfire and quickly dispatch police to the area. Shotspotter advertises itself as a colorblind policing technology that is designed to help take firearms off the streets. Given the rise in mass shootings and instances of particularly salient police brutality, cities across the US have installed this gunshot detection software in hopes of better policing outcomes.
+
+## ShotSpotter in Chicago
+
+Chicago's police districts began a staggered rollout of the ShotSpotter technology beginning in 2017.  Figure \ref{rollout} shows the staggered implementation dates of the ShotSpotter technology by police district. Of the 18 Chicago Police districts, 12 (66%) possess ShotSpotter's gunshot detection microphones. 
+
+## How Does ShotSpotter Work?
+
+When ShotSpotter is implemented in a police district, microphones are installed across the city on stoplights and buildings to detect, and locate, the sound of gunfire. The instant a gunshot is detected, the following process occurs:
+
+1. The gunshot noise is forwarded to ShotSpotter's "acoustic experts" who check for false-positives. If the noise is percevied to be a gunshot, information including the location and number of rounds fired is forwarded to Chicago Police's Office of Emergency Management. This process typically takes less than 30 seconds.
+
+2. Once the Office of Emergency Management is notified of a gunshot, a dispatcher assigns police officers to immediately head to the location of the gunfire. Shotspotter alerts are given an immediate dispatch priority rating—they are treated with the same level of priority as an active shooter.
+
+3. After police cars are dispatched, police officers are to investigate the area for any potential threats. 
+
+## ShotSpotter Criticisms
+
+As of right now, ShotSpotter is heavily criticized as it is claimed to increase the amount of investigatory "stop and frisks" of minorities, create unjust arrests based on ShotSpotter alerts that have questionable accuracy, and be an overly burdensome cost to the taxpayers of Chicago at a 3-year contract of 33 million. 
+
+Interestingly, ShotSpotter has yet to be rigorously studied in the economics literature despite the prevalent use of its data for other crime-related work. On the other hand, multiple journalists and law firms have done rough "before and after" statistics to draw the criticisms.
+
+# This Paper
+
+In this paper, we aim to be the first to rigorously study the effects of ShotSpotter on crime. Specifically, we have a few research questions:
+
+1. Does ShotSpotter reduce the amount of guns on the street?
+2. Does ShotSpotter change policing behavior and cause police to practice "hotspot policing"?
+3. Does ShotSpotter take valuable resources away from the police department by sending police officers off on dispatches that could end in nothing? In effect, are other crimes that need attention not being addresed?
+4. Does ShotSpotter increase the amount of "stop and frisks", and if so, does this disproportionally affect people of color?
+
+While we are still in the early stages of this project, we can address some of these questions with our preliminary findings. 
+
+# Data
+
+We have a variety of datasets from Chicago Police Department over a seven-year period (2016-2022):
+
+* *Investigatory Stop Reports Data (ISR)* - This includes all discretionary stops made by police officers. ISR data is a rich data set that includes the race of the suspect, whether a search/pat-down was conducted, whether a firearm was found, and whether an arrest was made. In addition, the ISR data includes information on the police officer(s) that performed the stop.
+
+* *Crimes/Arrests Data* - This data includes all reported crimes and arrests in Chicago. The data includes information on the type of crime/arrest that was made. In particular, we can delineate between crimes/arrests that involved a firearm. This data is used to address our research question (1), of the effects of ShotSpotter on gun obtainment.
+
+* *Calls for Service Dispatch Data* - This data shows the dispatch times for each event in Chicago. The data includes time of reported emergency (think 911 call), the time the dispatcher dispatched the officer, the time the officer arrived on-scene, the final disposition of the event (i.e., did the officer find anything?), and the location of the reported emergency. This data will be used to investigate research question (3) on whether resources are taken away from other crimes/emergencies.
+
+* *Traffic Stops/Citations* - This data contains all traffic stops and citations given by the Chicago Police Department. Our idea for this data is to use it to address research question (2) on hotspot policing. If, for instance, we see that more traffic stops/citations are given around areas where ShotSpotter alerts are common, this may be evidence that police are strategically changing their policing behavior to patrol more frequently in these hotspot areas.
+
+* *Complaints* - This data contains all complaints against the Chicago Police Department. The idea here is to test whether ShotSpotter, given its colorblindness, actually reduces the number of complaints against officers. On one hand, complaints may rise if police officers are performing more stop and frisks or illegal pat-downs in hopes of guns. On the other hand, police may be performing these on suspects that are actually a threat. 
+
+* *Police Shifts* - This data contains all shifts worked by police officers in Chicago. There is not a clear use for this data at the moment.
+
+# Estimation Strategy
+
+Since ShotSpotter is implemented in a staggered adoption, we use a two-way-fixed effects (TWFE) model as our baseline model to understand whether ShotSpotter results in finding more guns. In particular, we estimate the following:
+
+$$Y_{dt}  = \beta ShotSpotImplement_{dt} + \gamma_{d} + \sigma_{t} + \epsilon_{dt} $$
+\noindent where $Y_{dt}$ is the outcome of interest in district $d$ at time $t$, $ShotSpotImplement_{dt}$ is an indicator equal to 1 when ShotSpotter is implemented, $\gamma_{d}$ are district fixed effects,  $\sigma_{t}$ are time fixed effects (day-by-month-by-year), and $\epsilon_{dt}$ is the error term.
+
+## Other Ideas
+
+While the TWFE model works well in our setting, we also have other forms of variation that we believe can be useful:
+
+* *Police District Boundaries* - As shown in Figure \ref{map}, the police districts provide sharp spatial discontinuities where ShotSpotter is implemented/where it is not. Given this, there is a possibility for a spatial RD. Our preliminary findings show that adjacent districts do not pick up effects from ShotSpotter. We believe this may be a situation where we can test the response times of police officers using these lines. Moreover, all of our data contains a spatial element, thus enabling us to match our outcomes to a geographic location.
+
+* *Gunshot Occurrance* - Conditional on ShotSpotter being implemented, a gunshot could be considered a random event. Or, similarly, the number of gunshots fired within a district on a given day may also be random. We are still unsure what to do with this variation, although we believe it will be useful down the line to look at mechanisms. 
+
+
+
 
 # Figures
 \FloatBarrier
