@@ -17,6 +17,8 @@ crimes_panel <- crimes_panel %>%
   mutate(year = year(date),
          month = month(date)) 
 
+crimes_panel <- crimes_panel %>% 
+  filter(never_treated == 0)
 
 
 # number_gun_involved -----------------------------------------------------

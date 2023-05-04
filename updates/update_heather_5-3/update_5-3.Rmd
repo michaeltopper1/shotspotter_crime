@@ -129,6 +129,10 @@ Our preliminary results show evidence of the following:
 
 # Figures
 
+```{r}
+source("figures/trends_stops_data.R")
+```
+
 
 ```{r}
 source("figures/rollout_date_figure.R")
@@ -162,6 +166,61 @@ shotspotter_trend
 \textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows the trend of the number of gunshots alerted by ShotSpotter.
 \end{figure}
 ```
+
+
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+stops_trend
+```
+```{=latex}
+\caption{Number Stops Trend \label{stops_trend}}
+\textit{Note:} Shows the number of stops trend. Note that 2020-onwards is probably going to be deleted.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+firearm_trend
+```
+```{=latex}
+\caption{Number Firearms Found in Stops Trend \label{firearm_trend}}
+\textit{Note:} Shows the number of firearms found trend. Note that 2020-onwards is probably going to be deleted.
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+search_trend
+```
+```{=latex}
+\caption{Number of Searches Trend \label{search_Trend}}
+\textit{Note:} Shows the number of searches trend. Note that 2020-onwards is probably going to be deleted.
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r}
+patdown_trend
+```
+```{=latex}
+\caption{Number of Pat-downs Trend \label{patdown_trend}}
+\textit{Note:} Shows the number of pat-downs trend. Note that 2020-onwards is probably going to be deleted.
+\end{figure}
+```
+
+
+
 
 
 ```{=latex}
@@ -218,7 +277,7 @@ knitr::include_graphics(path = here::here("figures/weapon_law_violations.pdf"), 
 \end{figure}
 ```
 ```{r}
-source("figures/event_studies_all.R")
+source("figures/event_studies_stops.R")
 ```
 
 
@@ -226,10 +285,10 @@ source("figures/event_studies_all.R")
 \begin{figure}[t!]
 ```
 ```{r}
-gun_arrests_es
+search_rate_es
 ```
 ```{=latex}
-\caption{Event Study for Gun Arrests Outcome (OLS) \label{gun_arrests_es}}
+\caption{Event Study for Search Rates Outcome (OLS) \label{search_rate_es}}
 \textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
 \end{figure}
 ```
@@ -239,10 +298,10 @@ gun_arrests_es
 \begin{figure}[t!]
 ```
 ```{r}
-other_crime_es
+number_search_es
 ```
 ```{=latex}
-\caption{Event Study for All Other Crime Outcome \label{other_crime_es}}
+\caption{Event Study for Number Search \label{number_search_es}}
 \textit{Note:}Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
 \end{figure}
 ```
@@ -251,10 +310,10 @@ other_crime_es
 \begin{figure}[t!]
 ```
 ```{r}
-other_arrest_es
+number_stops_es
 ```
 ```{=latex}
-\caption{Event Study for All Other Arrests Outcome \label{other_arrest_es}}
+\caption{Event Study for Number Stops \label{number_stops_es}}
 \textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
 \end{figure}
 ```
@@ -263,37 +322,15 @@ other_arrest_es
 \begin{figure}[t!]
 ```
 ```{r}
-gun_involved_es
+firearm_found_rate_es
 ```
 ```{=latex}
-\caption{Event Study for Gun Involved Outcome \label{gun_involved_es}}
+\caption{Event Study for Firearm Found Rate \label{firearm_found_rate_es}}
 \textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
 \end{figure}
 ```
 
-```{=latex}
-\begin{figure}[t!]
-```
-```{r}
-number_firearm_found_es
-```
-```{=latex}
-\caption{Event Study for Number Firearms Found \label{number_firearm_found_es}}
-\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
-\end{figure}
-```
 
-```{=latex}
-\begin{figure}[t!]
-```
-```{r}
-number_black_stops_es
-```
-```{=latex}
-\caption{Event Study Number of Black Stops \label{number_black_stops_es}}
-\textit{Note:} Each point estimate is a 30-day period. Controls include day-by-month-by-year and district fixed effects. All periods are normalized by the 30-day period before ShotSpotter implementation. Standard errors are clustered by district. The x-axis represents the number of 30-day periods before/after the implmentation of ShotSpotter while the y-axis represents the coefficient estimates and 95 percent confidence intervals. 
-\end{figure}
-```
 
 \newpage
 
@@ -303,32 +340,24 @@ number_black_stops_es
 
 
 ```{r}
-## crimes table
-source("tables/regressions_crime_main.R")
-
-## stops tables
-source("tables/regressions_stops_main.R")
-
-## border table
 source("tables/regressions_crime_borders.R")
+## border table
+source("tables/regressions_patdown_search.R")
 
 ## rates table
 source("tables/regressions_rates.R")
 ```
 
 ```{r}
-gun_table
-```
-
-```{r}
-stops_table
-```
-
-```{r}
 border_table
 ```
 
+
 ```{r}
-rates_table
+stops_pat_search
+```
+
+```{r}
+rates
 ```
 

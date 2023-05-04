@@ -54,7 +54,8 @@ crimes <- crimes %>%
   mutate(year = year(date), month = month(date))
 
 
-
+crimes <- crimes %>% 
+  filter(year < 2020)
 # number_gun_involved -----------------------------------------------------
 
 c1_gun <- crimes %>% 

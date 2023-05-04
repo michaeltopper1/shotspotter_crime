@@ -16,6 +16,8 @@ stops_panel <- read_csv("analysis_data/stops_panel.csv")
 stops_panel <- stops_panel %>% 
   mutate(number_white_stops = number_stops - number_black_stops - number_hispanic_stops - number_asian_stops)
 
+stops_panel <- stops_panel %>% 
+  filter(never_treated == 0)
 # number stops ------------------------------------------------------------
 
 c1_stops <- stops_panel %>% 

@@ -7,7 +7,7 @@
 
 library(tidyverse)
 
-stops <- readxl::read_excel("raw_data/19808-P827187-ISR-01Jan16-01Jan23.xlsx",
+stops <- readxl::read_excel("raw_data/stops.xlsx",
                             sheet = "ISR Data",
                             col_types = "text") 
 
