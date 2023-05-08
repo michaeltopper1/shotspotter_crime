@@ -1,39 +1,48 @@
-## Purpose of script:
-##
-## Author: Michael Topper
-##
-## Date Last Edited: 2023-04-20
-##
-
 library(tidyverse)
 
-## chicago tribune data from 16-20
-dispatch_16_20 <- read_csv("created_data/dispatches_16_20.csv")
-## my own data from 19-23
-dispatch_20_23 <- read_csv("created_data/dispatches.csv")
-## toshio has data from 17 to 21
-toshio <- read_csv("created_data/911_toshio_17_21.csv") %>% 
-  select(event_number, disposition) %>% 
-  rename(event_type = disposition) %>% 
-  distinct()
+dispatches <- read_csv("created_data/dispatches_19_23_eventnumber.csv")
+dispatches_ols <- read_csv("created_data/dispatches_16_20.csv")
 
-dispatch_20_23 <- dispatch_20_23 %>%
-  left_join(toshio)
+dispatches_ols <- dispatches_ols %>% 
+  select(-agency, -location)
+dispatches <- dispatches %>% 
+  select(-time_to_dispatch, -time_dispatch_to_onscene,-time_entry_to_onscene )
 
-## filtering to below when my data is created
-dispatch_16_20 <- dispatch_16_20 %>% 
-  mutate(tribune_data = 1) %>% 
-  filter(entry_date < as_date("2019-03-01"))
+dispatches_all <- dispatches_ols %>% 
+  bind_rows(dispatches)
+
+dispatches_all <- dispatches_all %>% 
+  distinct(event_number, .keep_all = T)
+
+priority <- read_csv("created_data/priority_event_types.csv")
+dispatches_ols %>% 
+  count(event_type) %>% 
+  left_join(priority) %>% View()
+priority <- priority %>% 
+  rename(priority_mf = priority)
+
+dispatches_all <- dispatches_all %>% 
+  left_join(priority)
+
+## dispatches that don't have event numbers are things like hangups, or transfers to another service
+dispatches_all <- dispatches_all %>% 
+  mutate(priority = if_else(is.na(priority), priority_mf, priority)) 
+
+
+dispatches_all <- dispatches_all %>% 
+  select(-casenumber, -priority_mf) %>% 
+  mutate(district = parse_number(district))
 
 
 
-all_dispatches <- dispatch_20_23 %>% 
-  mutate(tribune_data = 0) %>% 
-  bind_rows(dispatch_16_20) %>% 
-  arrange(entry_date)
+##fitlering anything that didn't get dispatched
+dispatches_all <- dispatches_all %>% 
+  mutate(first_dispatch_date = if_else(is.na(first_dispatch_date), dispatched, first_dispatch_date)) 
 
 
-rm(dispatch_16_20, toshio, dispatch_20_23)
+dispatches_all <- dispatches_all %>% 
+  mutate(time_to_dispatch = time_length(first_dispatch_date - entry_date ,unit = "seconds"),
+         .before = 1)
 
-all_dispatches %>% 
+dispatches_all %>% 
   write_csv("created_data/dispatches_appended_16_23.csv")

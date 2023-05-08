@@ -20,6 +20,8 @@ dispatches %>%
            second()) %>% 
   ggplot(aes(time_to_dispatch)) +
   geom_histogram()
-  dispatches_2 <- read_csv("created_data/dispatches.csv")
+dispatches_2 <- read_csv("created_data/dispatches.csv")
 dispatches_2 %>% 
   count()
+
+dispatch_new <- read_csv("/Users/michaeltopper/Downloads/cpd_foia232336 (1)/cpd_foia232336_aa.csv")
