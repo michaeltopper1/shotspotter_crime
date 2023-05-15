@@ -127,5 +127,5 @@ shifts_all %>%
   geom_line() +
   labs(x = "", y = "Number of Police Officer Shifts") +
   theme_minimal()
-shifts_all %>% View()
+
 
