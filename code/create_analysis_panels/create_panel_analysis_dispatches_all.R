@@ -12,10 +12,6 @@ rollout_dates <- read_csv("created_data/rollout_dates.csv")
 crimes_panel <- read_csv("analysis_data/crimes_panel.csv")
 
 
-dispatches %>% 
-  count(district.y, sort = T) %>% View()
-  filter(is.na(district.y))
-
 
 dispatches <- dispatches %>% 
   mutate(district_owm = ifelse(str_detect(district.x,"^O|C"), 1, 0)) 
@@ -50,6 +46,9 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   filter(priority_code != 4) 
 
+## filtering to only call sources that are from 911 calls
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(call_source_description == "E-911") 
 
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(entry_to_dispatch = time_length(first_dispatch_date - entry_received_date, "seconds"),
@@ -62,6 +61,15 @@ dispatches_filtered <- dispatches_filtered %>%
          dispatch_to_onscene_g2 = ifelse(dispatch_to_onscene > 120, 1, 0),
          entry_to_dispatch_g1 = ifelse(entry_to_dispatch > 60, 1, 0),
          entry_to_dispatch_g2 = ifelse(entry_to_dispatch > 120, 1, 0))
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(sst_dispatch = ifelse(final_dispatch_code == "SST", 1, 0))
+
+## need to deleted these sst
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(sst_dispatch !=1)
+
+
 
 aggregated <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) %>% 
