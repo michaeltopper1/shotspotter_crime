@@ -63,7 +63,7 @@ dispatches_filtered <- dispatches_filtered %>%
          entry_to_dispatch_g2 = ifelse(entry_to_dispatch > 120, 1, 0))
 
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(sst_dispatch = ifelse(final_dispatch_code == "SST", 1, 0))
+  mutate(sst_dispatch = if_else(final_dispatch_code == "SST", 1, 0))
 
 ## need to deleted these sst
 dispatches_filtered <- dispatches_filtered %>% 
@@ -101,17 +101,17 @@ aggregated <- aggregated %>%
 
 aggregated <- aggregated %>% 
   left_join(rollout_dates) %>% 
-  mutate(treatment = ifelse(shotspot_activate <= date, 1, 0), .by = district) %>% 
-  mutate(never_treated = ifelse(is.na(treatment),1, 0), .by = district) %>% 
-  mutate(treatment = ifelse(is.na(treatment), 0, treatment
+  mutate(treatment = if_else(shotspot_activate <= date, 1, 0), .by = district) %>% 
+  mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
+  mutate(treatment = if_else(is.na(treatment), 0, treatment
   ), .by = district)
 
 
 ## WARNING missing 2021-06-17, 2021-06-18 in the raw data. 
 ## changing NAs to 0s
-aggregated <- aggregated %>% 
-  mutate(across(starts_with("entry"), ~ifelse(is.na(.), 0, .)),
-         across(starts_with("number"), ~ifelse(is.na(.), 0, .)))
+# aggregated <- aggregated %>% 
+#   mutate(across(starts_with("entry"), ~ifelse(is.na(.), 0, .)),
+#          across(starts_with("number"), ~ifelse(is.na(.), 0, .)))
 
 aggregated %>% 
   write_csv("analysis_data/dispatches_all.csv")

@@ -1,0 +1,275 @@
+## Purpose of script:
+##
+## Author: Michael Topper
+##
+## Date Last Edited: 2023-05-16
+##
+
+library(tidyverse)
+library(fixest)
+library(panelsummary)
+library(kableExtra)
+library(modelsummary)
+library(did2s)
+
+
+dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
+officer_hours <- read_csv("analysis_data/officer_hours.csv")
+
+
+
+dispatch_panel <- dispatch_panel %>% 
+  left_join(officer_hours, join_by(date == date,
+                                   district == district))
+dispatch_panel <- dispatch_panel %>% 
+  mutate(total_dispatches = number_dispatches_1 + 
+           number_dispatches_2 + number_dispatches_3 + number_dispatches_0, .before = 1)
+
+
+## use the months(1) to change how many months you want in a bin
+## use the months to treat to give the amount of leads/lags
+es_data_dispatch <- dispatch_panel %>% 
+  mutate(months_to_treat = ifelse(date < shotspot_activate, (interval(shotspot_activate, date) %/% months(1)) - 1,
+                                  interval(shotspot_activate, date) %/% months(1)),.before = 1) %>% 
+  mutate(months_to_treat = ifelse(never_treated == 1, -1000, months_to_treat)) %>% 
+  mutate(months_to_treat = ifelse(months_to_treat > 12, 12, months_to_treat)) %>% 
+  mutate(months_to_treat = ifelse(months_to_treat < -12, -12, months_to_treat)) 
+
+event_study_graph <- function(x){
+  graph <- x %>% 
+    ggplot(aes(periods, estimate, color = type, shape = type)) +
+    geom_point(position = position_dodge(width = 0.5)) +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
+                  position = position_dodge(width = 0.5)) +
+    geom_hline(yintercept = 0, color = "dark red") +
+    labs(x = "Months to Adoption",
+         y = "95% Confidence Interval and Point Estimate",
+         color = "",
+         shape = "") +
+    theme_minimal() +
+    ggthemes::scale_color_stata() +
+    theme(legend.position = "bottom")
+  return(graph)
+}
+
+
+
+# entry to dispatch 1 -----------------------------------------------------
+
+
+entry_1 <- es_data_dispatch %>% 
+  feols(entry_to_dispatch_1 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+entry_1_2sdid <- did2s(es_data_dispatch,
+                       yname = "entry_to_dispatch_1",
+                       first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                         officer_hours |district + date,
+                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       treatment = "treatment",
+                       cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+entry_1_es <- entry_1 %>% 
+  bind_rows(entry_1_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()
+  
+
+
+# entry to dispatch 2 -----------------------------------------------------
+entry_2 <- es_data_dispatch %>% 
+  feols(entry_to_dispatch_2 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+entry_2_2sdid <- did2s(es_data_dispatch,
+                       yname = "entry_to_dispatch_2",
+                       first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                         officer_hours |district + date,
+                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       treatment = "treatment",
+                       cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+entry_2_es <- entry_2 %>% 
+  bind_rows(entry_2_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()
+
+
+
+# dispatch 3 --------------------------------------------------------------
+
+entry_3 <- es_data_dispatch %>% 
+  feols(entry_to_dispatch_3 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+entry_3_2sdid <- did2s(es_data_dispatch,
+                       yname = "entry_to_dispatch_3",
+                       first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                         officer_hours |district + date,
+                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       treatment = "treatment",
+                       cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+entry_3_es <- entry_3 %>% 
+  bind_rows(entry_3_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()
+
+
+
+# on scene 1----------------------------------------------------------------
+
+
+os_1 <- es_data_dispatch %>% 
+  feols(dispatch_to_onscene_1 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+os_1_2sdid <- did2s(es_data_dispatch,
+                       yname = "dispatch_to_onscene_1",
+                       first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                         officer_hours |district + date,
+                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       treatment = "treatment",
+                       cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+os_1_es <- os_1 %>% 
+  bind_rows(os_1_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()
+
+
+# on scene 2 --------------------------------------------------------------
+
+
+os_2 <- es_data_dispatch %>% 
+  feols(dispatch_to_onscene_2 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+os_2_2sdid <- did2s(es_data_dispatch,
+                    yname = "dispatch_to_onscene_2",
+                    first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                      officer_hours |district + date,
+                    second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                    treatment = "treatment",
+                    cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+os_2_es <- os_2 %>% 
+  bind_rows(os_2_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()
+
+
+# on scene 3 --------------------------------------------------------------
+
+os_3 <- es_data_dispatch %>% 
+  feols(dispatch_to_onscene_3 ~ i(months_to_treat, ref = c(-1, -1000)) +
+          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          officer_hours |district + date,
+        cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  slice(1:25) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "TWFE")
+
+
+os_3_2sdid <- did2s(es_data_dispatch,
+                    yname = "dispatch_to_onscene_3",
+                    first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                      officer_hours |district + date,
+                    second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                    treatment = "treatment",
+                    cluster_var = "district") %>% 
+  broom::tidy(conf.int = T) %>% 
+  add_row(term = "0", 
+          estimate = 0,
+          .before = 12) %>% 
+  mutate(periods = c(-12:12)) %>% 
+  mutate(type = "2-Stage DID")
+
+os_3_es <- os_3 %>% 
+  bind_rows(os_3_2sdid) %>% 
+  filter(periods %in% c(-11:11)) %>% 
+  event_study_graph()

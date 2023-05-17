@@ -34,7 +34,8 @@ dispatch_panel <- dispatch_panel %>%
          month = month(date), 
          year_month = mdy(paste0(month, "-1-", year)))
 
-
+dispatch_panel <- dispatch_panel %>% 
+  mutate(across(starts_with("number_dispatches_"), ~ifelse(is.na(.), 0, .)))
 # did2s(dispatch_panel, yname = "entry_to_dispatch_2",
 #       first_stage = ~ officer_hours + shotspot_border_treatment | district + date,
 #       second_stage = ~treatment,
@@ -91,12 +92,10 @@ entry_8 <- dispatch_panel %>%
 
 # entry to onscene --------------------------------------------------------
 
-dispatch_panel <- dispatch_panel %>% 
-  mutate(across(starts_with("dispatch_to_onscene"), ~ifelse(is.na(.), 0, .)))
+
 oc_1 <- dispatch_panel %>% 
   feols(dispatch_to_onscene_0~ treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3 + number_dispatches_0| district + date)
+          number_dispatches_0 + number_dispatches_1 + number_dispatches_3| district + date)
 
 oc_2 <- dispatch_panel %>% 
   feols(dispatch_to_onscene_0~ treatment + shotspot_border_treatment + officer_hours +
@@ -159,9 +158,9 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   in all models include controls for officer hours and number of dispatches.
                   "), ~str_remove_all(., "\n"))
 
-dispatch_table <- panelsummary(list(entry_1, entry_2, entry_3, entry_4,
+dispatch_table <- panelsummary(list(entry_3, entry_4,
                   entry_5, entry_6, entry_7, entry_8),
-             list(oc_1, oc_2, oc_3, oc_4, 
+             list(oc_3, oc_4, 
                   oc_5, oc_6, oc_7, oc_8),
              stars = "econ",
              panel_labels = c("Panel A: Entry to Dispatch",
@@ -175,7 +174,6 @@ dispatch_table <- panelsummary(list(entry_1, entry_2, entry_3, entry_4,
              italic  = T,
              collapse_fe = T) %>% 
   add_header_above(c(" " = 1,
-                     "Priorty 0" = 2,
                      "Priority 1" = 2,
                      "Priority 2" = 2,
                      "Priority 3" = 2)) %>% 
