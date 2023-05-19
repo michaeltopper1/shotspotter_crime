@@ -11,38 +11,7 @@ library(panelsummary)
 library(kableExtra)
 library(did2s)
 
-dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
-officer_hours <- read_csv("analysis_data/officer_hours.csv")
-border_districts <- read_csv("created_data/border_districts_final.csv")
-
-dispatch_panel <- dispatch_panel %>% 
-  left_join(officer_hours, join_by(date == date,
-                                   district == district))
-
-dispatch_panel <- dispatch_panel %>% 
-  left_join(border_districts, join_by(district == border_district))
-
-dispatch_panel <- dispatch_panel %>% 
-  group_by(district) %>% 
-  mutate(shotspot_border_treatment = ifelse(date >= border_treatment,1 ,0 )) %>% 
-  ungroup() %>% 
-  mutate(shotspot_border_treatment = ifelse(is.na(shotspot_border_treatment), 0, shotspot_border_treatment))
-
-
-dispatch_panel <- dispatch_panel %>% 
-  mutate(year = year(date),
-         month = month(date), 
-         year_month = mdy(paste0(month, "-1-", year)))
-
-dispatch_panel <- dispatch_panel %>% 
-  mutate(across(starts_with("number_dispatches_"), ~ifelse(is.na(.), 0, .)))
-# did2s(dispatch_panel, yname = "entry_to_dispatch_2",
-#       first_stage = ~ officer_hours + shotspot_border_treatment | district + date,
-#       second_stage = ~treatment,
-#       treatment = "treatment",
-#       cluster_var = "district")
-
-
+dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
 
 # panel A -----------------------------------------------------------------
 

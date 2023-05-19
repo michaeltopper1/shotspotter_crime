@@ -17,7 +17,7 @@ victims <- victims %>%
 
 victims <- victims %>% 
   mutate(year = year(date)) %>% 
-  filter(year > 2016 & year < 2022) %>%
+  filter(year >= 2016 & year <= 2022) %>%
   distinct(case_number, .keep_all = T)
 
 victims_aggregated <- victims %>% 
@@ -42,6 +42,7 @@ victims_panel <- panel_dates %>%
   left_join(victims_aggregated, join_by(date == date,
                                         district == district)) %>% 
   mutate(across(starts_with("number"), ~if_else(is.na(.), 0, .)))
+
 
 victims_panel %>% 
   write_csv("analysis_data/victims_panel.csv")
