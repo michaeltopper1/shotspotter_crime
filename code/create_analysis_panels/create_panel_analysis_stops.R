@@ -14,17 +14,8 @@ stops <- read_csv("created_data/stops_cleaned.csv")
 ## For some reason, in our FOIA request, they put in NA as white
 
 stops <- stops %>% 
-  mutate(person_stopped_race_white = ifelse(is.na(person_stopped_race_white), 1, person_stopped_race_white)) 
+  mutate(person_stopped_race_white = if_else(is.na(person_stopped_race_white), 1, person_stopped_race_white)) 
 
-
-## I want a measure of the following:
-# illegal searches
-# pat-downs - are they consenual?
-# searches beyond patdowns - are they consenual?
-stops %>% colnames()
-stops %>% 
-  count(firearm_found_as_a_result_of_the_protective_pat_down_y_n,
-        pat_down_consent_y_n)
 
 ## creating panels for each of the districts
 panel_dates <- seq(as_date("2016-01-01"), as_date("2022-12-31") , by= "day") %>% 
@@ -39,9 +30,6 @@ districts <- c(1:20, 22, 24, 25) %>%
 panel_dates <- panel_dates %>% 
   cross_join(districts)
 
-stops %>% 
-  count(pat_down_y_n, pat_down_consent_y_n)
-
 # aggregating the stops --------------------------------------------------
   
 stops <- stops %>% 
@@ -51,32 +39,32 @@ stops <- stops %>%
 
 ## consent and beyond patdown by race
 stops <- stops %>% 
-  mutate(black_search_beyond_patdown = ifelse(person_stopped_race_black==1 &
+  mutate(black_search_beyond_patdown = if_else(person_stopped_race_black==1 &
                                                 search_beyond_a_protective_pat_down_conducted_of_the_person_y_n ==1,
                                               1, 0),
-         hispanic_search_beyond_patdown = ifelse(person_stopped_race_hispanic == 1 &
+         hispanic_search_beyond_patdown = if_else(person_stopped_race_hispanic == 1 &
                                                    search_beyond_a_protective_pat_down_conducted_of_the_person_y_n == 1,
                                                  1, 0),
-         nonblack_search_beyond_patdown = ifelse(person_stopped_race_black == 0 & 
+         nonblack_search_beyond_patdown = if_else(person_stopped_race_black == 0 & 
                                                    search_beyond_a_protective_pat_down_conducted_of_the_person_y_n == 1,
                                                  1, 0),
-         white_search_beyond_patdown = ifelse(person_stopped_race_white == 1 & 
+         white_search_beyond_patdown = if_else(person_stopped_race_white == 1 & 
                                                 search_beyond_a_protective_pat_down_conducted_of_the_person_y_n == 1,
                                               1, 0),
-         black_hispanic_search = ifelse((person_stopped_race_black == 1 | person_stopped_race_hispanic == 1) & 
+         black_hispanic_search = if_else((person_stopped_race_black == 1 | person_stopped_race_hispanic == 1) & 
                                           search_beyond_a_protective_pat_down_conducted_of_the_person_y_n == 1,
                                         1, 0)) %>% 
-  mutate(black_search_no_consent = ifelse(person_stopped_race_black == 1 &
+  mutate(black_search_no_consent = if_else(person_stopped_race_black == 1 &
                                             search_based_on_consent_y_n == 0, 
                                           1, 0),
-         nonblack_search_no_consent = ifelse(person_stopped_race_black == 0 &
+         nonblack_search_no_consent = if_else(person_stopped_race_black == 0 &
                                                search_based_on_consent_y_n == 0,
                                              1, 0))
 
 
 stops <- stops %>% 
-  mutate(search_noconsent = ifelse(search_based_on_consent_y_n == 0, 1, 0)) %>% 
-  mutate(patdown_noconsent = ifelse(pat_down_consent_y_n == 0, 1, 0))
+  mutate(search_noconsent = if_else(search_based_on_consent_y_n == 0, 1, 0)) %>% 
+  mutate(patdown_noconsent = if_else(pat_down_consent_y_n == 0, 1, 0))
 
 
 stops_aggregated <- stops %>%

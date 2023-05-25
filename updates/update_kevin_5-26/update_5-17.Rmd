@@ -1,0 +1,226 @@
+---
+title: "ShotSpotter Update"
+output: 
+  pdf_document:
+    number_sections: true
+    extra_dependencies: ["float"]
+author: 
+  - Michael Topper and Toshio Ferrazares
+date: "Last Updated: `r Sys.Date()`"
+citation_package: natbib
+editor_options: 
+  chunk_output_type: console
+header-includes:
+- \usepackage{amsfonts}
+- \usepackage{amsthm}
+- \usepackage{amsmath}
+- \usepackage{bbm}
+- \usepackage[english]{babel}
+- \usepackage{bm}
+- \usepackage{float}
+- \usepackage{indentfirst}
+- \usepackage[fontsize=12pt]{scrextend}
+- \usepackage{graphicx}
+- \usepackage[utf8]{inputenc}
+- \usepackage{pdfpages}
+- \usepackage[round,authoryear]{natbib}
+- \usepackage{setspace}\onehalfspacing
+- \usepackage{subfig}
+- \usepackage{placeins}
+- \usepackage{rotating}
+- \usepackage{fancyhdr}
+- \usepackage{times}
+- \usepackage{endnotes}
+- \floatplacement{figure}{H}
+linkcolor: blue
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(fixest)
+library(modelsummary)
+
+knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.align = "center",fig.pos = "H", out.extra = "")
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+Trying to figure out new directions. We have somewhat solidified a good set of results and think they are relatively robust.
+
+
+\newpage
+\FloatBarrier
+
+# Figures
+
+```{r}
+source("figures/rollout_date_figure.R")
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+rollout_figure
+```
+```{=latex}
+\caption{ShotSpotter Rollout Dates by District in Chicago \label{rollout_figure}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. 
+\end{figure}
+```
+
+
+```{r}
+source("figures/event_study_dispatches.R")
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_1_es
+```
+```{=latex}
+\caption{Event Study of Priority 1 Dispatch Times \label{entry_1_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 1 time from received 911 call to time of dispatch. Priority 1 calls are designated as immediate dispatch.
+\end{figure}
+```
+
+
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_2_es
+```
+```{=latex}
+\caption{Event Study of Priority 2 Dispatch Times \label{entry_2_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 2 time from received 911 call to time of dispatch. Priority 2 calls are designated as rapid dispatch.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_3_es
+```
+```{=latex}
+\caption{Event Study of Priority 1 Dispatch Times \label{entry_1_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 3 time from received 911 call to time of dispatch. Priority 3 calls are designated as routine dispatch.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+os_1_es
+```
+```{=latex}
+\caption{Event Study of Priority 1 Dispatch to On-Scene Times \label{os_1_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 1 time from a dispatched 911 call to the time the officer gets on-scene. Priority 1 calls are designated as immediate dispatch.
+\end{figure}
+```
+
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+os_2_es
+```
+```{=latex}
+\caption{Event Study of Priority 2 Dispatch to On-Scene Times \label{os_2_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 2 time from a dispatched 911 call to the time the officer gets on-scene. Priority 2 calls are designated as rapid dispatch.
+\end{figure}
+```
+
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+os_3_es
+```
+```{=latex}
+\caption{Event Study of Priority 3 Dispatch to On-Scene Times \label{os_3_es}}
+\textit{Note:} There are a total of 18 police districts in Chicago, 12 of which get ShotSpotter implemented. Implementation began in early 2017 through late 2018. This graph shows priority 3 time from a dispatched 911 call to the time the officer gets on-scene. Priority 3 calls are designated as routine dispatch.
+\end{figure}
+```
+
+```{r}
+source("figures/forestplot_entry2dispatch.R")
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_forest
+```
+```{=latex}
+\caption{Robustness of Call to Dispatch Estimations \label{entry_forest}}
+\textit{Note:} This figure shows five different regression specifications for the time (in seconds) for a police officer to be dispatched from the time a 911 call is received. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+```{r}
+source("figures/forestplot_onscene.R")
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+onscene_forest
+```
+```{=latex}
+\caption{Robustness of Dispatch to On-Scene Estimations \label{onscene_forest}}
+\textit{Note:} This figure shows five different regression specifications for the time (in seconds) it takes a police officer to reach the scene of the reported crime once they have been dispatched. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+\newpage
+\FloatBarrier
+# Tables
+
+```{r}
+source("tables/summary_stats.R")
+```
+
+```{r}
+summary_stats
+```
+
+
+```{r}
+source("tables/regressions_dispatches.R")
+```
+
+
+```{r}
+dispatch_table %>% 
+  landscape()
+```
+
+
+```{r}
+source("tables/regressions_dispatches_sst_alerts.R")
+```
+
+```{r}
+dispatch_table_sst %>% 
+  landscape()
+```
+
+

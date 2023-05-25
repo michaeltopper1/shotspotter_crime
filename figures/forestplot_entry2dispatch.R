@@ -50,6 +50,10 @@ d1_2s <- did2s(dispatch_panel,
   mutate(priority = "Priority 1",
          sample = "Main Sample\n(2-Stage DID)")
 
+#  another one to add
+# did_imputation::did_imputation(data = dispatch_panel, yname = "entry_to_dispatch_1",
+#                gname = "shotspot_activate", tname = "date", idname = "district")
+
 d1_nocontrol <- dispatch_panel %>% 
   feols(entry_to_dispatch_1 ~ treatment | district + date) %>% 
   broom::tidy(conf.int = T) %>% 
@@ -196,7 +200,7 @@ d1_labs2 <- rev(sprintf("%.3f",entry_forest$estimate))
 
 
 
-entry_forest %>% 
+entry_forest <- entry_forest %>% 
   mutate(sample = factor(sample, levels = c("Main Sample", "Main Sample\n(2-Stage DID)",
                                    "No Controls", "Omitting 2020",
                                    "Omitting\nNever-Treated")) %>% 
@@ -206,7 +210,8 @@ entry_forest %>%
   geom_point(aes(shape = sample), size = 3) +
   geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = 0.1) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "dark red") +
-  facet_wrap(~priority, scales = "free_y") +
+  facet_wrap(~priority, scales = "free_y",
+             ncol = 1) +
     scale_y_continuous(breaks = 1:length(d1_labs2),
                        labels = d1_labs,
                        sec.axis = sec_axis(~., breaks = 1:length(d1_labs2),

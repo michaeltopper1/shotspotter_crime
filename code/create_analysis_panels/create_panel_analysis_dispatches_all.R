@@ -57,6 +57,11 @@ dispatches_filtered <- dispatches_filtered %>%
          entry_to_close = time_length(close_completed_date - entry_received_date, "seconds"))
 
 dispatches_filtered <- dispatches_filtered %>% 
+  mutate(first_dispatch_date_floor = floor_date(first_dispatch_date, "minutes"),
+         dispatch_to_onscene_floor = time_length(on_scene_date - first_dispatch_date_floor, "seconds"))
+
+
+dispatches_filtered <- dispatches_filtered %>% 
   mutate(dispatch_to_onscene_g1 = ifelse(dispatch_to_onscene > 60, 1, 0),
          dispatch_to_onscene_g2 = ifelse(dispatch_to_onscene > 120, 1, 0),
          entry_to_dispatch_g1 = ifelse(entry_to_dispatch > 60, 1, 0),
@@ -69,7 +74,20 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   filter(sst_dispatch !=1)
 
+## deleting the negative entry_to_dispatches - only 126 of these
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(entry_to_dispatch > 0) 
 
+## There are 38892 dispatch to onscenes that are less than or equal to 0.
+## I am creating other columns that get rid of this.
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(dispatch_to_onscene_less_than_zero = if_else(dispatch_to_onscene <=0, 1, 0))
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(dispatch_to_onscene_filtered = if_else(dispatch_to_onscene_less_than_zero ==1,
+                                                NA, dispatch_to_onscene),
+         dispatch_to_onscene_filtered_floor = if_else(dispatch_to_onscene_less_than_zero ==1,
+                                                      NA, dispatch_to_onscene_floor))
 
 aggregated <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) %>% 
@@ -77,7 +95,9 @@ aggregated <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close), ~mean(.,na.rm = T)),
+                     entry_to_close,
+                     dispatch_to_onscene_filtered,
+                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
             number_dispatches = n(),
             across(c(dispatch_to_onscene_g1,
                      dispatch_to_onscene_g2,
@@ -92,6 +112,8 @@ aggregated <- aggregated %>%
                               dispatch_to_onscene,
                               entry_to_close,
                               number_dispatches,
+                              dispatch_to_onscene_filtered,
+                              dispatch_to_onscene_filtered_floor,
                               number_dispatch_to_onscene_g1,
                               number_dispatch_to_onscene_g2,
                               number_entry_to_dispatch_g1,

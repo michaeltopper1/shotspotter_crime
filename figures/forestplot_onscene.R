@@ -186,7 +186,7 @@ os_forest <- os1_main %>%
   mutate(estimate = round(estimate, 2)) %>%
   mutate(estimate_label = sprintf("%.3f", estimate))
 
-os1_labs <- entry_forest %>% 
+os1_labs <- os_forest %>% 
   mutate(sample = factor(sample, levels = c("Main Sample", "Main Sample\n(2-Stage DID)",
                                             "No Controls", "Omitting 2020",
                                             "Omitting\nNever-Treated")) %>% 
@@ -206,7 +206,8 @@ onscene_forest <- os_forest %>%
   geom_point(aes(shape = sample), size = 3) +
   geom_errorbar(aes(xmin = conf.low, xmax = conf.high), width = 0.1) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "dark red") +
-  facet_wrap(~priority, scales = "free_y") +
+  facet_wrap(~priority, scales = "free_y",
+             ncol = 1) +
   scale_y_continuous(breaks = 1:length(os1_labs2),
                      labels = os1_labs,
                      sec.axis = sec_axis(~., breaks = 1:length(os1_labs2),

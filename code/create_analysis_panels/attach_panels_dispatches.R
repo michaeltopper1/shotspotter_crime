@@ -46,5 +46,16 @@ dispatch_panel <- dispatch_panel %>%
   ungroup() %>% 
   mutate(shotspot_border_treatment = ifelse(is.na(shotspot_border_treatment), 0, shotspot_border_treatment))
 
+
+# getting rid of july 4th/december 31/january 1 ---------------------------
+
+dispatch_panel <- dispatches_panel %>% 
+  mutate(day = day(date)) %>% 
+  filter(!(month ==7 & day == 4)) %>% 
+  filter(!(month == 1 & day == 1)) %>% 
+  filter(!(month == 12 & day == 31))
+
+
+
 dispatch_panel %>% 
   write_csv("analysis_data/xxdispatch_panel.csv")
