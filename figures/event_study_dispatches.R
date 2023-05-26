@@ -29,11 +29,19 @@ dispatch_panel <- dispatch_panel %>%
 ## use the months(1) to change how many months you want in a bin
 ## use the months to treat to give the amount of leads/lags
 es_data_dispatch <- dispatch_panel %>% 
-  mutate(months_to_treat = ifelse(date < shotspot_activate, (interval(shotspot_activate, date) %/% months(1)) - 1,
-                                  interval(shotspot_activate, date) %/% months(1)),.before = 1) %>% 
-  mutate(months_to_treat = ifelse(never_treated == 1, -1000, months_to_treat)) %>% 
-  mutate(months_to_treat = ifelse(months_to_treat > 12, 12, months_to_treat)) %>% 
-  mutate(months_to_treat = ifelse(months_to_treat < -12, -12, months_to_treat)) 
+  mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
+                                     "month") %>% 
+           magrittr::add(1) %>% 
+           trunc() %>%
+           magrittr::subtract(1),
+         .by = district) %>% 
+  mutate(time_to_treat = case_when(
+    time_to_treat > 12 ~ 12,
+    time_to_treat < -12 ~ -12,
+    .default = time_to_treat
+  )) %>% 
+  mutate(time_to_treat = if_else(is.na(time_to_treat), -1000, time_to_treat)) 
+
 
 event_study_graph <- function(x){
   graph <- x %>% 
@@ -58,7 +66,7 @@ event_study_graph <- function(x){
 
 
 entry_1 <- es_data_dispatch %>% 
-  feols(entry_to_dispatch_1 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(entry_to_dispatch_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -75,7 +83,7 @@ entry_1_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_1",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                          officer_hours |district + date,
-                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
@@ -94,7 +102,7 @@ entry_1_es <- entry_1 %>%
 
 # entry to dispatch 2 -----------------------------------------------------
 entry_2 <- es_data_dispatch %>% 
-  feols(entry_to_dispatch_2 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(entry_to_dispatch_2 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -111,7 +119,7 @@ entry_2_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_2",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                          officer_hours |district + date,
-                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
@@ -131,7 +139,7 @@ entry_2_es <- entry_2 %>%
 # dispatch 3 --------------------------------------------------------------
 
 entry_3 <- es_data_dispatch %>% 
-  feols(entry_to_dispatch_3 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(entry_to_dispatch_3 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -148,7 +156,7 @@ entry_3_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_3",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                          officer_hours |district + date,
-                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
@@ -169,7 +177,7 @@ entry_3_es <- entry_3 %>%
 
 
 os_1 <- es_data_dispatch %>% 
-  feols(dispatch_to_onscene_1 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(dispatch_to_onscene_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -186,7 +194,7 @@ os_1_2sdid <- did2s(es_data_dispatch,
                        yname = "dispatch_to_onscene_1",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                          officer_hours |district + date,
-                       second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                       second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
@@ -206,7 +214,7 @@ os_1_es <- os_1 %>%
 
 
 os_2 <- es_data_dispatch %>% 
-  feols(dispatch_to_onscene_2 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(dispatch_to_onscene_2 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -223,7 +231,7 @@ os_2_2sdid <- did2s(es_data_dispatch,
                     yname = "dispatch_to_onscene_2",
                     first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                       officer_hours |district + date,
-                    second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                    second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                     treatment = "treatment",
                     cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
@@ -242,7 +250,7 @@ os_2_es <- os_2 %>%
 # on scene 3 --------------------------------------------------------------
 
 os_3 <- es_data_dispatch %>% 
-  feols(dispatch_to_onscene_3 ~ i(months_to_treat, ref = c(-1, -1000)) +
+  feols(dispatch_to_onscene_3 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -259,7 +267,7 @@ os_3_2sdid <- did2s(es_data_dispatch,
                     yname = "dispatch_to_onscene_3",
                     first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                       officer_hours |district + date,
-                    second_stage = ~ i(months_to_treat, ref = c(-1, -1000)),
+                    second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                     treatment = "treatment",
                     cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 

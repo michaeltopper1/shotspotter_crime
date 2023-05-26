@@ -14,7 +14,7 @@ crimes_panel <- read_csv("analysis_data/crimes_panel.csv")
 
 
 dispatches <- dispatches %>% 
-  mutate(district_owm = ifelse(str_detect(district.x,"^O|C"), 1, 0)) 
+  mutate(district_owm = if_else(str_detect(district.x,"^O|C"), 1, 0)) 
 
 
 dispatches <- dispatches %>% 
@@ -31,14 +31,14 @@ dispatches_filtered <- dispatches %>%
 
 ## changing the SST to priority 1A
 dispatches_filtered <- dispatches_filtered %>%
-  mutate(priority_code = ifelse(final_dispatch_code == "SST",
+  mutate(priority_code = if_else(final_dispatch_code == "SST",
                                 "1A", priority_code))
   
 # going to be using the CPD data as the final priority
 # most of them are the same
 # changing the missing ones to 
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(priority_code = ifelse(is.na(priority_code), priority_oemc, priority_code)) %>% 
+  mutate(priority_code = if_else(is.na(priority_code), priority_oemc, priority_code)) %>% 
   mutate(priority_code = parse_number(priority_code))
 
 
@@ -62,10 +62,10 @@ dispatches_filtered <- dispatches_filtered %>%
 
 
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(dispatch_to_onscene_g1 = ifelse(dispatch_to_onscene > 60, 1, 0),
-         dispatch_to_onscene_g2 = ifelse(dispatch_to_onscene > 120, 1, 0),
-         entry_to_dispatch_g1 = ifelse(entry_to_dispatch > 60, 1, 0),
-         entry_to_dispatch_g2 = ifelse(entry_to_dispatch > 120, 1, 0))
+  mutate(dispatch_to_onscene_g1 = if_else(dispatch_to_onscene > 60, 1, 0),
+         dispatch_to_onscene_g2 = if_else(dispatch_to_onscene > 120, 1, 0),
+         entry_to_dispatch_g1 = if_else(entry_to_dispatch > 60, 1, 0),
+         entry_to_dispatch_g2 = if_else(entry_to_dispatch > 120, 1, 0))
 
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(sst_dispatch = if_else(final_dispatch_code == "SST", 1, 0))
@@ -88,6 +88,55 @@ dispatches_filtered <- dispatches_filtered %>%
                                                 NA, dispatch_to_onscene),
          dispatch_to_onscene_filtered_floor = if_else(dispatch_to_onscene_less_than_zero ==1,
                                                       NA, dispatch_to_onscene_floor))
+
+
+
+# aggregating by month ----------------------------------------------------
+
+aggregated_monthly <- dispatches_filtered %>% 
+  mutate(date = as_date(entry_received_date),
+         year = year(date),
+         month = month(date),
+         year_month = mdy(paste0(month, "-1-", year))) %>% 
+  group_by(year_month, district, priority_code) %>% 
+  summarize(across(c(entry_to_dispatch,
+                     entry_to_onscene,
+                     dispatch_to_onscene,
+                     entry_to_close,
+                     dispatch_to_onscene_filtered,
+                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
+            number_dispatches = n(),
+            across(c(dispatch_to_onscene_g1,
+                     dispatch_to_onscene_g2,
+                     entry_to_dispatch_g1,
+                     entry_to_dispatch_g2), ~sum(., na.rm = T), .names = "number_{.col}")) %>% ungroup()
+
+
+aggregated_monthly <- aggregated_monthly %>% 
+  pivot_wider(names_from = priority_code, 
+              values_from = c(entry_to_dispatch,
+                              entry_to_onscene,
+                              dispatch_to_onscene,
+                              entry_to_close,
+                              number_dispatches,
+                              dispatch_to_onscene_filtered,
+                              dispatch_to_onscene_filtered_floor,
+                              number_dispatch_to_onscene_g1,
+                              number_dispatch_to_onscene_g2,
+                              number_entry_to_dispatch_g1,
+                              number_entry_to_dispatch_g2))
+
+## going to be defining treatment by first full month of treatment.
+aggregated_monthly <- aggregated_monthly %>% 
+  left_join(rollout_dates, join_by(district == district)) %>% 
+  mutate(treatment = if_else(shotspot_activate <= year_month, 1, 0), .by = district) %>% 
+  mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
+  mutate(treatment = if_else(is.na(treatment), 0, treatment
+  ), .by = district)
+
+
+# aggregating at daily level ----------------------------------------------
+
 
 aggregated <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) %>% 
@@ -138,3 +187,5 @@ aggregated <- aggregated %>%
 aggregated %>% 
   write_csv("analysis_data/dispatches_all.csv")
 
+aggregated_monthly %>% 
+  write_csv("analysis_data/dispatches_all_monthly.csv")
