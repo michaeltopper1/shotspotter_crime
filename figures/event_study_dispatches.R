@@ -13,18 +13,7 @@ library(modelsummary)
 library(did2s)
 
 
-dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
-officer_hours <- read_csv("analysis_data/officer_hours.csv")
-
-
-
-dispatch_panel <- dispatch_panel %>% 
-  left_join(officer_hours, join_by(date == date,
-                                   district == district))
-dispatch_panel <- dispatch_panel %>% 
-  mutate(total_dispatches = number_dispatches_1 + 
-           number_dispatches_2 + number_dispatches_3 + number_dispatches_0, .before = 1)
-
+dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
 
 ## use the months(1) to change how many months you want in a bin
 ## use the months to treat to give the amount of leads/lags
@@ -68,6 +57,7 @@ event_study_graph <- function(x){
 entry_1 <- es_data_dispatch %>% 
   feols(entry_to_dispatch_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+          number_dispatches_0 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
@@ -82,6 +72,7 @@ entry_1 <- es_data_dispatch %>%
 entry_1_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_1",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
+                         number_dispatches_0 +
                          officer_hours |district + date,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
@@ -104,7 +95,7 @@ entry_1_es <- entry_1 %>%
 entry_2 <- es_data_dispatch %>% 
   feols(entry_to_dispatch_2 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          officer_hours |district + date,
+           number_dispatches_0 +officer_hours |district + date,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
   add_row(term = "0", 
@@ -118,7 +109,7 @@ entry_2 <- es_data_dispatch %>%
 entry_2_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_2",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-                         officer_hours |district + date,
+                         officer_hours + number_dispatches_0|district + date,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
@@ -141,7 +132,7 @@ entry_2_es <- entry_2 %>%
 entry_3 <- es_data_dispatch %>% 
   feols(entry_to_dispatch_3 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          officer_hours |district + date,
+          officer_hours +number_dispatches_0|district + date,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
   add_row(term = "0", 
@@ -155,7 +146,7 @@ entry_3 <- es_data_dispatch %>%
 entry_3_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_3",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-                         officer_hours |district + date,
+                         officer_hours +number_dispatches_0 |district + date,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
@@ -176,8 +167,8 @@ entry_3_es <- entry_3 %>%
 # on scene 1----------------------------------------------------------------
 
 
-os_1 <- es_data_dispatch %>% 
-  feols(dispatch_to_onscene_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
+eos_1 <- es_data_dispatch %>% 
+  feols(entry_to_onscene_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -190,8 +181,8 @@ os_1 <- es_data_dispatch %>%
   mutate(type = "TWFE")
 
 
-os_1_2sdid <- did2s(es_data_dispatch,
-                       yname = "dispatch_to_onscene_1",
+eos_1_2sdid <- did2s(es_data_dispatch,
+                       yname = "entry_to_onscene_1",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                          officer_hours |district + date,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
@@ -204,8 +195,8 @@ os_1_2sdid <- did2s(es_data_dispatch,
   mutate(periods = c(-12:12)) %>% 
   mutate(type = "2-Stage DID")
 
-os_1_es <- os_1 %>% 
-  bind_rows(os_1_2sdid) %>% 
+eos_1_es <- eos_1 %>% 
+  bind_rows(eos_1_2sdid) %>% 
   filter(periods %in% c(-11:11)) %>% 
   event_study_graph()
 
@@ -213,8 +204,8 @@ os_1_es <- os_1 %>%
 # on scene 2 --------------------------------------------------------------
 
 
-os_2 <- es_data_dispatch %>% 
-  feols(dispatch_to_onscene_2 ~ i(time_to_treat, ref = c(-1, -1000)) +
+eos_2 <- es_data_dispatch %>% 
+  feols(entry_to_onscene_2 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
@@ -227,8 +218,8 @@ os_2 <- es_data_dispatch %>%
   mutate(type = "TWFE")
 
 
-os_2_2sdid <- did2s(es_data_dispatch,
-                    yname = "dispatch_to_onscene_2",
+eos_2_2sdid <- did2s(es_data_dispatch,
+                    yname = "entry_to_onscene_2",
                     first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
                       officer_hours |district + date,
                     second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
@@ -241,8 +232,8 @@ os_2_2sdid <- did2s(es_data_dispatch,
   mutate(periods = c(-12:12)) %>% 
   mutate(type = "2-Stage DID")
 
-os_2_es <- os_2 %>% 
-  bind_rows(os_2_2sdid) %>% 
+eos_2_es <- eos_2 %>% 
+  bind_rows(eos_2_2sdid) %>% 
   filter(periods %in% c(-11:11)) %>% 
   event_study_graph()
 

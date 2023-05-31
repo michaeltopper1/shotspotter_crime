@@ -38,7 +38,7 @@ dispatch_panel <- dispatch_panel %>%
 
 
 dispatch_panel <- dispatch_panel %>% 
-  left_join(border_districts, join_by(district == border_district))
+  left_join(border_districts, join_by(district == border_district)) 
 
 dispatch_panel <- dispatch_panel %>% 
   group_by(district) %>% 
@@ -49,12 +49,11 @@ dispatch_panel <- dispatch_panel %>%
 
 # getting rid of july 4th/december 31/january 1 ---------------------------
 
-dispatch_panel <- dispatches_panel %>% 
+dispatch_panel <- dispatch_panel %>% 
   mutate(day = day(date)) %>% 
   filter(!(month ==7 & day == 4)) %>% 
   filter(!(month == 1 & day == 1)) %>% 
   filter(!(month == 12 & day == 31))
-
 
 
 dispatch_panel %>% 
