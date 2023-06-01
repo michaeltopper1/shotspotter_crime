@@ -36,6 +36,8 @@ dispatch_panel <- dispatch_panel %>%
 dispatch_panel <- dispatch_panel %>% 
   mutate(number_sst_alerts =if_else(is.na(number_sst_alerts), 0, number_sst_alerts))
 
+dispatch_panel <- dispatch_panel %>% 
+  mutate(across(starts_with("arrests_made"), ~if_else(is.na(.), 0, .)))
 
 dispatch_panel <- dispatch_panel %>% 
   left_join(border_districts, join_by(district == border_district)) 

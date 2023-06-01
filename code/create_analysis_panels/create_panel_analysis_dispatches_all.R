@@ -7,91 +7,79 @@
 
 library(tidyverse)
 
-dispatches <- read_csv("created_data/dispatches_innerjoin_16_22.csv")
+dispatches <- read_csv("created_data/dispatches_all.csv") %>% 
+  janitor::clean_names()
+
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
 crimes_panel <- read_csv("analysis_data/crimes_panel.csv")
 
 
+# filtering ---------------------------------------------------------------
 
-dispatches <- dispatches %>% 
-  mutate(district_owm = if_else(str_detect(district.x,"^O|C"), 1, 0)) 
-
-
-dispatches <- dispatches %>% 
-  mutate(district = case_when(
-   district_owm == 1 ~ NA,
-   .default = district.x
-  )) %>% 
-  mutate(district = parse_number(district)) 
-
-
+## getting only 911 calls
 dispatches_filtered <- dispatches %>% 
+  filter(call_source_description == "E-911")
+
+## filtering to only districts we have
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(district = parse_number(district)) %>% 
   filter(district %in% crimes_panel$district)
 
 
-## changing the SST to priority 1A
-dispatches_filtered <- dispatches_filtered %>%
-  mutate(priority_code = if_else(final_dispatch_code == "SST",
-                                "1A", priority_code))
-  
-# going to be using the CPD data as the final priority
-# most of them are the same
-# changing the missing ones to 
+## parsing the priority codes
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(priority_code = if_else(is.na(priority_code), priority_oemc, priority_code)) %>% 
-  mutate(priority_code = parse_number(priority_code))
+  mutate(priority_code = parse_number(priority_code)) 
 
 
 ## getting rid fo the one priority 4 one
 dispatches_filtered <- dispatches_filtered %>% 
   filter(priority_code != 4) 
 
-## filtering to only call sources that are from 911 calls
-dispatches_filtered <- dispatches_filtered %>% 
-  filter(call_source_description == "E-911") 
+## Note that 52% of the data is missing on-scene
+
+
+# break point - can load data in from here --------------------------------
+## The break point was created in case you want to go in and create more variables
+## without having to load the 5 gigabyte data anymore
+
+# dispatches_filtered %>% 
+#   write_csv("created_data/dispatches_filtered_cpd.csv")
+
+
+# creating variables ------------------------------------------------------
 
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(entry_to_dispatch = time_length(first_dispatch_date - entry_received_date, "seconds"),
+  mutate(entry_to_dispatch = time_length(dispatch_date - entry_received_date, "seconds"),
          entry_to_onscene = time_length(on_scene_date - entry_received_date, "seconds"),
-         dispatch_to_onscene = time_length(on_scene_date - first_dispatch_date, "seconds"),
+         dispatch_to_onscene = time_length(on_scene_date - dispatch_date, "seconds"),
          entry_to_close = time_length(close_completed_date - entry_received_date, "seconds"))
 
-
-## flooring the entry date and the dispatch date 
+## there were some final codes missing. replaced with the initial codes
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(first_dispatch_date_floor = floor_date(first_dispatch_date, "minutes"),
-         entry_date_floor = floor_date(entry_date, "minutes"),
-         dispatch_to_onscene_floor = time_length(on_scene_date - first_dispatch_date_floor, "seconds"),
-         entry_to_onscene_floor = time_length(on_scene_date - entry_date_floor, "seconds"))
+  mutate(final_dispatch_code = if_else(is.na(final_dispatch_code), initial_dispatch_code,
+                                       final_dispatch_code),
+         final_dispatch_description = if_else(is.na(final_dispatch_description),
+                                              initial_dispatch_description,
+                                              final_dispatch_description))
 
-
+## getting rid of any SST alert dispatches
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(dispatch_to_onscene_g1 = if_else(dispatch_to_onscene > 60, 1, 0),
-         dispatch_to_onscene_g2 = if_else(dispatch_to_onscene > 120, 1, 0),
-         entry_to_dispatch_g1 = if_else(entry_to_dispatch > 60, 1, 0),
-         entry_to_dispatch_g2 = if_else(entry_to_dispatch > 120, 1, 0))
+  filter(final_dispatch_code != "SST")
 
-dispatches_filtered <- dispatches_filtered %>% 
-  mutate(sst_dispatch = if_else(final_dispatch_code == "SST", 1, 0))
 
-## need to deleted these sst
-dispatches_filtered <- dispatches_filtered %>% 
-  filter(sst_dispatch !=1)
-
-## deleting the negative entry_to_dispatches - only 126 of these
+## deleting the negative entry_to_dispatches - only 130 of these
 dispatches_filtered <- dispatches_filtered %>% 
   filter(entry_to_dispatch > 0) 
 
-## There are 38892 dispatch to onscenes that are less than or equal to 0.
+## There are 3256 dispatch to onscenes that are less than or equal to 0.
+## As of 6-1-23, I am deleting these. THey represent such a small portion of the data.
 ## I am creating other columns that get rid of this.
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(dispatch_to_onscene_less_than_zero = if_else(dispatch_to_onscene <=0, 1, 0))
 
+
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(dispatch_to_onscene_filtered = if_else(dispatch_to_onscene_less_than_zero ==1,
-                                                NA, dispatch_to_onscene),
-         dispatch_to_onscene_filtered_floor = if_else(dispatch_to_onscene_less_than_zero ==1,
-                                                      NA, dispatch_to_onscene_floor))
+  filter(dispatch_to_onscene_less_than_zero ==0 | is.na(dispatch_to_onscene_less_than_zero))
 
 
 
@@ -104,6 +92,11 @@ dispatches_filtered <- dispatches_filtered %>%
          person_shot = if_else(final_dispatch_description == "PERSON SHOT", 1, 0),
          domestic_battery = if_else(final_dispatch_description == "DOMESTIC BATTERY", 1, 0)) %>% 
   mutate(gun_crime_report = if_else(shots_fired == 1 | person_wgun == 1 | person_shot == 1, 1, 0))
+
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(arrest_made = if_else(!is.na(rd), 1, 0)) 
+
 
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(domestic_disturb_p1 = if_else(final_dispatch_description == "DOMESTIC DISTURBANCE" &
@@ -124,7 +117,7 @@ dispatches_filtered <- dispatches_filtered %>%
                                             priority_code ==2, 1, 0),
          person_down_p2 = if_else(final_dispatch_description == "PERSON DOWN" &
                                     priority_code == 2, 1, 0),
-         battery_jo_p2 = if_else(final_dispatch_description == "BATTERY JO" &
+         auto_accident_pi_p2 = if_else(final_dispatch_description == "AUTO ACCIDENT PI" &
                                    priority_code == 2, 1, 0),
          disturbance_p3 = if_else(final_dispatch_description == "DISTURBANCE" &
                                     priority_code == 3, 1, 0),
@@ -134,7 +127,7 @@ dispatches_filtered <- dispatches_filtered %>%
                                           priority_code ==3, 1, 0),
          parking_violation_2_p3 = if_else(final_dispatch_description == "PARKING VIOL. 2" &
                                             priority_code == 3, 1, 0),
-         sell_narcotics_p3 = if_else(final_dispatch_description == "SELLING NARCOTICS" &
+         auto_accident_pd_p3 = if_else(final_dispatch_description == "AUTO ACCIDENT PD" &
                                        priority_code == 3, 1, 0))
 
 
@@ -151,14 +144,10 @@ aggregated_monthly <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
-            number_dispatches = n(),
-            across(c(dispatch_to_onscene_g1,
-                     dispatch_to_onscene_g2,
-                     entry_to_dispatch_g1,
-                     entry_to_dispatch_g2), ~sum(., na.rm = T), .names = "number_{.col}")) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T)),
+            number_dispatches = n()) %>% ungroup()
+
+
 ## not doing it by priority
 aggregated_monthly_nopriority <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date),
@@ -169,14 +158,8 @@ aggregated_monthly_nopriority <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
-            number_dispatches = n(),
-            across(c(dispatch_to_onscene_g1,
-                     dispatch_to_onscene_g2,
-                     entry_to_dispatch_g1,
-                     entry_to_dispatch_g2), ~sum(., na.rm = T), .names = "number_{.col}")) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T)),
+            number_dispatches = n()) %>% ungroup()
 
 ## pivoting priority to fit dimensions
 aggregated_monthly <- aggregated_monthly %>% 
@@ -185,13 +168,7 @@ aggregated_monthly <- aggregated_monthly %>%
                               entry_to_onscene,
                               dispatch_to_onscene,
                               entry_to_close,
-                              number_dispatches,
-                              dispatch_to_onscene_filtered,
-                              dispatch_to_onscene_filtered_floor,
-                              number_dispatch_to_onscene_g1,
-                              number_dispatch_to_onscene_g2,
-                              number_entry_to_dispatch_g1,
-                              number_entry_to_dispatch_g2))
+                              number_dispatches))
 
 ## joining the-non priority and priority datas
 aggregated_monthly <- aggregated_monthly %>% 
@@ -217,14 +194,9 @@ aggregated <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
+                     entry_to_close), ~mean(.,na.rm = T)),
             number_dispatches = n(),
-            across(c(dispatch_to_onscene_g1,
-                     dispatch_to_onscene_g2,
-                     entry_to_dispatch_g1,
-                     entry_to_dispatch_g2), ~sum(., na.rm = T), .names = "number_{.col}")) %>% ungroup()
+            arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
 
 aggregated_nopriority <- dispatches_filtered %>% 
   filter(priority_code !=0) %>% 
@@ -233,14 +205,9 @@ aggregated_nopriority <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T)),
+                     entry_to_close), ~mean(.,na.rm = T)),
             number_dispatches = n(),
-            across(c(dispatch_to_onscene_g1,
-                     dispatch_to_onscene_g2,
-                     entry_to_dispatch_g1,
-                     entry_to_dispatch_g2), ~sum(., na.rm = T), .names = "number_{.col}")) %>% ungroup()
+            arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
 
 aggregated_top_5 <- dispatches_filtered %>% 
   mutate(crime_type = case_when(
@@ -262,8 +229,8 @@ aggregated_top_5 <- dispatches_filtered %>%
                                        priority_code ==2 ~ "suspicious_auto_p2",
     final_dispatch_description == "PERSON DOWN" &
                                priority_code == 2 ~ "person_down_p2",
-    final_dispatch_description == "BATTERY JO" &
-                              priority_code == 2 ~"battery_jo_p2",
+    final_dispatch_description == "AUTO ACCIDENT PI" &
+                              priority_code == 2 ~"auto_accident_pi_p2",
     final_dispatch_description == "DISTURBANCE" &
                                priority_code == 3 ~"disturbance_p3",
     final_dispatch_description == "PARKING VIOL. 1" &
@@ -272,8 +239,8 @@ aggregated_top_5 <- dispatches_filtered %>%
                                      priority_code ==3 ~ "disturbance_music_p3",
     final_dispatch_description == "PARKING VIOL. 2" &
                                        priority_code == 3 ~ "parking_violation2_p3",
-    final_dispatch_description == "SELLING NARCOTICS" &
-                                  priority_code == 3 ~ "selling_narcotics_p3",
+    final_dispatch_description == "AUTO ACCIDENT PD" &
+                                  priority_code == 3 ~ "auto_accident_pd_p3",
    .default = NA
   )) %>% 
   filter(!is.na(crime_type)) %>% 
@@ -282,9 +249,7 @@ aggregated_top_5 <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T))) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T))) %>% ungroup()
 
 aggregated_nopriority_types <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) %>% 
@@ -299,9 +264,7 @@ aggregated_nopriority_types <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close,
-                     dispatch_to_onscene_filtered,
-                     dispatch_to_onscene_filtered_floor), ~mean(.,na.rm = T))) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T))) %>% ungroup()
 
 
 aggregated <- aggregated %>% 
@@ -311,30 +274,21 @@ aggregated <- aggregated %>%
                               dispatch_to_onscene,
                               entry_to_close,
                               number_dispatches,
-                              dispatch_to_onscene_filtered,
-                              dispatch_to_onscene_filtered_floor,
-                              number_dispatch_to_onscene_g1,
-                              number_dispatch_to_onscene_g2,
-                              number_entry_to_dispatch_g1,
-                              number_entry_to_dispatch_g2))
+                              arrests_made))
 
 aggregated_nopriority_types <- aggregated_nopriority_types %>% 
   pivot_wider(names_from = crime_type,
               values_from = c(entry_to_dispatch,
                               entry_to_onscene,
                               dispatch_to_onscene,
-                              entry_to_close,
-                              dispatch_to_onscene_filtered,
-                              dispatch_to_onscene_filtered_floor))
+                              entry_to_close))
 
 aggregated_top_5 <- aggregated_top_5 %>% 
   pivot_wider(names_from = crime_type,
               values_from = c(entry_to_dispatch,
                               entry_to_onscene,
                               dispatch_to_onscene,
-                              entry_to_close,
-                              dispatch_to_onscene_filtered,
-                              dispatch_to_onscene_filtered_floor))
+                              entry_to_close))
 
 ## joining the no priority and priority
 aggregated <- aggregated %>% 
@@ -349,12 +303,6 @@ aggregated <- aggregated %>%
   mutate(treatment = if_else(is.na(treatment), 0, treatment
   ), .by = district)
 
-
-## WARNING missing 2021-06-17, 2021-06-18 in the raw data. 
-## changing NAs to 0s
-# aggregated <- aggregated %>% 
-#   mutate(across(starts_with("entry"), ~ifelse(is.na(.), 0, .)),
-#          across(starts_with("number"), ~ifelse(is.na(.), 0, .)))
 
 aggregated %>% 
   write_csv("analysis_data/dispatches_all.csv")
