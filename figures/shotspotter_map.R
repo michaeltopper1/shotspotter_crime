@@ -65,7 +65,9 @@ map <- x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows
                                               ymax = 41.83455) +
   theme(legend.position = "bottom")
 
+# map_2 <- x 
 ggsave(map, filename = "figures/map.jpeg")
+# ggsave(map_2, filename = "figures/map_2.jpeg")
 # ## this gets the scales of the ggplot
 # layer_scales(x)$y$range$range
 

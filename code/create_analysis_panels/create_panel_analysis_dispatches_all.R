@@ -11,6 +11,7 @@ dispatches <- read_csv("created_data/dispatches_all.csv") %>%
   janitor::clean_names()
 
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
+rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
 crimes_panel <- read_csv("analysis_data/crimes_panel.csv")
 
 
@@ -45,6 +46,10 @@ dispatches_filtered <- dispatches_filtered %>%
 # dispatches_filtered %>% 
 #   write_csv("created_data/dispatches_filtered_cpd.csv")
 
+# dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
+# 
+# rollout_dates <- read_csv("created_data/rollout_dates.csv")
+# rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
 
 # creating variables ------------------------------------------------------
 
@@ -98,39 +103,6 @@ dispatches_filtered <- dispatches_filtered %>%
   mutate(arrest_made = if_else(!is.na(rd), 1, 0)) 
 
 
-dispatches_filtered <- dispatches_filtered %>% 
-  mutate(domestic_disturb_p1 = if_else(final_dispatch_description == "DOMESTIC DISTURBANCE" &
-                                         priority_code == 1, 1, 0),
-         check_well_p1 = if_else(final_dispatch_description == "CHECK WELL BEING" &
-                                   priority_code ==1 , 1, 0),
-         battery_ip_p1 = if_else(final_dispatch_description == "BATTERY IP" &
-                                   priority_code == 1, 1, 0),
-         suspicious_person_p1 = if_else(final_dispatch_description == "SUSPICIOUS PERSON" &
-                                          priority_code ==1, 1, 0),
-         ems_p1 = if_else(final_dispatch_description == "EMS" &
-                            priority_code == 1, 1, 0),
-         alarm_burglar_p2 = if_else(final_dispatch_description == "ALARM BURGLAR" &
-                                      priority_code ==2, 1, 0),
-         alarm_commercial_p2 = if_else(final_dispatch_description == "ALARM COMMERCIAL" &
-                                         priority_code == 2, 1, 0),
-         suspicious_auto_occ_p2 = if_else(final_dispatch_description == "SUSPICIOUS AUTO WITH OCC" &
-                                            priority_code ==2, 1, 0),
-         person_down_p2 = if_else(final_dispatch_description == "PERSON DOWN" &
-                                    priority_code == 2, 1, 0),
-         auto_accident_pi_p2 = if_else(final_dispatch_description == "AUTO ACCIDENT PI" &
-                                   priority_code == 2, 1, 0),
-         disturbance_p3 = if_else(final_dispatch_description == "DISTURBANCE" &
-                                    priority_code == 3, 1, 0),
-         parking_violation_p3 = if_else(final_dispatch_description == "PARKING VIOL. 1" &
-                                          priority_code == 3, 1, 0),
-         disturbance_noise_p3 = if_else(final_dispatch_description == "DISTURBANCE - MUSIC/NOISE" &
-                                          priority_code ==3, 1, 0),
-         parking_violation_2_p3 = if_else(final_dispatch_description == "PARKING VIOL. 2" &
-                                            priority_code == 3, 1, 0),
-         auto_accident_pd_p3 = if_else(final_dispatch_description == "AUTO ACCIDENT PD" &
-                                       priority_code == 3, 1, 0))
-
-
 
 # aggregating by month ----------------------------------------------------
 
@@ -178,10 +150,16 @@ aggregated_monthly <- aggregated_monthly %>%
 ## going to be defining treatment by first full month of treatment.
 aggregated_monthly <- aggregated_monthly %>% 
   left_join(rollout_dates, join_by(district == district)) %>% 
-  mutate(treatment = if_else(shotspot_activate <= year_month, 1, 0), .by = district) %>% 
+  mutate(treatment = if_else(shotspot_activate <= year_month, 1, 0),
+         treatment_official = if_else(shotspot_activate_official <= year_month, 1, 0),
+         treatment_first_shot = if_else(shotspot_activate_first_shot <= year_month, 1, 0),
+         .by = district) %>% 
   mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
   mutate(treatment = if_else(is.na(treatment), 0, treatment
-  ), .by = district)
+  ),
+  treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
+  treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
+  .by = district)
 
 
 
@@ -298,10 +276,16 @@ aggregated <- aggregated %>%
 
 aggregated <- aggregated %>% 
   left_join(rollout_dates) %>% 
-  mutate(treatment = if_else(shotspot_activate <= date, 1, 0), .by = district) %>% 
+  mutate(treatment = if_else(shotspot_activate <= date, 1, 0),
+         treatment_official = if_else(shotspot_activate_official <= date, 1, 0),
+         treatment_first_shot = if_else(shotspot_activate_first_shot <= date, 1, 0),
+         .by = district) %>% 
   mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
   mutate(treatment = if_else(is.na(treatment), 0, treatment
-  ), .by = district)
+  ),
+  treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
+  treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
+  .by = district)
 
 
 aggregated %>% 

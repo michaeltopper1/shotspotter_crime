@@ -1,9 +1,9 @@
 library(tidyverse)
 library(patchwork)
 
-rollout_dates <- read_csv("created_data/rollout_dates.csv") %>% 
+rollout_dates <- read_csv(here::here("created_data/rollout_dates.csv")) %>% 
   mutate(across(starts_with("shotspot"), ~mdy(.)))
-shotspotter_alerts <- read_csv("created_data/shotspotter_cleaned.csv")
+shotspotter_alerts <- read_csv(here::here("created_data/shotspotter_cleaned.csv"))
 
 
 ## creating panels for each of the districts
@@ -56,7 +56,6 @@ time_graph <- shotspot_panel %>%
   geom_line() +
   scale_x_date(date_breaks =  "2 years",
                date_labels = "%Y") +
-  geom_vline(aes(xintercept = shotspot_activate_official), linetype = "dashed", color = "blue") +
   geom_vline(aes(xintercept = shotspot_activate), linetype = "dashed", color = "dark red") +
   facet_wrap(~district) +
   labs(x = "", y = "Number of ShotSpotter Alerts") +

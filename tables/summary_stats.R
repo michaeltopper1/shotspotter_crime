@@ -16,9 +16,9 @@ summary_stats <- dispatch_panel %>%
   mutate(across(c(entry_to_dispatch_1,
                   dispatch_to_onscene_1,
                   entry_to_dispatch_2,
-                  dispatch_to_onscene_filtered_2,
+                  entry_to_onscene_2,
                   entry_to_dispatch_3,
-                  dispatch_to_onscene_filtered_3 ), ~./60, .names = "{.col}_mins")) %>% 
+                  entry_to_onscene_3 ), ~./60, .names = "{.col}_mins")) %>% 
   datasummary((`Call to Dispatch` = entry_to_dispatch_1) +
                 entry_to_dispatch_1_mins +
               (`Dispatch to On-Scene` = dispatch_to_onscene_1) +
@@ -26,16 +26,17 @@ summary_stats <- dispatch_panel %>%
               (`Number Dispatches` = number_dispatches_1) +
               (`Call to Dispatch` = entry_to_dispatch_2) +
                 entry_to_dispatch_2_mins +
-              (`Dispatch to On-Scene` = dispatch_to_onscene_filtered_2) +
-              dispatch_to_onscene_filtered_2_mins +
+              (`Entry to On-Scene` = entry_to_onscene_2) +
+              entry_to_onscene_2_mins +
               (`Number Dispatches` = number_dispatches_2) +
               (`Call to Dispatch` = entry_to_dispatch_3) +
                 entry_to_dispatch_3_mins +
-              (`Dispatch to On-Scene` = dispatch_to_onscene_filtered_3) +
-                dispatch_to_onscene_filtered_3_mins +
+              (`Entry to On-Scene` = entry_to_onscene_3) +
+                entry_to_onscene_3_mins +
               (`Number Dispatches` = number_dispatches_3) + 
               (`Number SST Alerts` = number_sst_alerts) +
-                (`Officer Hours` = officer_hours) ~ Mean + SD + Median + Min  +Max,
+                (`Officer Hours` = officer_hours) +
+                (`Number Arrests` = arrests_made)~ Mean + SD + Median + Min  +Max,
               data = .,
               output = "data.frame") %>% 
   janitor::clean_names()
@@ -67,7 +68,7 @@ summary_stats <- summary_stats %>%
   pack_rows("Priority 1 Dispatches:", 1, 5) %>% 
   pack_rows("Priority 2 Dispatches:", 6, 10) %>% 
   pack_rows("Priority 3 Dispatches:", 11, 15) %>% 
-  pack_rows("General:", 16, 17) %>% 
+  pack_rows("General:", 16, 18) %>% 
   footnote(footnote, threeparttable = T)
 
 
