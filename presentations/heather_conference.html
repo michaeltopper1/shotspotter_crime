@@ -85,6 +85,9 @@ $( document ).ready(function() {
 
 ### &lt;font color="blue"&gt;**Research Question**&lt;/font&gt;: 
 ### How does investment in ShotSpotter affect the time allocation of scarce police resources?
+
+- Priority 1: 911 Call-to-dispatch 
+- Priority 1: 911 Call-to-on-scene
   
 ---
 # Why do we care about response times?
@@ -97,10 +100,10 @@ $( document ).ready(function() {
 
 ### Support for Reponse Times:
 .font110[
-- Rapid response  most important (Collge of Policing 2013)
 - Lower response times results in:
     - Less likelihood of an injury (DeAngelo et. al. 2023)
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
+- Rapid response  most important (College of Policing 2013)
 - Enhance community trust
 ]
 ---
@@ -125,8 +128,8 @@ $( document ).ready(function() {
 .pull-right[
 ## Empirical Strategy:
   - Staggered difference-in-difference
-    - Daily level
-  - Variation: ShotSpotter rollouts
+    - Aggregate to daily level
+  - Variation: ShotSpotter rollouts across police districts
 
 ## Main Results:
   - Longer dispatch/arrival times:
@@ -190,10 +193,12 @@ $( document ).ready(function() {
  
 ### High Priority
   - Priority 1 (immediate dispatch)
-      - Treated similarly to an active shooter
+      - Active shooter, domestic disturbance
       - ~5% of all Priority 1 dispatches
   - Priority 2 (rapid dispatch) 
+      - Suspicious person, car accident
   - Priority 3 (routine dispatch)
+      - Noise disturbance, parking violation
 ]
 
 --
@@ -207,28 +212,29 @@ $( document ).ready(function() {
 &lt;img src="heather_conference_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
-# Distribution of Outcome Variables:
-
-
-
-&lt;img src="heather_conference_files/figure-html/distribution-1.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
----
 # Estimation Strategy:
 ### Specification (OLS):
 
-`$$Y_{d,t} = \beta ShotSpotter_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$`
+`$$Y_{d,t} = \beta ShotSpotter_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$` 
 --
 
 * `\(Y_{d,t}\)` is an outcome of average &lt;b&gt;daily&lt;/b&gt; time (in seconds) in police district `\(d\)` in time `\(t\)` 
   - 911 Call-to-Dispatch  
   - 911 Call-to-On-Scene 
-* `\(ShotSpotter_{d,t}\)` is an indicator variable when ShotSpotter technology is activated in police district `\(d\)` in time `\(t\)`
+* `\(ShotSpotter_{d,t}\)` is the binary treatment 
 * `\(\gamma_d\)` is a police district-specific fixed effect
 * `\(\delta_t\)` is a day-by-month-by-year fixed effect
 * `\(\mathbb{X}_{d,t}\)` is a vector of controls:
-    - Officer Hours
-    - Number of 911 Calls (by priority)
+    - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
+
+---
+# Distribution of Outcome Variables:
+
+
+
+&lt;img src="heather_conference_files/figure-html/distribution-1.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
 ---
 class: regression
 
