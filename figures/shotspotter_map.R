@@ -65,7 +65,26 @@ map <- x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows
                                               ymax = 41.83455) +
   theme(legend.position = "bottom")
 
-# map_2 <- x 
+
+# map_2 <- district_graph %>% 
+#   mutate(number_alerts = ifelse(is.na(number_alerts), 0, number_alerts)) %>% 
+#   ggplot() +
+#   geom_sf(aes(fill = number_alerts), color = "grey") +
+#   geom_sf(data = chicago_lines, fill = NA, color = "black", linewidth = .5) +
+#   geom_sf_label(data = chicago_lines %>% 
+#                   filter(dist_label != "31ST"), aes(label = dist_label),
+#                 nudge_x = 0.005,
+#                 size = 5,
+#                 alpha = 0.3) +
+#   scale_fill_gradient(low = "white", high = "dark red") +
+#   labs(fill = "ShotSpotter Alerts:\nChicago (2016-2022)") +
+#   ggthemes::theme_map()  +
+#   theme(legend.key.size = unit(3, 'cm'), #change legend key size
+#         legend.key.height = unit(1.5, 'cm'), #change legend key height
+#         legend.key.width = unit(1, 'cm'), #change legend key width
+#         legend.title = element_text(size=16), #change legend title font size
+#         legend.text = element_text(size=16)) #change legend text font size
+# # map_2 <- x 
 ggsave(map, filename = "figures/map.jpeg")
 # ggsave(map_2, filename = "figures/map_2.jpeg")
 # ## this gets the scales of the ggplot

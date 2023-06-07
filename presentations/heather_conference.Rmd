@@ -44,7 +44,7 @@ $( document ).ready(function() {
 ```{css, echo = F}
 /* This changes any table of class regression to 20 size font */
 .regression table {
-  font-size: 18px;     
+  font-size: 20px;     
 }
 /* This removes the odd-even shade on tables */
 .remark-slide thead, .remark-slide tr:nth-child(2n) {
@@ -65,28 +65,29 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 
 .pull-left[
 ## State of Crime in the US:
-  - Gun violence has increased relative to pre-Covid
-  - Calls to defund the police
-  - More mistrust of the police
-  - Higher police officer churn]
+  - Gun violence
+    - 2021: Most gun fatalies ever (Pew Research Center)
+    - 2022: 647 mass shootings (Gun Violence Archive)
+  - More mistrust of the police]
 
 --
 
 .pull-right[
-## Attempted Solution:
+## Solution?
   - ShotSpotter Technology
     - Gunshot dectection
+    - "Colorblind"
   - Widespread (150+ cities)
-  - Costly (~9 million a year)
+    - Our setting: Chicago
+  - Costly: $9 million a year
 ]
 
 --
 
 ### <font color="blue">**Research Question**</font>: 
-### How does investment in ShotSpotter affect the time allocation of scarce police resources?
+### How does investment in ShotSpotter affect the time allocation of scarce police resources ?
 
-- Priority 1: 911 Call-to-dispatch 
-- Priority 1: 911 Call-to-on-scene
+- Priority 1: 911 Call-to-dispatch / Call-to-on-scene
   
 ---
 # Why do we care about response times?
@@ -104,6 +105,29 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
 - Rapid response  most important (College of Policing 2013)
 - Enhance community trust
+]
+---
+# Why would ShotSpotter affect response times?
+
+
+.pull-left[
+
+### Police Forces:
+  - A fixed amount of daily resources
+  
+### ShotSpotter Resource-Intensive:
+  - Respond to every alert (Priority 1)
+  - ~60 dispatches a day
+  - ~20 minutes inspecting the scene
+
+### Time Wasted?
+ - Does this time investment come at the expense of other important 911 calls?
+]
+
+.pull-right[
+```{r}
+knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
+```
 ]
 ---
 # Summary of Paper:
@@ -127,15 +151,15 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 .pull-right[
 ## Empirical Strategy:
   - Staggered difference-in-difference
-    - Aggregate to daily level
-  - Variation: ShotSpotter rollouts across police districts
+    - Variation: ShotSpotter rollouts across police districts
+    - Remove ShotSpotter dispatches
+  
 
 ## Main Results:
-  - Longer dispatch/arrival times:
+  - For other reported crimes:
     - +2.5 minutes in call-to-dispatch
     - +3 minutes in call-to-on-scene
-  - Lower arrest rates
-    - 5% decrease in arrests made
+  - Lower arrest rates + lower gun victimization
 ]
 ---
 # Contribution:
@@ -150,9 +174,7 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 - Economics:
   - Use ShotSpotter as data for alternative crime/mistrust measure (Carr and Doleac 2018, Ang et. al 2021)
 - Non-Econonomics: 
-  - No violent crime effect, mixed response time results (Mares and Blackburn 2021)
-  - Lower hospital travel time (Goldenberg et al. 2019)
-  - Lowered response times (Mazerolle et al. 1998)
+  - Mixed response time results (Mazerolle et al. 1998, Mares and Blackburn 2021)
 ]
 .panel[.panel-name[Police Technology]
 <font color="blue"> We find detrimental consequences of an expensive, resource-intensive, technology. </font>
@@ -170,7 +192,7 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 ]
 
 .panel[.panel-name[Gun Control]
-<font color="blue"> We find evidence of lower gun victomization, linked directly to a police operating procedure. </font>
+<font color="blue"> We find evidence of lower gun victimization, linked directly to a police operating procedure. </font>
 - Alternative Studies:
   - Gun-access policies (Colmer and Doleac 2022)
   - Direct, personal intervention (Bhatt et al. 2023)
@@ -202,7 +224,6 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
       - Noise disturbance, parking violation
 ]
 
---
 .pull-right[
 ```{r, out.width = "650px", out.height = "520px"}
 knitr::include_graphics("libs/figures/map_2.jpeg")
@@ -225,26 +246,15 @@ shotspotter_trend
 $$Y_{d,t} = \beta ShotSpotter_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$ 
 --
 
+* **Remove all ShotSpotter dispatches**
 * $Y_{d,t}$ is an outcome of average <b>daily</b> time (in seconds) in police district $d$ in time $t$ 
-  - 911 Call-to-Dispatch  
-  - 911 Call-to-On-Scene 
+  - 911 Call-to-Dispatch/911 Call-to-On-Scene
 * $ShotSpotter_{d,t}$ is the binary treatment 
 * $\gamma_d$ is a police district-specific fixed effect
 * $\delta_t$ is a day-by-month-by-year fixed effect
 * $\mathbb{X}_{d,t}$ is a vector of controls:
     - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
-
----
-# Distribution of Outcome Variables:
-
-```{r, eval = T}
-source("libs/figures/distribution_outcomes.R")
-```
-
-```{r distribution, out.width = "850px", out.height = "550px", fig.align="center", eval = T}
-distribution_outcomes
-```
 
 ---
 class: regression
@@ -254,25 +264,31 @@ class: regression
 ```{r}
 source("libs/tables/regressions_dispatches_1.R")
 source("libs/tables/regressions_arrest_rate.R")
+source("libs/tables/regressions_victimization.R")
 ```
 
 .panelset[
-.panel[.panel-name[Effect on Call-to-Dispatch]
+.panel[.panel-name[Call-to-Dispatch]
 ```{r}
 dispatch_table_1
 ```
 ]
 
 
-.panel[.panel-name[Effect on Call-to-On-Scene]
+.panel[.panel-name[Call-to-On-Scene]
 ```{r}
 dispatch_table_2
 ```
 ]
 
-.panel[.panel-name[Effect on Arrest Rate]
+.panel[.panel-name[Arrest Rate]
 ```{r}
 arrest_rate_table
+```
+]
+.panel[.panel-name[Gun Victimization]
+```{r}
+victimization
 ```
 ]
 ]
@@ -301,17 +317,11 @@ eos_1_es
 
 ```{r}
 source("libs/figures/forestplot_by_priority.R")
-source("libs/figures/forestplot_by_priority_onscene.R")
+# source("libs/figures/forestplot_by_priority_onscene.R")
 ```
 
 ```{r, eval = T}
 forestplot_priority_call_dispatch
-```
-
----
-# Call to On-Scene Times (seconds): Top 5
-```{r}
-forestplot_priority_call_onscene
 ```
 
 ---
@@ -321,11 +331,15 @@ forestplot_priority_call_onscene
 .pull-left[
 ## Robustness:
 - TWFE Robust Estimators
-- Alternative Variation: Alerts
-  - 1 additional alert = +18 seconds to dispatch
 - Sample Selection:
   - Remove 2020 (Covid)
   - Remove never-treated
+- Leave-one-out
+  
+## Intensive Margin:
+- Alternative Variation: Alerts
+  - (RHS): Gunshot alert $\rightarrow$ random event
+  - 1 additional alert = +18 seconds to dispatch
   ]
   
 --
@@ -344,10 +358,11 @@ forestplot_priority_call_onscene
 
 - First causal policy analysis of ShotSpotter:
     - Unintended Consequences:
-      - Higher Dispatch/On-Scene Times for Priority 1 (2.5/3.0 minutes)
-      - Lower Arrest Rates for Priority 1 (5% decrease)
+      - Higher priority 1 response times (omitting ShotSpotter dispatches)
+          - Call-to-Dispatch (+2.5 minutes/ 45% increase)
+      - Lower arrest rates for priority 1 (5% decrease)
     - Intended Consequence 
-      - Lower Gun Victimization
+      - Lower gun victimization (suggestive evidence)
 - For further research: 
     - Cost-benefit analysis
     - Other suggestions?
