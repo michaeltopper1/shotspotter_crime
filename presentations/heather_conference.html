@@ -65,16 +65,15 @@ $( document ).ready(function() {
 # Motivation:
 
 .pull-left[
-## State of Crime in the US:
-  - Gun violence
-    - 2021: Most gun fatalies ever (Pew Research Center)
-    - 2022: 647 mass shootings (Gun Violence Archive)
-  - More mistrust of the police]
+### Gun Violence in the US:
+  - 2021: Most gun fatalies ever (Pew Research Center)
+  - 2022: 647 mass shootings (Gun Violence Archive)
+  - All-time high mistrust of police (Washington Post)]
 
 --
 
 .pull-right[
-## Solution?
+### Solution?
   - ShotSpotter Technology
     - Gunshot dectection
     - "Colorblind"
@@ -118,7 +117,7 @@ $( document ).ready(function() {
   
 ### ShotSpotter Resource-Intensive:
   - Respond to every alert (Priority 1)
-  - ~60 dispatches a day
+  - ~60 ShotSpotter dispatches a day
   - ~20 minutes inspecting the scene
 
 ### Time Wasted?
@@ -234,18 +233,19 @@ $( document ).ready(function() {
 # Estimation Strategy:
 ### Specification (OLS):
 
-`$$Y_{d,t} = \beta ShotSpotter_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$` 
+`$$Y_{d,t} = \beta ShotSpotterEnacted_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$` 
 --
 
 * **Remove all ShotSpotter dispatches**
 * `\(Y_{d,t}\)` is an outcome of average &lt;b&gt;daily&lt;/b&gt; time (in seconds) in police district `\(d\)` in time `\(t\)` 
   - 911 Call-to-Dispatch/911 Call-to-On-Scene
-* `\(ShotSpotter_{d,t}\)` is the binary treatment 
+* `\(ShotSpotterEnacted_{d,t}\)` is the binary treatment
 * `\(\gamma_d\)` is a police district-specific fixed effect
 * `\(\delta_t\)` is a day-by-month-by-year fixed effect
 * `\(\mathbb{X}_{d,t}\)` is a vector of controls:
     - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
+* `\(\beta\)` - average change in average daily response time
 
 ---
 class: regression
@@ -582,20 +582,20 @@ class: regression
   - Remove 2020 (Covid)
   - Remove never-treated
 - Leave-one-out
-  
-## Intensive Margin:
-- Alternative Variation: Alerts
-  - (RHS): Gunshot alert `\(\rightarrow\)` random event
-  - 1 additional alert = +18 seconds to dispatch
-  ]
-  
---
-.pull-right[
+
+
 ## Heterogeneity:
 - Break-downs by:
   - Officer Hours
   - Weekdays/Weekends
-  - Night/day (in progress)
+  ]
+  
+--
+.pull-right[
+## Intensive Margin:
+- Alternative Variation: Alerts
+  - (RHS): Gunshot alert `\(\rightarrow\)` random event
+  - 1 additional alert = +18 seconds to dispatch
   ]
   
 ---
@@ -607,6 +607,7 @@ class: regression
     - Unintended Consequences:
       - Higher priority 1 response times (omitting ShotSpotter dispatches)
           - Call-to-Dispatch (+2.5 minutes/ 45% increase)
+          - Call-to-On-Scene (+3 minutes/ 22% increase)
       - Lower arrest rates for priority 1 (5% decrease)
     - Intended Consequence 
       - Lower gun victimization (suggestive evidence)

@@ -45,11 +45,13 @@ dispatches_filtered <- dispatches_filtered %>%
 
 # dispatches_filtered %>% 
 #   write_csv("created_data/dispatches_filtered_cpd.csv")
-
-# dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
 # 
-# rollout_dates <- read_csv("created_data/rollout_dates.csv")
-# rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
+dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
+
+rollout_dates <- read_csv("created_data/rollout_dates.csv")
+rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
+sst <- read_csv("created_data/sst_dispatch_cpd.csv")
+
 
 # creating variables ------------------------------------------------------
 
@@ -87,6 +89,30 @@ dispatches_filtered <- dispatches_filtered %>%
   filter(dispatch_to_onscene_less_than_zero ==0 | is.na(dispatch_to_onscene_less_than_zero))
 
 
+# outliers ----------------------------------------------------------------
+
+outliers <- dispatches_filtered %>% 
+  summarize(across(c(entry_to_dispatch, entry_to_onscene),
+                   list(mean = ~mean(., na.rm = T), sd = ~sd(., na.rm = T)))) %>% 
+  mutate(entry_to_dispatch_outlier = entry_to_dispatch_mean + 2 * entry_to_dispatch_sd,
+         entry_to_onscene_outlier = entry_to_onscene_mean + 2*entry_to_onscene_sd) %>% 
+  select(ends_with("outlier"))
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(entry_to_dispatch_outlier = if_else(entry_to_dispatch > outliers$entry_to_dispatch_outlier, 1, 0),
+         entry_to_onscene_outlier = if_else(entry_to_onscene > outliers$entry_to_onscene_outlier, 1, 0))
+
+
+## this will filter out any of the outliers
+## you can remove this if you do not want the outliers
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(entry_to_onscene_outlier = if_else(is.na(entry_to_onscene_outlier),
+                                            0, entry_to_onscene_outlier)) 
+
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(entry_to_onscene_outlier != 1) %>% 
+  filter(entry_to_dispatch_outlier != 1)
+
 
 # creating indicators for certain crimes we care about --------------------
 
@@ -117,7 +143,8 @@ aggregated_monthly <- dispatches_filtered %>%
                      entry_to_onscene,
                      dispatch_to_onscene,
                      entry_to_close), ~mean(.,na.rm = T)),
-            number_dispatches = n()) %>% ungroup()
+            number_dispatches = n(),
+            number_shotsfired = sum(shots_fired, na.rm = T)) %>% ungroup()
 
 
 ## not doing it by priority
@@ -140,7 +167,8 @@ aggregated_monthly <- aggregated_monthly %>%
                               entry_to_onscene,
                               dispatch_to_onscene,
                               entry_to_close,
-                              number_dispatches))
+                              number_dispatches,
+                              number_shotsfired))
 
 ## joining the-non priority and priority datas
 aggregated_monthly <- aggregated_monthly %>% 
@@ -165,16 +193,20 @@ aggregated_monthly <- aggregated_monthly %>%
 
 # aggregating at daily level ----------------------------------------------
 
-
 aggregated <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) %>% 
+  filter(entry_to_dispatch !=1 ) %>% 
+  filter(entry_to_onscene_outlier != 1) %>% 
   group_by(date, district, priority_code) %>% 
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
                      entry_to_close), ~mean(.,na.rm = T)),
             number_dispatches = n(),
+            number_shotsfired = sum(shots_fired, na.rm = T),
+            number_guncrime = sum(gun_crime_report, na.rm = T),
             arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
+
 
 aggregated_nopriority <- dispatches_filtered %>% 
   filter(priority_code !=0) %>% 
@@ -252,7 +284,9 @@ aggregated <- aggregated %>%
                               dispatch_to_onscene,
                               entry_to_close,
                               number_dispatches,
-                              arrests_made))
+                              arrests_made,
+                              number_shotsfired,
+                              number_guncrime))
 
 aggregated_nopriority_types <- aggregated_nopriority_types %>% 
   pivot_wider(names_from = crime_type,
