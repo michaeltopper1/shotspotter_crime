@@ -57,7 +57,6 @@ event_study_graph <- function(x){
 entry_1 <- es_data_dispatch %>% 
   feols(entry_to_dispatch_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0 +
           officer_hours |district + date,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
@@ -72,7 +71,7 @@ entry_1 <- es_data_dispatch %>%
 entry_1_2sdid <- did2s(es_data_dispatch,
                        yname = "entry_to_dispatch_1",
                        first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-                         number_dispatches_0 +
+                          
                          officer_hours |district + date,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",

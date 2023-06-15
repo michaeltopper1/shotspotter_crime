@@ -40,7 +40,13 @@ entry_3 <- did2s(data = dispatch_panel,
                  treatment = "treatment",
                  cluster_var = "district")
 
-entry_4 <- dispatch_panel %>% 
+entry_4 <- feols(entry_to_dispatch_1 ~ treatment + officer_hours +
+                   number_dispatches_1 + number_dispatches_2 +
+                   number_dispatches_3 + shotspot_border_treatment| district + date,
+                 cluster = ~district,
+                 data = dispatch_panel)
+
+entry_5 <- dispatch_panel %>% 
   filter(officer_hours > officer_hours_median) %>% 
   feols(entry_to_dispatch_1 ~ treatment + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
@@ -48,7 +54,7 @@ entry_4 <- dispatch_panel %>%
         cluster = ~district)
 
 
-entry_5 <- dispatch_panel %>% 
+entry_6 <- dispatch_panel %>% 
   filter(officer_hours <= officer_hours_median) %>% 
   feols(entry_to_dispatch_1 ~ treatment  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
@@ -80,7 +86,13 @@ entry_os_3 <- did2s(data = dispatch_panel,
                  treatment = "treatment",
                  cluster_var = "district")
 
-entry_os_4 <- dispatch_panel %>% 
+entry_os_4 <- feols(entry_to_onscene_1 ~ treatment + officer_hours +
+                      number_dispatches_1 + number_dispatches_2 +
+                      number_dispatches_3 + shotspot_border_treatment| district + date,
+                    cluster = ~district,
+                    data = dispatch_panel)
+
+entry_os_5 <- dispatch_panel %>% 
   filter(officer_hours > officer_hours_median) %>% 
   feols(entry_to_onscene_1 ~ treatment  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
@@ -88,7 +100,7 @@ entry_os_4 <- dispatch_panel %>%
         cluster = ~district)
 
 
-entry_os_5 <- dispatch_panel %>% 
+entry_os_6 <- dispatch_panel %>% 
   filter(officer_hours <= officer_hours_median) %>% 
   feols(entry_to_onscene_1 ~ treatment  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
@@ -114,42 +126,40 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
 
 
 dispatch_table <- panelsummary_raw(list(entry_1, entry_2,
-                                    entry_3, entry_4, entry_5),
+                                    entry_3, entry_4, entry_5, entry_6),
                                list(entry_os_1, entry_os_2,
-                                    entry_os_3, entry_os_4, entry_os_5),
+                                    entry_os_3, entry_os_4, entry_os_5,
+                                    entry_os_6),
                                stars = "econ",
                                mean_dependent = T,
-                               coef_map = c("treatment" = "ShotSpotter Activated"),
+                               coef_map = c("treatment" = "ShotSpotter Activated",
+                                            "shotspot_border_treatment" = "Border District Activated"),
                                gof_omit = "^R|A|B|S",
-                               caption = "\\label{dispatch_table}Effect of ShotSpotter Rollout on Response Times (OLS)",
                                gof_map = gof_mapping) 
 
-dispatch_table %>% 
+dispatch_table <- dispatch_table %>% 
   janitor::clean_names() %>% 
-  slice(-c(5:6)) %>% 
+  slice(-c(7:8)) %>% 
   mutate(model_3 = if_else(term == "FE: District" |
                                term == "FE: Day-by-Month-by-Year", "X", model_3)) %>% 
   mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
                              model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_1 = "", model_2 = "",
-          model_3 = "", model_4 = "", model_5 = "", .before = 5) %>% 
+          model_3 = "", model_4 = "", model_5 = "", model_6 = "", .before = 7) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_1 = "", model_2 = "",
-          model_3 = "", model_4 = "", model_5 = "", .before = 10) %>% 
+          model_3 = "", model_4 = "", model_5 = "", model_6 = "", .before = 14) %>% 
   add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
-          model_5 = "X") %>% 
+          model_5 = "X", model_6 = "X") %>% 
   add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
+          model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.double() %>% as.integer() %>% scales::comma(), .))) %>% 
-  clean_raw() %>% 
-  pack_rows("Panel A: Call to Dispatch",1,5, italic = T, bold = F, hline_after = F) %>% 
-  pack_rows("Panel B: Call to On-Scene", 6, 10, italic = T, bold = F) %>% 
-  row_spec(10, hline_after = TRUE)
-
-
-  add_header_above(c(" " = 4,
-                     "Priority 2" = 1,
-                     "Priority 3" = 1)) %>% 
+  clean_raw(caption = "\\label{dispatch_table}Effect of ShotSpotter Rollout on Response Times (OLS)") %>% 
+  pack_rows("Panel A: Call to Dispatch",1,7, italic = T, bold = F, hline_after = F) %>% 
+  pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F) %>% 
+  row_spec(14, hline_after = TRUE) %>% 
+  add_header_above(c(" " = 5,
+                     "Officer Hours > Median" = 1, "Officer Hours <= Median" = 1)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_paper()
 

@@ -41,6 +41,22 @@ dispatch_panel <- dispatch_panel %>%
   mutate(across(starts_with("arrests_made"), ~if_else(is.na(.), 0, .)))
 
 dispatch_panel <- dispatch_panel %>% 
+  mutate(across(ends_with("num"), ~if_else(is.na(.), 0, .)),
+         across(ends_with("arrest"), ~if_else(is.na(.), 0, .))) %>% 
+  rowwise() %>% 
+  mutate(domestic_disturb_p1_arrestrate = domestic_disturb_p1_arrest/domestic_disturb_p1_num,
+         domestic_battery_p1_arrestrate = domestic_battery_p1_arrest/domestic_battery_p1_num,
+         battery_ip_p1_arrestrate = battery_ip_p1_arrest/battery_ip_p1_num,
+         ems_p1_arrestrate = ems_p1_arrest/ems_p1_num,
+         robbery_jo_p1_arrestrate = robbery_jo_p1_arrest/robbery_jo_p1_num,
+         assault_ip_p1_arrestrate = assault_ip_p1_arrest/assault_ip_p1_num,
+         shots_fired_p1_arrestrate = shots_fired_p1_arrest/shots_fired_p1_num,
+         check_well_p1_arrestrate = check_well_p1_arrest/check_well_p1_num,
+         fire_p1_arrestrate = fire_p1_arrest/fire_p1_num,
+         person_gun_arrestrate = person_gun_p1_arrest/person_gun_p1_num) %>% 
+  ungroup()
+
+dispatch_panel <- dispatch_panel %>% 
   left_join(border_districts, join_by(district == border_district)) 
 
 dispatch_panel <- dispatch_panel %>% 
