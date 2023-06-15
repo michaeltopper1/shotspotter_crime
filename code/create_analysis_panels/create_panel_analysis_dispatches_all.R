@@ -50,7 +50,7 @@ dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
 
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
 rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
-sst <- read_csv("created_data/sst_dispatch_cpd.csv")
+
 
 
 # creating variables ------------------------------------------------------
@@ -73,6 +73,9 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   filter(final_dispatch_code != "SST")
 
+## getting rid of priority 0
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(priority_code != 0)
 
 ## deleting the negative entry_to_dispatches - only 130 of these
 dispatches_filtered <- dispatches_filtered %>% 
@@ -94,8 +97,8 @@ dispatches_filtered <- dispatches_filtered %>%
 outliers <- dispatches_filtered %>% 
   summarize(across(c(entry_to_dispatch, entry_to_onscene),
                    list(mean = ~mean(., na.rm = T), sd = ~sd(., na.rm = T)))) %>% 
-  mutate(entry_to_dispatch_outlier = entry_to_dispatch_mean + 2 * entry_to_dispatch_sd,
-         entry_to_onscene_outlier = entry_to_onscene_mean + 2*entry_to_onscene_sd) %>% 
+  mutate(entry_to_dispatch_outlier = entry_to_dispatch_mean + 3 * entry_to_dispatch_sd,
+         entry_to_onscene_outlier = entry_to_onscene_mean + 3 *entry_to_onscene_sd) %>% 
   select(ends_with("outlier"))
 
 dispatches_filtered <- dispatches_filtered %>% 

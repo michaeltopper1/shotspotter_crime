@@ -11,32 +11,23 @@ library(kableExtra)
 
 dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
 
-
 summary_stats <- dispatch_panel %>% 
   mutate(across(c(entry_to_dispatch_1,
-                  dispatch_to_onscene_1,
-                  entry_to_dispatch_2,
-                  entry_to_onscene_2,
-                  entry_to_dispatch_3,
-                  entry_to_onscene_3 ), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call to Dispatch` = entry_to_dispatch_1) +
+                  entry_to_onscene_1
+                  ), ~./60, .names = "{.col}_mins")) %>% 
+  datasummary((`Call to Dispatch (Priority 1)` = entry_to_dispatch_1) +
                 entry_to_dispatch_1_mins +
-              (`Dispatch to On-Scene` = dispatch_to_onscene_1) +
-              dispatch_to_onscene_1_mins +
-              (`Number Dispatches` = number_dispatches_1) +
-              (`Call to Dispatch` = entry_to_dispatch_2) +
-                entry_to_dispatch_2_mins +
-              (`Entry to On-Scene` = entry_to_onscene_2) +
-              entry_to_onscene_2_mins +
-              (`Number Dispatches` = number_dispatches_2) +
-              (`Call to Dispatch` = entry_to_dispatch_3) +
-                entry_to_dispatch_3_mins +
-              (`Entry to On-Scene` = entry_to_onscene_3) +
-                entry_to_onscene_3_mins +
-              (`Number Dispatches` = number_dispatches_3) + 
+              (`Call to On-Scene (Priority 1)` = entry_to_onscene_1) +
+              entry_to_onscene_1_mins +
+              (`Number Dispatches` = number_dispatches)+
+              (`Priority 1` = number_dispatches_1) +
+              (`Priority 2` = number_dispatches_2) +
+              (`Priority 3` = number_dispatches_3) +
+              (`Number Arrests` = arrests_made) +
+              (`Arrest Rate` = arrest_rate) +
               (`Number SST Alerts` = number_sst_alerts) +
-                (`Officer Hours` = officer_hours) +
-                (`Number Arrests` = arrests_made)~ Mean + SD + Median + Min  +Max,
+              (`Officer Hours` = officer_hours) +
+              (`Number Gun Victimizations` = number_gun_victims)~ Mean + SD + Median + Min  +Max,
               data = .,
               output = "data.frame") %>% 
   janitor::clean_names()
@@ -65,12 +56,47 @@ summary_stats <- summary_stats %>%
       booktabs = T,
       caption = "\\label{summary_stats}Summary Statistics of Response Times (seconds)") %>% 
   kable_styling(latex_options = "HOLD_position") %>% 
-  pack_rows("Priority 1 Dispatches:", 1, 5) %>% 
-  pack_rows("Priority 2 Dispatches:", 6, 10) %>% 
-  pack_rows("Priority 3 Dispatches:", 11, 15) %>% 
-  pack_rows("General:", 16, 18) %>% 
+  pack_rows("Main Outcomes:", 1, 4) %>% 
+  pack_rows("Controls/Secondary Outcomes:", 5, 13) %>% 
+  add_indent(c(6,7,8)) %>% 
   footnote(footnote, threeparttable = T)
 
+# balance -----------------------------------------------------------------
 
+
+
+# dispatch_panel %>% 
+#   mutate(across(c(entry_to_dispatch_1,
+#                   entry_to_onscene_1
+#   ), ~./60, .names = "{.col}_mins")) %>% 
+#   select(`Call to Dispatch (Priority 1)` = entry_to_dispatch_1,
+#                 entry_to_dispatch_1_mins,
+#                 `Call to On-Scene (Priority 1)` = entry_to_onscene_1,
+#                 entry_to_onscene_1_mins,
+#                 `Number Dispatches` = number_dispatches,
+#                 `Priority 1` = number_dispatches_1,
+#                 `Priority 2` = number_dispatches_2,
+#                 `Priority 3` = number_dispatches_3,
+#                 `Number SST Alerts` = number_sst_alerts,
+#                 `Officer Hours` = officer_hours,
+#                 `Number Arrests` = arrests_made,
+#                 `Number Gun Victimizations` = number_gun_victims,
+#          never_treated) %>% 
+#   mutate(never_treated = if_else(never_treated == 0, "Treated Districts",
+#                                  "Untreated Districts")) %>% 
+#   datasummary_balance(~never_treated, data = ., output = "data.frame") %>% 
+#   mutate(across(c(-1), ~. %>% as.double() %>% scales::comma(accuracy  = 0.01))) %>%
+#   janitor::clean_names() %>% 
+#   mutate(x = if_else(str_detect(x, "mins$"),
+#                      "", x)) %>% 
+#   kbl(col.names = c(" ", "Mean", "Std. Dev.", "Mean", "Std.Dev", "Diff in Means", "Std. Error"),
+#       booktabs = T,
+#       caption = "\\label{summary_stats}Summary Statistics of Response Times (seconds)") %>% 
+#   kable_styling(latex_options = "HOLD_position") %>% 
+#   pack_rows("Main Outcomes:", 1, 4) %>% 
+#   pack_rows("Controls/Secondary Outcomes:", 5, 12) %>% 
+#   add_indent(c(6,7,8)) %>% 
+#   add_header_above(c(" " = 1, "Treated" = 2, "Never Treated" = 2, " " =2)) %>% 
+#   footnote(footnote, threeparttable = T)
 
          

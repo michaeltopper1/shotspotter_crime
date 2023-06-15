@@ -8,14 +8,6 @@ library(did2s)
 dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
 
 
-dispatch_panel <- dispatch_panel %>% 
-  rowwise() %>% 
-  mutate(arrest_rate_1 = arrests_made_1/number_dispatches_1,
-         arrest_rate_2 = arrests_made_2/number_dispatches_2,
-         arrest_rate_3 = arrests_made_3/number_dispatches_3) %>% 
-  ungroup()
-
-
 a1 <- dispatch_panel %>% 
   feols(arrest_rate_1 ~treatment + officer_hours + number_dispatches_1 +
           number_dispatches_2 + number_dispatches_3 + number_dispatches_0| district + date)

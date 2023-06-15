@@ -11,6 +11,7 @@ sst_alerts <- read_csv("created_data/shotspotter_cleaned.csv")
 dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
 officer_hours <- read_csv("analysis_data/officer_hours.csv")
 border_districts <- read_csv("created_data/border_districts_final.csv")
+victimization <- read_csv("analysis_data/xxvictim_panel.csv")
 
 
 sst_alerts <- sst_alerts %>% 
@@ -48,6 +49,11 @@ dispatch_panel <- dispatch_panel %>%
   ungroup() %>% 
   mutate(shotspot_border_treatment = ifelse(is.na(shotspot_border_treatment), 0, shotspot_border_treatment))
 
+dispatch_panel <- dispatch_panel %>% 
+  left_join(victimization, join_by(district == district, date == date), suffix = c("", ".y")) %>%
+  select(-ends_with(".y"))
+
+
 
 # getting rid of july 4th/december 31/january 1 ---------------------------
 
@@ -56,6 +62,17 @@ dispatch_panel <- dispatch_panel %>%
   filter(!(month ==7 & day == 4)) %>% 
   filter(!(month == 1 & day == 1)) %>% 
   filter(!(month == 12 & day == 31))
+
+
+# creating arrest rates ---------------------------------------------------
+
+dispatch_panel <- dispatch_panel %>% 
+  rowwise() %>% 
+  mutate(arrest_rate = arrests_made/number_dispatches,
+         arrest_rate_1 = arrests_made_1/number_dispatches_1,
+         arrest_rate_2 = arrests_made_2/number_dispatches_2,
+         arrest_rate_3 = arrests_made_3/number_dispatches_3) %>% 
+  ungroup()
 
 
 dispatch_panel %>% 
