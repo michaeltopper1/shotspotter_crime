@@ -1,0 +1,130 @@
+---
+title: "Figures"
+output: pdf_document
+fontsize: 11pt
+---
+
+<!-- ```{r, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F) -->
+<!-- knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) -->
+<!-- ``` -->
+
+\FloatBarrier
+# Figures
+
+```{r, echo = F, message = F, warning = F}
+figure_files <- list.files(here::here("figures/"),pattern = "^figure")
+
+## read in the figures
+for (file in figure_files){
+  source(here::here(paste0("figures/", file)))
+}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+shotspotter_trend
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{shotspotter_trend}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+distribution_outcomes
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{distribution_outcomes}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+raw_evidence_figure
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{raw_evidence_figure}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## event study entry to dispatch
+entry_1_es
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{entry_1_es}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## event study entry to on scene
+eos_1_es
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{eos_1_es}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## by priority: dispatch
+priorities_dispatch
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{priorities_dispatch}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## by priority: onscene
+priorities_onscene
+```
+```{=latex}
+\caption{Locations of the Universities Included in the Sample \label{priorities_onscene}}
+\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\end{figure}
+```

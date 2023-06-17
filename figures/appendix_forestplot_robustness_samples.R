@@ -11,9 +11,12 @@ library(panelsummary)
 library(kableExtra)
 library(did2s)
 
-dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
-dispatch_panel_noshots <- read_csv("analysis_data/xxdispatch_panel_noshotsfired.csv")
-dispatch_panel_outliers <- read_csv("analysis_data/xxdispatch_panel_outliers.csv")
+if(!exists("dispatch_panel")) {
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
+
+dispatch_panel_noshots <- read_csv(here::here("analysis_data/xxdispatch_panel_noshotsfired.csv"))
+dispatch_panel_outliers <- read_csv(here::here("analysis_data/xxdispatch_panel_outliers.csv"))
 
 setFixest_fml(..ctrl = ~officer_hours +
                 number_dispatches_1 + number_dispatches_2 + 

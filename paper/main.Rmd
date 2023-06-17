@@ -1,0 +1,77 @@
+---
+title: "The Effect of ShotSpotter Technology on Police Response Times"
+subtitle: ""
+author: Michael Topper and Toshio Ferrazares^[Department of Economics, University of California Santa Barbara, 2017 North Hall, Santa Barbara, CA (michaeltopper@ucsb.edu).]
+date: "Last Updated: `r Sys.Date()`"
+output: 
+  pdf_document:
+    number_sections: true
+    extra_dependencies: ["flafter"]
+indent: true
+header-includes:
+- \usepackage{amsfonts}
+- \usepackage{amsthm}
+- \usepackage{amsmath}
+- \usepackage{bbm} ##for indicator
+- \usepackage[english]{babel}
+- \usepackage{bm}
+- \usepackage{float}
+- \usepackage{indentfirst}
+- \usepackage[fontsize=12pt]{scrextend}
+- \usepackage{graphicx}
+- \usepackage[utf8]{inputenc}
+- \usepackage{pdfpages}
+- \usepackage[round,authoryear]{natbib}
+- \usepackage{setspace}\doublespacing
+- \usepackage{subfig}
+- \usepackage{placeins}
+- \usepackage{rotating}
+- \floatplacement{figure}{H}
+linkcolor: blue
+bibliography: "references.bib"
+link-citations: yes
+nocite: |
+abstract: 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+library(tidyverse)
+library(kableExtra)
+library(bookdown)
+library(modelsummary)
+library(fixest)
+library(grid)
+library(gridExtra)
+library(patchwork)
+options(modelsummary_model_labels="model")
+```
+
+<center>
+
+**JEL Codes:** 
+
+</center>
+
+
+\newpage
+
+
+
+\newpage
+# References
+
+<div id="refs"></div>
+
+\newpage
+```{r, child = "paper/figures.Rmd", fig.pos="H"}
+
+```
+
+
+<!-- \newpage -->
+<!-- ```{r, child = "paper/tables.Rmd", fig.pos = "H"} -->
+
+<!-- ``` -->
+

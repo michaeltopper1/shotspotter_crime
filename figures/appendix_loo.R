@@ -5,8 +5,9 @@ library(kableExtra)
 library(did2s)
 
 
-dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
-
+if(!exists("dispatch_panel")) {
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
 
 districts <- dispatch_panel %>% 
   distinct(district) %>% 

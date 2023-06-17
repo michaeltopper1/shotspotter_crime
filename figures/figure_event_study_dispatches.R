@@ -12,9 +12,9 @@ library(kableExtra)
 library(modelsummary)
 library(did2s)
 
-
-dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
-
+if(!exists("dispatch_panel")) {
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
 ## use the months(1) to change how many months you want in a bin
 ## use the months to treat to give the amount of leads/lags
 es_data_dispatch <- dispatch_panel %>% 
