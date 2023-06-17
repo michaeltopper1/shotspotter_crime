@@ -12,7 +12,7 @@ library(kableExtra)
 library(did2s)
 
 if (!exists("dispatch_panel")){
-  dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
 }
 
 dispatch_panel <- dispatch_panel %>% 
@@ -144,8 +144,8 @@ dispatch_table <- dispatch_table %>%
                                term == "FE: Day-by-Month-by-Year", "X", model_3)) %>% 
   mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
                              model_2, model_3)) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "", model_2 = "",
-          model_3 = "", model_4 = "", model_5 = "", model_6 = "", .before = 7) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.008", model_2 = "0.003",
+          model_3 = "", model_4 = "0.006", model_5 = "0.062", model_6 = "0.001", .before = 7) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_1 = "", model_2 = "",
           model_3 = "", model_4 = "", model_5 = "", model_6 = "", .before = 14) %>% 
   add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
@@ -153,14 +153,16 @@ dispatch_table <- dispatch_table %>%
   add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
-                                           . %>% as.double() %>% as.integer() %>% scales::comma(), .))) %>% 
+                                           . %>% as.integer() %>%  scales::comma(), .))) %>% 
   clean_raw(caption = "\\label{dispatch_table}Effect of ShotSpotter Rollout on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call to Dispatch",1,7, italic = T, bold = F, hline_after = F) %>% 
-  pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F) %>% 
+  pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(14, hline_after = TRUE) %>% 
+  add_header_above(c(" " = 5, "> Median", "<= Median")) %>% 
   add_header_above(c(" " = 5,
-                     "Officer Hours > Median" = 1, "Officer Hours <= Median" = 1)) %>% 
-  footnote(footnotes, threeparttable = T) %>% 
-  kable_paper()
+                     "Officer Hours" = 2)) %>% 
+   footnote(footnotes, threeparttable = T) %>% 
+  kable_styling(latex_options = "HOLD_position", font_size = 11)
+
 
 

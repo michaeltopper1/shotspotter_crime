@@ -10,9 +10,11 @@ library(fixest)
 library(modelsummary)
 library(panelsummary)
 library(kableExtra)
+library(did2s)
 
-dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
-
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
 dispatch_panel <- dispatch_panel %>% 
   mutate(officer_hours_median = median(officer_hours, na.rm = T))
 
@@ -137,17 +139,20 @@ intensive_table <- intensive_table %>%
                              term == "FE: Day-by-Month-by-Year", "X", model_3)) %>% 
   mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
                            model_2, model_3)) %>% 
+  add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
+          model_5 = "X", model_6 = "X") %>% 
   add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.double() %>% as.integer() %>% scales::comma(), .))) %>% 
   clean_raw(caption = "\\label{intensive_table}Effect of Number of ShotSpotter Alerts on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call to Dispatch",1,6, italic = T, bold = F, hline_after = F) %>% 
-  pack_rows("Panel B: Call to On-Scene", 7, 12, italic = T, bold = F) %>% 
+  pack_rows("Panel B: Call to On-Scene", 7, 12, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(12, hline_after = TRUE) %>% 
+  add_header_above(c(" " = 5, "> Median", "<= Median")) %>% 
   add_header_above(c(" " = 5,
-                     "Officer Hours > Median" = 1, "Officer Hours <= Median" = 1)) %>% 
+                     "Officer Hours" = 2)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_paper()
+  kable_styling(latex_options = "HOLD_position", font_size = 11)
 
 

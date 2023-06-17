@@ -9,7 +9,9 @@ library(tidyverse)
 library(modelsummary)
 library(kableExtra)
 
-dispatch_panel <- read_csv("analysis_data/xxdispatch_panel.csv")
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
 
 summary_stats <- dispatch_panel %>% 
   mutate(across(c(entry_to_dispatch_1,
@@ -55,9 +57,9 @@ summary_stats <- summary_stats %>%
   kbl(col.names = c(" ", "Mean", "Std. Dev.", "Median", "Min", "Max"),
       booktabs = T,
       caption = "\\label{summary_stats}Summary Statistics of Response Times (seconds)") %>% 
-  kable_styling(latex_options = "HOLD_position") %>% 
-  pack_rows("Main Outcomes:", 1, 4) %>% 
-  pack_rows("Controls/Secondary Outcomes:", 5, 13) %>% 
+  kable_styling(latex_options = "HOLD_position", font_size = 11) %>% 
+  pack_rows("Main Outcomes:", 1, 4,bold = T) %>% 
+  pack_rows("Controls/Secondary Outcomes:", 5, 13, latex_gap_space = "0.2cm", bold = T) %>% 
   add_indent(c(6,7,8)) %>% 
   footnote(footnote, threeparttable = T)
 

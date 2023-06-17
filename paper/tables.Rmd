@@ -1,0 +1,48 @@
+---
+title: "Tables"
+output: pdf_document
+fontsize: 11pt
+---
+
+<!-- ```{r setup, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F) -->
+<!-- knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) -->
+<!-- library(kableExtra) -->
+<!-- ``` -->
+
+\FloatBarrier
+# Tables
+
+```{r, echo = F, message = F, warning = F}
+
+table_files <- list.files(here::here("tables/"),pattern = "^table")
+
+## read in the figures
+for (file in table_files){
+  source(here::here(paste0("tables/", file)))
+}
+```
+
+
+```{r}
+summary_stats
+```
+
+
+```{r}
+dispatch_table %>% 
+  landscape() 
+```
+
+
+```{r}
+intensive_table %>% 
+  landscape() 
+```
+
+
+```{r}
+arrest_rates %>% 
+  landscape()
+```
+

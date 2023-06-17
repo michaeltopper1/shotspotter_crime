@@ -1,5 +1,20 @@
+## Purpose of script:
+##
+## Author: Michael Topper
+##
+## Date Last Edited: 2023-06-16
+##
 
+library(tidyverse)
+library(fixest)
 library(modelsummary)
+library(panelsummary)
+library(kableExtra)
+library(did2s)
+
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+}
 
 outcomes <- c("Overall Change",
               "Domestic Battery",
@@ -38,7 +53,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   in all models include controls for officer hours and number of dispatches.
                   "), ~str_remove_all(., "\n"))
 
-arrest_rates %>% 
+arrest_rates <- arrest_rates %>% 
   panelsummary_raw(stars = "econ",
                coef_map = c( "treatment" = "ShotSpotter Activated",
                              "shotspot_border_treatment" = "Border Activated"),
@@ -46,7 +61,7 @@ arrest_rates %>%
                gof_map = gof_mapping) %>% 
   add_row(arrest_means, .before = 3) %>% 
   mutate(across(-c(term), ~if_else(term == "Observations",
-                                   . %>% as.double() %>% as.integer() %>% scales::comma(), .))) %>% 
+                                   . %>% as.integer() %>% scales::comma(), .))) %>% 
   clean_raw(caption = "\\label{arrest_rates}Effect of ShotSpotter Enactment on Arrest Rates (OLS)") %>% 
   add_header_above(c(" " = 1,
                      "Arrest Rate" = 1,
@@ -58,6 +73,6 @@ arrest_rates %>%
   add_header_above(c(" "= 2,
                      "Arrest Rate by Most Frequent Arrest Calls" = 5)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_paper()
+  kable_styling(latex_options = "HOLD_position", font_size = 11)
 
 

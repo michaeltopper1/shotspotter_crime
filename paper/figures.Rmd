@@ -31,8 +31,8 @@ for (file in figure_files){
 shotspotter_trend
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{shotspotter_trend}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{ShotSpotter Alert Trends and Enactment Dates \label{shotspotter_trend}}
+\textit{Note:} This figure depicts only districts that have ShotSpotter technology. The x-axis is months, while the y-axis is the number of ShotSpotter alerts aggregated to the monthly level. The table on the right shows the average number of shots per-day in a ShotSpotter district. In Chicago, 12 of 22 police districts have ShotSpotter technology.  The dashed red line shows the treatment date used in the main results, while the blue line shows the treatment date given from public records.
 \end{figure}
 ```
 
@@ -46,8 +46,8 @@ shotspotter_trend
 distribution_outcomes
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{distribution_outcomes}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Distribution of Outcome Variables \label{distribution_outcomes}}
+\textit{Note:} The two outcome variables are call-to-dispatch and call-to-onscene. Call-to-dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from 911 call to the time a police officer arrives at the scene of the reported crime. The sample drops outliers greater than three standard deviations from the mean for each outcome, however, the main results are consistent when including these outliers (see Appendix Figure BLANK).
 \end{figure}
 ```
 
@@ -61,8 +61,8 @@ distribution_outcomes
 raw_evidence_figure
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{raw_evidence_figure}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Averages for Outcomes with ShotSpotter Activated/Inactive \label{raw_evidence_figure}}
+\textit{Note:} Each police district is on the x-axis and the average of each outcome (seconds) is on the y-axis. Any ShotSpotter-enabled police district has two bars, one for the average outcome when ShotSpotter is enacted, and another for when ShotSpotter is inactive. There are 12 of 22 police districts in Chicago that receive ShotSpotter technology. 
 \end{figure}
 ```
 
@@ -77,8 +77,8 @@ raw_evidence_figure
 entry_1_es
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{entry_1_es}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}
+\textit{Note:} The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2021) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
 \end{figure}
 ```
 
@@ -92,8 +92,8 @@ entry_1_es
 eos_1_es
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{eos_1_es}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Event Study (Call-to-On-Scene) \label{eos_1_es}}
+\textit{Note:} The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2021) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
 \end{figure}
 ```
 
@@ -108,8 +108,8 @@ eos_1_es
 priorities_dispatch
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{priorities_dispatch}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Effect of ShotSpotter on Call-to-Dispatch by Priority/Call Description \label{priorities_dispatch}}
+\textit{Note:} The first row denotes the aggregate effect from the preferred specification on call-to-dispatch times in seconds, by priority. Rows 2-6 denote the top five most frequent 911 call descriptions within each priority. Each errorbar represents the 95% confidence interval. All estimates are obtained from the preferred specification. Standard errors are clustered by police district.
 \end{figure}
 ```
 
@@ -124,7 +124,7 @@ priorities_dispatch
 priorities_onscene
 ```
 ```{=latex}
-\caption{Locations of the Universities Included in the Sample \label{priorities_onscene}}
-\textit{Note:} There are a total of 37 universities in the sample, five of which are private universities. Data on both geographic location and private/public entity are obtained from the Integrated Postsecondary Education Data System (IPEDS).
+\caption{Effect of ShotSpotter on Call-to-On-Scene by Priority/Call Description\label{priorities_onscene}}
+\textit{Note:} The first row denotes the aggregate effect from the preferred specification on call-to-dispatch times in seconds, by priority. Rows 2-6 denote the top five most frequent 911 call descriptions within each priority. Each errorbar represents the 95% confidence interval. All estimates are obtained from the preferred specification. Standard errors are clustered by police district.
 \end{figure}
 ```
