@@ -21,7 +21,7 @@ es_data_dispatch <- dispatch_panel %>%
   mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
                                      "month") %>% 
            magrittr::add(1) %>% 
-           trunc() %>%
+           floor() %>%
            magrittr::subtract(1),
          .by = district) %>% 
   mutate(time_to_treat = case_when(
