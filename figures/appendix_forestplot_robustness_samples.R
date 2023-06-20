@@ -25,7 +25,7 @@ setFixest_fml(..ctrl = ~officer_hours +
 tidy_reg <- function(reg, outcome, sample, estimator){
   tidy <- reg %>% 
     broom::tidy(conf.int = T) %>% 
-    filter(term == "treatment") %>% 
+    filter(term == "treatment" | term == "treatment_official") %>% 
     mutate(outcome = outcome,
            sample = sample,
            estimator = estimator) 
@@ -120,7 +120,21 @@ d1_no_shots_2s <- did2s(dispatch_panel_noshots,
            sample = "Omitting Shots Fired",
            estimator = "Gardner (2021)")
 
+d1_official_treat <- dispatch_panel %>% 
+  feols(entry_to_dispatch_1 ~ treatment_official + ..ctrl, cluster = ~district) %>% 
+  tidy_reg(outcome = "Call-to-Dispatch",
+           sample = "Official Activate Dates",
+           estimator = "OLS")
 
+d1_official_treat_2s <- did2s(dispatch_panel,
+                        yname = "entry_to_dispatch_1",
+                        first_stage = ~ ..ctrl,
+                        second_stage = ~treatment_official,
+                        treatment = "treatment_official",
+                        cluster_var = "district") %>% 
+  tidy_reg(outcome = "Call-to-Dispatch",
+           sample = "Official Activate Dates",
+           estimator = "Gardner (2021)")
 
 # call to on scene --------------------------------------------------------
 
@@ -208,17 +222,33 @@ os_no_shots_2s <- did2s(dispatch_panel_noshots,
            sample = "Omitting Shots Fired",
            estimator = "Gardner (2021)")
 
+os_official_treat <- dispatch_panel %>% 
+  feols(entry_to_onscene_1 ~ treatment_official + ..ctrl, cluster = ~district) %>% 
+  tidy_reg(outcome = "Call-to-On-Scene",
+           sample = "Official Activate Dates",
+           estimator = "OLS")
 
+os_official_treat_2s <- did2s(dispatch_panel,
+                        yname = "entry_to_onscene_1",
+                        first_stage = ~..ctrl,
+                        second_stage = ~treatment_official,
+                        treatment = "treatment_official",
+                        cluster_var = "district") %>% 
+  tidy_reg(outcome = "Call-to-On-Scene",
+           sample = "Official Activate Dates",
+           estimator = "Gardner (2021)")
 
 forest_samples <- d1_main %>% 
   bind_rows(d1_main_2s, d1_2020, d1_2020_2s,
             d1_no_shots, d1_no_shots_2s,
             d1_outliers, d1_outliers_2s,
+            d1_official_treat, d1_official_treat_2s,
             d1_nevertreat, d1_nevertreat_2s,
             os_main, os_main_2s,
             os_2020, os_2020_2s,
             os_no_shots, os_no_shots_2s,
             os_outliers, os_outliers_2s,
+            os_official_treat, os_official_treat_2s,
             os_nevertreat, os_nevertreat_2s) %>% 
   mutate(estimate = round(estimate, 2)) %>%
   mutate(estimate_label = sprintf("%.3f", estimate))
