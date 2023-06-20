@@ -96,21 +96,29 @@ dispatches_filtered <- dispatches_filtered %>%
 
 outliers <- dispatches_filtered %>% 
   summarize(across(c(entry_to_dispatch, entry_to_onscene),
-                   list(mean = ~mean(., na.rm = T), sd = ~sd(., na.rm = T)))) %>% 
+                   list(mean = ~mean(., na.rm = T), sd = ~sd(., na.rm = T))),
+            .by = priority_code) %>% 
   mutate(entry_to_dispatch_outlier = entry_to_dispatch_mean + 3 * entry_to_dispatch_sd,
-         entry_to_onscene_outlier = entry_to_onscene_mean + 3 *entry_to_onscene_sd) %>% 
-  select(ends_with("outlier"))
+         entry_to_onscene_outlier = entry_to_onscene_mean + 3 *entry_to_onscene_sd,
+         .by = priority_code) %>% 
+  select(priority_code,ends_with("outlier"))
 
 dispatches_filtered <- dispatches_filtered %>% 
-  mutate(entry_to_dispatch_outlier = if_else(entry_to_dispatch > outliers$entry_to_dispatch_outlier, 1, 0),
-         entry_to_onscene_outlier = if_else(entry_to_onscene > outliers$entry_to_onscene_outlier, 1, 0))
+  left_join(outliers)
+
+dispatches_filtered <- dispatches_filtered %>% 
+  group_by(priority_code) %>% 
+  mutate(entry_to_dispatch_outlier = if_else(entry_to_dispatch > entry_to_dispatch_outlier, 1, 0),
+         entry_to_onscene_outlier = if_else(entry_to_onscene > entry_to_onscene_outlier, 1, 0)) %>% 
+  ungroup()
 
 
 ## this will filter out any of the outliers
 ## you can remove this if you do not want the outliers
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(entry_to_onscene_outlier = if_else(is.na(entry_to_onscene_outlier),
-                                            0, entry_to_onscene_outlier)) 
+                                            0, entry_to_onscene_outlier))
+
 
 dispatches_filtered <- dispatches_filtered %>% 
   filter(entry_to_onscene_outlier != 1) %>% 

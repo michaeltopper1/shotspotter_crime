@@ -1,0 +1,25 @@
+---
+title: "Data"
+output: pdf_document
+date: "2023-06-19"
+---
+
+
+# Data
+
+## Data Sources
+
+The data is constructed by merging the universe of all Chicago Police Department (CPD) 911 officer dispatches, officer shifts,^[We restrict officer shifts to only sworn police officers who are present for their shift.] and ShotSpotter activation dates spanning the seven-year period 2016-2022. Each of these administrative data sets are obtained through Freedom of Information Act requests, although we supplement them with reported incidents of crime, gun victimization, and ShotSpotter alerts from Chicago's Open Data Portal. 
+
+Most important to the analysis is the 911 officer dispatch data which contains information on the time of the 911 call, the time an officer is dispatched to the scene of the crime, and the time the officer arrives on-scene—each recorded at the hour-minute-seconds level. Morever, the data encompasses rich details on the call including the priority, description, location, and whether an arrest is made. 
+
+Using these data, the two main outcome variables are constructed: the time from a 911 call to an officer dispatch (call-to-dispatch) and the the time from a 911 call to the time an officer arrives (call-to-on-scene). Notably, while call-to-dispatch contains no missing data, approximately 52% of the call-to-on-scene due to officers failing to report when they arrive at the scene. However, we address this potential shortcoming in Appendix BLANK where we we find little evidence of significant changes in the frequency of officers failing to report their on-scene time. 
+
+## Sample Restrictions
+
+Before merging the data sources, several restrictions are implemented. First, the sample is restricted to only 911 calls of priorities 1 (immediate dispatch), 2 (rapid dispatch), and 3 (routine dispatch), while priorities 0 and 4 are omitted (~0.04%) as these are reserved for special cases and administrative designations such as a police officer in a life-threatening circumstance or a beat meeting.^[It is likely that the extremely small portion of priority 4 calls observed are misclassified as it is unlikely a 911 call results in a beat meeting.] Second, call-to-dispatch and call-to-on-scene outliers greater than three standard deviations from their respective mean are dropped from analysis due to ordinary least squares sensitivity. This equates to less than .001% of the data
+
+outliers that are three standard deviations higher than the mean of each main outcome are dropped from analysis
+
+
+## Descriptive Statistics
