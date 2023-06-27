@@ -1,9 +1,9 @@
 ---
 title: "The Effect of ShotSpotter Technology on Police Response Times"
-subtitle: "Mini Conference"
+subtitle: "WEAI Conference"
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
-date: "6/9/2023"
+date: "7/5/2023"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
@@ -78,7 +78,7 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
     - "Colorblind"
   - Widespread (150+ cities)
     - Our setting: Chicago
-  - Costly: $9 million a year
+  - Costly: $11 million a year
 ]
 
 --
@@ -128,6 +128,14 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ```
 ]
+
+---
+# What is ShotSpotter and how does it work?
+
+```{r, out.width = "850px", out.height = "550px", fig.align="center"}
+knitr::include_graphics("libs/figures/shotspot_works.png")
+```
+
 ---
 # Summary of Paper:
 
@@ -139,7 +147,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
     - Third largest city
 
 ## Data:
- - All 911 dispatches from Chicago
+ - All 911 call dispatches from Chicago
  - Merge with:
   - Police shifts
   - Crime/arrest data
@@ -151,18 +159,17 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ## Empirical Strategy:
   - Staggered difference-in-difference
     - Variation: ShotSpotter rollouts across police districts
-    - Remove ShotSpotter dispatches
   
 
 ## Main Results:
   - For other reported crimes:
-    - +2.5 minutes in call-to-dispatch
-    - +3 minutes in call-to-on-scene
+    - +1 minute in call-to-dispatch (23%)
+    - +2 minutes in call-to-on-scene (14%)
   - Lower arrest rates + lower gun victimization
 ]
 ---
 # Contribution:
-### First economics study to provide causal analysis on ShotSpotter
+### Rigorous analysis on a wide-spread police technology, whose consequences are relatively unknown.
 
 --
 ### Related Literature:
@@ -178,7 +185,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 .panel[.panel-name[Police Technology]
 <font color="blue"> We find detrimental consequences of an expensive, resource-intensive, technology. </font>
 - Benefits of Police Technology:
-    - Body Worn Cameras $\rightarrow$ lower use of force/complaints (Zamoff et al.2021, Braga et al.2022, Ferrazares 2023)
+    - Body Worn Cameras $\rightarrow$ lower use of force/complaints (Zamoff et al. 2021, Braga et al. 2022, Ferrazares 2023)
     - Predictable Policing $\rightarrow$ less crime (Mastourbi 2020)
     - Tactical Equipment $\rightarrow$ less crime (Bove and Gavrilova 2017, Harris et al. 2017))
 ]
@@ -199,14 +206,6 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ]
 ]
 
-
----
-# What is ShotSpotter and how does it work?
-
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("libs/figures/shotspot_works.png")
-```
-
 ---
 # ShotSpotter in Chicago:
 .pull-left[
@@ -217,10 +216,9 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
   - Priority 1 (immediate dispatch)
       - Active shooter, domestic disturbance
       - ~5% of all Priority 1 dispatches
-  - Priority 2 (rapid dispatch) 
-      - Suspicious person, car accident
-  - Priority 3 (routine dispatch)
-      - Noise disturbance, parking violation
+  - 911/ShotSpotter handled by same units:
+      - Rapid response units
+      - Beat cops
 ]
 
 .pull-right[
@@ -245,7 +243,6 @@ shotspotter_trend
 $$Y_{d,t} = \beta ShotSpotterEnacted_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$ 
 --
 
-* **Remove all ShotSpotter dispatches**
 * $Y_{d,t}$ is an outcome of average <b>daily</b> time (in seconds) in police district $d$ in time $t$ 
   - 911 Call-to-Dispatch/911 Call-to-On-Scene
 * $ShotSpotterEnacted_{d,t}$ is the binary treatment
@@ -254,7 +251,7 @@ $$Y_{d,t} = \beta ShotSpotterEnacted_{d,t}  + \gamma_{d} + \delta_t + \lambda \m
 * $\mathbb{X}_{d,t}$ is a vector of controls:
     - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
-* $\beta$ - average change in average daily response time
+* <font color="blue"> $\beta$ - average change in average daily response time </font>
 
 ---
 class: regression
@@ -262,22 +259,22 @@ class: regression
 # Main Results:
 
 ```{r}
-source("libs/tables/regressions_dispatches_1.R")
+source("libs/tables/table_regressions_main_results.R")
 source("libs/tables/regressions_arrest_rate.R")
-source("libs/tables/regressions_victimization.R")
+source("libs/tables/table_regressions_victims.R")
 ```
 
 .panelset[
 .panel[.panel-name[Call-to-Dispatch]
 ```{r}
-dispatch_table_1
+dispatch_table_dispatch
 ```
 ]
 
 
 .panel[.panel-name[Call-to-On-Scene]
 ```{r}
-dispatch_table_2
+os_table
 ```
 ]
 
@@ -288,7 +285,7 @@ arrest_rate_table
 ]
 .panel[.panel-name[Gun Victimization]
 ```{r}
-victimization
+victim_table
 ```
 ]
 ]
@@ -299,7 +296,7 @@ victimization
 # Dynamic Effects: Call to Dispatch (Priority 1)
 
 ```{r, eval = T}
-source("libs/figures/event_study_dispatches.R")
+source("libs/figures/figure_event_study_dispatches.R")
 ```
 
 ```{r, eval = T}
@@ -330,17 +327,18 @@ forestplot_priority_call_dispatch
 --
 .pull-left[
 ## Robustness:
-- TWFE Robust Estimators
 - Sample Selection:
   - Remove 2020 (Covid)
   - Remove never-treated
+  - Add in outliers
+  - Remove shots fired calls
 - Leave-one-out
 
 
 ## Heterogeneity:
-- Break-downs by:
-  - Officer Hours
-  - Weekdays/Weekends
+- Priority 2 (rapid dispatch)
+- Priority 3 (routine dispatch)
+  - Similar results (trickle-down effect)
   ]
   
 --
@@ -348,7 +346,10 @@ forestplot_priority_call_dispatch
 ## Intensive Margin:
 - Alternative Variation: Alerts
   - (RHS): Gunshot alert $\rightarrow$ random event
-  - 1 additional alert = +18 seconds to dispatch
+  - 1 additional alert = +6/+10 seconds to dispatch/on-scene
+
+## Cost-Benefit Analysis
+- In progress
   ]
   
 ---
@@ -356,16 +357,15 @@ forestplot_priority_call_dispatch
 
 ### Main Takeaways:
 
-- First causal policy analysis of ShotSpotter:
+- An in-depth analysis on consequences of ShotSpotter:
     - Unintended Consequences:
       - Higher priority 1 response times (omitting ShotSpotter dispatches)
-          - Call-to-Dispatch (+2.5 minutes/ 45% increase)
-          - Call-to-On-Scene (+3 minutes/ 22% increase)
+          - Call-to-Dispatch (+1 minute/ 23% increase)
+          - Call-to-On-Scene (+2 minutes/ 14% increase)
       - Lower arrest rates for priority 1 (5% decrease)
     - Intended Consequence 
-      - Lower gun victimization (suggestive evidence)
+      - Lower gun victimization
 - For further research: 
-    - Cost-benefit analysis
     - Other suggestions?
   
 

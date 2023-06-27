@@ -74,8 +74,8 @@ dispatches_filtered <- dispatches_filtered %>%
   filter(final_dispatch_code != "SST")
 
 ## getting rid of priority 0
-dispatches_filtered <- dispatches_filtered %>% 
-  filter(priority_code != 0)
+# dispatches_filtered <- dispatches_filtered %>% 
+#   filter(priority_code != 0)
 
 ## deleting the negative entry_to_dispatches - only 130 of these
 dispatches_filtered <- dispatches_filtered %>% 

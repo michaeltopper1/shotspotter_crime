@@ -20,7 +20,7 @@ dispatch_panel_outliers <- read_csv(here::here("analysis_data/xxdispatch_panel_o
 
 setFixest_fml(..ctrl = ~officer_hours +
                 number_dispatches_1 + number_dispatches_2 + 
-                number_dispatches_3 | district + date)
+                number_dispatches_3 + number_dispatches_0| district + date)
 
 tidy_reg <- function(reg, outcome, sample, estimator){
   tidy <- reg %>% 

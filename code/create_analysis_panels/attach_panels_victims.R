@@ -21,12 +21,6 @@ victim_panel <- victim_panel %>%
   left_join(crimes, join_by(date == date,
                             district == district))
 
-
-victim_panel <- victim_panel %>% 
-  group_by(district, date) %>% 
-  mutate(gun_victim_occur = ifelse(number_gun_victims > 0, 1, 0),
-         gun_injury_occur = ifelse(number_gun_injury_victims > 0, 1, 0)) %>% 
-  ungroup()
   
 
 

@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 # The Effect of ShotSpotter Technology on Police Response Times
 ]
 .subtitle[
-## Mini Conference
+## WEAI Conference
 ]
 .author[
 ### Michael Topper and Toshio Ferrazares
@@ -30,7 +30,7 @@ class: center, middle, inverse, title-slide
 ### University of California, Santa Barbara
 ]
 .date[
-### 6/9/2023
+### 7/5/2023
 ]
 
 ---
@@ -79,7 +79,7 @@ $( document ).ready(function() {
     - "Colorblind"
   - Widespread (150+ cities)
     - Our setting: Chicago
-  - Costly: $9 million a year
+  - Costly: $11 million a year
 ]
 
 --
@@ -127,6 +127,12 @@ $( document ).ready(function() {
 .pull-right[
 &lt;img src="libs/figures/ShotSpotter__graphic.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
+
+---
+# What is ShotSpotter and how does it work?
+
+&lt;img src="libs/figures/shotspot_works.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
 ---
 # Summary of Paper:
 
@@ -138,7 +144,7 @@ $( document ).ready(function() {
     - Third largest city
 
 ## Data:
- - All 911 dispatches from Chicago
+ - All 911 call dispatches from Chicago
  - Merge with:
   - Police shifts
   - Crime/arrest data
@@ -150,18 +156,17 @@ $( document ).ready(function() {
 ## Empirical Strategy:
   - Staggered difference-in-difference
     - Variation: ShotSpotter rollouts across police districts
-    - Remove ShotSpotter dispatches
   
 
 ## Main Results:
   - For other reported crimes:
-    - +2.5 minutes in call-to-dispatch
-    - +3 minutes in call-to-on-scene
+    - +1 minute in call-to-dispatch (23%)
+    - +2 minutes in call-to-on-scene (14%)
   - Lower arrest rates + lower gun victimization
 ]
 ---
 # Contribution:
-### First economics study to provide causal analysis on ShotSpotter
+### Rigorous analysis on a wide-spread police technology, whose consequences are relatively unknown.
 
 --
 ### Related Literature:
@@ -177,7 +182,7 @@ $( document ).ready(function() {
 .panel[.panel-name[Police Technology]
 &lt;font color="blue"&gt; We find detrimental consequences of an expensive, resource-intensive, technology. &lt;/font&gt;
 - Benefits of Police Technology:
-    - Body Worn Cameras `\(\rightarrow\)` lower use of force/complaints (Zamoff et al.2021, Braga et al.2022, Ferrazares 2023)
+    - Body Worn Cameras `\(\rightarrow\)` lower use of force/complaints (Zamoff et al. 2021, Braga et al. 2022, Ferrazares 2023)
     - Predictable Policing `\(\rightarrow\)` less crime (Mastourbi 2020)
     - Tactical Equipment `\(\rightarrow\)` less crime (Bove and Gavrilova 2017, Harris et al. 2017))
 ]
@@ -198,12 +203,6 @@ $( document ).ready(function() {
 ]
 ]
 
-
----
-# What is ShotSpotter and how does it work?
-
-&lt;img src="libs/figures/shotspot_works.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
-
 ---
 # ShotSpotter in Chicago:
 .pull-left[
@@ -214,10 +213,9 @@ $( document ).ready(function() {
   - Priority 1 (immediate dispatch)
       - Active shooter, domestic disturbance
       - ~5% of all Priority 1 dispatches
-  - Priority 2 (rapid dispatch) 
-      - Suspicious person, car accident
-  - Priority 3 (routine dispatch)
-      - Noise disturbance, parking violation
+  - 911/ShotSpotter handled by same units:
+      - Rapid response units
+      - Beat cops
 ]
 
 .pull-right[
@@ -236,7 +234,6 @@ $( document ).ready(function() {
 `$$Y_{d,t} = \beta ShotSpotterEnacted_{d,t}  + \gamma_{d} + \delta_t + \lambda \mathbb{X}_{d,t} + \epsilon_{d,t}$$` 
 --
 
-* **Remove all ShotSpotter dispatches**
 * `\(Y_{d,t}\)` is an outcome of average &lt;b&gt;daily&lt;/b&gt; time (in seconds) in police district `\(d\)` in time `\(t\)` 
   - 911 Call-to-Dispatch/911 Call-to-On-Scene
 * `\(ShotSpotterEnacted_{d,t}\)` is the binary treatment
@@ -245,7 +242,7 @@ $( document ).ready(function() {
 * `\(\mathbb{X}_{d,t}\)` is a vector of controls:
     - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
-* `\(\beta\)` - average change in average daily response time
+* &lt;font color="blue"&gt; `\(\beta\)` - average change in average daily response time &lt;/font&gt;
 
 ---
 class: regression
@@ -259,10 +256,9 @@ class: regression
 &lt;table style="NAborder-bottom: 0; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 1&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 2&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 3&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="4"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Officer Hours &amp;gt; Median&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;&amp;lt;= Median&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
@@ -270,39 +266,45 @@ class: regression
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 145.065*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 150.687*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 152.540** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 149.532 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.208*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 63.147*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.915*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28.803* &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 115.418*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (47.147) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (46.273) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (56.951) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (87.657) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (21.640) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (20.824) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (21.646) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (14.933) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (31.995) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 321.128 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 321.128 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 435.705 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1134.520 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 263.941 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 263.941 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 263.941 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 240.245 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.635 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 55,792 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 55,792 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 55,791 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 55,792 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27,895 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27,897 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; FE: Day-by-Month-by-Year &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
@@ -314,9 +316,19 @@ class: regression
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gardner (2021) Robust Estimator &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control Variables &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gardner (2021) Robust &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
@@ -336,10 +348,9 @@ class: regression
 &lt;table style="NAborder-bottom: 0; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 1&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 2&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Priority 3&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="4"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Officer Hours &amp;gt; Median&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;&amp;lt;= Median&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
@@ -347,39 +358,45 @@ class: regression
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 199.123*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 225.513*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 256.031*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 169.860 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 111.867*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 108.269*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 124.887*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 75.390*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 154.801*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (57.157) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (51.487) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (71.394) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (100.071) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (25.364) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (24.346) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (25.306) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (24.145) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (37.382) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 872.166 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 872.166 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1123.717 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2130.285 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 769.284 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 769.284 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 769.284 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 723.041 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 815.525 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 55,791 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 55,791 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 55,676 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 55,764 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55,791 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27,895 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27,896 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; FE: Day-by-Month-by-Year &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
@@ -391,9 +408,19 @@ class: regression
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gardner (2021) Robust Estimator &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Control Variables &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gardner (2021) Robust &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
@@ -428,8 +455,8 @@ class: regression
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.007*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; -0.008*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.009*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.003 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.007** &lt;/td&gt;
   &lt;/tr&gt;
@@ -442,10 +469,10 @@ class: regression
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.148 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.148 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.143 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.128 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.147 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.147 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.141 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.127 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
@@ -488,43 +515,63 @@ class: regression
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;OLS&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Poisson&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun Related&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun-Related Victimization&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Homicide&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;All&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Homicide&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Robbery&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Battery&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.077** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.089** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.082 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.066** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.012* &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.007** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.047* &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.033) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.036) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.072) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.002) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.031) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.006) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.003) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.026) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.364 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.364 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.365 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.008 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.363 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.073 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.015 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.276 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 56,254 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 56,254 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 56,122 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55792 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55792 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55792 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55792 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55792 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; FE: Day-by-Month-by-Year &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
@@ -534,12 +581,8 @@ class: regression
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Gardner (2021) Robust Estimator &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;tfoot&gt;
@@ -577,17 +620,18 @@ class: regression
 --
 .pull-left[
 ## Robustness:
-- TWFE Robust Estimators
 - Sample Selection:
   - Remove 2020 (Covid)
   - Remove never-treated
+  - Add in outliers
+  - Remove shots fired calls
 - Leave-one-out
 
 
 ## Heterogeneity:
-- Break-downs by:
-  - Officer Hours
-  - Weekdays/Weekends
+- Priority 2 (rapid dispatch)
+- Priority 3 (routine dispatch)
+  - Similar results (trickle-down effect)
   ]
   
 --
@@ -595,7 +639,10 @@ class: regression
 ## Intensive Margin:
 - Alternative Variation: Alerts
   - (RHS): Gunshot alert `\(\rightarrow\)` random event
-  - 1 additional alert = +18 seconds to dispatch
+  - 1 additional alert = +6/+10 seconds to dispatch/on-scene
+
+## Cost-Benefit Analysis
+- In progress
   ]
   
 ---
@@ -603,16 +650,15 @@ class: regression
 
 ### Main Takeaways:
 
-- First causal policy analysis of ShotSpotter:
+- An in-depth analysis on consequences of ShotSpotter:
     - Unintended Consequences:
       - Higher priority 1 response times (omitting ShotSpotter dispatches)
-          - Call-to-Dispatch (+2.5 minutes/ 45% increase)
-          - Call-to-On-Scene (+3 minutes/ 22% increase)
+          - Call-to-Dispatch (+1 minute/ 23% increase)
+          - Call-to-On-Scene (+2 minutes/ 14% increase)
       - Lower arrest rates for priority 1 (5% decrease)
     - Intended Consequence 
-      - Lower gun victimization (suggestive evidence)
+      - Lower gun victimization
 - For further research: 
-    - Cost-benefit analysis
     - Other suggestions?
   
 

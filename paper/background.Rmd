@@ -1,0 +1,25 @@
+---
+title: "Background"
+output: pdf_document
+date: "2023-06-19"
+---
+
+
+# Background
+
+## ShotSpotter Technology and Implmentation in Chicago
+
+ShotSpotter Technology is an acoustic gunfire technology software that uses a network of microphones and sensors placed indiscriminately on buildings and lightposts to detect the location of gunfire. The technology has grown substantially over the past decade, expanding to over 150 cities globally. Advocates bill the technology as a method for police officers to rapidly respond to gunfire, catch the perpetrators, and reduce the amount of guns, although previous work have found little evidence of these claims (CITE CITE CITE). Moreover, the technology allows police to be less reliant on civilian reporting, which may dwindle if there is substantial police mistrust (ANG PAPER). 
+
+Shotspotter relies on an algorithm to determine noises that are suggestive of gunfire and is claimed to be highly accurate in detecting outdoor gunshots.^[According to Shotspotter's website, from 2019 to 2021, the aggregate accuracy rate across all of their customers was 97 with a very small false-positive rate of approximately 0.5%.] When hypothesized gunfire is detected, the sensors triangulate the location of noise and a recording of the sound is forwarded to ShotSpotter's headquarters where a human reviewer assesses for false-positives. If the reviewer flags the sound as a gunshot, information regarding the location and number of shots fired are published to the police department where dispatchers can then send officers to scene. Despite this human reviewer process, the pipeline from detection to police officer  is reported to take under 60 seconds.^[https://www.soundthinking.com/faqs/shotspotter-faqs/]
+
+
+Chicago implemented ShotSpotter technology in 12 of the 22 police districts in a staggered rollout starting in 2017 and ending in 2018. This wide-scale adoption comes after select areas were tested between 2003 and 2007, and again in 2012.^[https://www.cbsnews.com/chicago/news/chicago-police-testing-new-gunshot-detection-technology/, Office of Inspector General] Although there is no official reasoning why several police districts received ShotSpotter and others did not, the districts chosen have historically high rates of gun violence portions. 
+
+## Dispatching Calls and ShotSpotter Alerts in Chicago
+
+In Chicago, 911 calls are coordinated by a combination of the Office of Emergency Management (OEMC) and the Chicago Police Department (CPD). The OEMC is the main entity which oversees 911 calls and dispatches available police officers to the crime scenes. Each 911 call and corresponding dispatch is prioritized by the scale of imminent danger/threat: priority 0, priority 1, priority 2, priority 3, priority 4, and priority 5, 
+
+The OEMC's main role is to dispatch available officers following a 911 call. 
+
+

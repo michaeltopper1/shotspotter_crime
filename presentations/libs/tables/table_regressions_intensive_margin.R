@@ -18,8 +18,6 @@ if (!exists("dispatch_panel")){
 dispatch_panel <- dispatch_panel %>% 
   mutate(officer_hours_median = median(officer_hours, na.rm = T))
 
-
-
 # Panel A -----------------------------------------------------------------
 
 
@@ -29,7 +27,7 @@ sst_1 <- feols(entry_to_dispatch_1 ~ number_sst_alerts | district + date,
 
 sst_2 <- feols(entry_to_dispatch_1 ~ number_sst_alerts + officer_hours +
                    number_dispatches_1 + number_dispatches_2 +
-                   number_dispatches_3 + number_dispatches_0| district + date,
+                   number_dispatches_3 | district + date,
                  cluster = ~district,
                  data = dispatch_panel)
 
@@ -37,14 +35,14 @@ sst_3 <- did2s(data = dispatch_panel,
                  yname = "entry_to_dispatch_1",
                  first_stage = ~officer_hours +
                    number_dispatches_1 + number_dispatches_2 +
-                   number_dispatches_3 + number_dispatches_0| district + date,
+                   number_dispatches_3 | district + date,
                  second_stage = ~number_sst_alerts,
                  treatment = "treatment",
                  cluster_var = "district")
 
 sst_4 <- feols(entry_to_dispatch_1 ~ number_sst_alerts + officer_hours +
                  number_dispatches_1 + number_dispatches_2 +
-                 number_dispatches_3+ number_dispatches_0 + shotspot_border_treatment| district + date,
+                 number_dispatches_3 + shotspot_border_treatment| district + date,
                cluster = ~district,
                data = dispatch_panel)
 
@@ -53,7 +51,7 @@ sst_5 <- dispatch_panel %>%
   filter(officer_hours > officer_hours_median) %>% 
   feols(entry_to_dispatch_1 ~ number_sst_alerts + officer_hours + 
           number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+          number_dispatches_3 | district + date,
         cluster = ~district)
 
 
@@ -61,7 +59,7 @@ sst_6 <- dispatch_panel %>%
   filter(officer_hours <= officer_hours_median) %>% 
   feols(entry_to_dispatch_1 ~ number_sst_alerts  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+          number_dispatches_3 | district + date,
         cluster = ~district)
 
 
@@ -76,7 +74,7 @@ sst_os_1 <- feols(entry_to_onscene_1 ~ number_sst_alerts | district + date,
 
 sst_os_2 <- feols(entry_to_onscene_1 ~ number_sst_alerts + officer_hours +
                       number_dispatches_1 + number_dispatches_2 +
-                      number_dispatches_3+ number_dispatches_0 | district + date,
+                      number_dispatches_3 | district + date,
                     cluster = ~district,
                     data = dispatch_panel)
 
@@ -84,14 +82,14 @@ sst_os_3 <- did2s(data = dispatch_panel,
                     yname = "entry_to_onscene_1",
                     first_stage = ~officer_hours +
                       number_dispatches_1 + number_dispatches_2 +
-                      number_dispatches_3+ number_dispatches_0 | district + date,
+                      number_dispatches_3 | district + date,
                     second_stage = ~number_sst_alerts,
                     treatment = "treatment",
                     cluster_var = "district")
 
 sst_os_4 <- feols(entry_to_onscene_1 ~ number_sst_alerts + officer_hours +
                  number_dispatches_1 + number_dispatches_2 +
-                 number_dispatches_3+ number_dispatches_0 + shotspot_border_treatment| district + date,
+                 number_dispatches_3 + shotspot_border_treatment| district + date,
                cluster = ~district,
                data = dispatch_panel)
 
@@ -99,7 +97,7 @@ sst_os_5 <- dispatch_panel %>%
   filter(officer_hours > officer_hours_median) %>% 
   feols(entry_to_onscene_1 ~ number_sst_alerts  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3 + number_dispatches_0| district + date,
+          number_dispatches_3 | district + date,
         cluster = ~district)
 
 
@@ -107,7 +105,7 @@ sst_os_6 <- dispatch_panel %>%
   filter(officer_hours <= officer_hours_median) %>% 
   feols(entry_to_onscene_1 ~ number_sst_alerts  + officer_hours +
           number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+          number_dispatches_3 | district + date,
         cluster = ~district)
 
 

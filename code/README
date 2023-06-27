@@ -1,0 +1,10 @@
+
+## code
+
+Contains three subfolders that are imperative to the project:
+
+* clean_dispatches - cleans all the dispatches
+* clean_shifts - cleans all the shifts data
+* create_analysis_panels - once cleaning is finished, this folder contains code to create the main data sets
+
+Note: all other files beginning with the name "clean" only clean the raw data sets. No final analysis data is made here. All cleaning files (except the create_analysis_panels files) go to the created_data folder.

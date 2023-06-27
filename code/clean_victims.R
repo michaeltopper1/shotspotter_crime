@@ -12,18 +12,40 @@ victims <- read_csv("raw_data/gun_victims.csv") %>%
 
 victims <- victims %>% 
   mutate(date = mdy_hms(date) %>% 
-           as_date()) %>% 
-  mutate(gunshot_injury_i = if_else(gunshot_injury_i == "YES", 1, 0))
+           as_date()) 
 
 victims <- victims %>% 
   mutate(year = year(date)) %>% 
   filter(year >= 2016 & year <= 2022) %>%
   distinct(case_number, .keep_all = T)
 
-victims_aggregated <- victims %>% 
-  group_by(district, date) %>% 
-  summarize(number_gun_injury_victims = sum(gunshot_injury_i, na.rm = T),
-            number_gun_victims = n()) %>% ungroup()
+
+victims <- victims %>%
+  mutate(
+    any_gunshot_victim = if_else(gunshot_injury_i == "YES", 1, 0),
+    gunshot_homicide = if_else(gunshot_injury_i == "YES" & incident_primary == "HOMICIDE", 1, 0),
+    non_gun_homicide = if_else(gunshot_injury_i == "NO" & incident_primary == "HOMICIDE", 1, 0),
+    any_homicide = if_else(incident_primary == "HOMICIDE", 1, 0),
+    
+    gun_robbery = if_else(gunshot_injury_i == "YES" & incident_primary == "ROBBERY", 1, 0),
+    
+    gun_battery = if_else(gunshot_injury_i == "YES" & incident_primary == "BATTERY", 1, 0),
+  )
+
+
+victims_aggregated <- victims %>%
+  group_by(district, date) %>%
+  summarize(
+    num_any_gunshot_victim = sum(any_gunshot_victim, na.rm = T),
+    num_gunshot_homicide = sum(gunshot_homicide, na.rm = T),
+    num_non_gun_homicide = sum(non_gun_homicide, na.rm = T),
+    num_any_homicide = sum(any_homicide, na.rm = T),
+    
+    num_gun_robbery = sum(gun_robbery, na.rm = T),
+    
+    num_gun_battery = sum(gun_battery, na.rm = T),
+    
+  ) %>% ungroup()
 
 ## creating panels for each of the districts
 panel_dates <- seq(as_date("2016-01-01"), as_date("2022-12-31") , by= "day") %>% 
@@ -41,7 +63,7 @@ panel_dates <- panel_dates %>%
 victims_panel <- panel_dates %>% 
   left_join(victims_aggregated, join_by(date == date,
                                         district == district)) %>% 
-  mutate(across(starts_with("number"), ~if_else(is.na(.), 0, .)))
+  mutate(across(starts_with("num"), ~if_else(is.na(.), 0, .)))
 
 
 victims_panel %>% 

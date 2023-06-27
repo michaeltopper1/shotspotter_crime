@@ -1,0 +1,24 @@
+
+This project has 10 main folders:
+
+* analysis_data - contains all the data used in analysis
+
+* code - contains all cleaning code
+
+* created_data - contains all data that was created from raw data, but not necessarily used for analysis. Secondary-step data.
+
+* figures - contains all code for making graphical figures.
+
+* lit_review - contains all microsoft word documents for making notes on papers.
+
+* paper - contains Rmarkdown file for the main paper production.
+
+* presentations - contains all presentations for this particular paper.
+
+* raw_data - holds all raw data, completely unchanged.
+
+* tables - contains all code necessary for making the analysis tales
+
+* updates - contains small, incremental updates for committee members.
+
+Note that there is a .gitignore file. This file is specifically for GIT. It describes which files/folders should not be version-controlled.
