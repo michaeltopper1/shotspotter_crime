@@ -16,7 +16,7 @@ if (!exists("dispatch_panel")){
 }
 
 dispatch_panel <- dispatch_panel %>% 
-  mutate(officer_hours_median = median(officer_hours, na.rm = T))
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district)
 
 # panel A -----------------------------------------------------------------
 
@@ -120,7 +120,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"
                       ), ~str_remove_all(., "\n"))
 
 
-dispatch_table_dispatch <- panelsummary_raw(list(entry_1, entry_2,
+dispatch_table_dispatch <- panelsummary_raw(list( entry_2,
                                     entry_3, entry_5, entry_6),
                                stars = "econ",
                                mean_dependent = T,
@@ -131,22 +131,19 @@ dispatch_table_dispatch <- panelsummary_raw(list(entry_1, entry_2,
 
 dispatch_table_dispatch <- dispatch_table_dispatch %>% 
   janitor::clean_names() %>% 
-  mutate(model_3 = if_else(term == "FE: District" |
-                               term == "FE: Day-by-Month-by-Year", "X", model_3)) %>% 
-  mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
-                             model_2, model_3)) %>% 
-  add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
-          model_5 = "X") %>% 
-  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
+  mutate(model_2 = if_else(term == "FE: District" |
+                               term == "FE: Day-by-Month-by-Year", "X", model_2)) %>% 
+  mutate(model_2 = if_else(term == "Mean of Dependent Variable", 
+                             model_1, model_2)) %>% 
+  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.integer() %>%  scales::comma(), .))) %>% 
   clean_raw() %>% 
-  add_header_above(c(" " = 4, "Officer Hours > Median", "<= Median")) %>% 
+  add_header_above(c(" " = 3, "Officer Hours > Median", "<= Median")) %>% 
    footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = F, html_font = "Cambria")
 
-os_table <- panelsummary_raw(list(entry_os_1, entry_os_2,
+os_table <- panelsummary_raw(list(entry_os_2,
                                   entry_os_3, entry_os_5, entry_os_6),
                              stars = "econ",
                              mean_dependent = T,
@@ -156,17 +153,14 @@ os_table <- panelsummary_raw(list(entry_os_1, entry_os_2,
                              gof_map = gof_mapping) 
 os_table <- os_table %>% 
   janitor::clean_names() %>% 
-  mutate(model_3 = if_else(term == "FE: District" |
-                             term == "FE: Day-by-Month-by-Year", "X", model_3)) %>% 
-  mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
-                           model_2, model_3)) %>% 
-  add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
-          model_5 = "X") %>% 
-  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
+  mutate(model_2 = if_else(term == "FE: District" |
+                             term == "FE: Day-by-Month-by-Year", "X", model_2)) %>% 
+  mutate(model_2 = if_else(term == "Mean of Dependent Variable", 
+                           model_1, model_2)) %>% 
+  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.integer() %>%  scales::comma(), .))) %>% 
   clean_raw() %>% 
-  add_header_above(c(" " = 4, "Officer Hours > Median", "<= Median")) %>% 
+  add_header_above(c(" " = 3, "Officer Hours > Median", "<= Median")) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = F, html_font = "Cambria")

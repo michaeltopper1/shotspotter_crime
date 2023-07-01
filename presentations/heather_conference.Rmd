@@ -86,8 +86,15 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 ### <font color="blue">**Research Question**</font>: 
 ### How does investment in ShotSpotter affect the time allocation of scarce police resources ?
 
-- Priority 1: 911 Call-to-dispatch / Call-to-on-scene
-  
+- Priority 1 (immediate dispatch): 911 Call-to-dispatch / Call-to-on-scene
+
+---
+# What is ShotSpotter and how does it work?
+
+```{r, out.width = "850px", out.height = "550px", fig.align="center"}
+knitr::include_graphics("libs/figures/shotspot_works.png")
+```
+
 ---
 # Why do we care about response times?
 
@@ -100,10 +107,9 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 ### Support for Reponse Times:
 .font110[
 - Lower response times results in:
-    - Less likelihood of an injury (DeAngelo et. al. 2023)
+    - Less likelihood of an injury (DeAngelo et al. 2023)
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
 - Rapid response  most important (College of Policing 2013)
-- Enhance community trust
 ]
 ---
 # Why would ShotSpotter affect response times?
@@ -130,13 +136,6 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ]
 
 ---
-# What is ShotSpotter and how does it work?
-
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("libs/figures/shotspot_works.png")
-```
-
----
 # Summary of Paper:
 
 --
@@ -150,7 +149,7 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
  - All 911 call dispatches from Chicago
  - Merge with:
   - Police shifts
-  - Crime/arrest data
+  - Crime/arrest/victimization data
   - ShotSpotter alerts
 ]
 
@@ -162,14 +161,15 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
   
 
 ## Main Results:
-  - For other reported crimes:
-    - +1 minute in call-to-dispatch (23%)
-    - +2 minutes in call-to-on-scene (14%)
-  - Lower arrest rates + lower gun victimization
+  - For Priority 1 911 calls:
+    - +1 minute call-to-dispatch (23%)
+    - +2 minutes call-to-on-scene (14%)
+  - Lower arrest rates (5%)
+  - Lower gun victimization (16%)
 ]
 ---
 # Contribution:
-### Rigorous analysis on a wide-spread police technology, whose consequences are relatively unknown.
+### In-depth, causal analysis on a wide-spread police technology, whose consequences are relatively unknown.
 
 --
 ### Related Literature:
@@ -197,13 +197,6 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
   - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
 ]
 
-.panel[.panel-name[Gun Control]
-<font color="blue"> We find evidence of lower gun victimization, linked directly to a police operating procedure. </font>
-- Alternative Studies:
-  - Gun-access policies (Colmer and Doleac 2022)
-  - Direct, personal intervention (Bhatt et al. 2023)
-
-]
 ]
 
 ---
@@ -216,9 +209,8 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
   - Priority 1 (immediate dispatch)
       - Active shooter, domestic disturbance
       - ~5% of all Priority 1 dispatches
-  - 911/ShotSpotter handled by same units:
-      - Rapid response units
-      - Beat cops
+  - Same operating procedure as 911 
+      - No specialized response team
 ]
 
 .pull-right[
@@ -244,14 +236,14 @@ $$Y_{d,t} = \beta ShotSpotterEnacted_{d,t}  + \gamma_{d} + \delta_t + \lambda \m
 --
 
 * $Y_{d,t}$ is an outcome of average <b>daily</b> time (in seconds) in police district $d$ in time $t$ 
-  - 911 Call-to-Dispatch/911 Call-to-On-Scene
+  - Priority 1 911 Call-to-Dispatch/911 Call-to-On-Scene
 * $ShotSpotterEnacted_{d,t}$ is the binary treatment
 * $\gamma_d$ is a police district-specific fixed effect
 * $\delta_t$ is a day-by-month-by-year fixed effect
 * $\mathbb{X}_{d,t}$ is a vector of controls:
     - Officer hours, number of 911 calls (by priority)
 * Standard errors clustered by police district
-* <font color="blue"> $\beta$ - average change in average daily response time </font>
+*  $\beta$ interpretation: <font color="blue"> average change in average daily response time </font>
 
 ---
 class: regression
@@ -260,7 +252,7 @@ class: regression
 
 ```{r}
 source("libs/tables/table_regressions_main_results.R")
-source("libs/tables/regressions_arrest_rate.R")
+source("libs/tables/table_regressions_arrest_rates.R")
 source("libs/tables/table_regressions_victims.R")
 ```
 
@@ -280,7 +272,7 @@ os_table
 
 .panel[.panel-name[Arrest Rate]
 ```{r}
-arrest_rate_table
+arrest_rates
 ```
 ]
 .panel[.panel-name[Gun Victimization]
@@ -293,7 +285,7 @@ victim_table
 
 
 ---
-# Dynamic Effects: Call to Dispatch (Priority 1)
+# Dynamic Effects: Call to Dispatch 
 
 ```{r, eval = T}
 source("libs/figures/figure_event_study_dispatches.R")
@@ -304,21 +296,9 @@ entry_1_es
 ```
 
 ---
-# Dynamic Effects: Call to On-Scene (Priority 1)
+# Dynamic Effects: Call to On-Scene 
 ```{r, eval = T}
 eos_1_es
-```
-
----
-# Call to Dispatch Times (seconds): Top 5
-
-```{r}
-source("libs/figures/forestplot_by_priority.R")
-# source("libs/figures/forestplot_by_priority_onscene.R")
-```
-
-```{r, eval = T}
-forestplot_priority_call_dispatch
 ```
 
 ---
@@ -329,9 +309,9 @@ forestplot_priority_call_dispatch
 ## Robustness:
 - Sample Selection:
   - Remove 2020 (Covid)
-  - Remove never-treated
   - Add in outliers
   - Remove shots fired calls
+  - Remove never-treated
 - Leave-one-out
 
 
@@ -351,6 +331,19 @@ forestplot_priority_call_dispatch
 ## Cost-Benefit Analysis
 - In progress
   ]
+
+
+---
+# Call to Dispatch Times (seconds): Top 5
+
+```{r}
+source("libs/figures/forestplot_by_priority.R")
+# source("libs/figures/forestplot_by_priority_onscene.R")
+```
+
+```{r, eval = T}
+forestplot_priority_call_dispatch
+```
   
 ---
 # Conclusion:
@@ -359,14 +352,14 @@ forestplot_priority_call_dispatch
 
 - An in-depth analysis on consequences of ShotSpotter:
     - Unintended Consequences:
-      - Higher priority 1 response times (omitting ShotSpotter dispatches)
+      - Higher priority 1 response times 
           - Call-to-Dispatch (+1 minute/ 23% increase)
           - Call-to-On-Scene (+2 minutes/ 14% increase)
       - Lower arrest rates for priority 1 (5% decrease)
     - Intended Consequence 
-      - Lower gun victimization
-- For further research: 
-    - Other suggestions?
+      - Lower gun victimization (16% decrease)
+- Other recommendations appreciated
+- Thank you!
   
 
 

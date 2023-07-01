@@ -54,7 +54,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"
 
 f <- function(x) formatC(x, digits = 2, big.mark = ",", format = "f")
 
-victim_table <- panelsummary(list(vic_1, vic_2, vic_3,
+victim_table <- panelsummary(list( vic_2, vic_3,
                   vic_4, vic_5),
              stars = "econ",
              mean_dependent = T,
@@ -64,7 +64,6 @@ victim_table <- panelsummary(list(vic_1, vic_2, vic_3,
              gof_map = gof_mapping) %>% 
   add_header_above(c(
     " " = 1,
-    "Homicide" = 1,
     "All" = 1,
     "Homicide" = 1,
     "Robbery" = 1,
@@ -73,7 +72,6 @@ victim_table <- panelsummary(list(vic_1, vic_2, vic_3,
   )) %>%
   add_header_above(c(
     " " = 1,
-    "Non-Gun Related" = 1,
     "Gun-Related Victimization" =4
   )) %>%
   footnote(footnotes, threeparttable = T) %>% 
