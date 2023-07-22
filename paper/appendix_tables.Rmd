@@ -1,5 +1,5 @@
 ---
-title: "Tables"
+title: "Appendix Tables"
 output: pdf_document
 fontsize: 11pt
 ---
@@ -9,44 +9,21 @@ fontsize: 11pt
 <!-- knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) -->
 <!-- library(kableExtra) -->
 <!-- ``` -->
-
 \FloatBarrier
-# Tables
+# Appendix Tables
 
 ```{r, echo = F, message = F, warning = F}
 
-table_files <- list.files(here::here("tables/"),pattern = "^table")
+table_appendix_files <- list.files(here::here("tables/"),pattern = "^appendix")
 
 ## read in the figures
-for (file in table_files){
+for (file in table_appendix_files){
   source(here::here(paste0("tables/", file)))
 }
 ```
 
 
 ```{r}
-summary_stats
-```
-
-
-```{r}
-dispatch_table %>% 
-  landscape() 
-```
-
-
-```{r}
-intensive_table %>% 
-  landscape() 
-```
-
-
-```{r}
-arrest_rates %>% 
-  landscape()
-```
-
-```{r}
-victim_table
+missing_os_table
 ```
 

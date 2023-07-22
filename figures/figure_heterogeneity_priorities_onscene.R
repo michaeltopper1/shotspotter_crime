@@ -170,7 +170,7 @@ priorities_onscene <- descriptions %>%
   geom_hline(aes(yintercept = 0), color = "black",
              linetype = "dashed") +
   coord_flip() +
-  facet_wrap(~priority,scales = "free_y") +
+  facet_wrap(~priority,scales = "free") +
   ggthemes::scale_color_stata() +
   labs(x = "", y = "Point Estimate and 95% Confidence Interval (Seconds)") +
   theme_minimal() +

@@ -166,12 +166,14 @@ priorities_dispatch <- descriptions %>%
              color = main_estimate)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
-                width = .1, size = .7) +
+                width = .1, linewidth = .7) +
   geom_hline(aes(yintercept = 0), color = "black",
              linetype = "dashed") +
   coord_flip() +
-  facet_wrap(~priority,scales = "free_y") +
+  facet_wrap(~priority,scales = "free") +
+  # scale_y_continuous(breaks = c(-200, 0, 200),
+  #                       limits = c(-400, 400)) +
   ggthemes::scale_color_stata() +
   labs(x = "", y = "Point Estimate and 95% Confidence Interval (Seconds)") +
   theme_minimal() +
-  theme(legend.position = "non")
+  theme(legend.position = "none")

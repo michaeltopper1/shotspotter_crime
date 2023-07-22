@@ -12,7 +12,7 @@ if(!exists("dispatch_panel")) {
 }
 
 
-raw_evidence_figure <- dispatch_panel %>% 
+raw_evidence_figure <-dispatch_panel %>% 
   mutate(district = as_factor(district)) %>% 
   mutate(treatment = if_else(treatment == 1, "ShotSpotter Active",
                              "ShotSpotter Inactive")) %>% 
@@ -25,13 +25,18 @@ raw_evidence_figure <- dispatch_panel %>%
   pivot_longer(cols = starts_with("avg_"), 
                values_to = "avg_time",
                names_to = "outcome") %>% 
+  mutate(treatment = if_else(never_treated == "Never Treated Districts", 
+                             "Never Treated", treatment)) %>% 
+  mutate(district = fct_rev(district)) %>% 
   mutate(outcome = if_else(outcome == "avg_entry_to_dispatch_1",
                            "Call-to-Dispatch", "Call-to-On-Scene")) %>% 
-  ggplot(aes(district, avg_time, fill = treatment)) +
+  ggplot(aes(district, avg_time, fill = treatment, alpha = treatment)) +
   geom_col(position = "dodge") +
-  facet_wrap(~outcome) +
-  labs(fill = "", x = "Police District", y = "Mean of Outcome (seconds)") +
-  ggthemes::scale_fill_stata() +
+  facet_wrap(~outcome, scales = "free") +
+  labs(fill = "", x = "Police District", y = "Mean of Outcome (seconds)",
+       alpha = "") +
+  scale_fill_manual(values =c("#808080","#1a476f", "#90353b")) +
+  scale_alpha_discrete(range = c(0.4, 1, 1)) + 
   theme_minimal() +
+  coord_flip() +
   theme(legend.position = "bottom")
-

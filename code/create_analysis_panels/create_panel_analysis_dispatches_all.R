@@ -140,6 +140,23 @@ dispatches_filtered <- dispatches_filtered %>%
   mutate(arrest_made = if_else(!is.na(rd), 1, 0)) 
 
 
+## creating intervals by first watch, second watch, third watch.
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(time = hms::as_hms(entry_received_date), .before = 1) %>% 
+  mutate(first_watch = if_else(between(time, hms::as_hms("00:00:00"), hms::as_hms("07:59:59")), 1, 0),
+         second_watch = if_else(between(time, hms::as_hms("08:00:00"), hms::as_hms("15:59:59")), 1, 0),
+         third_watch = if_else(between(time, hms::as_hms("16:00:00"), hms::as_hms("23:59:59")), 1, 0),
+         .before = 1)
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(watch = case_when(
+    first_watch == 1 ~1,
+    second_watch == 1 ~2, 
+    third_watch == 1 ~3,
+    .default = NA
+  )) 
+
 
 # aggregating by month ----------------------------------------------------
 
@@ -204,8 +221,10 @@ aggregated_monthly <- aggregated_monthly %>%
 
 # aggregating at daily level ----------------------------------------------
 
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(date = as_date(entry_received_date)) 
+
 aggregated <- dispatches_filtered %>% 
-  mutate(date = as_date(entry_received_date)) %>% 
   group_by(date, district, priority_code) %>% 
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
@@ -219,7 +238,6 @@ aggregated <- dispatches_filtered %>%
 
 aggregated_nopriority <- dispatches_filtered %>% 
   filter(priority_code !=0) %>% 
-  mutate(date = as_date(entry_received_date)) %>% 
   group_by(date, district) %>% 
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
@@ -227,6 +245,15 @@ aggregated_nopriority <- dispatches_filtered %>%
                      entry_to_close), ~mean(.,na.rm = T)),
             number_dispatches = n(),
             arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
+
+aggregated_watch <- dispatches_filtered %>% 
+  group_by(date, district, watch) %>% 
+  summarize(across(c(entry_to_dispatch,
+                     entry_to_onscene,
+                     dispatch_to_onscene,
+                     entry_to_close), ~mean(.,na.rm = T)),
+            number_dispatches = n()) %>% ungroup()
+
 
 
 # breakdown of arrest rates -----------------------------------------------
@@ -301,7 +328,6 @@ aggregate_arrests_top <- dispatches_filtered %>%
          check_well_p1_num = if_else(priority_code == 1 &
                                        final_dispatch_description == "SHOTS FIRED",
                                      1, 0)) %>% 
-  mutate(date = as_date(entry_received_date)) %>% 
   filter(entry_to_dispatch !=1 ) %>% 
   filter(entry_to_onscene_outlier != 1) %>% 
   group_by(date, district) %>% 
@@ -349,7 +375,6 @@ aggregated_top_5 <- dispatches_filtered %>%
    .default = NA
   )) %>% 
   filter(!is.na(crime_type)) %>% 
-  mutate(date = as_date(entry_received_date)) %>% 
   group_by(date, district, crime_type) %>% 
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
@@ -357,7 +382,6 @@ aggregated_top_5 <- dispatches_filtered %>%
                      entry_to_close), ~mean(.,na.rm = T))) %>% ungroup()
 
 aggregated_nopriority_types <- dispatches_filtered %>% 
-  mutate(date = as_date(entry_received_date)) %>% 
   filter(gun_crime_report ==1 | domestic_distrub == 1 | domestic_battery == 1) %>% 
   mutate(crime_type = case_when(
     gun_crime_report == 1 ~ "gun_crime",
@@ -390,6 +414,15 @@ aggregated_nopriority_types <- aggregated_nopriority_types %>%
                               dispatch_to_onscene,
                               entry_to_close))
 
+aggregated_watch <- aggregated_watch %>% 
+  mutate(watch = glue::glue("watch{watch}")) %>% 
+  pivot_wider(names_from = watch, 
+              values_from = c(entry_to_dispatch,
+                              entry_to_onscene,
+                              dispatch_to_onscene,
+                              entry_to_close,
+                              number_dispatches)) 
+
 aggregated_top_5 <- aggregated_top_5 %>% 
   pivot_wider(names_from = crime_type,
               values_from = c(entry_to_dispatch,
@@ -401,6 +434,7 @@ aggregated_top_5 <- aggregated_top_5 %>%
 aggregated <- aggregated %>% 
   left_join(aggregated_nopriority) %>% 
   left_join(aggregated_nopriority_types) %>% 
+  left_join(aggregated_watch) %>% 
   left_join(aggregated_top_5) %>% 
   left_join(aggregate_arrests_top)
 

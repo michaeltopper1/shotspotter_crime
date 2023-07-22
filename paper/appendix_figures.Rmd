@@ -1,0 +1,63 @@
+---
+title: "Appendix Figures"
+output: pdf_document
+fontsize: 11pt
+---
+
+<!-- ```{r, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F) -->
+<!-- #library(kableExtra) -->
+<!-- ``` -->
+\FloatBarrier
+
+# Appendix Figures
+```{r, echo = F, message = F, warning = F}
+
+figure_appendix_files <- list.files(here::here("figures/"),pattern = "^appendix")
+
+## read in the figures
+for (file in figure_appendix_files){
+  source(here::here(paste0("figures/", file)))
+}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, out.width="85%", fig.align='center', fig.pos="H"}
+
+knitr::include_graphics(here::here("figures/map_2.jpeg"))
+
+```
+```{=latex}
+\caption{Raw Counts of Gun Arrests Over Time \label{gun_arrest_comparison}}
+\textit{Note:} There are a total of 18 police districts in Chicago. Each of these districts contains beats which are designated by the boxes within the district lines. ShotSpotter began implementation in 2017 and rolled out over the next two years. 
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+forest_sample_plot
+```
+```{=latex}
+\caption{Robustness of Main Results \label{forest_sample_plot}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+loo_figure
+```
+```{=latex}
+\caption{Leave-one-out Analysis of Outcomes \label{loo_figure}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+

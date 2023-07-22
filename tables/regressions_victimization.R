@@ -75,7 +75,6 @@ logit_2 <- victim_panel %>%
                    number_gun_involved + number_other_crime + shotspot_border_treatment| district + date ,
                  family = binomial(link = "logit"))
 
-margins::margins_summary(logit_1)
 
 gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "nobs", "Observations", 0,

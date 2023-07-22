@@ -19,10 +19,13 @@ distribution_outcomes <- dispatch_panel %>%
   mutate(outcome = if_else(outcome == "entry_to_dispatch_1",
                            "Call to Dispatch",
                            "Call to On-Scene")) %>% 
+  mutate(time = if_else(time >= 2000, 2000, time)) %>% 
   ggplot(aes(time, fill = outcome)) + 
   geom_histogram(position = "identity", alpha = 0.6) +
   geom_vline(aes(xintercept = mean, color = outcome), linetype = "dashed") +
   scale_y_continuous(labels = scales::comma) +
+  scale_x_continuous(breaks = c(0,500, 1000, 1500, 2000),
+                     labels = c("0","500", "1000", "1500", "2000+")) +
   ggthemes::scale_fill_stata() +
   ggthemes::scale_color_stata() +
   labs(x = "Time (seconds)", y = "Count",

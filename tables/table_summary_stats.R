@@ -29,7 +29,7 @@ summary_stats <- dispatch_panel %>%
               (`Arrest Rate` = arrest_rate) +
               (`Number SST Alerts` = number_sst_alerts) +
               (`Officer Hours` = officer_hours) +
-              (`Number Gun Victimizations` = number_gun_victims)~ Mean + SD + Median + Min  +Max,
+              (`Number Gun Victimizations` = num_any_gunshot_victim)~ Mean + SD + Median + Min  +Max,
               data = .,
               output = "data.frame") %>% 
   janitor::clean_names()

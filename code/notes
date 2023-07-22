@@ -26,3 +26,7 @@ There are lots of descriptions on the crimes here. When filtering for firearms, 
 
 Although the data goes back to 2006, it is only reliable from 2012-2021. 2022 only has 3 months worth of data. Would need to get more of it via a FOIA. 
 Event numbers are only for 2020 onwards. Same with RD Numbers. 
+
+## CPD Data
+
+When looking at RADIO (ON VIEW) dispatches, we find that the average entry_to_dispatch time is 5 seconds, entry_to_onscene is 20 seconds. We can't do good analysis with this data. Toshio thinks it is likely officers reporting what they have already responded to.

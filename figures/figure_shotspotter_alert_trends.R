@@ -16,24 +16,27 @@ table_shots <- dispatch_panel %>%
   group_by(district) %>% 
   filter(date >= shotspot_activate) %>% 
   ungroup() %>% 
-  summarize(avg_shots = mean(number_sst_alerts), .by = district) %>% 
+  summarize(avg_shots = mean(number_sst_alerts), .by = c(district, shotspot_activate)) %>% 
   arrange(district) %>% 
-  mutate(avg_shots = sprintf(fmt = "%.3f", avg_shots)) %>% 
+  mutate(avg_shots = sprintf(fmt = "%.2f", avg_shots)) %>% 
   rename(District = district,
-         `Mean Shots` = avg_shots)
+         `Enactment` = shotspot_activate,
+         `Daily Alerts` = avg_shots) %>% 
+  select(-`Daily Alerts`)
 
 time_graph <- dispatch_panel %>% 
   group_by(year_month, district) %>% 
   summarize(number_shots = sum(number_sst_alerts)) %>% 
   left_join(rollout_dates) %>% 
+  mutate(district_label = glue::glue("District {district}") %>% 
+           fct_reorder(district)) %>%
   filter(!is.na(shotspot_activate)) %>% 
   ggplot(aes(year_month, number_shots)) +
   geom_line() +
   scale_x_date(date_breaks =  "2 years",
                date_labels = "%Y") +
-  geom_vline(aes(xintercept = shotspot_activate_official), linetype = "dashed", color = "blue") +
   geom_vline(aes(xintercept = shotspot_activate), linetype = "dashed", color = "dark red") +
-  facet_wrap(~district) +
+  facet_wrap(~district_label) +
   labs(x = "", y = "Number of ShotSpotter Alerts") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle=90, vjust=.5, hjust=1))

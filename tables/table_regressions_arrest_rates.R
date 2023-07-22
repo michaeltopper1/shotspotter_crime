@@ -30,7 +30,7 @@ arrest_rates <- feols(c(arrest_rate_1,
                         ems_p1_arrestrate,
                         battery_ip_p1_arrestrate) ~treatment  +
                         number_dispatches_1 + number_dispatches_2 +
-                        number_dispatches_3 +
+                        number_dispatches_3 + number_dispatches_0 +
                         officer_hours|district + date,
                       data= dispatch_panel) 
 
