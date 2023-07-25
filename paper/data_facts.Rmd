@@ -1,0 +1,66 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-07-24"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+```
+
+# Notes on ShotSpotter
+
+## ShotSpotter Statistics
+
+```{r}
+library(tidyverse)
+sst <- sst <- read_csv(here::here("created_data/sst_dispatch_cpd.csv"))
+
+```
+
+It appears that 95% of SST dispatches do not result in anything. According to the Office of the Inspector General, "If these activities
+produce evidence of a shooting or any other criminal activity, a corresponding criminal incident code will be assigned. If there is no such evidence, then the event will receive a miscellaneous incident disposition code."
+
+
+```{r}
+## fraction of SST alerts that turn up nothing
+sst_fraction_found <- sst %>% 
+  count(final_disposition_description, sort = T) %>% 
+  mutate(total = sum(n)) %>% 
+  mutate(n/total) %>% 
+  head()
+
+sst_fraction_found
+```
+
+
+
+```{r}
+## per day amounts of SST
+per_day_sst <- sst %>% 
+  mutate(date = as_date(entry_received_date), .before = 1) %>% 
+  filter(date >= as_date("2018-05-16")) %>% 
+  group_by(date) %>% 
+  summarize(sst_per_day = n()) %>% 
+  summarize(mean(sst_per_day)) %>% 
+  pull() %>% 
+  round(2)
+```
+
+After the final implementation date of 2018-05-16, there is, on average, `r per_day_sst` SST alerts every day across the city.
+
+
+```{r}
+sst %>% 
+  mutate(date = as_date(entry_received_date), .before = 1) %>% 
+  mutate(hour = hms::as_hms(entry_received_date), .before = 1) %>% 
+  ggplot(aes(hour)) +
+  geom_density(fill = "dark red", alpha = 0.5) +
+  scale_x_time() +
+  theme_minimal()
+```
+
+
+
