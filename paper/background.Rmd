@@ -17,7 +17,7 @@ In Chicago, ShotSpotter technology has been implemented in 12 of the 22 police d
 
 ## Dispatching 911 Calls and ShotSpotter Alerts in Chicago
 
-In Chicago, the coordination of emergency 911 calls involves two main entities: the Office of Emergency Management (OMEC) and the Chicago Police Department (CPD). The OEMC oversees 911 calls and dispatches available police officers to the crime scenes. Each 911 call is prioritized on a scale of imminent danger/threat ranging from priority 0 to 5.^[Should I write priority 1-3 instead and then footnote these special cases?]
+In Chicago, the coordination of emergency 911 calls involves two main entities: the Office of Emergency Management (OMEC) and the Chicago Police Department (CPD). The OEMC oversees 911 calls and dispatches available police officers to the crime scenes. Each 911 call is prioritized on a scale of imminent danger/threat ranging from priority 1 (immediate dispatch) to 3 (routine dispatch).^[Technically, there are 6 priorities ranging from priority 0-5. However, priority 4, and 5 are reserved for special cases such as police officers calling for emergency assistance, administrative meetings, or alternate responses that do not need a field unit respectively.]
 
 On the other hand, the coordination of ShotSpotter alerts is a collaborative effort involving the OEMC, CPD, and the Strategic Decision Support Center (SDSC). When gunfire is detected, ShotSpotter's headquarters forwards vital information such as the location, time, severity, amount of shots being fired, and direction of possible offender to the SDSC. The SDSC then synthesizes this information and notifies the OEMC to immediately dispatch a police officer to the location of the gunfire.
 
