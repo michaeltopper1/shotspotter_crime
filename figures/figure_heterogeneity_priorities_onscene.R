@@ -14,11 +14,15 @@ tidy_estimates <- function(model, description, priority) {
     filter(term == "treatment") %>% 
     mutate(term = description,
            priority = priority)
-  nobs <- model$nobs %>% as_tibble() %>% rename(nobs = value) %>% mutate(nobs = nobs %>% scales::comma())
+  mean <- model %>% fitstat(., type = "my") %>% as.numeric() %>% 
+    as_tibble() %>% rename(mean = value)
+  nobs <- model$nobs %>% as_tibble() %>% rename(nobs = value) %>% 
+    mutate(nobs = nobs %>% scales::comma())
   results <- estimates %>% 
     mutate(estimate = round(estimate, 2)) %>% 
-    bind_cols(nobs) %>% 
-    mutate(term_expand = glue::glue("{term}\nEstimate: {estimate}\nN: {nobs}"))
+    bind_cols(nobs, mean) %>% 
+    mutate(term_expand = glue::glue("{term}\nEstimate: {estimate} N: {nobs}")) %>% 
+    mutate(percent_change = estimate/mean)
   return(results)
 }
 
@@ -159,19 +163,26 @@ descriptions <- p1_0 %>%
             p3_4, p3_5)
 
 priorities_onscene <- descriptions %>% 
-  mutate(priority = glue::glue("Priority {priority}")) %>% 
+  mutate(priority_description = case_when(
+    priority ==1  ~ "Immediate Dispatch",
+    priority == 2 ~ "Rapid Dispatch",
+    priority == 3 ~ "Administrative Dispatch"
+  )) %>% 
+  mutate(across(starts_with("conf"), ~./mean )) %>% 
+  mutate(priority = glue::glue("Priority {priority}\n({priority_description})")) %>% 
   mutate(main_estimate = if_else(term == "Aggregate Estimate", "Color1", "Color2")) %>% 
   mutate(term_expand = fct_reorder(term_expand, -row_number())) %>% 
-  ggplot(aes(term_expand, estimate, shape = priority,
+  ggplot(aes(term_expand, percent_change, shape = priority,
              color = main_estimate)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
                 width = .1, size = .7) +
   geom_hline(aes(yintercept = 0), color = "black",
              linetype = "dashed") +
+  scale_y_continuous(labels =scales::percent_format()) +
   coord_flip() +
-  facet_wrap(~priority,scales = "free") +
+  facet_wrap(~priority,scales = "free_y", ncol = 1) +
   ggthemes::scale_color_stata() +
-  labs(x = "", y = "Point Estimate and 95% Confidence Interval (Seconds)") +
+  labs(x = "", y = "Percent Change from Mean and 95% Confidence Interval") +
   theme_minimal() +
   theme(legend.position = "non")

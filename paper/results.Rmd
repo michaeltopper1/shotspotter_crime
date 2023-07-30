@@ -1,0 +1,23 @@
+---
+title: "Data"
+output: pdf_document
+date: "2023-06-19"
+---
+
+
+# Results
+
+In this section, we present the main estimates on the effect of ShotSpotter on priority 1 response times using Equation \ref{eq:main}. We show that the results are robust across various specifications, estimators, sample selections, and sensitivity tests. Moreover, we present the first set of evidence that ShotSpotter affects response times by constraining officer resources. Later, we analyze dynamic effects and the intensive margin.
+
+Figure \ref{} serves as an intuitive preview of the main results plotting only the raw data. We plot the average call-to-dispatch and call-to-on-scene times within each police district before/after ShotSpotter implementation. Consistent with the main results, districts that received ShotSpotter show a substantial increase in the average call-to-dispatch and call-to-on-scene times in nearly every police district. Notably, there does not appear to be significant visual evidence that average response times are different in districts that receive ShotSpotter in comparison to those that did not.
+
+
+## Main Results
+
+Table \ref{} reports estimates from Equation \ref{eq:main} for call-to-dispatch (Panel A) and call-to-on-scene (Panel B) response times where each coefficient estimate is reported in seconds. 
+
+## Dynamic Effects
+You dummy: what about places that just have more ShotSpotter alerts?
+
+## Intensive Margin
+

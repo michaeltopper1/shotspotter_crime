@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.16)  21 JUL 2023 09:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.16)  30 JUL 2023 00:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -744,97 +744,117 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 129.
 [1
 
-{/Users/michaeltopper/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [2]
-<main_files/figure-latex/unnamed-chunk-6-1.pdf, id=42, 469.755pt x 325.215pt>
+{/Users/michaeltopper/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [2] [3]
+<main_files/figure-latex/unnamed-chunk-6-1.pdf, id=47, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 152.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 175.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-7-1.pdf, id=43, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-7-1.pdf, id=48, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 160.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 183.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-8-1.pdf, id=44, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-8-1.pdf, id=49, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 168.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 191.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-9-1.pdf, id=45, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-9-1.pdf, id=50, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 176.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-9-1.pdf  used on input line 199.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-10-1.pdf, id=46, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-10-1.pdf, id=51, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 184.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 207.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-11-1.pdf, id=47, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-11-1.pdf, id=52, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 192.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-11-1.pdf  used on input line 215.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-12-1.pdf, id=48, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-12-1.pdf, id=53, 469.755pt x 505.89pt>
 File: main_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 200.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-13-1.pdf, id=49, 469.755pt x 325.215pt>
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-12-1.pdf  used on input line 223.
+(pdftex.def)             Requested size: 469.75386pt x 505.88875pt.
+<main_files/figure-latex/unnamed-chunk-13-1.pdf, id=54, 469.755pt x 505.89pt>
 File: main_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 208.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3] [4 <./main_files/figure-latex/unnamed-chunk-6-1.pdf>] [5 <./main_files/figure-latex/unnamed-chunk-7-1.pdf>] [6 <./main_files/figure-latex/unnamed-chunk-8-1.pdf>] [7 <./main_files/figure-latex/unnamed-chunk-9-1.pdf>] [8 <./main_files/figure-latex/unnamed-chunk-10-1.pdf>] [9 <./main_files/figure-latex/unnamed-chunk-11-1.pdf>] [10 <./main_files/figure-latex/unnamed-chunk-12-1.pdf>] [11 <./main_files/figure-latex/unnamed-chunk-13-1.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 227.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-13-1.pdf  used on input line 231.
+(pdftex.def)             Requested size: 469.75386pt x 505.88875pt.
+[4] [5 <./main_files/figure-latex/unnamed-chunk-6-1.pdf>] [6 <./main_files/figure-latex/unnamed-chunk-7-1.pdf>] [7 <./main_files/figure-latex/unnamed-chunk-8-1.pdf>] [8 <./main_files/figure-latex/unnamed-chunk-9-1.pdf>] [9 <./main_files/figure-latex/unnamed-chunk-10-1.pdf>] [10 <./main_files/figure-latex/unnamed-chunk-11-1.pdf>] [11 <./main_files/figure-latex/unnamed-chunk-12-1.pdf>] [12 <./main_files/figure-latex/unnamed-chunk-13-1.pdf>]
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 250.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11> on input line 227.
+(Font)              <11> on input line 250.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7.69997> on input line 227.
+(Font)              <7.69997> on input line 250.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.5> on input line 227.
+(Font)              <5.5> on input line 250.
 
-Overfull \hbox (33.52623pt too wide) in paragraph at lines 227--255
+Overfull \hbox (33.52623pt too wide) in paragraph at lines 250--278
  [] 
  []
 
-[12
-
-] [13
+[13
 
 ] [14
-
 
 ] [15
 
 
+] [16
+
+
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 388.
+(Font)              <12> on input line 411.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 388.
+(Font)              <8> on input line 411.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 388.
-[16]
-<../figures/map_2.jpeg, id=178, 2818.53pt x 3249.13875pt>
+(Font)              <6> on input line 411.
+[17]
+<../figures/map_2.jpeg, id=183, 2818.53pt x 3249.13875pt>
 File: ../figures/map_2.jpeg Graphic file (type jpg)
 <use ../figures/map_2.jpeg>
-Package pdftex.def Info: ../figures/map_2.jpeg  used on input line 421.
+Package pdftex.def Info: ../figures/map_2.jpeg  used on input line 444.
 (pdftex.def)             Requested size: 399.27931pt x 460.28032pt.
-<main_files/figure-latex/unnamed-chunk-22-1.pdf, id=179, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-22-1.pdf, id=184, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-22-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-22-1.pdf  used on input line 429.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-22-1.pdf  used on input line 452.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<main_files/figure-latex/unnamed-chunk-23-1.pdf, id=180, 469.755pt x 325.215pt>
+<main_files/figure-latex/unnamed-chunk-23-1.pdf, id=185, 469.755pt x 325.215pt>
 File: main_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 <use main_files/figure-latex/unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-23-1.pdf  used on input line 437.
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-23-1.pdf  used on input line 460.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[17
+<main_files/figure-latex/unnamed-chunk-24-1.pdf, id=186, 469.755pt x 325.215pt>
+File: main_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
+<use main_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-24-1.pdf  used on input line 468.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<main_files/figure-latex/unnamed-chunk-25-1.pdf, id=187, 469.755pt x 325.215pt>
+File: main_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
+<use main_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-25-1.pdf  used on input line 476.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<main_files/figure-latex/unnamed-chunk-26-1.pdf, id=188, 469.755pt x 325.215pt>
+File: main_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
+<use main_files/figure-latex/unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-26-1.pdf  used on input line 484.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<main_files/figure-latex/unnamed-chunk-27-1.pdf, id=189, 469.755pt x 325.215pt>
+File: main_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf)
+<use main_files/figure-latex/unnamed-chunk-27-1.pdf>
+Package pdftex.def Info: main_files/figure-latex/unnamed-chunk-27-1.pdf  used on input line 492.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[18
 
 
-] [18 <../figures/map_2.jpeg>] [19 <./main_files/figure-latex/unnamed-chunk-22-1.pdf>] [20 <./main_files/figure-latex/unnamed-chunk-23-1.pdf>] [21
+] [19 <../figures/map_2.jpeg>] [20 <./main_files/figure-latex/unnamed-chunk-22-1.pdf>] [21 <./main_files/figure-latex/unnamed-chunk-23-1.pdf>] [22 <./main_files/figure-latex/unnamed-chunk-24-1.pdf>] [23 <./main_files/figure-latex/unnamed-chunk-25-1.pdf>] [24 <./main_files/figure-latex/unnamed-chunk-26-1.pdf>] [25 <./main_files/figure-latex/unnamed-chunk-27-1.pdf>] [26
 
 ] (./main.aux)
  ***********
@@ -848,18 +868,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: E0C70430BA5096F810C898FA8D230805;491.
  ) 
 Here is how much of TeX's memory you used:
- 17983 strings out of 477695
- 295940 string characters out of 5830134
+ 18037 strings out of 477695
+ 298179 string characters out of 5830134
  1873759 words of memory out of 5000000
- 38065 multiletter control sequences out of 15000+600000
- 636612 words of font info for 134 fonts, out of 8000000 for 9000
+ 38109 multiletter control sequences out of 15000+600000
+ 642597 words of font info for 136 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,12n,107p,797b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
-Output written on main.pdf (21 pages, 1262538 bytes).
+</Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
+Output written on main.pdf (26 pages, 1327019 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 209 compressed objects within 3 object streams
- 56 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 330 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 65 named destinations out of 1000 (max. 500000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -48,6 +48,59 @@ forest_sample_plot
 \end{figure}
 ```
 
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_1_es_overlay
+```
+```{=latex}
+\caption{Robustness of Main Results \label{entry_1_es_overlay}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+eos_1_es_overlay
+```
+```{=latex}
+\caption{Robustness of Main Results \label{eos_1_es_overlay}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+entry_1_es_longer
+```
+```{=latex}
+\caption{Robustness of Main Results \label{entry_1_es_longer}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, fig.align='center'}
+eos_1_es_longer
+```
+```{=latex}
+\caption{Robustness of Main Results \label{eos_1_es_longer}}
+\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\end{figure}
+```
+
+
+
+
 
 ```{=latex}
 \begin{figure}[t!]

@@ -13,6 +13,19 @@ if (!exists("dispatch_panel")){
   dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
 }
 
+
+# dispatch_panel %>% 
+#   filter(never_treated == 0) %>% 
+#   filter(date >= as_date("2018-05-16")) %>% 
+#   group_by(date) %>% 
+#   summarize(sst_per_day = sum(number_sst_alerts)) %>% 
+#   summarize(average = mean(sst_per_day),
+#             sd = sd(sst_per_day),
+#             min = min(sst_per_day),
+#             max = max(sst_per_day),
+#             median = median(sst_per_day))
+
+
 summary_stats <- dispatch_panel %>% 
   mutate(across(c(entry_to_dispatch_1,
                   entry_to_onscene_1

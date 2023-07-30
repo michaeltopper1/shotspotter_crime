@@ -121,7 +121,7 @@ hetero_resource
 
 \begin{figure}[t]
 ```
-```{r}
+```{r, fig.height=7}
 ## by priority: dispatch
 priorities_dispatch
 ```
@@ -137,7 +137,7 @@ priorities_dispatch
 ```{=latex}
 \begin{figure}[t]
 ```
-```{r}
+```{r, fig.height=7}
 ## by priority: onscene
 priorities_onscene
 ```

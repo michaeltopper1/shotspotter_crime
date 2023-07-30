@@ -22,7 +22,7 @@ watch_reg <- dispatch_panel %>%
         cluster = ~district) %>% 
   map_df(~broom::tidy(.,conf.int = T),.id = "type") %>% 
   filter(term == "treatment") %>% 
-  mutate(group = "Heterogeneity: Shift Watch") %>% 
+  mutate(group = "Shift Watch") %>% 
   mutate(outcome = if_else(str_detect(type, "onscene"), "Call-to-On-Scene", "Call-to-Dispatch")) %>% 
   mutate(type = case_when(
     str_detect(type, "watch3") ~ "Watch 3:\n(4pm - 12am)",
@@ -41,7 +41,7 @@ dispatch_reg <- dispatch_panel %>%
         cluster = ~district) %>% 
   map_df(~broom::tidy(., conf.int = T), .id = "type") %>% 
   filter(term == "treatment") %>% 
-  mutate(group = "Heterogeneity: Number of 911 Dispatches") %>% 
+  mutate(group = "Number of 911 Dispatches") %>% 
   mutate(outcome = if_else(str_detect(type, "onscene"), "Call-to-On-Scene", "Call-to-Dispatch")) %>% 
   mutate(type = if_else(type == "lhs:entry_to_dispatch_1", "Above Median",
                        "Above Median"))
@@ -57,7 +57,7 @@ dispatch_reg_below <- dispatch_panel %>%
         cluster = ~district) %>% 
   map_df(~broom::tidy(., conf.int = T), .id = "type") %>% 
   filter(term == "treatment") %>% 
-  mutate(group = "Heterogeneity: Number of 911 Dispatches") %>% 
+  mutate(group = "Number of 911 Dispatches") %>% 
   mutate(outcome = if_else(str_detect(type, "onscene"), "Call-to-On-Scene", "Call-to-Dispatch")) %>% 
   mutate(type = if_else(type == "lhs:entry_to_dispatch_1", "Below Median",
                         "Below Median"))

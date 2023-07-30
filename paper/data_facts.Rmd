@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 ```{r}
 library(tidyverse)
-sst <- sst <- read_csv(here::here("created_data/sst_dispatch_cpd.csv"))
+sst <- read_csv(here::here("created_data/sst_dispatch_cpd.csv"))
 
 ```
 
