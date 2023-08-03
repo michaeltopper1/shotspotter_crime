@@ -21,14 +21,17 @@ outcomes <- c("Overall Change",
               "Domestic Disturbance",
               "Robbery",
               "EMS",
-              "Battery")
+              "Battery",
+              "Gun Crimes")
+
 
 arrest_rates <- feols(c(arrest_rate_1,
                         domestic_battery_p1_arrestrate,
                         domestic_disturb_p1_arrestrate,
                         robbery_jo_p1_arrestrate,
                         ems_p1_arrestrate,
-                        battery_ip_p1_arrestrate) ~treatment  +
+                        battery_ip_p1_arrestrate,
+                        gun_crime_report_arrestrate) ~treatment  +
                         number_dispatches_1 + number_dispatches_2 +
                         number_dispatches_3 + number_dispatches_0 +
                         officer_hours|district + date,
@@ -69,9 +72,11 @@ arrest_rates <- arrest_rates %>%
                      "Domestic Disturbance" = 1,
                      "Robbery" = 1,
                      "EMS" = 1,
-                     "Battery" = 1)) %>% 
+                     "Battery" = 1,
+                     "Gun Crimes")) %>% 
   add_header_above(c(" "= 2,
-                     "Arrest Rate by Most Frequent Arrest Calls" = 5)) %>% 
+                     "Arrest Rate by Most Frequent Arrest Calls" = 5,
+                      " " = 1)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 

@@ -51,7 +51,28 @@ dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
 rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
 
+## this helps gets the arrests
+arrests <- read_csv("raw_data/arrests.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(firearm_arrest = if_else(str_detect(charges_description,"GUN|CARRY CONCL|CONCEAL|FIREARM"), 1, 0)) %>% 
+  distinct(case_number, .keep_all = T) %>% 
+  filter(!is.na(case_number)) %>% 
+  mutate(arrests_data_arrest = 1)
 
+## this helps gets the additional arrests that the arrests data
+## for some reason does not have in them
+crimes <- read_csv("created_data/crimes_cleaned.csv")
+
+crimes <- crimes %>% 
+  distinct(case_number, .keep_all = T) %>% 
+  filter(arrest == 1) %>%  ## filters to only those that have an arrest
+  select(-arrest) %>% 
+  mutate(crimes_data_arrest = 1)
+
+arrests <- arrests %>% 
+  full_join(crimes) %>% 
+  select(-district) %>% 
+  mutate(arrest = 1) 
 
 # creating variables ------------------------------------------------------
 
@@ -136,9 +157,30 @@ dispatches_filtered <- dispatches_filtered %>%
   mutate(gun_crime_report = if_else(shots_fired == 1 | person_wgun == 1 | person_shot == 1, 1, 0))
 
 
-dispatches_filtered <- dispatches_filtered %>% 
-  mutate(arrest_made = if_else(!is.na(rd), 1, 0)) 
 
+
+# arrests -----------------------------------------------------------------
+
+dispatches_filtered <- dispatches_filtered %>% 
+  left_join(arrests, join_by("rd" == "case_number"))
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(arrest_made = if_else(!is.na(arrest), 1, 0),
+         arrest_made_arrest_data = if_else(is.na(arrests_data_arrest), 0, 1),
+         arrest_made_crime_data = if_else(is.na(crimes_data_arrest), 0 ,1)) 
+
+
+
+# isr stops ---------------------------------------------------------------
+
+stops <- read_csv("created_data/stops_cleaned_in_dispatches.csv") %>% 
+  distinct(event_no, .keep_all = T)
+
+dispatches_filtered <- dispatches_filtered %>% 
+  left_join(stops, join_by(event_number == event_no))
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(isr_stop = if_else(is.na(isr_stop), 0, 1))
 
 ## creating intervals by first watch, second watch, third watch.
 
@@ -224,6 +266,7 @@ aggregated_monthly <- aggregated_monthly %>%
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) 
 
+
 aggregated <- dispatches_filtered %>% 
   group_by(date, district, priority_code) %>% 
   summarize(across(c(entry_to_dispatch,
@@ -233,7 +276,9 @@ aggregated <- dispatches_filtered %>%
             number_dispatches = n(),
             number_shotsfired = sum(shots_fired, na.rm = T),
             number_guncrime = sum(gun_crime_report, na.rm = T),
-            arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
+            arrests_made = sum(arrest_made,na.rm = T),
+            arrests_made_arrest_data = sum(arrest_made_arrest_data, na.rm = T),
+            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T)) %>% ungroup()
 
 
 aggregated_nopriority <- dispatches_filtered %>% 
@@ -244,7 +289,14 @@ aggregated_nopriority <- dispatches_filtered %>%
                      dispatch_to_onscene,
                      entry_to_close), ~mean(.,na.rm = T)),
             number_dispatches = n(),
-            arrests_made = sum(arrest_made,na.rm = T)) %>% ungroup()
+            number_guncrime = sum(gun_crime_report, na.rm = T),
+            number_isr_stops = sum(isr_stop, na.rm = T),
+            number_firearm_found_isr_stops = sum(firearm_found, na.rm = T),
+            number_black_isr_stops = sum(black_stop, na.rm = T),
+            number_search_isr_stops = sum(search_conducted, na.rm = T),
+            arrests_made = sum(arrest_made,na.rm = T),
+            arrests_made_arrest_data = sum(arrest_made_arrest_data, na.rm = T),
+            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T)) %>% ungroup()
 
 aggregated_watch <- dispatches_filtered %>% 
   group_by(date, district, watch) %>% 
@@ -262,11 +314,27 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                                 arrest_made == 1 &
                                                 final_dispatch_description == "DOMESTIC DISTURBANCE",
                                               1, 0),
+         domestic_disturb_p1_a_arrest = if_else(priority_code == 1 &
+                                                arrest_made_arrest_data == 1 &
+                                                final_dispatch_description == "DOMESTIC DISTURBANCE",
+                                              1, 0),
+         domestic_disturb_p1_c_arrest = if_else(priority_code == 1 &
+                                                arrest_made_crime_data == 1 &
+                                                final_dispatch_description == "DOMESTIC DISTURBANCE",
+                                              1, 0),
          domestic_disturb_p1_num = if_else(priority_code == 1 &
                                              final_dispatch_description == "DOMESTIC DISTURBANCE",
                                            1, 0),
          domestic_battery_p1_arrest = if_else(priority_code == 1 &
                                                 arrest_made == 1 &
+                                                final_dispatch_description == "DOMESTIC BATTERY",
+                                              1, 0),
+         domestic_battery_p1_a_arrest = if_else(priority_code == 1 &
+                                                arrest_made_arrest_data == 1 &
+                                                final_dispatch_description == "DOMESTIC BATTERY",
+                                              1, 0),
+         domestic_battery_p1_c_arrest = if_else(priority_code == 1 &
+                                                arrest_made_crime_data == 1 &
                                                 final_dispatch_description == "DOMESTIC BATTERY",
                                               1, 0),
          domestic_battery_p1_num = if_else(priority_code == 1 &
@@ -276,11 +344,27 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                           arrest_made == 1 &
                                           final_dispatch_description == "BATTERY IP",
                                         1, 0),
+         battery_ip_p1_a_arrest = if_else(priority_code == 1 &
+                                          arrest_made_arrest_data == 1 &
+                                          final_dispatch_description == "BATTERY IP",
+                                        1, 0),
+         battery_ip_p1_c_arrest = if_else(priority_code == 1 &
+                                          arrest_made_crime_data == 1 &
+                                          final_dispatch_description == "BATTERY IP",
+                                        1, 0),
          battery_ip_p1_num = if_else(priority_code == 1 &
                                        final_dispatch_description == "BATTERY IP",
                                      1, 0),
          ems_p1_arrest = if_else(priority_code == 1 &
                                    arrest_made == 1 &
+                                   final_dispatch_description == "EMS",
+                                 1, 0),
+         ems_p1_a_arrest = if_else(priority_code == 1 &
+                                   arrest_made_arrest_data == 1 &
+                                   final_dispatch_description == "EMS",
+                                 1, 0),
+         ems_p1_c_arrest = if_else(priority_code == 1 &
+                                   arrest_made_crime_data == 1 &
                                    final_dispatch_description == "EMS",
                                  1, 0),
          ems_p1_num = if_else(priority_code == 1 &
@@ -290,11 +374,27 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                           arrest_made == 1 &
                                           final_dispatch_description == "ROBBERY JO",
                                         1, 0),
+         robbery_jo_p1_a_arrest = if_else(priority_code == 1 &
+                                          arrest_made_arrest_data == 1 &
+                                          final_dispatch_description == "ROBBERY JO",
+                                        1, 0),
+         robbery_jo_p1_c_arrest = if_else(priority_code == 1 &
+                                          arrest_made_crime_data == 1 &
+                                          final_dispatch_description == "ROBBERY JO",
+                                        1, 0),
          robbery_jo_p1_num = if_else(priority_code == 1 &
                                        final_dispatch_description == "ROBBERY JO",
                                      1, 0),
          assault_ip_p1_arrest = if_else(priority_code == 1 &
                                           arrest_made == 1 &
+                                          final_dispatch_description == "ASSAULT IP",
+                                        1, 0),
+         assault_ip_p1_a_arrest = if_else(priority_code == 1 &
+                                          arrest_made_arrest_data == 1 &
+                                          final_dispatch_description == "ASSAULT IP",
+                                        1, 0),
+         assault_ip_p1_c_arrest = if_else(priority_code == 1 &
+                                          arrest_made_crime_data == 1 &
                                           final_dispatch_description == "ASSAULT IP",
                                         1, 0),
          assault_ip_p1_num = if_else(priority_code == 1 &
@@ -304,6 +404,14 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                            arrest_made == 1 &
                                            final_dispatch_description == "SHOTS FIRED",
                                          1, 0),
+         shots_fired_p1_a_arrest = if_else(priority_code == 1 &
+                                           arrest_made_arrest_data == 1 &
+                                           final_dispatch_description == "SHOTS FIRED",
+                                         1, 0),
+         shots_fired_p1_c_arrest = if_else(priority_code == 1 &
+                                           arrest_made_crime_data == 1 &
+                                           final_dispatch_description == "SHOTS FIRED",
+                                         1, 0),
          shots_fired_p1_num = if_else(priority_code == 1 &
                                         final_dispatch_description == "SHOTS FIRED",
                                       1, 0),
@@ -311,11 +419,27 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                           arrest_made == 1 &
                                           final_dispatch_description == "PERSON WITH A GUN",
                                         1, 0),
+         person_gun_p1_a_arrest = if_else(priority_code == 1 &
+                                          arrest_made_arrest_data == 1 &
+                                          final_dispatch_description == "PERSON WITH A GUN",
+                                        1, 0),
+         person_gun_p1_c_arrest = if_else(priority_code == 1 &
+                                          arrest_made_crime_data == 1 &
+                                          final_dispatch_description == "PERSON WITH A GUN",
+                                        1, 0),
          person_gun_p1_num = if_else(priority_code == 1 &
                                        final_dispatch_description == "PERSON WITH A GUN",
                                      1, 0),
          fire_p1_arrest = if_else(priority_code == 1 &
                                     arrest_made == 1 &
+                                    final_dispatch_description == "FIRE",
+                                  1, 0),
+         fire_p1_a_arrest = if_else(priority_code == 1 &
+                                    arrest_made_arrest_data == 1 &
+                                    final_dispatch_description == "FIRE",
+                                  1, 0),
+         fire_p1_c_arrest = if_else(priority_code == 1 &
+                                    arrest_made_crime_data == 1 &
                                     final_dispatch_description == "FIRE",
                                   1, 0),
          fire_p1_num = if_else(priority_code == 1 &
@@ -327,9 +451,16 @@ aggregate_arrests_top <- dispatches_filtered %>%
                                         1, 0),
          check_well_p1_num = if_else(priority_code == 1 &
                                        final_dispatch_description == "SHOTS FIRED",
-                                     1, 0)) %>% 
-  filter(entry_to_dispatch !=1 ) %>% 
-  filter(entry_to_onscene_outlier != 1) %>% 
+                                     1, 0),
+         gun_crime_report_arrest = if_else(arrest_made == 1 & 
+                                             gun_crime_report == 1,
+                                           1, 0),
+         gun_crime_report_a_arrest = if_else(arrest_made_arrest_data == 1 & 
+                                             gun_crime_report == 1,
+                                           1, 0),
+         gun_crime_report_c_arrest = if_else(arrest_made_crime_data == 1 & 
+                                             gun_crime_report == 1,
+                                           1, 0)) %>% 
   group_by(date, district) %>% 
   summarize(across(ends_with("arrest"), ~sum(.,na.rm = T)),
             across(ends_with("num"), ~sum(.,na.rm = T))) %>% ungroup() 
@@ -393,7 +524,11 @@ aggregated_nopriority_types <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close), ~mean(.,na.rm = T))) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T)),
+            number_isr_stops = sum(isr_stop, na.rm = T),
+            number_firearm_found_isr_stops = sum(firearm_found, na.rm = T),
+            number_black_isr_stops = sum(black_stop, na.rm = T),
+            number_search_isr_stops = sum(search_conducted, na.rm = T)) %>% ungroup()
 
 
 aggregated <- aggregated %>% 
@@ -404,6 +539,8 @@ aggregated <- aggregated %>%
                               entry_to_close,
                               number_dispatches,
                               arrests_made,
+                              arrests_made_arrest_data,
+                              arrests_made_crimes_data,
                               number_shotsfired,
                               number_guncrime))
 
@@ -412,7 +549,11 @@ aggregated_nopriority_types <- aggregated_nopriority_types %>%
               values_from = c(entry_to_dispatch,
                               entry_to_onscene,
                               dispatch_to_onscene,
-                              entry_to_close))
+                              entry_to_close,
+                              number_isr_stops,
+                              number_firearm_found_isr_stops,
+                              number_black_isr_stops,
+                              number_search_isr_stops))
 
 aggregated_watch <- aggregated_watch %>% 
   mutate(watch = glue::glue("watch{watch}")) %>% 
