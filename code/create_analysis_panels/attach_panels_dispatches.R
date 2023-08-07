@@ -7,7 +7,7 @@
 
 library(tidyverse)
 
-sst_alerts <- read_csv("created_data/shotspotter_cleaned.csv")
+sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") 
 dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
 officer_hours <- read_csv("analysis_data/officer_hours.csv")
 border_districts <- read_csv("created_data/border_districts_final.csv")
@@ -16,11 +16,6 @@ victimization <- read_csv("analysis_data/xxvictim_panel.csv")
 
 sst_alerts <- sst_alerts %>% 
   filter(year < 2023)
-
-sst_alerts <- sst_alerts %>% 
-  group_by(date, district) %>% 
-  summarize(number_sst_alerts = n()) %>% 
-  ungroup()
 
 dispatch_panel <- dispatch_panel %>% 
   mutate(across(starts_with("number_dispatches"),
@@ -38,7 +33,7 @@ dispatch_panel <- dispatch_panel %>%
                                    district == district))
 
 dispatch_panel <- dispatch_panel %>% 
-  mutate(number_sst_alerts =if_else(is.na(number_sst_alerts), 0, number_sst_alerts))
+  mutate(number_sst_dispatches =if_else(is.na(number_sst_dispatches), 0, number_sst_dispatches))
 
 dispatch_panel <- dispatch_panel %>% 
   mutate(across(starts_with("arrests_made"), ~if_else(is.na(.), 0, .)))

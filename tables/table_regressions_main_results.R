@@ -141,7 +141,7 @@ dispatch_table <- panelsummary_raw(list(entry_1, entry_2,
                                gof_omit = "^R|A|B|S",
                                gof_map = gof_mapping) 
 
-dispatch_table <- dispatch_table %>% 
+main_results <- dispatch_table %>% 
   janitor::clean_names() %>% 
   slice(-c(7:8)) %>% 
   mutate(model_3 = if_else(term == "FE: District" |
@@ -158,7 +158,7 @@ dispatch_table <- dispatch_table %>%
           model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.integer() %>%  scales::comma(), .))) %>% 
-  clean_raw(caption = "\\label{dispatch_table}Effect of ShotSpotter Rollout on Response Times (OLS)") %>% 
+  clean_raw(caption = "\\label{main_results}Effect of ShotSpotter Rollout on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call to Dispatch",1,7, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(14, hline_after = TRUE) %>% 

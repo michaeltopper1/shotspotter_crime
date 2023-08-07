@@ -30,7 +30,7 @@ summary_stats
 
 
 ```{r}
-dispatch_table %>% 
+main_results %>% 
   landscape() 
 ```
 

@@ -32,8 +32,9 @@ es_data_dispatch <- dispatch_panel %>%
   mutate(time_to_treat = if_else(is.na(time_to_treat), -1000, time_to_treat)) 
 
 ## Column graph numbers
-number_sst_alerts <- es_data_dispatch %>% 
-  summarize(number_sst_alerts = sum(number_sst_alerts)/sum(number_dispatches_1), .by = c(time_to_treat)) %>% 
+number_sst_dispatches <- es_data_dispatch %>% 
+  summarize(fraction_sst_dispatches = sum(number_sst_dispatches)/sum(number_dispatches_1),
+            number_sst_dispatches = sum(number_sst_dispatches, na.rm = T), .by = c(time_to_treat)) %>% 
   filter(time_to_treat < 12 & time_to_treat > -12)
 
 
@@ -155,7 +156,7 @@ eos_1_es <- eos_1 %>%
 event_study_graph_overlay <- function(x){
   graph <- x %>%
     ggplot(aes(periods, estimate, color = type, shape = type)) +
-    geom_col(aes(x = periods, y = number_sst_alerts*1000, color = NULL,shape = NULL), alpha = 0.3, position = "dodge", fill = "grey") +
+    geom_col(aes(x = periods, y = number_sst_dispatches/10, color = NULL,shape = NULL), alpha = 0.3, position = "dodge", fill = "grey") +
     geom_point(position = position_dodge(width = 0.5)) +
     geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
                   position = position_dodge(width = 0.5)) +
@@ -175,15 +176,15 @@ event_study_graph_overlay <- function(x){
 entry_1_es_overlay <- entry_1 %>%
   bind_rows(entry_1_2sdid) %>%
   filter(periods %in% c(-11:11)) %>%
-  left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>%
+  left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
   event_study_graph_overlay() +
-  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches"))
+  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches/Number Dispatches"))
 
 eos_1_es_overlay <- eos_1 %>%
   bind_rows(eos_1_2sdid) %>%
   filter(periods %in% c(-11:11)) %>%
   filter(periods %in% c(-11:11)) %>%
-  left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>%
+  left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
   event_study_graph_overlay() +
-  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches"))
+  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Dispatches/Number Dispatches"))
 

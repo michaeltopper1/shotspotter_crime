@@ -27,9 +27,9 @@ produce evidence of a shooting or any other criminal activity, a corresponding c
 ```{r}
 ## fraction of SST alerts that turn up nothing
 sst_fraction_found <- sst %>% 
-  count(final_disposition_description, sort = T) %>% 
+  count(final_disposition_description,rd, sort = T) %>% 
   mutate(total = sum(n)) %>% 
-  mutate(n/total) %>% 
+  mutate(n/total) %>%View()
   head()
 
 sst_fraction_found
