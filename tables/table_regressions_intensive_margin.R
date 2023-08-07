@@ -120,6 +120,14 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: date", "FE: Day-by-Month-by-Year", 3,
                        "FE: district", "FE: District", 3)
 
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors are clustered by district. 
+                  Shotspotter is activated in 12 of the 22 police districts in Chicago.
+                  Panel A shows the time from entry call to dispatched officer.
+                  Panel B shows time from the dispatched officer to on scene. Controls
+                  in all models include controls for officer hours and number of dispatches.
+                  "), ~str_remove_all(., "\n"))
+
 intensive_table <- panelsummary_raw(list(sst_1, sst_2,
                       sst_3, sst_4, sst_5,
                       sst_6),
@@ -134,7 +142,7 @@ intensive_table <- panelsummary_raw(list(sst_1, sst_2,
                  gof_map = gof_mapping) 
 
 
-t <- intensive_table %>% 
+intensive_table <- intensive_table %>% 
   janitor::clean_names() %>% 
   slice(-c(7:8)) %>% 
   mutate(model_3 = if_else(term == "FE: District" |

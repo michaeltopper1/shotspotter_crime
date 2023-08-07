@@ -8,7 +8,7 @@
 library(tidyverse)
 
 sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") 
-dispatch_panel <- read_csv("analysis_data/dispatches_all.csv")
+dispatch_panel <- read_csv("analysis_data/dispatches_all.csv") 
 officer_hours <- read_csv("analysis_data/officer_hours.csv")
 border_districts <- read_csv("created_data/border_districts_final.csv")
 victimization <- read_csv("analysis_data/xxvictim_panel.csv")
@@ -81,6 +81,7 @@ dispatch_panel <- dispatch_panel %>%
 
 dispatch_panel <- dispatch_panel %>% 
   group_by(district) %>% 
+  mutate(border_treatment = mdy(border_treatment)) %>% 
   mutate(shotspot_border_treatment = ifelse(date >= border_treatment,1 ,0 )) %>% 
   ungroup() %>% 
   mutate(shotspot_border_treatment = ifelse(is.na(shotspot_border_treatment), 0, shotspot_border_treatment))

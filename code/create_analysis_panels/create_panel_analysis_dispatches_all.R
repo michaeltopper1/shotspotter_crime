@@ -581,9 +581,10 @@ aggregated <- aggregated %>%
 
 aggregated <- aggregated %>% 
   left_join(rollout_dates) %>% 
-  mutate(treatment = if_else(shotspot_activate <= date, 1, 0),
+  mutate(treatment = if_else(shotspot_activate <= date, 1, 0), 
          treatment_official = if_else(shotspot_activate_official <= date, 1, 0),
          treatment_first_shot = if_else(shotspot_activate_first_shot <= date, 1, 0),
+         treatment_cpd = if_else(shotspot_activate_cpd <= date, 1, 0),
          .by = district) %>% 
   mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
   mutate(treatment = if_else(is.na(treatment), 0, treatment

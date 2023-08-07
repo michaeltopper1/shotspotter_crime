@@ -32,8 +32,8 @@ es_data_dispatch <- dispatch_panel %>%
   mutate(time_to_treat = if_else(is.na(time_to_treat), -1000, time_to_treat)) 
 
 ## Column graph numbers
-number_sst_alerts <- es_data_dispatch %>% 
-  summarize(number_sst_alerts = sum(number_sst_alerts)/sum(number_dispatches_1), .by = c(time_to_treat)) %>% 
+number_sst_dispatches <- es_data_dispatch %>% 
+  summarize(number_sst_dispatches = sum(number_sst_dispatches)/sum(number_dispatches_1), .by = c(time_to_treat)) %>% 
   filter(time_to_treat < 12 & time_to_treat > -12)
 
 
@@ -141,7 +141,7 @@ eos_1_es_longer <- eos_1 %>%
 # entry_1 %>% 
 #   bind_rows(entry_1_2sdid) %>% 
 #   filter(periods %in% c(-11:11)) %>% 
-#   left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>% 
+#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>% 
 #   event_study_graph() +
 #   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches")) 
 # 
@@ -149,13 +149,13 @@ eos_1_es_longer <- eos_1 %>%
 #   bind_rows(eos_1_2sdid) %>% 
 #   filter(periods %in% c(-11:11)) %>% 
 #   filter(periods %in% c(-11:11)) %>% 
-#   left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>% 
+#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>% 
 #   event_study_graph() +
 #   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches")) 
 # event_study_graph <- function(x){
 #   graph <- x %>% 
 #     ggplot(aes(periods, estimate, color = type, shape = type)) +
-#     geom_col(aes(x = periods, y = number_sst_alerts*300, color = NULL,shape = NULL), alpha = 0.3, position = "dodge", fill = "grey") +
+#     geom_col(aes(x = periods, y = number_sst_dispatches*300, color = NULL,shape = NULL), alpha = 0.3, position = "dodge", fill = "grey") +
 #     geom_point(position = position_dodge(width = 0.5)) +
 #     geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
 #                   position = position_dodge(width = 0.5)) +

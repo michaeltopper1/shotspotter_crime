@@ -18,7 +18,7 @@ if (!exists("dispatch_panel")){
 #   filter(never_treated == 0) %>% 
 #   filter(date >= as_date("2018-05-16")) %>% 
 #   group_by(date) %>% 
-#   summarize(sst_per_day = sum(number_sst_alerts)) %>% 
+#   summarize(sst_per_day = sum(number_sst_dispatches)) %>% 
 #   summarize(average = mean(sst_per_day),
 #             sd = sd(sst_per_day),
 #             min = min(sst_per_day),
@@ -40,7 +40,7 @@ summary_stats <- dispatch_panel %>%
               (`Priority 3` = number_dispatches_3) +
               (`Number Arrests` = arrests_made) +
               (`Arrest Rate` = arrest_rate) +
-              (`Number SST Alerts` = number_sst_alerts) +
+              (`Number SST Alerts` = number_sst_dispatches) +
               (`Officer Hours` = officer_hours) +
               (`Number Gun Victimizations` = num_any_gunshot_victim)~ Mean + SD + Median + Min  +Max,
               data = .,
@@ -92,7 +92,7 @@ summary_stats <- summary_stats %>%
 #                 `Priority 1` = number_dispatches_1,
 #                 `Priority 2` = number_dispatches_2,
 #                 `Priority 3` = number_dispatches_3,
-#                 `Number SST Alerts` = number_sst_alerts,
+#                 `Number SST Alerts` = number_sst_dispatches,
 #                 `Officer Hours` = officer_hours,
 #                 `Number Arrests` = arrests_made,
 #                 `Number Gun Victimizations` = number_gun_victims,
