@@ -24,23 +24,31 @@ if (!exists("dispatch_panel")){
 #             min = min(sst_per_day),
 #             max = max(sst_per_day),
 #             median = median(sst_per_day))
-
+# 
+# dispatch_panel %>% 
+#   filter(never_treated == 0) %>% 
+#   filter(date >= as_date("2018-05-16")) %>% 
+#   group_by(date, district) %>% 
+#   summarize(sst_per_day = sum(number_sst_dispatches)) %>% 
+#   summarize(mean(sst_per_day), sd(sst_per_day)) %>% 
+#   pull() %>% 
+#   round(2)
 
 summary_stats <- dispatch_panel %>% 
   mutate(across(c(entry_to_dispatch_1,
                   entry_to_onscene_1
                   ), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call to Dispatch (Priority 1)` = entry_to_dispatch_1) +
+  datasummary((`Call-to-Dispatch (Priority 1)` = entry_to_dispatch_1) +
                 entry_to_dispatch_1_mins +
-              (`Call to On-Scene (Priority 1)` = entry_to_onscene_1) +
+              (`Call-to-On-Scene (Priority 1)` = entry_to_onscene_1) +
               entry_to_onscene_1_mins +
-              (`Number Dispatches` = number_dispatches)+
+              (`Number Dispatches` = number_dispatches) +
               (`Priority 1` = number_dispatches_1) +
               (`Priority 2` = number_dispatches_2) +
               (`Priority 3` = number_dispatches_3) +
               (`Number Arrests` = arrests_made) +
               (`Arrest Rate` = arrest_rate) +
-              (`Number SST Alerts` = number_sst_dispatches) +
+              (`Number SST Dispatches` = number_sst_dispatches) +
               (`Officer Hours` = officer_hours) +
               (`Number Gun Victimizations` = num_any_gunshot_victim)~ Mean + SD + Median + Min  +Max,
               data = .,
@@ -50,15 +58,18 @@ summary_stats <- dispatch_panel %>%
 
 
 footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
-         the district-by-day level. Call to Dispatch represents 
-         the amount of time from the 911 call to the dispatcher finding and dispatching
-         a police officer to the scene. Dispatch to On-Scene is the time from dispatch to 
-         the scene of the reported crime. Priority 1 refers to an immediate dispatch, 
+         the district-by-day level. Call-to-Dispatch represents 
+         the amount of time from the 911 call to an officer dispatching
+         to the scene. Call-to-On-Scene is the time from a 911 call to
+         when an officer arrives on scene. Priority 1 refers to an immediate dispatch, 
          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. Officer Hours are the 
-         number of working hours sworn police officers work. Number of SST Alerts is the 
-         number of ShotSpotter alerts. Note that
+         number of working hours sworn police officers work. Number of SST Dispatches is the 
+         number of dispatches due to ShotSpotter alerts. Importantly, Number of SST Dispatches is
+         also at the district-by-day level and includes days in which
+         ShotSpotter is not implemented. The average number of ShotSpotter dispatches across Chicago
+         once all 12 districts have implemented ShotSpotter is approximately 60. Note that
          New Years Eve/New Years Day/Fourth of July are excluded from the sample as
-         ShotSpotter Alerts can be as high as 392 on these days. 
+         ShotSpotter alerts can be as high as 392 on these days. 
                   "), ~str_remove_all(., "\n"))
 
 

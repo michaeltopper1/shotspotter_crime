@@ -46,7 +46,5 @@ arrest_rates %>%
   landscape()
 ```
 
-```{r}
-victim_table
-```
+
 
