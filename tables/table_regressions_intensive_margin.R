@@ -92,10 +92,21 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
-                  Shotspotter is activated in 12 of the 22 police districts in Chicago.
-                  Panel A shows the time from entry call to dispatched officer.
-                  Panel B shows time from the dispatched officer to on scene. Controls
-                  in all models include controls for officer hours and number of dispatches.
+                      Number SST Dispatches refers to the number of
+                      ShotSpotter dispatches that occur within a district-day.
+                      All coefficient estimates are in seconds. Panel A reports results for
+                      Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.
+                      Call-to-Dispatch is the amount of time from a 911 call to 
+                      when a police officer is dispatched to the scene of the crime.
+                      Call-to-On-Scene is the time from a 911 call to the time a police
+                      officer arrives on-scene. In Column 1, the controls of officer hours and number of
+                      911 dispatches are not included. Column 2 shows the preferred
+                      specification, while Columns 3 and 4 split the sample by median number
+                      of officer hours
+                      within districts to show that response times are driven by
+                      resource-constrained time periods. Observations for Call-to-On-Scene
+                      do not exactly match Call-to-Dispatch since there is one district-day
+                      that is missing information for Call-to-On-Scene. 
                   "), ~str_remove_all(., "\n"))
 
 intensive_table <- panelsummary_raw(list(sst_1, sst_2,

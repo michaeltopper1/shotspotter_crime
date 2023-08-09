@@ -32,7 +32,7 @@ shotspotter_trend
 ```
 ```{=latex}
 \caption{ShotSpotter Alert Trends and Enactment Dates \label{shotspotter_trend}}
-\textit{Note:} This figure depicts only districts that have ShotSpotter technology. The x-axis is months, while the y-axis is the number of ShotSpotter alerts aggregated to the monthly level. The table on the right shows the average number of shots per-day in a ShotSpotter district. In Chicago, 12 of 22 police districts have ShotSpotter technology.  The dashed red line shows the treatment date used in the main results, in some cases this differs from the date given from public records (in blue). Analysis using public records date is shown in Appendix Figure BLANK. 
+\textit{Note:} This figure depicts police districts that are imiplemented with ShotSpotter technology. Months are on the x-axis, while the y-axis is the number of ShotSpotter dispatches aggregated to the monthly level. The table on the right shows the corresponding implementation date for ShotSpotter technology. In Chicago, 12 of the 22 police districts have ShotSpotter technology. The dashed red line shows the implementation dates used in the main results. In some cases, the implementation date we use differs from the date given from the Chicago Police Department since the ShotSpotter dispatches data does not align. Analysis using public records date is shown in Appendix Figure BLANK. 
 \end{figure}
 
 ```
@@ -48,25 +48,9 @@ distribution_outcomes
 ```
 ```{=latex}
 \caption{Distribution of Outcome Variables \label{distribution_outcomes}}
-\textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome, however, the main results remain consistent when including these outliers (see Appendix Figure BLANK).
+\textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome. However, the main results remain consistent when including these outliers as shown in Appendix Figure BLANK.
 \end{figure}
 ```
-
-
-
-```{=latex}
-
-\begin{figure}[t]
-```
-```{r}
-raw_evidence_figure
-```
-```{=latex}
-\caption{Outcome Averages for Never Treated/ShotSpotter Activated/ShotSpotter Inactive Districts \label{raw_evidence_figure}}
-\textit{Note:} Each police district is on the y-axis and the average of each outcome (seconds) is on the x-axis. There are three groupings: Never Treated, ShotSpotter Active, and ShotSpotter Inactive. Never Treated refers to police districts that never received ShotSpotter technology. All other districts have two possibilities: ShotSpotter Active and ShotSpotter Inactive. There are 12 of 22 police districts in Chicago that receive ShotSpotter technology. 
-\end{figure}
-```
-
 
 
 ```{=latex}
@@ -79,7 +63,7 @@ entry_1_es
 ```
 ```{=latex}
 \caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}
-\textit{Note:} The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2021) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 11 post-periods are reported as the -12 and +12 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
 \end{figure}
 ```
 
@@ -94,9 +78,26 @@ eos_1_es
 ```
 ```{=latex}
 \caption{Event Study (Call-to-On-Scene) \label{eos_1_es}}
-\textit{Note:} The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2021) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-On-Scene times. Call-to-On-Scene is the amount of time from a 911 call to a police officer arriving to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 11 post-periods are reported as the -12 and +12 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
 \end{figure}
 ```
+
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+raw_evidence_figure
+```
+```{=latex}
+\caption{Average Outcomes in Police Districts \label{raw_evidence_figure}}
+\textit{Note:} Each police district is plotted on the y-axis and the average of each Priority 1 Call-to-Dispatch and Call-to-On-Scene (seconds) is on the x-axis. There are three groupings: Never Treated, ShotSpotter Active, and ShotSpotter Inactive. Never Treated refers to police districts that never received ShotSpotter technology and are plotted in light grey. All ShotSpotter-implemented districts have two distinctions: ShotSpotter Active and ShotSpotter Inactive. The red bars show prior to ShotSpotter implementation, and the blue bars show post-implementation. There are 12 of 22 police districts in Chicago that receive ShotSpotter technology. 
+\end{figure}
+```
+
 
 
 
@@ -109,8 +110,8 @@ eos_1_es
 hetero_resource
 ```
 ```{=latex}
-\caption{Effect of ShotSpotter by Watch and 911 Calls \label{hetero_resource}}
-\textit{Note:} These notes need to be redone. First row denotes the aggregate effect from the preferred specification on call-to-dispatch times in seconds, by priority. Rows 2-6 denote the top five most frequent 911 call descriptions within each priority. Each errorbar represents the 95% confidence interval. All estimates are obtained from the preferred specification. Standard errors are clustered by police district.
+\caption{Effect of ShotSpotter by Watch and 911 Dispatches \label{hetero_resource}}
+\textit{Note:} Two outcomes are pictured here: Call-to-Dispatch and Call-to-On-Scene. Moreover, there are two separate analyses for each outcome: shift watches and median splits of 911 dispatches. Each of these tests show that ShotSpotter delays are more apparent in times where police officers are more time-constrained. For instance, more crimes tend to occur in Watch 3 (4:00pm - 12:00am) than in Watch 1 (12:00am-8:00am) or Watch 2 (8:00am-4:00pm). OLS estimates are shown along with 95\% confidence intervals using the specification in Equation 1. 
 \end{figure}
 
 ```
@@ -126,8 +127,8 @@ hetero_resource
 priorities_dispatch
 ```
 ```{=latex}
-\caption{Effect of ShotSpotter on Call-to-Dispatch by Priority/Call Description \label{priorities_dispatch}}
-\textit{Note:} The first row denotes the aggregate effect from the preferred specification on call-to-dispatch times in seconds, by priority. Rows 2-6 denote the top five most frequent 911 call descriptions within each priority. Each errorbar represents the 95% confidence interval. All estimates are obtained from the preferred specification. Standard errors are clustered by police district.
+\caption{Effect of ShotSpotter by Priority (Call-to-Dispatch) \label{priorities_dispatch}}
+\textit{Note:} This figure plots the effects of ShotSpotter on Call-to-Dispatch times by priority. At the top of each graph, the estimate combining all respective dispatch call types are displayed (Aggregate Estimate). The other five estimates are for the top five call types corresponding to each priority. For instance, Domestic Disturbance is the most frequenty Priority 1 dispatch. The x-axis shows the percent change from the mean (i.e., the point estimate divded by the mean of the outcome), as well as the corresponding 95\% confidence interval using the specification from Equation 1. Note that the data is at the district-day level. Because of this, call-types have missing data when there are no dispatches for a particular type of call in a district-day. The number of observations are shown in the y-axis (N) while the estimated point estimate (in seconds) is also reported (Estimate).
 \end{figure}
 
 ```
@@ -142,8 +143,8 @@ priorities_dispatch
 priorities_onscene
 ```
 ```{=latex}
-\caption{Effect of ShotSpotter on Call-to-On-Scene by Priority/Call Description\label{priorities_onscene}}
-\textit{Note:} The first row denotes the aggregate effect from the preferred specification on call-to-dispatch times in seconds, by priority. Rows 2-6 denote the top five most frequent 911 call descriptions within each priority. Each errorbar represents the 95% confidence interval. All estimates are obtained from the preferred specification. Standard errors are clustered by police district.
+\caption{Effect of ShotSpotter by Priority (Call-to-On-Scene)\label{priorities_onscene}}
+\textit{Note:} This figure plots the effects of ShotSpotter on Call-to-On-Scene times by priority. At the top of each graph, the estimate combining all respective dispatch call types are displayed (Aggregate Estimate). The other five estimates are for the top five call types corresponding to each priority. For instance, Domestic Disturbance is the most frequenty Priority 1 dispatch. The x-axis shows the percent change from the mean (i.e., the point estimate divded by the mean of the outcome), as well as the corresponding 95\% confidence interval using the specification from Equation 1. Note that the data is at the district-day level. Because of this, call-types have missing data when there are no dispatches for a particular type of call in a district-day. The number of observations are shown in the y-axis (N) while the estimated point estimate (in seconds) is also reported (Estimate).
 \end{figure}
 
 ```

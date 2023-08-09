@@ -36,7 +36,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   Dependent variable is the proportion of 911 call dispatches that 
                   have missing on-scene times. ShotSpotter Activated refers to the
                   timing in which each district receives ShotSpotter technology. The
-                  Gardner (2021) Robust estimator is robust to the heterogeneous
+                  Gardner (2022) estimator is robust to the heterogeneous
                   treatment effects in staggered two-way-fixed-effects designs."), ~str_remove_all(., "\n"))
 
 missing_os_table <- panelsummary_raw(list(missing, missing_2s),
@@ -49,7 +49,7 @@ missing_os_table <- panelsummary_raw(list(missing, missing_2s),
                                term == "FE: Day-by-Month-by-Year" |
                                term == "FE: District",
                              `Model 1`, `Model 2`)) %>% 
-  add_row(term = "Gardner (2021) Robust",
+  add_row(term = "Gardner (2022) Robust",
           `Model 1` = "", `Model 2` = "X") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.integer() %>%  scales::comma(), .))) %>% 

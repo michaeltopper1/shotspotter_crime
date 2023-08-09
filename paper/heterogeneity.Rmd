@@ -1,0 +1,47 @@
+---
+title: "Heterogeneity"
+output: pdf_document
+date: ""
+---
+
+\section{Heterogeneity}\label{section:hetereogeneity}
+
+\subsection{Is ShotSpotter most hindering in resource-constrained times?}\label{section:resourceconstrain}
+As alluded to in [Table 2], ShotSpotter has a larger effect on response times when officer are resource constrained.
+In fact, days with fewer officers working has as much as three times as large of treatment effect than days with more officers.
+This is consistent with the hypothesis that times where an officer is resource constrained are more likely to be affected by the increased workload that ShotSpotter causes.
+We further test this conclusion in Figure \ref{hetero_resource} where we show several other splits based on officer resources.
+
+In the left column, days are separated by the number of 911 dispatches per day.
+Days with a large number of dispatches represent days with higher crime levels.
+These high crime days show evidence of a larger increase in both Call-to-Dispatch time and Call-to-On-Scene time.
+Next, in the right column, dispatches are split based on the time of day that they occur, using the 3 Watches that officers work.
+Similarly, Watch 3 that operates during the evening, and which faces the highest levels of crime, see the largest treatment effect of each of the three watches.
+
+
+NOTE TO HEATHER: we feel like this is kind of weak evidence, but it fits in with our story.
+
+
+
+
+\subsection{How does ShotSpotter affect other priority response times?}\label{section:priorities}
+
+Figure \ref{priorities_dispatch} explore treatment effect heterogeneity by call type for the five most common call types.
+Each bar represents a separate regression where the outcome is the Call-to-Dispatch time for a specific type of call.
+It is important to explore individual call types for several reasons.
+First, any change in the distribution of call types could lead to a change in response time that is unrelated to Shotspotter technology. This would arise as some call types require more officer time.
+Second, as a placebo test, we can explore whether time sensitive calls, such as \textit{Battery in Progress}, are more affected than non-time sensitive calls, such as \textit{Parking Violation}.
+
+There is not a significant amount of heterogeneity by call type for Priority 1 calls.
+All Priority 1 call show increases in Call-to-Dispatch time, consistent with the idea that all priority 1 calls are time sensitive and immediately dispatched if an officer is available.
+This helps to ensure that previous results are not driven by a change in the distribution of call types.
+
+Priority 2 calls also see an increase in their Call-to-Dispatch times of a similar magnitude as Priority 1 calls.
+However, since these calls have a longer average time, the effect size is smaller relative to the mean.
+The lowest priority level (3) sees no change across any of the reported call types.
+
+Figure \ref{priorities_onscene} provides similar estimates to [Figure 7] but for Call-to-On-Scene time as the outcome.
+Across the 4 most common call types, we find a increase in the Call-to-On-Scene time by by approximately 1 minute over that of Call-to-Dispatch time.
+This result mirrors that of the aggregated estimates, that not only officers are being dispatched slower, but they are also arriving slower to the scene after being dispatched.
+Similar to Call-to-Dispatch time, Call-to-On-Scene time for Priority 3 calls is unaffected.
+

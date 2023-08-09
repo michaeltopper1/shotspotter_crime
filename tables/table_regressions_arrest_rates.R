@@ -48,10 +48,17 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
-                  Shotspotter is activated in 12 of the 22 police districts in Chicago.
-                  Panel A shows the time from entry call to dispatched officer.
-                  Panel B shows time from the dispatched officer to on scene. Controls
-                  in all models include controls for officer hours and number of dispatches.
+                  Arrest Rate is defined as the number of arrests made
+                  divided by the number of dispatches. Columns 2-4 report the 
+                  top 3 most frequent calls that end in arrests: Domestic Battery,
+                  Domestic Disturbance, and Battery. Column 5 reports arrest rates
+                  for Gun Crimes which is any call corresponding to a person with a gun,
+                  shots fired, or a person shot. Observations are not consistent across each
+                  call type since not every type of call occurs on every district-day. Controls
+                  of officer hours and number of dispatches
+                  are included in all specifications. As mentioned in Section BLANK,
+                  not every arrest is included in the data, and therefore, these estimates
+                  represent a lower bound. 
                   "), ~str_remove_all(., "\n"))
 
 arrest_rates <- arrest_rates %>% 

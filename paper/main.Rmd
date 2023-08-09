@@ -21,7 +21,7 @@ header-includes:
 - \usepackage{graphicx}
 - \usepackage[utf8]{inputenc}
 - \usepackage{pdfpages}
-- \usepackage[round,authoryear]{natbib}
+- \usepackage[round]{natbib}
 - \usepackage{setspace}\doublespacing
 - \usepackage{subfig}
 - \usepackage{placeins}
@@ -31,7 +31,7 @@ linkcolor: blue
 bibliography: "references.bib"
 link-citations: yes
 nocite: |
-abstract: ShotSpotter is an acoustic gunfire detection technology utilized by police departments in over 150 cities with the intention of rapidly dispatching police officers to violent crime scenes to catch perpetrators and reduce gun violence. Despite its world-wide prevalence, little is known about its effectiveness in reducing gun violence (intended consequence) nor its effect on 911 emergency response times (unintended consequence) given its resource-intensive operating procedure. In this paper, we utilize variation in timing from ShotSpotter rollouts across Chicago police districts from 2016-2022 to estimate the causal effects of ShotSpotter on 911 emergency response times that are designated as priority 1 (immediate dispatch). Using comprehensive 911 dispatch data from the Chicago Police Department, we find that ShotSpotter leads police officers to be dispatched one-minute slower (23%) and arrive on-scene two-minutes later (14%) while controlling for the police officer availability and overall 911 call quantities. Moreover, these effects are driven by resource-constrained periods, and consequently, reduce police officers' success rate in arresting perpetrators (5%) when responding to emergency calls. However, we also find that ShotSpotter reduces the number of gun-victimizations, thereby indicating success in achieving its primary goal, albeit at a significant cost. 
+abstract: \singlespacing ShotSpotter is an acoustic gunfire detection technology utilized by police departments in over 150 cities with the intention of rapidly dispatching police officers to violent crime scenes to catch perpetrators and reduce gun violence. Despite its prevalence, little is known about its effectiveness in reducing gun violence (intended consequence) nor its effect on 911 emergency response times (unintended consequence) given its resource-intensive operating procedures. In this paper, we utilize variation in timing from ShotSpotter roll-outs across Chicago police districts from 2016-2022 to estimate the causal effects of ShotSpotter on 911 emergency response times that are designated as Priority 1 (immediate dispatch). Using comprehensive 911 dispatch data from the Chicago Police Department, we find that ShotSpotter leads police officers to be dispatched one-minute slower (23\% increase) and arrive on-scene two-minutes later (14\% increase) while controlling for the police officer availability and overall 911 call quantities. Moreover, these effects are driven by resource-constrained periods, and consequently, reduce police officers' success rate in arresting perpetrators (5\%) when responding to emergency calls. However, we also find that ShotSpotter increases the number of gun-related arrests, thereby indicating success in achieving its primary goal, albeit at a significant cost.
 ---
 
 ```{r setup, include=FALSE}
@@ -56,13 +56,43 @@ options(modelsummary_model_labels="model")
 
 
 \newpage
+```{r, child = "paper/introduction.Rmd"}
 
+```
+
+```{r, child = "paper/background.Rmd"}
+
+```
+
+```{r, child = "paper/data.Rmd"}
+
+```
+
+```{r, child = "paper/empirical_strategy.Rmd"}
+
+```
+
+```{r, child = "paper/results.Rmd"}
+
+```
+
+```{r, child = "paper/heterogeneity.Rmd"}
+
+```
+
+```{r, child = "paper/discussion.Rmd"}
+
+```
+
+```{r, child = "paper/conclusion.Rmd"}
+
+```
 
 
 \newpage
-# References
 
-<div id="refs"></div>
+\bibliographystyle{apalike}
+\bibliography{references.bib}
 
 \newpage
 ```{r, child = "paper/figures.Rmd", fig.pos="H"}
@@ -78,6 +108,14 @@ options(modelsummary_model_labels="model")
 
 \newpage
 
+```{=tex}
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{A\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{A\arabic{table}} \setcounter{equation}{0}
+\setcounter{footnote}{0}
+\setcounter{page}{1}
+```
 ```{r, child = "paper/appendix_figures.Rmd", fig.pos = "H"}
 
 ```

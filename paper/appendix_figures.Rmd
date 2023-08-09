@@ -31,8 +31,8 @@ knitr::include_graphics(here::here("figures/map_2.jpeg"))
 
 ```
 ```{=latex}
-\caption{Raw Counts of Gun Arrests Over Time \label{gun_arrest_comparison}}
-\textit{Note:} There are a total of 18 police districts in Chicago. Each of these districts contains beats which are designated by the boxes within the district lines. ShotSpotter began implementation in 2017 and rolled out over the next two years. 
+\caption{Map of ShotSpotter Districts in Chicago \label{map}}
+\textit{Note:} There are 22 police districts in Chicago, and 12 are equipt with ShotSpotter technology. Each district contains beat which are designated by the boxes within the district lines. ShotSpotter implmentation began in January 2017 and ended in May 2018. 
 \end{figure}
 ```
 
@@ -44,34 +44,53 @@ forest_sample_plot
 ```
 ```{=latex}
 \caption{Robustness of Main Results \label{forest_sample_plot}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\textit{Note:} This figure shows the results from estimation of Equation 1 with six different samples for both Call-to-Dispatch and Call-to-On-Scene. Main Sample refers to the main sample used in the paper. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19.  Omitting Shots Fired omits any 911 call dispatches related to the description of Shots Fired in case dispatchers begin combining reports of gun fire with ShotSpotter alerts. Including Outliers includes all outliers that are removed from the main analysis (+3 standard deviations from the mean). Official Activate Dates uses the official ShotSpotter activation dates as received from a Freedom of Information Request from the Chicago Police Department. These dates are similar, but not exact to the dates we use due to what we observe in the data. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
 \end{figure}
 ```
 
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, fig.align='center'}
-entry_1_es_overlay
-```
-```{=latex}
-\caption{Robustness of Main Results \label{entry_1_es_overlay}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
-\end{figure}
-```
 
 
 ```{=latex}
 \begin{figure}[t!]
 ```
 ```{r, fig.align='center'}
-eos_1_es_overlay
+loo_figure
 ```
 ```{=latex}
-\caption{Robustness of Main Results \label{eos_1_es_overlay}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\caption{Leave-One-Out Analysis \label{loo_figure}}
+\textit{Note:} This figure shows the results from 22 distinct OLS and Gardner (2022) regressions using Equation 1. Both outcomes of Call-to-Dispatch and Call-to-On-Scene are pictured. In each iteration, one police district is removed from estimation to ensure that the effects of ShotSpotter are not driven by one district. The blue points and errorbars represent Garnder (2022) point estimates and 95\% confidence intervals, which are robust to hetereogeneous treatment effects in staggered designs. The red points and lines denote point estimates and 95\% confidence intervals from OLS estimates. Standard errors are clustered at the district level. The dashed blue lines represent the average estimate under the Gardner (2022) estimate while the dashed red lines indicate the average estimate using OLS. 
 \end{figure}
 ```
+
+
+
+
+
+
+<!-- ```{=latex} -->
+<!-- \begin{figure}[t!] -->
+<!-- ``` -->
+<!-- ```{r, fig.align='center'} -->
+<!-- entry_1_es_overlay -->
+<!-- ``` -->
+<!-- ```{=latex} -->
+<!-- \caption{Robustness of Main Results \label{entry_1_es_overlay}} -->
+<!-- \textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology. -->
+<!-- \end{figure} -->
+<!-- ``` -->
+
+
+<!-- ```{=latex} -->
+<!-- \begin{figure}[t!] -->
+<!-- ``` -->
+<!-- ```{r, fig.align='center'} -->
+<!-- eos_1_es_overlay -->
+<!-- ``` -->
+<!-- ```{=latex} -->
+<!-- \caption{Robustness of Main Results \label{eos_1_es_overlay}} -->
+<!-- \textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology. -->
+<!-- \end{figure} -->
+<!-- ``` -->
 
 ```{=latex}
 \begin{figure}[t!]
@@ -80,8 +99,8 @@ eos_1_es_overlay
 entry_1_es_longer
 ```
 ```{=latex}
-\caption{Robustness of Main Results \label{entry_1_es_longer}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\caption{Event Study Longer Time Horizon (Call-to-Dispatch) \label{entry_1_es_longer}}
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Thirty six periods are estimated, but only 11 pre-periods and 23 post periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level.
 \end{figure}
 ```
 
@@ -93,24 +112,10 @@ entry_1_es_longer
 eos_1_es_longer
 ```
 ```{=latex}
-\caption{Robustness of Main Results \label{eos_1_es_longer}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
+\caption{Event Study Longer Time Horizon (Call-to-On-Scene) \label{eos_1_es_longer}}
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-On-Scene times. Call-to-On-Scene is the amount of time from a 911 call to a police officer arriving to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Thirty six periods are estimated, but only 11 pre-periods and 23 post periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level.
 \end{figure}
 ```
 
 
-
-
-
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, fig.align='center'}
-loo_figure
-```
-```{=latex}
-\caption{Leave-one-out Analysis of Outcomes \label{loo_figure}}
-\textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology.
-\end{figure}
-```
 

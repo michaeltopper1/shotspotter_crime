@@ -4,43 +4,44 @@ output: pdf_document
 date: "2023-07-26"
 ---
 
-# Empirical Strategy
+\section{Empirical Strategy}\label{section:empirical}
 
-## Baseline Specification
+\subsection{Baseline Specification} \label{section:baselinespec}
 
-To estimate the causal effect of Shotspotter technology on police response times, we estimate the following two-way fixed effects model using OLS:
+To estimate the causal effect of ShotSpotter technology on police response times, we estimate the following staggered difference-in-differences using ordinary least squares (OLS):
 
 \begin{equation}
 \label{eq:main}
     ResponseTime_{dt} = \beta ShotSpotter_{dt}  + \delta_{d} + \gamma_{t} + \lambda \mathbb{X}_{dt} + \varepsilon_{dt}
 \end{equation}
-where $ResponseTime_{dt}$ is the average call-to-dispatch or call-to-on-scene in police district $d$ at time $t$. The treatment variable is $ShotSpotter_{dt}$, which is an indicator variable equal to one when a police district is equipt with Shotspotter. Moreover, $\delta_{d}$ and $\gamma_{t}$ are police district and day-by-month-by-year fixed effects respectively. Finally, $\mathbb{X}_{dt}$ is a vector of time varying controls that differ across police districts, and $\epsilon_{dt}$ is the error term. The standard errors are clustered by police district (N = 22) to allow for serial correlation within districts. Intuitively, Equation \ref{eq:main} is comparing average response times on days with ShotSpotter activated to days without ShotSpotter actived, while accounting for the expected differences in police districts and different times of the year. 
+where $ResponseTime_{dt}$ is the average call-to-dispatch or call-to-on-scene in police district $d$ at time $t$. The treatment variable is $ShotSpotter_{dt}$, which is an indicator variable equal to one when a police district is equipped with ShotSpotter. Moreover, $\delta_{d}$ and $\gamma_{t}$ are police district and day-by-month-by-year fixed effects, respectively. Finally, $\mathbb{X}_{dt}$ is a vector of time varying controls that differ across police districts, and $\epsilon_{dt}$ is the error term. The standard errors are clustered by police district (N = 22) to allow for serial correlation within districts, although we also report wild cluster bootstrapped standard errors in our main results as recommended by \citet{cameron_bootstrap-based_2008} since the number of clusters is below 30. Intuitively, Equation \ref{eq:main} is comparing average response times on days with ShotSpotter activated to days without ShotSpotter activated, while accounting for the expected differences in police districts and different times of the year. 
 
-Police district fixed effects, $\delta_d$, are included to account for the systematic, time-invariant differences between police districts. Given that Chicago's police districts have different baseline characteristics such as levels of wealth, crime, and potential policing tactics, adding police district fixed effects accounts for these differences. Additionally, the day-by-month-by-year fixed effects, $\gamma_t$, are included to control for time-varying fluctuations that occur over particular days of each year. 
+Police district fixed effects, $\delta_d$, are included to account for the systematic, time-invariant differences between police districts. Given that Chicago's police districts have distinct baseline characteristics such as levels of wealth, crime, and potential policing tactics, adding police district fixed effects accounts for these fixed differences. Additionally, the day-by-month-by-year fixed effects, $\gamma_t$, are included to control for time-varying fluctuations that occur over particular days of each year. 
 
-Within $\mathbb{X}_{dt}$, we control for two important factors that vary between districts and over time: officer hours and the number of 911 dispatches. Each of these controls are included to ensure that the estimates are not confounded by days in which there are more police resources or a higher amount of reported crimes to respond to. As mentioned in Section BLANK, officer hours is the number of working hours by police officers within a district-day. Officer hours are preferred over number of shifts in order to account for the possibility of overtime. 
+Within $\mathbb{X}_{dt}$, we control for two important factors that vary between districts and over time: officer hours and the number of 911 dispatches. Each of these controls are included to ensure that the estimates are not confounded by days in which there are more police officers or a higher amount of reported crimes to respond to. As mentioned in Section \ref{section:datasources}, officer hours is the number of working hours by police officers within a district-day. Officer hours are preferred over number of shifts in order to account for the possibility of overtime. 
 
 
-## Identification
+\subsection{Identification}\label{section:identification}
 
-The coefficient of interest is $\beta$, which measures the average change in average response times between times with and without ShotSpotter technology. To identify $\beta$ as a causal effect, there are several assumptions that must be addressed. 
+The coefficient of interest is $\beta$, which measures the average change in the daily average response times between days with and without ShotSpotter technology. To identify $\beta$ as a causal effect, there are several assumptions that must be satisfied: response times would have continued on a similar trend to non-Shotspotter districts in the absence of ShotSpotter (common trends), there is no change in 911 dispatching procedures post-ShotSpotter implementation, and there are no other policies that coincide with the timing of ShotSpotter that may affect response times. 
 
-The first key identification assumption is that police districts that adopt ShotSpotter would have continued to have similar response times in the absence of ShotSpotter (i.e., *common trends*). In particular, ShotSpotter adoption must not be correlated with a systematic rise or fall in response times. To address this concern, we estimate an event study framework given by the following model:
+The first key identification assumption is that police districts that adopt ShotSpotter would have continued to have similar response times non-ShotSpotter districts in the absence of adoption (i.e., \emph{common trends}). Specifically, ShotSpotter adoption must not be correlated with a systematic rise or fall in response times. To address this concern, we estimate an event study framework given by the following model:
 \begin{equation}
 \label{eq:es}
-% NOTE: This specification does not indicate anything about the end points, there is a commented variable that can be added in as an endpoint, or 
-% incorporated into the sum, not sure which is more clear.
     ResponseTime_{dt} = 
-    % \beta^{-12}Shotspotter_{dt}^{<-12} +
-    \sum_{\substack{i = -12, \\ i\neq -1}}^{12}\beta^i\text{Shotspotter}_{dt}^i +
-    % \beta^{12}\text{Shotspotter}_{dt}^{>-12}
+    % \beta^{-12}ShotSpotter_{dt}^{<-12} +
+    \sum_{\substack{i = -12, \\ i\neq -1}}^{12}\beta^i\text{ShotSpotter}_{dt}^i +
+    % \beta^{12}\text{ShotSpotter}_{dt}^{>-12}
     \gamma_{t} + \delta_{d} + \lambda \mathbb{X}_{dt} + \varepsilon_{dt}
 \end{equation}
 
 
-Where $ShotSpotter_{dt}^i$ is a set of indicators that are set to 1 if Shotspotter is adopted $i$ months from day $t$ in district $d$. Each period is normalized by the month before ShotSpotter adoption. Twelve periods before and after are estimated before and after ShotSpotter implementation, although only eleven periods are reported, as the last periods are binned endpoints as described in BLANK. We opt to use monthly periods instead of day periods in order to increase statistical precision of each coefficient estimate and reduce potential noise that arises from using small sets of data. This also allows us to explore dynamic treatment effects over a substantially longer time period.
+\noindent where $ShotSpotter_{dt}^i$ is a set of indicators that are set to 1 if ShotSpotter is adopted $i$ months from day $t$ in district $d$. Each period is relative to the month before ShotSpotter adoption. Twelve periods before and after are estimated before and after ShotSpotter implementation where the first and final periods are binned endpoints as described in \cite{schmidheiny_event_2023}. We opt to use monthly periods instead of day periods in order to increase statistical power of each coefficient estimate and thereby reduce potential noise that arises from using small sets of data. This also allows us to explore dynamic treatment effects over a substantially longer time period.
 
-Figures \ref{} and \ref{} show the event study estimations for call-to-dispatch and call-to-on-scene response times and report little visual evidence of an upward or downward trend prior to the implementation of ShotSpotter. The errorbars represent 95% confidence intervals while the coefficient estimates are reported in seconds. We report two sets of estimates in this visualization: the two-stage difference-in-difference imputation estimator (CITE GARNDER 2020) and the OLS estimator. The two-stage difference-in-difference estimator is robust to the negative weighting issue that occurs when there are heterogeneous treatment effects across groups and over time in staggered designs (CITE CITE CITE CITE CITE). In each set of estimations, there appears to be little evidence of a trend prior to ShotSpotter implementation. We later enhance this visual test in Section BLANK with a sensitivity test  as described in CITE ROTH 2022 where we allow for BLANK BLANK BLANK.
+Figures \ref{entry_1_es} and \ref{eos_1_es} show the event study estimations for call-to-dispatch and call-to-on-scene response times and display little visual evidence of an upward or downward trend prior to the implementation of ShotSpotter. The error-bars represent 95\% confidence intervals while the coefficient estimates are reported in seconds. We report two sets of estimates in this visualization: the two-stage difference-in-difference imputation estimator \citep{gardner_two-stage_2022} and the OLS estimator. The two-stage difference-in-difference estimator is robust to the negative weights which arise in OLS estimates when there are heterogeneous treatment effects across groups and over time in staggered designs \citep{de_chaisemartin_two_way_2020, callaway_difference--differences_2021, goodman-bacon_difference--differences_2021, athey_design-based_2022}. In each set of estimations, there appears to be little evidence of a trend prior to ShotSpotter implementation. We later enhance this visual test in Section \ref{section:dynamic} with a sensitivity test as described in \cite{rambachan_more_2023} where we allow for relaxations of the common trends assumption.
 
 
-The second main assumption is that there are no other 
+Given that the standard operating procedures for 911 calls do not change and there are no other police department policies that directly coincide with ShotSpotter implementation, it is likely that the second and third main assumptions hold. Although ShotSpotter changes a police officer's time allocation through responding to ShotSpotter alerts, the rapid response units and beat cops responding to 911 calls remain consistent. Moreover, the only other department-wide policy that was implemented at a similar time as ShotSpotter are body worn cameras.\footnote{Body worn cameras were implemented beginning in June 2016 and ended in December 2017.} However, the district implementation of BWC, although similar, do not align with the timing of ShotSpotter. Furthermore, while body worn cameras have been found to affect complaints \citep{kim2019facilitating, noauthor_bodyworn_nodate, zamoff_who_2022, ferrazares_monitoring_2023}, arrests, and stops \citep{noauthor_bodyworn_nodate, zamoff_who_2022}, it is unlikely that body worn cameras affect an officers response time or overall workload. 
+
+
+

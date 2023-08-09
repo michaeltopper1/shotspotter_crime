@@ -1,0 +1,9 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-08-08"
+---
+
+\section{Conclusion}\label{section:conclusion}
+
+Importantly, we do not rule out that ShotSpotter may have its merits in other settings. Recall that the results are driven by the resource-constraints of the Chicago Police Department such as officer availability and overall workload. Therefore, ShotSpotter may be an effective technology to reduce gun violence provided police departments have the necessary accommodations. 

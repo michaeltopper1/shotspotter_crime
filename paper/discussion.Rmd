@@ -1,0 +1,37 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-08-08"
+---
+
+
+\section{Discussion}\label{section:discussion}
+
+\subsection{Does ShotSpotter reduce the likelihood of catching a criminal?} \label{section:arrests}
+
+Although the findings report that ShotSpotter affects police officer response times, we acknowledge that this may not be a detrimental consequence if officers' likelihood of catching perpetrators remains unchanged. In response, we conduct an analysis similar to \cite{blanes_i_vidal_effect_2018} who find that increases in response times lowers the likelihood of a crime being cleared. Similar to this study, we provide evidence that the increased response times attributed to ShotSpotter result in a lower likelihood of perpetrators being arrested when responding to 911 calls. 
+
+To begin, we merge the 911 dispatch data to arrest data using the incident report number.\footnote{We use two sets of arrest data. Arrests from the arrest database, and also case reports that end in arrests.} Importantly, not every arrest includes an incident report number. Based on conversations with the Chicago Police Department, officers may not always fill out an incident report number when making an arrest. For instance, many arrests that are made on an arrest warrant do not contain an incident report number. Therefore, we consider the following results to be lower bounds on the true effect of ShotSpotter on arrest rates. 
+
+Table \ref{arrest_rates} shows the results from estimation of Equation \ref{eq:main} using the arrest rate for Priority 1 dispatches as the outcome variable. Column 1 reports that arrest rates decrease by 12\% relative to the mean. This finding is statistically significant at the 1\% level, and consequently, exhibits that the rapid response delays are costly for civilians.
+
+To isolate which calls demonstrate the largest declines in likelihood of arrest, Columns 2 through 4 report the arrest rate for the three most frequent Priority 1 call types that end in arrests: domestic battery, domestic disturbance, and battery. Column 2 shows that the lower arrest rates are driven by calls regarding domestic battery (16\% increase). 
+
+In Column 5, we test whether ShotSpotter increases the likelihood of an arrest for gun-related crimes. Although ShotSpotter decreases the likelihood of arrest in several non-gun-related crimes, it may be the reverse for gun-related crimes. For instance, officers may respond faster to reports of gun incidents if ShotSpotter has already placed them closer to the crime scene. To test this, we combine three call descriptions to create the Gun Crime outcome: person with a gun, gunshots fired, and person shot. As a result, this indirectly measures whether ShotSpotter is achieving its primary goal in inhibiting gun violence.
+
+Column 5 reports some suggestive evidence that officers may be arresting gun-wielding perpetrators with higher success. Although imprecise, the point estimates are positive. This imprecision is likely due to lack of statistical power as the confidence intervals contain effects between a decrease of 3\% and an increase in 19\%. 
+
+\subsection{Are injuries more likely?}
+
+We want to replicate the \cite{deangelo_police_2023} study in which they look at the probability of an injury due to longer response times. We're currently waiting on the FOIA to come back from the Chicago Police. Chicago is very mad at Michael right now after abusing their FOIA laws.
+
+\subsection{Does ShotSpotter reduce Gun Crime?}
+
+In this section, we want to do something that sheds ShotSpotter is a possible better light. There are only a couple things we can do. First, we have results on arrests not-related to 911 calls. In these results, we're finding significant decreases in arrests everywhere except gun-violations. We think the story here could be that police officers are spending so much time on ShotSpotter, that they're not arresting other people (as shown in our previous section). However, because they're pouring resources into ShotSpotter, they are consequently coming up with more gun-related arrests. Initially, we were a little worried about presenting these results because of the declines we see in other arrests. However, in light of the previous discussion section, we think this might be a nice complement. 
+
+Second, we can also give raw summary statistics on ShotSpotter dispatches themselves. This won't be causal, but we can shed light on the proportion of ShotSpotter alerts that end in firearm retrievals, or something of this sort. 
+
+
+\subsection{Cost-Benefit Analysis}
+
+This section is only conditional on whether we get some good evidence in support of ShotSpotter.

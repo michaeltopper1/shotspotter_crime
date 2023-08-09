@@ -1,23 +1,55 @@
 ---
-title: "Data"
+title: "Results"
 output: pdf_document
-date: "2023-06-19"
+date: "2023-08-08"
 ---
 
 
-# Results
+\section{Results}\label{section:results}
 
-In this section, we present the main estimates on the effect of ShotSpotter on priority 1 response times using Equation \ref{eq:main}. We show that the results are robust across various specifications, estimators, sample selections, and sensitivity tests. Moreover, we present the first set of evidence that ShotSpotter affects response times by constraining officer resources. Later, we analyze dynamic effects and the intensive margin.
+In this section, we present the main estimates on the effect of ShotSpotter on Priority 1 response times using Equation \ref{eq:main}. We show that the results are robust across various specifications, estimators, sample selections, and sensitivity tests. Moreover, we present the first set of evidence that ShotSpotter affects response times by constraining officer resources. Later, we analyze dynamic effects and the intensive margin.
 
-Figure \ref{} serves as an intuitive preview of the main results plotting only the raw data. We plot the average call-to-dispatch and call-to-on-scene times within each police district before/after ShotSpotter implementation. Consistent with the main results, districts that received ShotSpotter show a substantial increase in the average call-to-dispatch and call-to-on-scene times in nearly every police district. Notably, there does not appear to be significant visual evidence that average response times are different in districts that receive ShotSpotter in comparison to those that did not.
+Figure \ref{raw_evidence_figure} serves as an intuitive preview of the main results plotting only the raw data. We plot the average call-to-dispatch and call-to-on-scene times within each police district before/after ShotSpotter implementation. Consistent with the main results, districts that received ShotSpotter show a substantial increase in the average call-to-dispatch and call-to-on-scene times in nearly every police district. Notably, there does not appear to be significant visual evidence that average response times are different in districts that receive ShotSpotter in comparison to those that did not.
+
+\subsection{Main Results - Response Time Changes}\label{section:mainresults}
+
+Table \ref{main_results} reports estimates from Equation \ref{eq:main} for call-to-dispatch (Panel A) and call-to-on-scene (Panel B) response times where each coefficient estimate is reported in seconds. Recall that call-to-dispatch and call-to-on-scene are the length of time from when a 911 call is received to when a police is dispatched and subsequently arrives on the scene respectively. In Column 1 of Table \ref{main_results}, we estimate Equation \ref{eq:main}, first, without the addition of control variables. We find an increase in call-to-dispatch and call-to-on-scene times of 63 seconds and 110 seconds respectively.
+Notably, call-to-on-scene time shows that travel time is increasing by approximately one minute in addition to the delays in finding responding officers to dispatch. This suggests that ShotSpotter is not placing officers in areas closer to other crimes whereby travel time may be reduced.
 
 
-## Main Results
+Column 2 of Panels A and B, show that call-to-dispatch and call-to-on-scene times increase significantly by approximately one minute and two minutes respectively when controlling for officer hours and number of 911 dispatches. Each of these controls are included to ensure that the results are attributed to the implementation of ShotSpotter rather than changes in the number of police officers or overall 911 response workload.
 
-Table \ref{} reports estimates from Equation \ref{eq:main} for call-to-dispatch (Panel A) and call-to-on-scene (Panel B) response times where each coefficient estimate is reported in seconds. 
+Given the staggered difference-in-difference research design, Column 3 reports estimates that are robust to treatment heterogeneity across groups and over time using the two-stage difference-in-difference imputation estimator \citep{gardner_two-stage_2022}. This estimator equally weights each district-date estimate making it less susceptible to the bias from negative weighting in the presence of treatment effect heterogeneity \citep{callaway_difference--differences_2021, goodman-bacon_difference--differences_2021, athey_design-based_2022}. The estimates, albeit slightly larger, remain consistent with the OLS estimates.
 
-## Dynamic Effects
-You dummy: what about places that just have more ShotSpotter alerts?
+We consider spillover effects in Column 4 by including an indicator variable equal to one (Border Activated) for any police district that is adjacent to a ShotSpotter-activated district. In effect, the coefficient on Border Activated shows ShotSpotter's effect on adjacent police districts that may not have implemented the technology. As reported in both Panel A and Panel B, there does not appear to be evidence of spillover effects on response times. This result aligns with the standard dispatching procedures as discussed in Section \ref{section:dispatchingchicago}—officers are only to be dispatched outside their beat/district of patrol in rare circumstances. 
 
-## Intensive Margin
+Finally, in Columns 5 and 6, we separate district-days that have above and below the median officer hours to further test that ShotSpotter is affecting response times by exhausting scarce police resources. Column 5 reports that when there are more officers on duty, ShotSpotter's resource-constraining effects are less apparent, exhibiting a 23 second increase in call-to-dispatch time and a 60 second increase in call-to-dispatch time respectively.  On the other hand, Column 6 shows the opposite: on district-days with less police officers, the effects of ShotSpotter are more than twice as large. In particular, a district-day below the median of officer hours exhibits a 1.5 minute increase in call-to-dispatch time and a 2.5 minute increase in call-to-on-scene time. Given these large disparities, we find further evidence that these effects are driven by resource-constrained times in Section \ref{section:resourceconstrain} where we analyze differences in shift times and days with higher 911 call volumes. 
 
+Importantly, the main results are robust to a variety of sample selections and sensitivity tests. First, Appendix Figure \ref{forest_sample_plot} shows Equation \ref{eq:main} for five different sample selections estimated with both OLS and the Gardner 2021 robust estimator: omitting 2020 (Covid-19 pandemic), omitting 911 calls for gun shots fired in the event that dispatchers begin to merge reports of gunfire and ShotSpotter alerts, including all outliers that are removed in the main sample, using the official activation dates from the Freedom of Information Act request rather than the observed beginning of ShotSpotter alerts, and omitting the never-treated police districts. In nearly all of these samples, the results for both response time outcomes remain consistent with the main results. The one exception is when the never-treated districts are removed. However,  we attribute this inconsistency to the a loss in precision from removing approximately half the sample, and in addition, note that the point estimates still remain positive. Second, we perform a leave-one-out analysis in Appendix Figure \ref{loo_figure} where Equation \ref{eq:main} is estimated 22 times with each iteration excluding a distinct police district. Given that the results remain consistent with the main findings in each iteration, we rule out the possibility that these effects are driven by only one police district. 
+
+
+
+\subsection{Dynamic Effects}\label{section:dynamic}
+
+Next, to analyze the effect of ShotSpotter over time, we estimate an event study using Equation \ref{eq:es}. We estimate this model using both OLS and the \cite{gardner_two-stage_2022} robust estimator to account for potential treatment heterogeneity across groups and time periods. 
+
+Figures \ref{entry_1_es} and \ref{eos_1_es} show that the effect of ShotSpotter implementation takes several months post-implementation to significantly alter call-to-dispatch and call-to-on-scene times respectively. In each figure, the red error bars represent the 95\% confidence intervals using OLS while the blue error bars are estimates using the \cite{gardner_two-stage_2022} estimator. We attribute the delayed effect in response times to ShotSpotter's functionality. Specifically, ShotSpotter relies on a machine learning algorithm to detect gunfire which improves with the volume of data it receives. Therefore, the initial months of implementation may not exhibit significant effects on response times due to lower quantities of ShotSpotter alerts. To test this mechanism, Appendix Figures \ref{} and \ref{} overlay the fraction of Priority 1 dispatches attributed to ShotSpotter alerts with the original event studies. As displayed, the increase in alerts coincide with the increase in response times. In particular, the largest fraction of alerts and biggest increase in response times occur simultaneously in the fifth month post-implementation. 
+
+Additionally, we conduct analysis following \cite{rambachan_more_2023} to illustrate the sensitivity of the estimates to possible violations of parallel trends. Specifically, we evaluate the degree of nonlinearity we can impose on a linear extrapolation of the pre-treatment trend. We adopt the notation used in \cite{rambachan_more_2023} and define $M$ as the amount that the pre-treatment trend can change across consecutive periods. As an example, $M =0$ implies no change in the post-treatment trends—the counterfactual difference in trends is exactly linear. Conversely, as $M$ increases ($M >0$), we allow for more nonlinearity in the pre-treatment trend and therefore greater uncertainty in the treatment effect estimates.
+
+Since we are most interested in the average effect of ShotSpotter post-implementation, rather than one particular post-period, we perform the sensitivity analysis on the average of all post-implementation estimates obtained from Equation \ref{eq:es}. Appendix Figures \ref{} and \ref{} report two important features: the confidence interval of the average of all post-period estimates (Original) and the corresponding robust fixed-length confidence intervals (FLCI) which show the average post-period effect under the assumption that the difference in pre-period trends can differ by up to $M$ across consecutive periods. For both outcomes, the average of all post-implementation periods maintain their statistical significance under both a linear extrapolation of the pre-period ($M=0$) and increasing amounts of non-linearity ($M > 0$) for both the call-to-dispatch and call-to-on-scene time. 
+
+
+
+\subsection{Intensive Margin}\label{section:margin}
+
+The installation of Shotspotter technology does not directly affect police officer response times, but does so through an increase in the number of required dispatches.
+In Table \ref{intensive_table} we explore the marginal effect of an additional ShotSpotter dispatch.
+Days without alerts should be unaffected by ShotSpotter enactment, since installation of technology does not itself affect day-to-day police operations.
+These intensive margin estimates help to unpack this mechanism, that increasing the number of alerts (and thus lowering the available time of each officers) increases dispatch time of officers.
+
+Column 1 of Table \ref{intensive_table} shows one additional ShotSpotter dispatch is associated with an increase in Call-to-Dispatch time of 8 seconds, and an increase in Call-to-On-Scene time of 12 seconds.
+This result is consistent with the idea that each additional ShotSpotter dispatch has a detrimental effect of a police officers available time.
+% On average, districts with Shotspotter receive 5 alerts per day, equating to a 40 and 58 second increase in the respective response times.
+These results are robust to adding in controls in Column 2.
+Also, in Columns 3 and 4, consistent with previous estimates, we show effects are concentrated on days with fewer officers (Column 4).

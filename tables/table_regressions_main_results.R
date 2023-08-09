@@ -123,9 +123,21 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
                   Shotspotter is activated in 12 of the 22 police districts in Chicago.
-                  Panel A shows the time from entry call to dispatched officer.
-                  Panel B shows time from the dispatched officer to on scene. Controls
-                  in all models include controls for officer hours and number of dispatches.
+                  Panel A shows results for Call-to-Dispatch while
+                  Panel B shows results for Call-to-On-Scene. Column 1 reports no controls, and 
+                  only fixed effects. Controls in all other columns include
+                  officer hours and number of 911 dispatches. Column 2 reports the preferred
+                  specification from Equation 1. Column 3 reports estimates using
+                  the Gardner (2022) estimator which is robust to 
+                  heterogeneous treatment effects across groups and time periods
+                  in staggered designs. Column 4 includes Border District Activated
+                  which is an indicator for when a police district is adjacent to a ShotSpotter
+                  implemented district. Wild cluster bootstrap p-values are also reported
+                  as the number of clusters (22) is below the threshold of 30 put forth in
+                  Cameron et al. (2008). Columns 5 and 6 split the sample by district median
+                  levels of officer hours. Observations for Call-to-On-Scene
+                      do not exactly match Call-to-Dispatch since there is one district-day
+                      that is missing information for Call-to-On-Scene. 
                   "), ~str_remove_all(., "\n"))
 
 
@@ -154,11 +166,11 @@ main_results <- dispatch_table %>%
           model_3 = "", model_4 = "", model_5 = "", model_6 = "", .before = 14) %>% 
   add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X",
           model_5 = "X", model_6 = "X") %>% 
-  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
+  add_row(term = "Gardner (2022) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
                                            . %>% as.integer() %>%  scales::comma(), .))) %>% 
-  clean_raw(caption = "\\label{main_results}Effect of ShotSpotter Rollout on Response Times (OLS)") %>% 
+  clean_raw(caption = "\\label{main_results}Effect of ShotSpotter on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call to Dispatch",1,7, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(14, hline_after = TRUE) %>% 
