@@ -98,7 +98,7 @@ dispatch_panel <- dispatch_panel %>%
   mutate(day = day(date)) %>% 
   filter(!(month ==7 & day == 4)) %>% 
   filter(!(month == 1 & day == 1)) %>% 
-  filter(!(month == 12 & day == 31))
+  filter(!(month == 12 & day == 31)) 
 
 
 # creating arrest rates ---------------------------------------------------

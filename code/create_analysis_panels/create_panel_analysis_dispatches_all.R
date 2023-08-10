@@ -201,65 +201,65 @@ dispatches_filtered <- dispatches_filtered %>%
 
 
 # aggregating by month ----------------------------------------------------
-
-## creating by priority
-aggregated_monthly <- dispatches_filtered %>% 
-  mutate(date = as_date(entry_received_date),
-         year = year(date),
-         month = month(date),
-         year_month = mdy(paste0(month, "-1-", year))) %>% 
-  group_by(year_month, district, priority_code) %>% 
-  summarize(across(c(entry_to_dispatch,
-                     entry_to_onscene,
-                     dispatch_to_onscene,
-                     entry_to_close), ~mean(.,na.rm = T)),
-            number_dispatches = n(),
-            number_shotsfired = sum(shots_fired, na.rm = T)) %>% ungroup()
-
-
-## not doing it by priority
-aggregated_monthly_nopriority <- dispatches_filtered %>% 
-  mutate(date = as_date(entry_received_date),
-         year = year(date),
-         month = month(date),
-         year_month = mdy(paste0(month, "-1-", year))) %>% 
-  group_by(year_month, district) %>% 
-  summarize(across(c(entry_to_dispatch,
-                     entry_to_onscene,
-                     dispatch_to_onscene,
-                     entry_to_close), ~mean(.,na.rm = T)),
-            number_dispatches = n()) %>% ungroup()
-
-## pivoting priority to fit dimensions
-aggregated_monthly <- aggregated_monthly %>% 
-  pivot_wider(names_from = priority_code, 
-              values_from = c(entry_to_dispatch,
-                              entry_to_onscene,
-                              dispatch_to_onscene,
-                              entry_to_close,
-                              number_dispatches,
-                              number_shotsfired))
-
-## joining the-non priority and priority datas
-aggregated_monthly <- aggregated_monthly %>% 
-  left_join(aggregated_monthly_nopriority) 
-
-
-## going to be defining treatment by first full month of treatment.
-aggregated_monthly <- aggregated_monthly %>% 
-  left_join(rollout_dates, join_by(district == district)) %>% 
-  mutate(treatment = if_else(shotspot_activate <= year_month, 1, 0),
-         treatment_official = if_else(shotspot_activate_official <= year_month, 1, 0),
-         treatment_first_shot = if_else(shotspot_activate_first_shot <= year_month, 1, 0),
-         .by = district) %>% 
-  mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
-  mutate(treatment = if_else(is.na(treatment), 0, treatment
-  ),
-  treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
-  treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
-  .by = district)
-
-
+# 
+# ## creating by priority
+# aggregated_monthly <- dispatches_filtered %>% 
+#   mutate(date = as_date(entry_received_date),
+#          year = year(date),
+#          month = month(date),
+#          year_month = mdy(paste0(month, "-1-", year))) %>% 
+#   group_by(year_month, district, priority_code) %>% 
+#   summarize(across(c(entry_to_dispatch,
+#                      entry_to_onscene,
+#                      dispatch_to_onscene,
+#                      entry_to_close), ~mean(.,na.rm = T)),
+#             number_dispatches = n(),
+#             number_shotsfired = sum(shots_fired, na.rm = T)) %>% ungroup()
+# 
+# 
+# ## not doing it by priority
+# aggregated_monthly_nopriority <- dispatches_filtered %>% 
+#   mutate(date = as_date(entry_received_date),
+#          year = year(date),
+#          month = month(date),
+#          year_month = mdy(paste0(month, "-1-", year))) %>% 
+#   group_by(year_month, district) %>% 
+#   summarize(across(c(entry_to_dispatch,
+#                      entry_to_onscene,
+#                      dispatch_to_onscene,
+#                      entry_to_close), ~mean(.,na.rm = T)),
+#             number_dispatches = n()) %>% ungroup()
+# 
+# ## pivoting priority to fit dimensions
+# aggregated_monthly <- aggregated_monthly %>% 
+#   pivot_wider(names_from = priority_code, 
+#               values_from = c(entry_to_dispatch,
+#                               entry_to_onscene,
+#                               dispatch_to_onscene,
+#                               entry_to_close,
+#                               number_dispatches,
+#                               number_shotsfired))
+# 
+# ## joining the-non priority and priority datas
+# aggregated_monthly <- aggregated_monthly %>% 
+#   left_join(aggregated_monthly_nopriority) 
+# 
+# 
+# ## going to be defining treatment by first full month of treatment.
+# aggregated_monthly <- aggregated_monthly %>% 
+#   left_join(rollout_dates, join_by(district == district)) %>% 
+#   mutate(treatment = if_else(shotspot_activate <= year_month, 1, 0),
+#          treatment_official = if_else(shotspot_activate_official <= year_month, 1, 0),
+#          treatment_first_shot = if_else(shotspot_activate_first_shot <= year_month, 1, 0),
+#          .by = district) %>% 
+#   mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
+#   mutate(treatment = if_else(is.na(treatment), 0, treatment
+#   ),
+#   treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
+#   treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
+#   .by = district)
+# 
+# 
 
 # aggregating at daily level ----------------------------------------------
 
@@ -596,6 +596,6 @@ aggregated <- aggregated %>%
 
 aggregated %>% 
   write_csv("analysis_data/dispatches_all.csv")
-
-aggregated_monthly %>% 
-  write_csv("analysis_data/dispatches_all_monthly.csv")
+# 
+# aggregated_monthly %>% 
+#   write_csv("analysis_data/dispatches_all_monthly.csv")
