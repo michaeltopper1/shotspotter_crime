@@ -33,8 +33,8 @@ es_data_dispatch <- dispatch_panel %>%
 
 ## Column graph numbers
 number_sst_dispatches <- es_data_dispatch %>% 
-  summarize(number_sst_dispatches = sum(number_sst_dispatches)/sum(number_dispatches_1), .by = c(time_to_treat)) %>% 
-  filter(time_to_treat < 12 & time_to_treat > -12)
+  summarize(number_sst_dispatches = sum(number_sst_dispatches), .by = c(time_to_treat)) %>% 
+  filter(time_to_treat < 24 & time_to_treat > -12)
 
 
 event_study_graph <- function(x){
@@ -133,8 +133,14 @@ eos_1_es_longer <- eos_1 %>%
   filter(periods %in% c(-11:23)) %>% 
   event_study_graph()
 
-
-
+# 
+# eos_1 %>% 
+#   bind_rows(eos_1_2sdid) %>%
+#   filter(periods %in% c(-11:23)) %>%
+#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
+#   event_study_graph_overlay() +
+#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches/Number Dispatches"))
+# 
 
 # 
 # 

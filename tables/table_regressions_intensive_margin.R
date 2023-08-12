@@ -125,7 +125,7 @@ intensive_table <- intensive_table %>%
   slice(-c(5:6)) %>% 
   add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
-                                           . %>% as.double() %>% as.integer() %>% scales::comma(), .))) %>% 
+                                           . %>% prettyNum(digits = 2, big.mark = ",", format = "f"), .))) %>% 
   clean_raw(caption = "\\label{intensive_table}Effect of Number of ShotSpotter Alerts on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call-to-Dispatch",1,4, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 5, 8, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 

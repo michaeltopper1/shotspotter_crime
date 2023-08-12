@@ -65,11 +65,16 @@ twfe_dispatch_honest <- HonestDiD::createSensitivityResults(betahat = twfe_dispa
 
 
 sensitivity_plot_dispatch <- createSensitivityPlot(twfe_dispatch_honest, twfe_dispatch_original) +
-  scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4)) +
+  scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5)) +
   ggthemes::scale_color_stata() +
   theme_minimal() +
-  labs(color = "") +
+  labs(color = "", x = "Maximum Change in Slope of Pre-trends Across Consecutive Periods (M)",
+       y = "Average Post-Period Effect (Seconds)") +
   theme(legend.position = "bottom")
+
+
+ggsave(sensitivity_plot_dispatch, filename = "figures/roth_trends_dispatch.jpeg")
+
 
 ## 2sDID
 
@@ -122,6 +127,7 @@ twfe_os_coef <- twfe_os$coefficients[2:23]
 twfe_os_cov <- twfe_os$cov.scaled[2:23,2:23]
 
 
+
 # roth: testing period 5 after implementation -----------------------------
 
 ## doing the first period of significant and the highest period (month 6)
@@ -140,11 +146,14 @@ twfe_os_honest <- HonestDiD::createSensitivityResults(betahat = twfe_os_coef,
 
 
 sensitivity_plot_os <- createSensitivityPlot(twfe_os_honest, twfe_os_original) +
-  scale_x_continuous(breaks = c(0, 0.5, 1, 1.5, 2)) +
+  scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5)) +
   ggthemes::scale_color_stata() +
   theme_minimal() +
-  labs(color = "") +
+  labs(color = "", x = "Maximum Change in Slope of Pre-trends Across Consecutive Periods (M)",
+       y = "Average Post-Period Effect (Seconds)") +
   theme(legend.position = "bottom")
+
+ggsave(sensitivity_plot_os, filename = "figures/roth_trends_onscene.jpeg")
 
 
 ## 2sdid

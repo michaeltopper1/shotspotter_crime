@@ -169,7 +169,7 @@ main_results <- dispatch_table %>%
   add_row(term = "Gardner (2022) Robust", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "", model_6 = "") %>% 
   mutate(across(starts_with("M"), ~if_else(term == "Observations",
-                                           . %>% as.integer() %>%  scales::comma(), .))) %>% 
+                                           . %>% prettyNum(digits = 2, big.mark = ",", format = "f"), .))) %>% 
   clean_raw(caption = "\\label{main_results}Effect of ShotSpotter on Response Times (OLS)") %>% 
   pack_rows("Panel A: Call to Dispatch",1,7, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call to On-Scene", 8, 14, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 

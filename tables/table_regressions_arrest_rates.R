@@ -69,7 +69,7 @@ arrest_rates <- arrest_rates %>%
                gof_map = gof_mapping) %>% 
   add_row(arrest_means, .before = 3) %>% 
   mutate(across(-c(term), ~if_else(term == "Observations",
-                                   . %>% as.integer() %>% scales::comma(), .))) %>% 
+                                   . %>% prettyNum(digits = 2, big.mark = ",", format = "f"), .))) %>% 
   clean_raw(caption = "\\label{arrest_rates}Effect of ShotSpotter Enactment on Arrest Rates (OLS)") %>% 
   add_header_above(c(" " = 1,
                      "Arrest Rate" = 1,
