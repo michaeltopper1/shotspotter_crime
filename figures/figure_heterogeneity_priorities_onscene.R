@@ -31,7 +31,7 @@ tidy_estimates <- function(model, description, priority) {
 # priority 1 --------------------------------------------------------------
 
 p1_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_domestic_disturb_p1 ~treatment + officer_hours +
+  feols(entry_to_onscene_1 ~treatment + officer_hours +
           number_dispatches_1 + number_dispatches_2 + 
           number_dispatches_3 | district + date) %>% 
   tidy_estimates(description = "Aggregate Estimate", 1)
@@ -71,7 +71,7 @@ p1_5 <- dispatch_panel %>%
 # priority 2 --------------------------------------------------------------
 
 p2_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_alarm_burglar_p2 ~treatment + officer_hours +
+  feols(entry_to_onscene_2 ~treatment + officer_hours +
           number_dispatches_1 + number_dispatches_2 + 
           number_dispatches_3 | district + date) %>% 
   tidy_estimates("Aggregate Estimate", 2)
@@ -113,7 +113,7 @@ p2_5 <- dispatch_panel %>%
 
 
 p3_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_disturbance_p3 ~treatment + officer_hours +
+  feols(entry_to_onscene_3 ~treatment + officer_hours +
           number_dispatches_1 + number_dispatches_2 + 
           number_dispatches_3 | district + date) %>% 
   tidy_estimates("Aggregate Estimate", 3)
@@ -176,7 +176,7 @@ priorities_onscene <- descriptions %>%
              color = main_estimate)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
-                width = .1, size = .7) +
+                width = .1, linewidth = .7) +
   geom_hline(aes(yintercept = 0), color = "black",
              linetype = "dashed") +
   scale_y_continuous(labels =scales::percent_format()) +

@@ -7,7 +7,7 @@
 
 library(tidyverse)
 
-victims <- read_csv("raw_data/gun_victims.csv") %>% 
+victims <- read_csv("raw_data/all_victims.csv") %>% 
   janitor::clean_names()
 
 victims <- victims %>% 
@@ -26,7 +26,7 @@ victims <- victims %>%
     gunshot_homicide = if_else(gunshot_injury_i == "YES" & incident_primary == "HOMICIDE", 1, 0),
     non_gun_homicide = if_else(gunshot_injury_i == "NO" & incident_primary == "HOMICIDE", 1, 0),
     any_homicide = if_else(incident_primary == "HOMICIDE", 1, 0),
-    
+    non_gunshot_victim = if_else(gunshot_injury_i == "NO", 1, 0),
     gun_robbery = if_else(gunshot_injury_i == "YES" & incident_primary == "ROBBERY", 1, 0),
     
     gun_battery = if_else(gunshot_injury_i == "YES" & incident_primary == "BATTERY", 1, 0),
@@ -36,6 +36,8 @@ victims <- victims %>%
 victims_aggregated <- victims %>%
   group_by(district, date) %>%
   summarize(
+    num_any_victim = n(),
+    num_victim_no_gun = sum(non_gunshot_victim, na.rm = T),
     num_any_gunshot_victim = sum(any_gunshot_victim, na.rm = T),
     num_gunshot_homicide = sum(gunshot_homicide, na.rm = T),
     num_non_gun_homicide = sum(non_gun_homicide, na.rm = T),
