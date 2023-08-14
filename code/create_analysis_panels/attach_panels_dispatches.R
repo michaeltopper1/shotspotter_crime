@@ -76,6 +76,16 @@ dispatch_panel <- dispatch_panel %>%
          isr_black_stop_rate = number_black_isr_stops/number_isr_stops,
          isr_firearm_found_gun_crime_rate = number_firearm_found_isr_stops_gun_crime/number_isr_stops_gun_crime) 
 
+
+# injury probabilties -----------------------------------------------------
+
+dispatch_panel <- dispatch_panel %>%
+  mutate(injury_prob = number_victim_injury/number_dispatches,
+         injury_prob_1 = number_victim_injury_1/number_dispatches_1,
+         injury_domestic_disturb_1 = number_victim_injury_domestic_disturb_p1/domestic_disturb_p1_num) 
+
+
+
 dispatch_panel <- dispatch_panel %>% 
   left_join(border_districts, join_by(district == border_district)) 
 

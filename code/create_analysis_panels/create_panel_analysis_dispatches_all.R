@@ -200,6 +200,19 @@ dispatches_filtered <- dispatches_filtered %>%
   )) 
 
 
+
+# victim injuries ---------------------------------------------------------
+
+
+victims <- read_csv("created_data/victim_injuries.csv")
+
+dispatches_filtered <- dispatches_filtered %>% 
+  left_join(victims, join_by(rd == rd_no)) %>% 
+  mutate(victim_injury = replace_na(victim_injury, 0)) %>% 
+  mutate(victim_injury_and_arrest = if_else(victim_injury == 1 &
+                                              arrest_made == 1, 1, 0))
+
+
 # aggregating by month ----------------------------------------------------
 # 
 # ## creating by priority
@@ -278,7 +291,9 @@ aggregated <- dispatches_filtered %>%
             number_guncrime = sum(gun_crime_report, na.rm = T),
             arrests_made = sum(arrest_made,na.rm = T),
             arrests_made_arrest_data = sum(arrest_made_arrest_data, na.rm = T),
-            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T)) %>% ungroup()
+            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T),
+            number_victim_injury = sum(victim_injury, na.rm = T),
+            number_victim_injury_and_arrest = sum(victim_injury_and_arrest, na.rm = T)) %>% ungroup()
 
 
 aggregated_nopriority <- dispatches_filtered %>% 
@@ -296,7 +311,9 @@ aggregated_nopriority <- dispatches_filtered %>%
             number_search_isr_stops = sum(search_conducted, na.rm = T),
             arrests_made = sum(arrest_made,na.rm = T),
             arrests_made_arrest_data = sum(arrest_made_arrest_data, na.rm = T),
-            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T)) %>% ungroup()
+            arrests_made_crimes_data = sum(arrest_made_crime_data, na.rm = T),
+            number_victim_injury = sum(victim_injury, na.rm = T),
+            number_victim_injury_and_arrest = sum(victim_injury_and_arrest, na.rm = T)) %>% ungroup()
 
 aggregated_watch <- dispatches_filtered %>% 
   group_by(date, district, watch) %>% 
@@ -510,7 +527,9 @@ aggregated_top_5 <- dispatches_filtered %>%
   summarize(across(c(entry_to_dispatch,
                      entry_to_onscene,
                      dispatch_to_onscene,
-                     entry_to_close), ~mean(.,na.rm = T))) %>% ungroup()
+                     entry_to_close), ~mean(.,na.rm = T)),
+            number_victim_injury = sum(victim_injury, na.rm = T),
+            number_victim_injury_and_arrest = sum(victim_injury_and_arrest, na.rm = T)) %>% ungroup()
 
 aggregated_nopriority_types <- dispatches_filtered %>% 
   filter(gun_crime_report ==1 | domestic_distrub == 1 | domestic_battery == 1) %>% 
@@ -528,7 +547,9 @@ aggregated_nopriority_types <- dispatches_filtered %>%
             number_isr_stops = sum(isr_stop, na.rm = T),
             number_firearm_found_isr_stops = sum(firearm_found, na.rm = T),
             number_black_isr_stops = sum(black_stop, na.rm = T),
-            number_search_isr_stops = sum(search_conducted, na.rm = T)) %>% ungroup()
+            number_search_isr_stops = sum(search_conducted, na.rm = T),
+            number_victim_injury = sum(victim_injury, na.rm = T),
+            number_victim_injury_and_arrest = sum(victim_injury_and_arrest, na.rm = T)) %>% ungroup()
 
 
 aggregated <- aggregated %>% 
@@ -542,7 +563,9 @@ aggregated <- aggregated %>%
                               arrests_made_arrest_data,
                               arrests_made_crimes_data,
                               number_shotsfired,
-                              number_guncrime))
+                              number_guncrime,
+                              number_victim_injury,
+                              number_victim_injury_and_arrest))
 
 aggregated_nopriority_types <- aggregated_nopriority_types %>% 
   pivot_wider(names_from = crime_type,
@@ -553,7 +576,9 @@ aggregated_nopriority_types <- aggregated_nopriority_types %>%
                               number_isr_stops,
                               number_firearm_found_isr_stops,
                               number_black_isr_stops,
-                              number_search_isr_stops))
+                              number_search_isr_stops,
+                              number_victim_injury,
+                              number_victim_injury_and_arrest))
 
 aggregated_watch <- aggregated_watch %>% 
   mutate(watch = glue::glue("watch{watch}")) %>% 
@@ -569,7 +594,9 @@ aggregated_top_5 <- aggregated_top_5 %>%
               values_from = c(entry_to_dispatch,
                               entry_to_onscene,
                               dispatch_to_onscene,
-                              entry_to_close))
+                              entry_to_close,
+                              number_victim_injury,
+                              number_victim_injury_and_arrest))
 
 ## joining the no priority and priority
 aggregated <- aggregated %>% 
