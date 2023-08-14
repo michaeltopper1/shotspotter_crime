@@ -5,9 +5,6 @@ date: "2023-06-19"
 ---
 
 
-\section{Background}\label{section:background}
- 
-
 \subsection{ShotSpotter Technology and Implementation in Chicago}\label{section:sstchicago}
 
 ShotSpotter is an acoustic gunfire technology that employs a network of microphones and sensors on buildings and light-posts to detect gunfire sounds.

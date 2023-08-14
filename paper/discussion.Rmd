@@ -4,7 +4,6 @@ output: pdf_document
 date: "2023-08-08"
 ---
 
-
 \section{Discussion}\label{section:discussion}
 
 \subsection{Does ShotSpotter reduce the likelihood of catching a criminal?} \label{section:arrests}
@@ -26,10 +25,32 @@ Column 5 reports some suggestive evidence that officers may be arresting gun-wie
 We want to replicate the \cite{deangelo_police_2023} study in which they look at the probability of an injury due to longer response times. We're currently waiting on the FOIA to come back from the Chicago Police. Chicago is very mad at Michael right now after abusing their FOIA laws.
 
 \subsection{Does ShotSpotter reduce Gun Crime?}
+\subsection{Does Shotspotter perform as intended?}\label{section:effective}
+[Section work in progress]
 
-In this section, we want to do something that sheds ShotSpotter is a possible better light. There are only a couple things we can do. First, we have results on arrests not-related to 911 calls. In these results, we're finding significant decreases in arrests everywhere except gun-violations. We think the story here could be that police officers are spending so much time on ShotSpotter, that they're not arresting other people (as shown in our previous section). However, because they're pouring resources into ShotSpotter, they are consequently coming up with more gun-related arrests. Initially, we were a little worried about presenting these results because of the declines we see in other arrests. However, in light of the previous discussion section, we think this might be a nice complement. 
 
-Second, we can also give raw summary statistics on ShotSpotter dispatches themselves. This won't be causal, but we can shed light on the proportion of ShotSpotter alerts that end in firearm retrievals, or something of this sort. 
+
+*In this section, we want to do something that sheds ShotSpotter is a possible better light. There are only a couple things we can do. First, we have results on arrests not-related to 911 calls. In these results, we're finding significant decreases in arrests everywhere except gun-violations (Not yet shown here). We think the story here could be that police officers are spending so much time on ShotSpotter, that they're not arresting other people (as shown in our previous section). However, because they're pouring resources into ShotSpotter, they are consequently coming up with more gun-related arrests. Initially, we were a little worried about presenting these results because of the declines we see in other arrests. However, in light of the previous discussion section, we think this might be a nice complement.*
+
+*Second, we can also give raw summary statistics on ShotSpotter dispatches themselves. This won't be causal, but we can shed light on the proportion of ShotSpotter alerts that end in firearm retrievals, or something of this sort.*
+
+
+
+To explore the effectiveness of individual Shotspotter alerts we rely on data from the Chicago Office of Inspector General, which matches ShotSpotter Alerts to enforcement actions of the associated dispatch.
+This reports covers a 18-month period beginning January 2020 and is supplemented with our own FOIA data.
+Using this additional data source is necessary, since ShotSpotter alerts do not match to final enforcement actions of dispatches in the publicly available data.
+
+During this 18-month period 50,176 Shotspotter alerts were created, of which 1,065 were linked to a police stop of an individual (2.1\% of alerts).
+These 1,065 stops accounted for 342 civilian searches, 244 arrests, and 152 total firearms recovered.
+This equates to a rate of 0.005 arrests per alerts and 0.003 firearms per alert.
+While the rate of finding firearms is low, 152 firearms represents 25.1\% of the 606 firearms recovered over this time period from all police searches.
+
+These 1,065 stops account for 2.2\% of all stops during this time period.
+Searches that arise from a ShotSpotter Alert are more likely to result in an arrest compared to non-ShotSpotter searches (23.1\% versus 10.8\%). This is somewhat expected, as a search that arises from a ShotSpotter dispatch is likely more evidence-based than an average street stop.
+
+
+
+
 
 
 \subsection{Cost-Benefit Analysis}
