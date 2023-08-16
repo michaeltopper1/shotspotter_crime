@@ -68,7 +68,7 @@ loo <- loo %>%
 
 loo_r <- loo_r %>% 
   mutate(id = row_number(),
-         method = "Gardner (2021)",
+         method = "Gardner (2022)",
          outcome = "Call-to-Dispatch")
 
 loo_os <- loo_os %>% 
@@ -78,7 +78,7 @@ loo_os <- loo_os %>%
 
 loo_os_r <- loo_os_r %>% 
   mutate(id = row_number(),
-         method = "Gardner (2021)",
+         method = "Gardner (2022)",
          outcome = "Call-to-On-Scene") 
 
 
