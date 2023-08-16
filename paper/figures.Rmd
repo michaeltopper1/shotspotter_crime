@@ -32,7 +32,7 @@ shotspotter_trend
 ```
 ```{=latex}
 \caption{ShotSpotter Alert Trends and Enactment Dates \label{shotspotter_trend}}
-\textit{Note:} This figure depicts police districts that are imiplemented with ShotSpotter technology. Months are on the x-axis, while the y-axis is the number of ShotSpotter dispatches aggregated to the monthly level. The table on the right shows the corresponding implementation date for ShotSpotter technology. In Chicago, 12 of the 22 police districts have ShotSpotter technology. The dashed red line shows the implementation dates used in the main results. In some cases, the implementation date we use differs from the date given from the Chicago Police Department since the ShotSpotter dispatches data does not align. Analysis using public records date is shown in Appendix Figure BLANK. 
+\textit{Note:} This figure depicts police districts that are implemented with ShotSpotter technology. Months are on the x-axis, while the y-axis is the number of ShotSpotter dispatches aggregated to the monthly level. The table on the right shows the corresponding implementation date for ShotSpotter technology. In Chicago, 12 of the 22 police districts have ShotSpotter technology. The dashed red line shows the implementation dates used in the main results. In some cases, the implementation date we use differs from the date given from the Chicago Police Department since the ShotSpotter dispatches data does not align. Analysis using public records date is shown in Appendix Figure BLANK. 
 \end{figure}
 
 ```

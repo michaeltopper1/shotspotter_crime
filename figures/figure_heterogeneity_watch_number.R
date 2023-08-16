@@ -11,12 +11,12 @@ if (!exists("dispatch_panel")){
 
 
 watch_reg <- dispatch_panel %>% 
-  feols(c(entry_to_dispatch_watch1,
-          entry_to_dispatch_watch2,
-          entry_to_dispatch_watch3,
-          entry_to_onscene_watch1,
-          entry_to_onscene_watch2,
-          entry_to_onscene_watch3) ~ treatment + officer_hours +
+  feols(c(entry_to_dispatch_watch1_1,
+          entry_to_dispatch_watch2_1,
+          entry_to_dispatch_watch3_1,
+          entry_to_onscene_watch1_1,
+          entry_to_onscene_watch2_1,
+          entry_to_onscene_watch3_1) ~ treatment + officer_hours +
           number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
           number_dispatches_0| district + date,
         cluster = ~district) %>% 

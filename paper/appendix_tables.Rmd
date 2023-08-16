@@ -27,3 +27,7 @@ for (file in table_appendix_files){
 missing_os_table
 ```
 
+```{r}
+injury_descriptions
+```
+

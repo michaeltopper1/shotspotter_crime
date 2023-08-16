@@ -29,11 +29,19 @@ arrest_rates <- feols(c(arrest_rate_1,
                         domestic_battery_p1_arrestrate,
                         domestic_disturb_p1_arrestrate,
                         battery_ip_p1_arrestrate,
-                        gun_crime_report_arrestrate) ~treatment  +
+                        gun_crime_arrestrate_1) ~treatment  +
                         number_dispatches_1 + number_dispatches_2 +
                         number_dispatches_3 + number_dispatches_0 +
                         officer_hours|district + date,
                       data= dispatch_panel) 
+
+
+dispatch_panel %>% 
+  feols(prob_victim_injury_1 ~ treatment + ..ctrl)
+dispatch_panel %>% 
+  feols(prob_victim_injury_guncrime_1 ~ treatment + ..ctrl)
+dispatch_panel %>% 
+  feols(prob_victim_injury_no_guncrime_1 ~ treatment + ..ctrl)
 
 arrest_means <- map_dfr(arrest_rates, ~as.numeric(fitstat(., type = "my"))) %>% 
   mutate(across(everything(), ~sprintf("%.3f",.))) %>% 
