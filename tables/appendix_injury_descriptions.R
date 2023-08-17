@@ -27,8 +27,8 @@ injury_descriptions <- victim_define %>%
   pivot_wider(names_from = injury_possibility,
               values_from = final_dispatch_description,
               id_cols = id) %>% 
-  rename("Time-Insensitive" = `0`,
-         "Time-Sensitive" = `1`) %>% 
+  rename("Injury Realized" = `0`,
+         "Potential for Injury" = `1`) %>% 
   select(-id) %>% 
   kbl(caption = "\\label{injury_descriptions}Categorization for Injury-Related Dispatches") %>% 
   add_header_above(c("Injury-Confirmed Call Descriptions" = 2)) %>% 

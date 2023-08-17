@@ -16,11 +16,6 @@ setFixest_fml(..ctrl = ~officer_hours +
                 number_dispatches_1 + number_dispatches_2 + 
                 number_dispatches_3 + number_dispatches_0| district + date)
 
-feols(c(arrest_rate_1,
-        domestic_battery_p1_arrestrate,
-        domestic_disturb_p1_arrestrate,
-        battery_ip_p1_arrestrate,
-        gun_crime_report_arrestrate) ~treatment  + ..ctrl, data= dispatch_panel) 
 
 arrest_rate <- dispatch_panel %>% 
   feols(arrest_rate_1 ~ treatment + ..ctrl, data = .)
@@ -86,6 +81,7 @@ panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_
              fmt = 3,
              gof_map = gof_mapping,
              collapse_fe = T,
+             pretty_num = T,
              caption = "\\label{arrest_rates}Effect of ShotSpotter Enactment on Arrest/Injury Rates (OLS)") %>% 
   add_header_above(c(" " = 1,
                      "All" = 1,
