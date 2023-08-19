@@ -7,49 +7,48 @@ library(kableExtra)
 library(did2s)
 
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code == 1)
 }
 
-
-setFixest_fml(..ctrl = ~officer_hours +
-                number_dispatches_1 + number_dispatches_2 + 
-                number_dispatches_3 + number_dispatches_0| district + date)
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
 
 
-arrest_rate <- dispatch_panel %>% 
-  feols(arrest_rate_1 ~ treatment + ..ctrl, data = .)
+arrest_rate <- dispatch_panel_p1 %>% 
+  feols(arrest_made ~ treatment + ..ctrl, data = .)
 
-arrest_rate_gun <- dispatch_panel %>% 
-  feols(gun_crime_arrestrate_1 ~ treatment + ..ctrl, data = .)
+arrest_rate_gun <- dispatch_panel_p1 %>% 
+  filter(gun_crime_report == 1) %>% 
+  feols(arrest_made ~ treatment + ..ctrl, data = .)
 
-arrest_rate_no_gun <- dispatch_panel %>% 
-  feols(non_gun_crime_arrestrate_1 ~ treatment + ..ctrl, data = .)
+arrest_rate_no_gun <- dispatch_panel_p1 %>% 
+  filter(gun_crime_report != 1) %>% 
+  feols(arrest_made ~ treatment + ..ctrl, data = .)
 
-arrest_rate_domestic_bat <- dispatch_panel %>% 
-  feols(domestic_battery_p1_arrestrate ~ treatment + ..ctrl)
+arrest_rate_domestic_bat <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "DOMESTIC BATTERY") %>% 
+  feols(arrest_made ~ treatment + ..ctrl)
 
-arrest_rate_domestic_disturb <-  dispatch_panel %>% 
-  feols(domestic_disturb_p1_arrestrate ~ treatment + ..ctrl)
+arrest_rate_domestic_disturb <-  dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "DOMESTIC DISTURBANCE") %>% 
+  feols(arrest_made ~ treatment + ..ctrl)
 
-arrest_rate_battery <-  dispatch_panel %>% 
-  feols(battery_ip_p1_arrestrate ~ treatment + ..ctrl)
+arrest_rate_battery <-  dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "BATTERY IP") %>% 
+  feols(arrest_made ~ treatment + ..ctrl)
 
-victim_injury <- dispatch_panel %>% 
-  feols(prob_victim_injury_1 ~ treatment + ..ctrl, data = .)
-
-victim_injury_gun <- dispatch_panel %>% 
-  feols(prob_victim_injury_guncrime_1 ~ treatment + ..ctrl, data = .)
-
-victim_injury_no_gun <- dispatch_panel %>% 
-  feols(prob_victim_injury_no_guncrime_1 ~ treatment + ..ctrl, data = .)
 
 
 
 gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "nobs", "Observations", 0,
                        "FE: date", "FE: Day-by-Month-by-Year", 3,
-                       "FE: district", "FE: District", 3)
+                       "FE: district", "FE: District", 3,
+                       "FE: final_dispatch_description", "FE: Call-Type", 3,
+                       "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
@@ -69,12 +68,10 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   "), ~str_remove_all(., "\n"))
 
 
-panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_domestic_bat,
+arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_domestic_bat,
                   arrest_rate_domestic_disturb, arrest_rate_battery
-                  ), list(victim_injury, victim_injury_gun, victim_injury_no_gun),
+                  ),
              mean_dependent = T, stars = "econ",
-             panel_labels = c("Panel A: Arrest Rate",
-                              "Panel B: Injury Rate"),
              coef_map = c( "treatment" = "ShotSpotter Activated",
                            "shotspot_border_treatment" = "Border Activated"),
              gof_omit = "^R|A|B|S",
@@ -82,7 +79,7 @@ panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_
              gof_map = gof_mapping,
              collapse_fe = T,
              pretty_num = T,
-             caption = "\\label{arrest_rates}Effect of ShotSpotter Enactment on Arrest/Injury Rates (OLS)") %>% 
+             caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
   add_header_above(c(" " = 1,
                      "All" = 1,
                      "Gun-Related" = 1,

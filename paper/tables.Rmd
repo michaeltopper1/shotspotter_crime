@@ -42,7 +42,7 @@ intensive_table %>%
 
 
 ```{r}
-arrest_rates %>% 
+arrest_prob %>% 
   landscape()
 ```
 
