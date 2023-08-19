@@ -4,10 +4,24 @@ library(panelsummary)
 library(kableExtra)
 library(did2s)
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  ## priority 1 dispatches only
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code ==1)
 }
 
+
+if (!exists("dispatch_panel_p2")) {
+  dispatch_panel_p2 <- dispatch_panel %>% 
+    filter(priority_code ==2) 
+  dispatch_panel_p3 <- dispatch_panel %>% 
+    filter(priority_code ==3) 
+}
+
+
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
 tidy_estimates <- function(model, description, priority) {
   estimates <- model %>% 
     broom::tidy(conf.int = T) %>% 
@@ -30,123 +44,102 @@ tidy_estimates <- function(model, description, priority) {
 
 # priority 1 --------------------------------------------------------------
 
-p1_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+
+p1_0 <- dispatch_panel_p1 %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates(description = "Aggregate Estimate", 1)
 
-p1_1 <- dispatch_panel %>% 
-  feols(entry_to_onscene_domestic_disturb_p1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p1_1 <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "DOMESTIC DISTURBANCE") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates(description = "Domestic Disturbance", 1)
 
 
-p1_2 <- dispatch_panel %>% 
-  feols(entry_to_onscene_check_well_p1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p1_2 <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "CHECK WELL BEING") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Check Well Being", 1)
 
-p1_3 <- dispatch_panel %>% 
-  feols(entry_to_onscene_battery_ip_p1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
+p1_3 <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "BATTERY IP") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Battery In Progress", 1)
 
-p1_4 <- dispatch_panel %>% 
-  feols(entry_to_onscene_suspicious_person_p1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p1_4 <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "SUSPICIOUS PERSON") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Suspicious Person", 1)
 
-p1_5 <- dispatch_panel %>% 
-  feols(entry_to_onscene_ems_p1 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p1_5 <- dispatch_panel_p1 %>%
+  filter(final_dispatch_description == "EMS") %>%  
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("EMS", 1)
 
 
 # priority 2 --------------------------------------------------------------
 
-p2_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p2_0 <- dispatch_panel_p2 %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Aggregate Estimate", 2)
 
-p2_1 <- dispatch_panel %>% 
-  feols(entry_to_onscene_alarm_burglar_p2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p2_1 <- dispatch_panel_p2 %>%
+  filter(final_dispatch_description == "ALARM BURGLAR") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Alarm Burglar", 2)
 
-p2_2 <- dispatch_panel %>% 
-  feols(entry_to_onscene_alarm_commercial_p2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
+p2_2 <- dispatch_panel_p2 %>%
+  filter(final_dispatch_description == "ALARM COMMERCIAL") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Alarm Commercial", 2)
 
 
-p2_3 <- dispatch_panel %>% 
-  feols(entry_to_onscene_suspicious_auto_p2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p2_3 <- dispatch_panel_p2 %>%
+  filter(final_dispatch_description == "SUSPICIOUS AUTO WITH OCC") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Suspicious Auto", 2)
 
-p2_4 <- dispatch_panel %>% 
-  feols(entry_to_onscene_person_down_p2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
+p2_4 <- dispatch_panel_p2 %>%
+  filter(final_dispatch_description == "PERSON DOWN") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Person Down", 2)
 
-p2_5 <- dispatch_panel %>% 
-  feols(entry_to_onscene_auto_accident_pi_p2 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
-  tidy_estimates("Battery Just Occurred", 2)
+p2_5 <- dispatch_panel_p2 %>%
+  filter(final_dispatch_description == "AUTO ACCIDENT PI") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
+  tidy_estimates("Auto Accident PI", 2)
 
 
 
 # priority 3 --------------------------------------------------------------
 
-
-p3_0 <- dispatch_panel %>% 
-  feols(entry_to_onscene_3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p3_0 <- dispatch_panel_p3 %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Aggregate Estimate", 3)
 
-p3_1 <- dispatch_panel %>% 
-  feols(entry_to_onscene_disturbance_p3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p3_1 <- dispatch_panel_p3 %>% 
+  filter(final_dispatch_description == "DISTURBANCE") %>% 
+  feols(entry_to_onscene ~treatment  + ..ctrl) %>% 
   tidy_estimates("Disturbance", 3)
 
-p3_2 <- dispatch_panel %>% 
-  feols(entry_to_onscene_parking_violation1_p3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
+p3_2 <- dispatch_panel_p3 %>% 
+  filter(final_dispatch_description == "AUTO ACCIDENT PD") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Parking Violation 1", 3)
 
-p3_3 <- dispatch_panel %>% 
-  feols(entry_to_onscene_disturbance_music_p3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
+p3_3 <- dispatch_panel_p3 %>% 
+  filter(final_dispatch_description == "DISTURBANCE - MUSIC/NOISE") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
   tidy_estimates("Disturbance: Noise", 3)
 
-p3_4 <- dispatch_panel %>% 
-  feols(entry_to_onscene_parking_violation2_p3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3 | district + date) %>% 
-  tidy_estimates("Parking Violation 2", 3)
+p3_4 <- dispatch_panel_p3 %>% 
+  filter(final_dispatch_description == "PARKING VIOL. 1") %>% 
+  feols(entry_to_onscene~treatment + ..ctrl) %>% 
+  tidy_estimates("Parking Violation 1", 3)
 
-p3_5 <- dispatch_panel %>% 
-  feols(entry_to_onscene_auto_accident_pd_p3 ~treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + 
-          number_dispatches_3| district + date) %>% 
-  tidy_estimates("Selling Narcotics", 3)
+p3_5 <- dispatch_panel_p3 %>% 
+  filter(final_dispatch_description == "PARKING VIOL. 2") %>% 
+  feols(entry_to_onscene ~treatment + ..ctrl) %>% 
+  tidy_estimates("Parking Violation 2", 3)
 
 
 
