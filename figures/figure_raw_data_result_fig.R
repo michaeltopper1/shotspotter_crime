@@ -7,12 +7,14 @@
 
 library(tidyverse)
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code == 1)
 }
 
 
-raw_evidence_figure <-dispatch_panel %>% 
+raw_evidence_figure <-dispatch_panel_p1 %>% 
   mutate(district = as_factor(district)) %>% 
   mutate(treatment = if_else(treatment == 1, "ShotSpotter Active",
                              "ShotSpotter Inactive")) %>% 
@@ -20,8 +22,8 @@ raw_evidence_figure <-dispatch_panel %>%
                                  "Never Treated Districts", "Treated Districts")) %>% 
   group_by(district, never_treated,
            treatment) %>% 
-  summarize(avg_entry_to_dispatch_1 = mean(entry_to_dispatch_1, na.rm = T),
-            avg_entry_to_onscene_1 = mean(entry_to_onscene_1, na.rm = T)) %>% 
+  summarize(avg_entry_to_dispatch_1 = mean(entry_to_dispatch, na.rm = T),
+            avg_entry_to_onscene_1 = mean(entry_to_onscene, na.rm = T)) %>% 
   pivot_longer(cols = starts_with("avg_"), 
                values_to = "avg_time",
                names_to = "outcome") %>% 
@@ -39,4 +41,6 @@ raw_evidence_figure <-dispatch_panel %>%
   scale_alpha_discrete(range = c(0.4, 1, 1)) + 
   theme_minimal() +
   coord_flip() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom", panel.grid.major =  element_blank())
+
+

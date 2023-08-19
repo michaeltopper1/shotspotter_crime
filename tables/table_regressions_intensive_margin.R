@@ -13,72 +13,91 @@ library(kableExtra)
 library(did2s)
 
 if (!exists("dispatch_panel")){
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code == 1)
 }
-dispatch_panel <- dispatch_panel %>% 
-  mutate(officer_hours_median = median(officer_hours, na.rm = T))
 
+
+dispatch_panel_p1 <- dispatch_panel_p1 %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district)
 
 
 # Panel A -----------------------------------------------------------------
 
+ed_preferred_1 <- feols(entry_to_dispatch ~ treatment | district + date +
+                          final_dispatch_description + hour,
+                        cluster = ~district,
+                        data = dispatch_panel_p1)
 
-sst_1 <- feols(entry_to_dispatch_1 ~ number_sst_dispatches | district + date,
-                 cluster = ~district,
-                 data = dispatch_panel)
+sst_ed_1 <- feols(entry_to_dispatch ~ number_sst_dispatches | district + date +
+                    final_dispatch_description + hour,
+                  cluster = ~district,
+                  data = dispatch_panel_p1)
 
-sst_2 <- feols(entry_to_dispatch_1 ~ number_sst_dispatches + officer_hours +
-                   number_dispatches_1 + number_dispatches_2 +
-                   number_dispatches_3 + number_dispatches_0| district + date,
-                 cluster = ~district,
-                 data = dispatch_panel)
-
-
-sst_3 <- dispatch_panel %>% 
-  filter(officer_hours > officer_hours_median) %>% 
-  feols(entry_to_dispatch_1 ~ number_sst_dispatches + officer_hours + 
-          number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+ed_above_med <- dispatch_panel_p1 %>%
+  filter(officer_hours > officer_hours_median) %>%
+  feols(entry_to_dispatch ~ treatment |district + date +
+          final_dispatch_description + hour,
         cluster = ~district)
 
-
-sst_4 <- dispatch_panel %>% 
-  filter(officer_hours <= officer_hours_median) %>% 
-  feols(entry_to_dispatch_1 ~ number_sst_dispatches  + officer_hours +
-          number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+sst_ed_above_med <- dispatch_panel_p1 %>%
+  filter(officer_hours > officer_hours_median) %>%
+  feols(entry_to_dispatch ~ number_sst_dispatches |district + date +
+          final_dispatch_description + hour,
         cluster = ~district)
 
-
-
-
-# entry to onscene --------------------------------------------------------
-
-
-sst_os_1 <- feols(entry_to_onscene_1 ~ number_sst_dispatches | district + date,
-                    cluster = ~district,
-                    data = dispatch_panel)
-
-sst_os_2 <- feols(entry_to_onscene_1 ~ number_sst_dispatches + officer_hours +
-                      number_dispatches_1 + number_dispatches_2 +
-                      number_dispatches_3+ number_dispatches_0 | district + date,
-                    cluster = ~district,
-                    data = dispatch_panel)
-
-sst_os_3 <- dispatch_panel %>% 
-  filter(officer_hours > officer_hours_median) %>% 
-  feols(entry_to_onscene_1 ~ number_sst_dispatches  + officer_hours +
-          number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3 + number_dispatches_0| district + date,
+ed_below_med <- dispatch_panel_p1 %>%
+  filter(officer_hours <= officer_hours_median) %>%
+  feols(entry_to_dispatch ~ treatment |district + date +
+          final_dispatch_description + hour,
         cluster = ~district)
 
-
-sst_os_4 <- dispatch_panel %>% 
-  filter(officer_hours <= officer_hours_median) %>% 
-  feols(entry_to_onscene_1 ~ number_sst_dispatches  + officer_hours +
-          number_dispatches_1 + number_dispatches_2 +
-          number_dispatches_3+ number_dispatches_0 | district + date,
+sst_ed_below_med <- dispatch_panel_p1 %>%
+  filter(officer_hours <= officer_hours_median) %>%
+  feols(entry_to_dispatch ~ number_sst_dispatches |district + date +
+          final_dispatch_description + hour,
         cluster = ~district)
+
+# Panel B -----------------------------------------------------------------
+
+
+
+os_preferred_1 <- feols(entry_to_onscene ~ treatment | district + date +
+                        final_dispatch_code + hour,
+                      cluster = ~district,
+                      data = dispatch_panel_p1)
+
+sst_os_1 <- feols(entry_to_onscene ~ number_sst_dispatches | district + date +
+                    final_dispatch_code + hour,
+                  cluster = ~district,
+                  data = dispatch_panel_p1)
+
+
+os_above_med <- dispatch_panel_p1 %>%
+  filter(officer_hours > officer_hours_median) %>%
+  feols(entry_to_onscene ~ treatment |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
+sst_os_above_med <- dispatch_panel_p1 %>%
+  filter(officer_hours > officer_hours_median) %>%
+  feols(entry_to_onscene ~ number_sst_dispatches |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
+os_below_med <- dispatch_panel_p1 %>%
+  filter(officer_hours <= officer_hours_median) %>%
+  feols(entry_to_onscene ~ treatment |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
+sst_os_below_med <- dispatch_panel_p1 %>%
+  filter(officer_hours <= officer_hours_median) %>%
+  feols(entry_to_onscene ~ number_sst_dispatches |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
 
 
 
@@ -88,7 +107,9 @@ sst_os_4 <- dispatch_panel %>%
 gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "nobs", "Observations", 0,
                        "FE: date", "FE: Day-by-Month-by-Year", 3,
-                       "FE: district", "FE: District", 3)
+                       "FE: district", "FE: District", 3,
+                       "FE: final_dispatch_description", "FE: Call-Type", 3,
+                       "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
@@ -109,30 +130,37 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       that is missing information for Call-to-On-Scene. 
                   "), ~str_remove_all(., "\n"))
 
-intensive_table <- panelsummary_raw(list(sst_1, sst_2,
-                      sst_3, sst_4),
-                 list(sst_os_1, sst_os_2,
-                      sst_os_3, sst_os_4),
+mechanism_table <- panelsummary_raw(list(ed_preferred_1,
+                                         ed_above_med, ed_below_med,
+                                         sst_ed_1, sst_ed_above_med, sst_ed_below_med),
+                      list(os_preferred_1,
+                      os_above_med, os_below_med,sst_os_1,
+                      sst_os_above_med, sst_os_below_med),
                  stars = "econ",
                  mean_dependent = T,
-                 coef_map = c( "number_sst_dispatches" = "Number SST Dispatches"),
+                 coef_map = c("treatment" = "ShotSpotter Activated",
+                   "number_sst_dispatches" = "Number SST Dispatches"),
                  gof_omit = "^R|A|B|S",
                  gof_map = gof_mapping) 
 
 
-intensive_table <- intensive_table %>% 
+mechanism_table <- mechanism_table %>% 
   janitor::clean_names() %>% 
-  slice(-c(5:6)) %>% 
-  add_row(term = "Control Variables", model_1 = "", model_2 = "X", model_3 = "X", model_4 = "X") %>% 
-  mutate(across(starts_with("M"), ~if_else(term == "Observations",
-                                           . %>% prettyNum(digits = 2, big.mark = ",", format = "f"), .))) %>% 
-  clean_raw(caption = "\\label{intensive_table}Effect of Number of ShotSpotter Alerts on Response Times (OLS)") %>% 
-  pack_rows("Panel A: Call-to-Dispatch",1,4, italic = T, bold = F, hline_after = F) %>% 
-  pack_rows("Panel B: Call-to-On-Scene", 5, 8, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
-  row_spec(8, hline_after = TRUE) %>% 
-  add_header_above(c(" " = 3, "> Median", "<= Median")) %>% 
-  add_header_above(c(" " = 3,
+  slice(-c(7:10)) %>% 
+  clean_raw(caption = "\\label{mechanism_table}Effect of ShotSpotter on Response Times Mechanisms (OLS)",
+            pretty_num = T) %>% 
+  pack_rows("Panel A: Call-to-Dispatch",1,6, italic = T, bold = F, hline_after = F) %>% 
+  pack_rows("Panel B: Call-to-On-Scene", 7, 12, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
+  row_spec(12, hline_after = TRUE) %>% 
+  add_header_above(c(" " = 1, "Full Sample" = 1, "> Median" = 1, "<= Median" = 1,
+                     "Full Sample" = 1, "> Median" = 1, "<= Median" = 1)) %>% 
+  add_header_above(c(" " = 2,
+                     "Officer Hours" = 2,
+                     " " = 1,
                      "Officer Hours" = 2)) %>% 
+  add_header_above(c(" " =1,
+                     "ShotSpotter Rollout" = 3,
+                     "ShotSpotter Dispatches" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 

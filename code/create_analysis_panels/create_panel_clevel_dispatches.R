@@ -1,13 +1,43 @@
 library(tidyverse)
 
+
+
+# importing all data used -------------------------------------------------
+
+## all dispatches filtered to only 911 calls
 dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
 
-rollout_dates <- read_csv("created_data/rollout_dates.csv")
-rollout_dates <- rollout_dates %>% mutate(across(starts_with("shotspot"), ~mdy(.)))
+## officer hours
+officer_hours <- read_csv("analysis_data/officer_hours.csv")
+
+## border districts are those districts adjacent to SST districts
+border_districts <- read_csv("created_data/border_districts_final.csv") %>% 
+  mutate(border_treatment = mdy(border_treatment))
+
+## sst alerts are the number of shotspotter dispatches
+sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") %>% 
+  filter(year < 2023) 
+
+## rolloutdates are for the treatment of SST
+rollout_dates <- read_csv("created_data/rollout_dates.csv") %>% 
+  mutate(across(starts_with("shotspot"), ~mdy(.)))
+
+## victims are victim injuries
+victims <- read_csv("created_data/victim_injuries.csv")
+
+## time-sensitive injuries are those that occur only from un-realized injuries
+time_sensitive_injury <- read_csv("created_data/victims_descriptions.csv") %>% 
+  filter(injury_possibility == 1)
+
+## arrests and crimes both have arrests in them. Need to put in both
+arrests <- read_csv("raw_data/arrests.csv") %>% 
+  janitor::clean_names() 
+
+crimes <- read_csv("created_data/crimes_cleaned.csv")
+
 
 ## this helps gets the arrests
-arrests <- read_csv("raw_data/arrests.csv") %>% 
-  janitor::clean_names() %>% 
+arrests <- arrests %>% 
   mutate(firearm_arrest = if_else(str_detect(charges_description,"GUN|CARRY CONCL|CONCEAL|FIREARM"), 1, 0)) %>% 
   distinct(case_number, .keep_all = T) %>% 
   filter(!is.na(case_number)) %>% 
@@ -15,8 +45,6 @@ arrests <- read_csv("raw_data/arrests.csv") %>%
 
 ## this helps gets the additional arrests that the arrests data
 ## for some reason does not have in them
-crimes <- read_csv("created_data/crimes_cleaned.csv")
-
 crimes <- crimes %>% 
   distinct(case_number, .keep_all = T) %>% 
   filter(arrest == 1) %>%  ## filters to only those that have an arrest
@@ -152,9 +180,6 @@ dispatches_filtered <- dispatches_filtered %>%
 # victim injuries ---------------------------------------------------------
 
 
-victims <- read_csv("created_data/victim_injuries.csv")
-time_sensitive_injury <- read_csv("created_data/victims_descriptions.csv") %>% 
-  filter(injury_possibility == 1)
 time_sensitive_injury_gun <-  time_sensitive_injury %>% 
   filter(injury_possibility_gun == 1)
 time_sensitive_injury_no_gun <- time_sensitive_injury %>% 
@@ -195,17 +220,13 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(date = as_date(entry_received_date)) 
 
-
+## creating number of dispatches
+dispatches_filtered <- dispatches_filtered %>% 
+  group_by(district, date, priority_code) %>% 
+  mutate(number_dispatches = n()) %>% 
+  ungroup()
 
 # attaching other data ----------------------------------------------------
-
-sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") 
-officer_hours <- read_csv("analysis_data/officer_hours.csv")
-border_districts <- read_csv("created_data/border_districts_final.csv")
-
-sst_alerts <- sst_alerts %>% 
-  filter(year < 2023)
-
 
 dispatches_filtered <- dispatches_filtered %>% 
   left_join(rollout_dates) %>% 
@@ -253,9 +274,6 @@ dispatches_filtered <- dispatches_filtered %>%
 
 # number sst dispatches ---------------------------------------------------
 
-sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") %>% 
-  filter(year < 2023)
-
 dispatches_filtered <- dispatches_filtered %>% 
   left_join(sst_alerts, join_by(date == date, district == district, year == year)) %>% 
   mutate(number_sst_dispatches =if_else(is.na(number_sst_dispatches), 0, number_sst_dispatches))
@@ -264,21 +282,15 @@ dispatches_filtered <- dispatches_filtered %>%
 
 # border districts --------------------------------------------------------
 
-border_districts <- read_csv("created_data/border_districts_final.csv") %>% 
-  mutate(border_treatment = mdy(border_treatment))
-
-
 dispatches_filtered <- dispatches_filtered %>% 
   left_join(border_districts, join_by(district == border_district)) %>% 
   group_by(district) %>% 
-  mutate(shotspot_border_treatment = ifelse(date >= border_treatment,1 ,0 )) %>% 
+  mutate(shotspot_border_treatment = ifelse(date >= border_treatment,1, 0 )) %>% 
   ungroup() %>% 
   mutate(shotspot_border_treatment = ifelse(is.na(shotspot_border_treatment), 0, shotspot_border_treatment))
 
 
 # officer hours -----------------------------------------------------------
-
-officer_hours <- read_csv("analysis_data/officer_hours.csv")
 
 officer_hours <- officer_hours %>% 
   mutate(date = as_date(date)) %>% 
@@ -296,6 +308,8 @@ dispatches_filtered <- dispatches_filtered %>%
   filter(!(month == 1 & day == 1)) %>% 
   filter(!(month == 12 & day == 31)) 
 
+dispatches_filtered <- dispatches_filtered %>% 
+  drop_na(final_dispatch_description)
 
 write_csv(dispatches_filtered, file = "analysis_data/xxdispatches_clevel.csv")
 
