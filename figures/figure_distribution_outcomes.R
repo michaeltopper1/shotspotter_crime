@@ -33,5 +33,6 @@ distribution_outcomes <- dispatch_panel_p1 %>%
   labs(x = "Time (seconds)", y = "Count",
        color = "", fill = "") +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom", panel.grid.major = element_blank())
+
 

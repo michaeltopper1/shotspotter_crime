@@ -5,53 +5,49 @@ library(kableExtra)
 library(did2s)
 
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  ## priority 1 dispatches only
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code ==1)
 }
 
-districts <- dispatch_panel %>% 
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
+
+
+districts <- dispatch_panel_p1 %>% 
   distinct(district) %>% 
   pull() 
 
 
 
-loo <- map_df(districts, ~ feols(entry_to_dispatch_1 ~treatment + 
-                        number_dispatches_1 + 
-                        number_dispatches_2 + 
-                        number_dispatches_3 +
-          officer_hours | district + date,
+loo <- map_df(districts, ~ feols(entry_to_dispatch ~treatment +..ctrl,
         cluster = ~district,
-        data = dispatch_panel %>% 
+        data = dispatch_panel_p1 %>% 
           filter(district != .x)) %>% 
       broom::tidy(conf.int = T) %>% 
         filter(term == "treatment"))
 
-loo_os <- map_df(districts, ~ feols(entry_to_onscene_1 ~treatment + 
-                                   number_dispatches_1 + 
-                                   number_dispatches_2 + 
-                                   number_dispatches_3 +
-                                   officer_hours | district + date,
+loo_os <- map_df(districts, ~ feols(entry_to_onscene ~treatment + 
+                                   ..ctrl,
                                  cluster = ~district,
-                                 data = dispatch_panel %>% 
+                                 data = dispatch_panel_p1 %>% 
                                    filter(district != .x)) %>% 
                 broom::tidy(conf.int = T) %>% 
                 filter(term == "treatment"))
 
-loo_r <- map_df(districts, ~did2s(data = dispatch_panel %>% filter(district != .x),
-      yname = "entry_to_dispatch_1",
-      first_stage = ~ officer_hours + number_dispatches_1 + 
-        number_dispatches_2 + 
-        number_dispatches_3 | district + date,
+loo_r <- map_df(districts, ~did2s(data = dispatch_panel_p1 %>% filter(district != .x),
+      yname = "entry_to_dispatch",
+      first_stage = ~ ..ctrl,
       second_stage = ~treatment,
       treatment = "treatment",
       cluster_var = "district") %>% 
       broom::tidy(conf.int = T))
 
-loo_os_r <- map_df(districts, ~did2s(data = dispatch_panel %>% filter(district != .x),
-                                  yname = "entry_to_onscene_1",
-                                  first_stage = ~ officer_hours + number_dispatches_1 + 
-                                    number_dispatches_2 + 
-                                    number_dispatches_3 | district + date,
+loo_os_r <- map_df(districts, ~did2s(data = dispatch_panel_p1 %>% filter(district != .x),
+                                  yname = "entry_to_onscene",
+                                  first_stage = ~ ..ctrl,
                                   second_stage = ~treatment,
                                   treatment = "treatment",
                                   cluster_var = "district") %>% 
@@ -91,11 +87,12 @@ loo_figure <- loo %>%
   geom_point(aes(id, estimate), position = position_dodge(width = 0.5)) +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),position = position_dodge(width = 0.5)) +
   geom_hline(aes(yintercept = 0), color = "dark red", alpha = 0.5) +
-  geom_hline(aes(yintercept = mean_estimate, color = method), linetype = "dashed", alpha= 0.5) +
   ylim(c(-200, 300)) +
   facet_wrap(~outcome) +
   ggthemes::scale_color_stata() +
   labs(color = "",shape = "", x = "", y = "95% Confidence Interval and Point Estimate") +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+        panel.grid.major = element_blank())
 
+ggsave(loo_figure, filename = "figures/loo.jpeg")
