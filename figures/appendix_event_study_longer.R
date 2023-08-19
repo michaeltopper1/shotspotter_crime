@@ -12,12 +12,19 @@ library(kableExtra)
 library(modelsummary)
 library(did2s)
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  ## priority 1 dispatches only
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code ==1)
 }
+
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
+
 ## use the months(1) to change how many months you want in a bin
 ## use the months to treat to give the amount of leads/lags
-es_data_dispatch <- dispatch_panel %>% 
+es_data_dispatch <- dispatch_panel_p1 %>% 
   mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
                                      "month") %>% 
            magrittr::add(1) %>% 
@@ -32,9 +39,9 @@ es_data_dispatch <- dispatch_panel %>%
   mutate(time_to_treat = if_else(is.na(time_to_treat), -1000, time_to_treat)) 
 
 ## Column graph numbers
-number_sst_dispatches <- es_data_dispatch %>% 
-  summarize(number_sst_dispatches = sum(number_sst_dispatches), .by = c(time_to_treat)) %>% 
-  filter(time_to_treat < 24 & time_to_treat > -12)
+# number_sst_dispatches <- es_data_dispatch %>% 
+#   summarize(number_sst_dispatches = sum(number_sst_dispatches), .by = c(time_to_treat)) %>% 
+#   filter(time_to_treat < 24 & time_to_treat > -12)
 
 
 event_study_graph <- function(x){
@@ -60,10 +67,8 @@ event_study_graph <- function(x){
 
 
 entry_1 <- es_data_dispatch %>% 
-  feols(entry_to_dispatch_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0 +
-          officer_hours |district + date,
+  feols(entry_to_dispatch ~ i(time_to_treat, ref = c(-1, -1000)) +
+         ..ctrl,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
   add_row(term = "0", 
@@ -71,13 +76,12 @@ entry_1 <- es_data_dispatch %>%
           .before = 12) %>% 
   slice(1:37) %>% 
   mutate(periods = c(-12:24)) %>% 
-  mutate(type = "TWFE")
+  mutate(type = "OLS")
 
 
 entry_1_2sdid <- did2s(es_data_dispatch,
-                       yname = "entry_to_dispatch_1",
-                       first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-                         number_dispatches_0 + officer_hours | district + date,
+                       yname = "entry_to_dispatch",
+                       first_stage = ~..ctrl,
                        second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                        treatment = "treatment",
                        cluster_var = "district") %>% 
@@ -99,10 +103,8 @@ entry_1_es_longer <- entry_1 %>%
 
 
 eos_1 <- es_data_dispatch %>% 
-  feols(entry_to_onscene_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0 +
-          officer_hours |district + date,
+  feols(entry_to_onscene ~ i(time_to_treat, ref = c(-1, -1000)) +
+          ..ctrl,
         cluster = ~district, data = .) %>% 
   broom::tidy(conf.int = T) %>% 
   add_row(term = "0", 
@@ -110,14 +112,12 @@ eos_1 <- es_data_dispatch %>%
           .before = 12) %>% 
   slice(1:37) %>% 
   mutate(periods = c(-12:24)) %>% 
-  mutate(type = "TWFE")
+  mutate(type = "OLS")
 
 
 eos_1_2sdid <- did2s(es_data_dispatch,
-                     yname = "entry_to_onscene_1",
-                     first_stage = ~number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-                       number_dispatches_0 +
-                       officer_hours |district + date,
+                     yname = "entry_to_onscene",
+                     first_stage = ~..ctrl,
                      second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
                      treatment = "treatment",
                      cluster_var = "district") %>% 
