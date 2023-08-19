@@ -6,19 +6,42 @@ library(kableExtra)
 library(did2s)
 
 if (!exists("dispatch_panel")){
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  ## priority 1 dispatches only
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code ==1)
 }
 
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
 
-watch_reg <- dispatch_panel %>% 
+dispatch_panel_p1 <- dispatch_panel_p1 %>% 
+  mutate(entry_to_dispatch_watch1_1 = if_else(watch == 1, 
+                                              entry_to_dispatch,
+                                              NA),
+         entry_to_dispatch_watch2_1 = if_else(watch ==2,
+                                              entry_to_dispatch,
+                                              NA),
+         entry_to_dispatch_watch3_1 = if_else(watch == 3,
+                                              entry_to_dispatch,
+                                              NA),
+         entry_to_onscene_watch1_1 = if_else(watch == 1,
+                                             entry_to_onscene,
+                                             NA),
+         entry_to_onscene_watch2_1 = if_else(watch == 2, 
+                                             entry_to_onscene,
+                                             NA),
+         entry_to_onscene_watch3_1= if_else(watch == 3, 
+                                            entry_to_onscene,
+                                            NA)) 
+
+watch_reg <- dispatch_panel_p1 %>% 
   feols(c(entry_to_dispatch_watch1_1,
           entry_to_dispatch_watch2_1,
           entry_to_dispatch_watch3_1,
           entry_to_onscene_watch1_1,
           entry_to_onscene_watch2_1,
-          entry_to_onscene_watch3_1) ~ treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0| district + date,
+          entry_to_onscene_watch3_1) ~ treatment + ..ctrl,
         cluster = ~district) %>% 
   map_df(~broom::tidy(.,conf.int = T),.id = "type") %>% 
   filter(term == "treatment") %>% 
@@ -31,13 +54,12 @@ watch_reg <- dispatch_panel %>%
   ))
 
 
-dispatch_reg <- dispatch_panel %>% 
-  mutate(median_priority_1 = median(number_dispatches_1), .by = district) %>% 
-  filter(number_dispatches_1 > median_priority_1) %>% 
-  feols(c(entry_to_dispatch_1,
-          entry_to_onscene_1) ~ treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0| district + date,
+  
+dispatch_reg <- dispatch_panel_p1 %>% 
+  mutate(median_priority_1 = median(number_dispatches), .by = district) %>% 
+  filter(number_dispatches > median_priority_1) %>% 
+  feols(c(entry_to_dispatch,
+          entry_to_onscene) ~ treatment + ..ctrl,
         cluster = ~district) %>% 
   map_df(~broom::tidy(., conf.int = T), .id = "type") %>% 
   filter(term == "treatment") %>% 
@@ -47,13 +69,11 @@ dispatch_reg <- dispatch_panel %>%
                        "Above Median"))
 
 
-dispatch_reg_below <- dispatch_panel %>% 
-  mutate(median_priority_1 = median(number_dispatches_1), .by = district) %>% 
-  filter(number_dispatches_1 <= median_priority_1) %>% 
-  feols(c(entry_to_dispatch_1,
-          entry_to_onscene_1) ~ treatment + officer_hours +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0| district + date,
+dispatch_reg_below <- dispatch_panel_p1 %>% 
+  mutate(median_priority_1 = median(number_dispatches), .by = district) %>% 
+  filter(number_dispatches <= median_priority_1) %>%
+  feols(c(entry_to_dispatch,
+          entry_to_onscene) ~ treatment + ..ctrl,
         cluster = ~district) %>% 
   map_df(~broom::tidy(., conf.int = T), .id = "type") %>% 
   filter(term == "treatment") %>% 

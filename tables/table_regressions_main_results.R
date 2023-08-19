@@ -24,8 +24,6 @@ if (!exists("dispatch_panel")){
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
   mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district)
 
-setFixest_fml(..ctrl = ~officer_hours +
-                number_dispatches| district + date)
 
 
 # entry to dispatch -------------------------------------------------------
