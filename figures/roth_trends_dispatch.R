@@ -7,14 +7,19 @@ library(kableExtra)
 library(modelsummary)
 library(did2s)
 
-if(!exists("dispatch_panel")) {
-  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatch_panel.csv"))
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  ## priority 1 dispatches only
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code ==1)
 }
 
+setFixest_fml(..ctrl = ~0| district + date +
+                final_dispatch_description + hour)
 
 # creating the event study data -------------------------------------------
 
-es_data_dispatch <- dispatch_panel %>% 
+es_data_dispatch <- dispatch_panel_p1 %>% 
   mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
                                      "month") %>% 
            magrittr::add(1) %>% 
@@ -22,7 +27,7 @@ es_data_dispatch <- dispatch_panel %>%
            magrittr::subtract(1),
          .by = district) %>% 
   mutate(time_to_treat = case_when(
-    time_to_treat > 12 ~ 12,
+    time_to_treat > 24 ~ 24,
     time_to_treat < -12 ~ -12,
     .default = time_to_treat
   )) %>% 
@@ -34,18 +39,16 @@ es_data_dispatch <- dispatch_panel %>%
 
 ## TWFE
 twfe_dispatch <- es_data_dispatch %>% 
-  feols(entry_to_dispatch_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0 +
-          officer_hours |district + date,
+  feols(entry_to_dispatch ~ i(time_to_treat, ref = c(-1, -1000)) +
+          ..ctrl,
         cluster = ~district, data = .)
 
 ## this is omitting the binned endpoints and controls.
 ## Although there is no standard for this, we believe this is the right thing to do
 ## results are consistent without doing this as well
-twfe_dispatch_coef <- twfe_dispatch$coefficients[2:23]
+twfe_dispatch_coef <- twfe_dispatch$coefficients[2:35]
 
-twfe_dispatch_cov <- twfe_dispatch$cov.scaled[2:23,2:23]
+twfe_dispatch_cov <- twfe_dispatch$cov.scaled[2:35,2:35]
 
 ##34.3 point estimate average
 # roth: testing period 5 after implementation -----------------------------
@@ -53,15 +56,15 @@ twfe_dispatch_cov <- twfe_dispatch$cov.scaled[2:23,2:23]
 
 twfe_dispatch_original <- HonestDiD::constructOriginalCS(betahat = twfe_dispatch_coef,
                                                     sigma = twfe_dispatch_cov,
-                                                    numPrePeriods = 11,
-                                                    numPostPeriods = 11,
-                                                    l_vec = rep(1/11, 11))
+                                                    numPrePeriods = 10,
+                                                    numPostPeriods = 24,
+                                                    l_vec = rep(1/24, 24))
 twfe_dispatch_honest <- HonestDiD::createSensitivityResults(betahat = twfe_dispatch_coef,
                                                 sigma = twfe_dispatch_cov,
-                                                numPrePeriods = 11,
-                                                numPostPeriods = 11,
+                                                numPrePeriods = 10,
+                                                numPostPeriods = 24,
                                                 Mvec = seq(from = 0, to = 0.5, by =0.1),
-                                                l_vec = rep(1/11, 11))
+                                                l_vec = rep(1/24, 24))
 
 
 sensitivity_plot_dispatch <- createSensitivityPlot(twfe_dispatch_honest, twfe_dispatch_original) +
@@ -116,15 +119,13 @@ ggsave(sensitivity_plot_dispatch, filename = "figures/roth_trends_dispatch.jpeg"
 
 ## TWFE
 twfe_os <- es_data_dispatch %>% 
-  feols(entry_to_onscene_1 ~ i(time_to_treat, ref = c(-1, -1000)) +
-          number_dispatches_1 + number_dispatches_2 + number_dispatches_3 +
-          number_dispatches_0 +
-          officer_hours |district + date,
+  feols(entry_to_onscene ~ i(time_to_treat, ref = c(-1, -1000)) +
+          ..ctrl,
         cluster = ~district, data = .)
 
-twfe_os_coef <- twfe_os$coefficients[2:23]
+twfe_os_coef <- twfe_os$coefficients[2:35]
 
-twfe_os_cov <- twfe_os$cov.scaled[2:23,2:23]
+twfe_os_cov <- twfe_os$cov.scaled[2:35,2:35]
 
 
 
@@ -134,15 +135,15 @@ twfe_os_cov <- twfe_os$cov.scaled[2:23,2:23]
 ## work nicely
 twfe_os_original <- HonestDiD::constructOriginalCS(betahat = twfe_os_coef,
                                                          sigma = twfe_os_cov,
-                                                         numPrePeriods = 11,
-                                                         numPostPeriods = 11,
-                                                    l_vec = rep(1/11, 11))
+                                                         numPrePeriods = 10,
+                                                         numPostPeriods = 24,
+                                                    l_vec = rep(1/24, 24))
 twfe_os_honest <- HonestDiD::createSensitivityResults(betahat = twfe_os_coef,
                                                             sigma = twfe_os_cov,
-                                                            numPrePeriods = 11,
-                                                            numPostPeriods = 11,
+                                                            numPrePeriods = 10,
+                                                            numPostPeriods = 24,
                                                             Mvec = seq(from = 0, to = 0.5, by =0.1),
-                                                      l_vec = rep(1/11, 11))
+                                                      l_vec = rep(1/24, 24))
 
 
 sensitivity_plot_os <- createSensitivityPlot(twfe_os_honest, twfe_os_original) +

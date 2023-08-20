@@ -32,7 +32,7 @@ es_data_dispatch <- dispatch_panel_p1 %>%
            magrittr::subtract(1),
          .by = district) %>% 
   mutate(time_to_treat = case_when(
-    time_to_treat > 12 ~ 12,
+    time_to_treat > 24 ~ 24,
     time_to_treat < -12 ~ -12,
     .default = time_to_treat
   )) %>% 
@@ -75,8 +75,8 @@ entry_1 <- es_data_dispatch %>%
   add_row(term = "0", 
           estimate = 0,
           .before = 12) %>% 
-  slice(1:25) %>% 
-  mutate(periods = c(-12:12)) %>% 
+  slice(1:37) %>% 
+  mutate(periods = c(-12:24)) %>% 
   mutate(type = "OLS")
 
 
@@ -90,13 +90,14 @@ entry_1_2sdid <- did2s(es_data_dispatch,
   add_row(term = "0", 
           estimate = 0,
           .before = 12) %>% 
-  mutate(periods = c(-12:12)) %>% 
+  mutate(periods = c(-12:24)) %>% 
   mutate(type = "Gardner (2022)")
 
 entry_1_es <- entry_1 %>% 
   bind_rows(entry_1_2sdid) %>% 
-  filter(periods %in% c(-11:11)) %>% 
+  filter(periods %in% c(-11:23)) %>% 
   event_study_graph()
+
   
 
 
@@ -111,27 +112,27 @@ eos_1 <- es_data_dispatch %>%
   add_row(term = "0", 
           estimate = 0,
           .before = 12) %>% 
-  slice(1:25) %>% 
-  mutate(periods = c(-12:12)) %>% 
+  slice(1:37) %>% 
+  mutate(periods = c(-12:24)) %>% 
   mutate(type = "OLS")
 
 
 eos_1_2sdid <- did2s(es_data_dispatch,
-                       yname = "entry_to_onscene",
-                       first_stage = ~..ctrl,
-                       second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
-                       treatment = "treatment",
-                       cluster_var = "district") %>% 
+                     yname = "entry_to_onscene",
+                     first_stage = ~..ctrl,
+                     second_stage = ~ i(time_to_treat, ref = c(-1, -1000)),
+                     treatment = "treatment",
+                     cluster_var = "district") %>% 
   broom::tidy(conf.int = T) %>% 
   add_row(term = "0", 
           estimate = 0,
           .before = 12) %>% 
-  mutate(periods = c(-12:12)) %>% 
+  mutate(periods = c(-12:24)) %>% 
   mutate(type = "Gardner (2022)")
 
 eos_1_es <- eos_1 %>% 
   bind_rows(eos_1_2sdid) %>% 
-  filter(periods %in% c(-11:11)) %>% 
+  filter(periods %in% c(-11:23)) %>% 
   event_study_graph()
 
 
@@ -172,19 +173,19 @@ event_study_graph_overlay <- function(x){
 }
 
 
-
-entry_1_es_overlay <- entry_1 %>%
-  bind_rows(entry_1_2sdid) %>%
-  filter(periods %in% c(-11:11)) %>%
-  left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
-  event_study_graph_overlay() +
-  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches"))
-
-eos_1_es_overlay <- eos_1 %>%
-  bind_rows(eos_1_2sdid) %>%
-  filter(periods %in% c(-11:11)) %>%
-  filter(periods %in% c(-11:11)) %>%
-  left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
-  event_study_graph_overlay() +
-  scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches/Number Dispatches"))
-
+# 
+# entry_1_es_overlay <- entry_1 %>%
+#   bind_rows(entry_1_2sdid) %>%
+#   filter(periods %in% c(-11:11)) %>%
+#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
+#   event_study_graph_overlay() +
+#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches"))
+# 
+# eos_1_es_overlay <- eos_1 %>%
+#   bind_rows(eos_1_2sdid) %>%
+#   filter(periods %in% c(-11:11)) %>%
+#   filter(periods %in% c(-11:11)) %>%
+#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
+#   event_study_graph_overlay() +
+#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches/Number Dispatches"))
+# 

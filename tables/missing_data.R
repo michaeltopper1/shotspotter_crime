@@ -103,7 +103,7 @@ missing_table <- panelsummary_raw(list(missing, missing_above, missing_below),
 missing_table <- missing_table %>% 
   slice(-c(5:8)) %>% 
   clean_raw(pretty_num =T, 
-            caption = "\\label{missing_data}Analysis of Missing Data (OLS)") %>% 
+            caption = "\\label{missing_data}Analysis of Missing Call-to-On-Scene Data (OLS)") %>% 
   pack_rows("Panel A: Missing Call-to-On-Scene", 1, 4,
             bold = F, italic = T) %>% 
   pack_rows("Panel B: Call-to-Dispatch", 5, 10,
