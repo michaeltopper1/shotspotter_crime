@@ -64,12 +64,12 @@ sst_ed_below_med <- dispatch_panel_p1 %>%
 
 
 os_preferred_1 <- feols(entry_to_onscene ~ treatment | district + date +
-                        final_dispatch_code + hour,
+                          final_dispatch_description + hour,
                       cluster = ~district,
                       data = dispatch_panel_p1)
 
 sst_os_1 <- feols(entry_to_onscene ~ number_sst_dispatches | district + date +
-                    final_dispatch_code + hour,
+                    final_dispatch_description + hour,
                   cluster = ~district,
                   data = dispatch_panel_p1)
 
