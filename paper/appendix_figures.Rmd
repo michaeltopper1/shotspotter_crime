@@ -14,6 +14,8 @@ fontsize: 11pt
 ```{r, echo = F, message = F, warning = F}
 
 figure_appendix_files <- list.files(here::here("figures/"),pattern = "^appendix")
+figure_appendix_files <- figure_appendix_files[!figure_appendix_files %in%c("appendix_loo.R",
+                                                 "appendix_event_study_longer.R")]
 
 ## read in the figures
 for (file in figure_appendix_files){
@@ -53,8 +55,10 @@ forest_sample_plot
 ```{=latex}
 \begin{figure}[t!]
 ```
-```{r, fig.align='center'}
-loo_figure
+```{r, out.width="85%", fig.align='center', fig.pos="H"}
+
+knitr::include_graphics(here::here("figures/loo.jpeg"))
+
 ```
 ```{=latex}
 \caption{Leave-One-Out Analysis \label{loo_figure}}
@@ -92,30 +96,7 @@ loo_figure
 <!-- \end{figure} -->
 <!-- ``` -->
 
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, fig.align='center'}
-entry_1_es_longer
-```
-```{=latex}
-\caption{Event Study Longer Time Horizon (Call-to-Dispatch) \label{entry_1_es_longer}}
-\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Thirty six periods are estimated, but only 11 pre-periods and 23 post periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level.
-\end{figure}
-```
 
-
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, fig.align='center'}
-eos_1_es_longer
-```
-```{=latex}
-\caption{Event Study Longer Time Horizon (Call-to-On-Scene) \label{eos_1_es_longer}}
-\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-On-Scene times. Call-to-On-Scene is the amount of time from a 911 call to a police officer arriving to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Thirty six periods are estimated, but only 11 pre-periods and 23 post periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level.
-\end{figure}
-```
 
 
 ```{=latex}

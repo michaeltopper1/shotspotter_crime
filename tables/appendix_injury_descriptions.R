@@ -19,6 +19,8 @@ footnotes <- map(list( "All descriptions are from confirmed 911 dispatches that 
                        to intervene. 
                   "), ~str_remove_all(., "\n"))
 
+gun_related <- tibble("Gun-Related"= c("PERSON WITH A GUN", "SHOTS FIRED",
+                                       rep(" ", 36)))
 injury_descriptions <- victim_define %>% 
   select(final_dispatch_description, injury_possibility) %>% 
   distinct(final_dispatch_description, .keep_all = T) %>% 
@@ -27,10 +29,11 @@ injury_descriptions <- victim_define %>%
   pivot_wider(names_from = injury_possibility,
               values_from = final_dispatch_description,
               id_cols = id) %>% 
+  bind_cols(gun_related,) %>% 
   rename("Injury Realized" = `0`,
          "Potential for Injury" = `1`) %>% 
   select(-id) %>% 
   kbl(caption = "\\label{injury_descriptions}Categorization for Injury-Related Dispatches") %>% 
-  add_header_above(c("Injury-Confirmed Call Descriptions" = 2)) %>% 
+  add_header_above(c("Injury-Confirmed Call Descriptions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)

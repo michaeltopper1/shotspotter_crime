@@ -24,7 +24,7 @@ for (file in table_appendix_files){
 
 
 ```{r}
-missing_os_table
+bad_controls
 ```
 
 ```{r}

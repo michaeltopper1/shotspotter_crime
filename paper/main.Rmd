@@ -107,12 +107,25 @@ options(modelsummary_model_labels="model")
 ```
 
 \newpage
-
 ```{=tex}
 \appendix
 \renewcommand{\thefigure}{A\arabic{figure}} \setcounter{figure}{0}
 \renewcommand{\thetable}{A\arabic{table}} \setcounter{table}{0}
 \renewcommand{\theequation}{A\arabic{table}} \setcounter{equation}{0}
+\setcounter{page}{1}
+```
+
+```{r, child = "paper/appendix_missing_data.Rmd", fig.pos='H' }
+
+```
+
+\newpage
+
+```{=tex}
+\appendix
+\renewcommand{\thefigure}{B\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{B\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{B\arabic{table}} \setcounter{equation}{0}
 \setcounter{footnote}{0}
 \setcounter{page}{1}
 ```

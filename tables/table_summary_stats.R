@@ -80,15 +80,23 @@ summary_stats <- dispatch_panel_p1 %>%
               output = "data.frame")
 
 footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
-         the district-by-day level. Call-to-Dispatch represents 
+         the call-level. Call-to-Dispatch represents 
          the amount of time from the 911 call to an officer dispatching
          to the scene. Call-to-On-Scene is the time from a 911 call to
-         when an officer arrives on scene. Priority 1 refers to an immediate dispatch, 
+         when an officer arrives on scene. Arrest Probability is the probability of
+         an arrest occuring during a dispatch.
+         Victim Injury Probability is the probability of a victim being injured
+         during a time-sensitive dispatch call. A time-sensitive dispatch call is one
+         in which the injury outcome has not yet been realized.
+         Priority 1 refers to an immediate dispatch, 
          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. Officer Hours are the 
-         number of working hours sworn police officers work. Number of SST Dispatches is the 
+         number of working hours sworn police officers work at the district-day level. 
+         Number of Dispatches is the number of Priority 1 dispatches at the
+         district-day level.
+         Number of SST Dispatches is the 
          number of dispatches due to ShotSpotter alerts. Importantly, Number of SST Dispatches is
          also at the district-by-day level and includes days in which
-         ShotSpotter is not implemented. The average number of ShotSpotter dispatches across Chicago
+         ShotSpotter is not implemented. The average daily number of ShotSpotter dispatches across Chicago
          once all 12 districts have implemented ShotSpotter is approximately 60. Note that
          New Years Eve/New Years Day/Fourth of July are excluded from the sample as
          ShotSpotter alerts can be as high as 392 on these days. 

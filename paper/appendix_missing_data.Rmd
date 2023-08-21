@@ -1,0 +1,28 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-08-01"
+editor_options: 
+  chunk_output_type: console
+---
+
+\section{Appendix A: Missing Call-to-On-Scene Data}\label{appendix:missing_data}
+
+In this appendix, we conduct analyses regarding the notable amount of data missing for one of the key outcome variables, Call-to-On-Scene. Recall that Call-to-On-Scene denotes the time interval between a 911 call and an officer's arrival at the scene of the incident. While we find suggestive evidence that missing Call-to-On-Scene times are correlated with ShotSpotter implementation, this section outlines several reasons to maintain confidence in the main results despite this limitation.
+
+\subsection{Reasons for Missing Data}
+
+First, we note that the underlying reason behind a missing Call-to-On-Scene entry is an officer's failure to report to the dispatcher that they have arrived on-scene. This could be due to an officer forgetting to report, or more likely, an officer being immediately engaged on-scene. Importantly, we provide suggestive evidence that the latter is happening more frequently post-implementation of ShotSpotter due to officers being more time-constrained. 
+
+In Panel A of Appendix Table \ref{missing_data}, we estimate the preferred specification from Equation \ref{eq:main} on an indicator for a missing Call-to-On-Scene time and find suggestive evidence of a correlation. Column 1 of Panel A reports a 3.8\% increase in the likelihood of missing Call-to-On-Scene when ShotSpotter is implemented, which is statistically significant at the 10\% level. However, Columns 2 and 3 show that this effect is driven by times in which there are fewer officers on duty, implying  that ShotSpotter may be straining officers time allotment. For instance, if an officer feels they have fallen behind, they may disregard explaining to the dispatcher that they have arrived to the scene. If this is the case, then the missing on-scene times may be larger than the non-missing times, thereby suggesting that the main results are a lower bound. 
+
+\subsection{Impact on Call-to-Dispatch Times}
+
+Second, we examine the impact of missing data on Call-to-Dispatch times—the time from a 911 call to when an officer is dispatched to the crime scene. Notably, Call-to-Dispatch times, a mechanism underlying Call-to-On-Scene times as discussed in Section \ref{section:results}, are 100\% reported.
+
+To begin, we supplement Equation \ref{eq:main} with an interaction between ShotSpotter implementation (ShotSpotter Activate) and an indicator for missing Call-to-On-Scene times (Missing On-Scene).\footnote{The fixed effects are also interacted with Missing On-Scene.} In doing so, we test whether there are differences in the effect of ShotSpotter on Call-to-Dispatch times between cases with missing and no missing data. Panel B of Appendix Table \ref{missing_data} reports no significant change in Call-to-Dispatch times when there is missing Call-to-On-Scene data. As shown across Columns 1-3, there is little evidence that Call-to-Dispatch times differ in a missing data case. Specifically, the coefficient on the interaction term is small and statistically insignificant.
+
+
+\subsection{Consistent Trends}
+
+Last, given that Call-to-Dispatch times are fully reported and there is no change when  Call-to-On-Scene  times are missing, we plot the event study coefficients from Figures \ref{entry_1_es} and \ref{eos_1_es} in Appendix Figure \ref{missing_data_trend} which shows that there is a consistent time trend for each outcome variable. The convergence in trends reinforces the notion that even when Call-to-On-Scene data is absent, officers may still experience delays in reaching the scene due to slower dispatching procedures. This consistent pattern underscores the reliability of the Call-to-On-Scene findings.

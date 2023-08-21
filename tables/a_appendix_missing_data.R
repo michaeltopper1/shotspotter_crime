@@ -44,18 +44,6 @@ missing_below <- dispatch_panel_p1 %>%
   feols(missing_os ~ treatment + ..ctrl)
 
 
-## number of sst dispatches as variation
-# missing_sst <- dispatch_panel_p1 %>% 
-#   feols(missing_os ~ number_sst_dispatches + ..ctrl)
-# 
-# missing_above_sst <- dispatch_panel_p1 %>% 
-#   filter(officer_hours > officer_hours_median) %>%
-#   feols(missing_os ~ number_sst_dispatches + ..ctrl)
-# 
-# missing_below_sst <- dispatch_panel_p1 %>% 
-#   filter(officer_hours <= officer_hours_median) %>%
-#   feols(missing_os ~ number_sst_dispatches + ..ctrl)
-
 # call to dispatch --------------------------------------------------------
 
 
