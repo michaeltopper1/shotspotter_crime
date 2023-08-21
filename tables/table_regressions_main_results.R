@@ -164,7 +164,7 @@ main_results <- dispatch_table %>%
   pack_rows("Panel B: Call-to-On-Scene", 8,14, italic = T, bold = F) %>% 
   row_spec(14, hline_after = TRUE) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 11)
+  kable_styling(latex_options = "HOLD_position", font_size = 10)
 
 
 

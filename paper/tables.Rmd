@@ -28,15 +28,17 @@ for (file in table_files){
 summary_stats
 ```
 
-
+\afterpage{
+\newgeometry{left=1cm,top=1.5cm}
 ```{r}
 main_results %>% 
   landscape() 
 ```
-
+\clearpage 
+\restoregeometry} 
 
 ```{r}
-intensive_table %>% 
+mechanism_table %>% 
   landscape() 
 ```
 

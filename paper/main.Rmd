@@ -27,6 +27,7 @@ header-includes:
 - \usepackage{placeins}
 - \usepackage{rotating}
 - \floatplacement{figure}{H}
+- \usepackage{afterpage}
 linkcolor: blue
 bibliography: "references.bib"
 link-citations: yes
@@ -118,6 +119,7 @@ options(modelsummary_model_labels="model")
 ```{r, child = "paper/appendix_missing_data.Rmd", fig.pos='H' }
 
 ```
+
 
 \newpage
 

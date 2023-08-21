@@ -33,7 +33,8 @@ injury_descriptions <- victim_define %>%
   rename("Injury Realized" = `0`,
          "Potential for Injury" = `1`) %>% 
   select(-id) %>% 
-  kbl(caption = "\\label{injury_descriptions}Categorization for Injury-Related Dispatches") %>% 
+  kbl(caption = "\\label{injury_descriptions}Categorization for Injury-Related Dispatches",
+      booktabs = T) %>% 
   add_header_above(c("Injury-Confirmed Call Descriptions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 11)
+  kable_styling(latex_options = "HOLD_position", font_size = 9)
