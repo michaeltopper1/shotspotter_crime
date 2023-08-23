@@ -41,26 +41,31 @@ if (!exists("dispatch_panel")){
 
 victim <- dispatch_panel_p1 %>% 
   filter(time_sensitive_call == 1) %>% 
-  datasummary((`Victim Injury Probability` = victim_injury_time_sensitive_call)~
-                Mean + SD + Median + Min  +Max,
+  datasummary((`Victim Injury (Time-Sensitive)` = victim_injury_time_sensitive_call)~
+                Mean + SD + Median + Min  +Max + N,
               data = .,
               output = "data.frame")
 
 onscene_3 <- dispatch_panel %>% 
   filter(priority_code == 3) %>% 
-  mutate(across(c(entry_to_onscene), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call-to-On-Scene (Priority 3)` = entry_to_onscene) +
+  mutate(across(c(entry_to_onscene, entry_to_dispatch), ~./60, .names = "{.col}_mins")) %>% 
+  datasummary((`Call-to-Dispatch (Priority 3)` = entry_to_dispatch) +
+                entry_to_dispatch_mins +
+                (`Call-to-On-Scene (Priority 3)` = entry_to_onscene) +
                 entry_to_onscene_mins
-              ~ Mean + SD + Median + Min  +Max,
+              ~ Mean + SD + Median + Min  +Max + N,
                data = .,
                output = "data.frame")
 
 onscene_2 <- dispatch_panel %>% 
   filter(priority_code == 2) %>% 
-  mutate(across(c(entry_to_onscene), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call-to-On-Scene (Priority 2)` = entry_to_onscene) +
+  mutate(across(c(entry_to_onscene, entry_to_dispatch), ~./60, .names = "{.col}_mins")) %>% 
+  datasummary(
+    (`Call-to-Dispatch (Priority 2)` = entry_to_dispatch) +
+      entry_to_dispatch_mins +
+      (`Call-to-On-Scene (Priority 2)` = entry_to_onscene) +
                 entry_to_onscene_mins
-              ~ Mean + SD + Median + Min  +Max,
+              ~ Mean + SD + Median + Min  +Max + N,
               data = .,
               output = "data.frame")
 
@@ -68,14 +73,14 @@ summary_stats <- dispatch_panel_p1 %>%
   mutate(across(c(entry_to_dispatch,
                   entry_to_onscene
   ), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call-to-On-Scene` = entry_to_onscene) +
-                entry_to_onscene_mins + 
-                (`Call-to-Dispatch` = entry_to_dispatch) +
+  datasummary((`Call-to-Dispatch` = entry_to_dispatch) +
                 entry_to_dispatch_mins +
-                (`Arrest Probability` = arrest_made) +
+                (`Call-to-On-Scene` = entry_to_onscene) +
+                entry_to_onscene_mins + 
+                (`Arrest Made` = arrest_made) +
                 (`Number Dispatches` = number_dispatches) +
                 (`Number SST Dispatches` = number_sst_dispatches) +
-                (`Officer Hours` = officer_hours) ~ Mean + SD + Median + Min  +Max,
+                (`Officer Hours` = officer_hours) ~ Mean + SD + Median + Min  +Max + N,
               data = .,
               output = "data.frame")
 
@@ -83,7 +88,10 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          the call-level. Call-to-Dispatch represents 
          the amount of time from the 911 call to an officer dispatching
          to the scene. Call-to-On-Scene is the time from a 911 call to
-         when an officer arrives on scene. Arrest Probability is the probability of
+         when an officer arrives on scene.
+         Call-to-On-Scene is missing approximately 45 percent
+         of on-scene times. This is discussed further in Appendix A.
+         Arrest Probability is the probability of
          an arrest occuring during a dispatch.
          Victim Injury Probability is the probability of a victim being injured
          during a time-sensitive dispatch call. A time-sensitive dispatch call is one
@@ -102,61 +110,25 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          ShotSpotter alerts can be as high as 392 on these days. 
                   "), ~str_remove_all(., "\n"))
 
-summary_stats <- summary_stats %>% 
+. <- summary_stats %>% 
   add_row(victim, .before = 6) %>% 
   add_row(onscene_2, .before = 7) %>% 
-  add_row(onscene_3, .before = 9) %>% 
+  add_row(onscene_3, .before = 11) %>% 
   janitor::clean_names() %>% 
-  mutate(across(c(-1), ~. %>% as.double() %>% scales::comma(accuracy  = 0.01))) %>% 
+  mutate(across(.cols = c(-1), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 
   mutate(x = if_else(str_detect(x, "mins$"),
                      "", x)) %>% 
   mutate(across(c(-1), ~if_else(x == "", paste0("(", ., " mins)"), .))) %>% 
-  kbl(col.names = c(" ", "Mean", "Std. Dev.", "Median", "Min", "Max"),
+  mutate(n = if_else(x == "", "", n)) %>% 
+  kbl(col.names = c(" ", "Mean", "Std. Dev.", "Median", "Min", "Max", "N"),
       booktabs = T,
       caption = "\\label{summary_stats}Summary Statistics") %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 11) %>% 
-  pack_rows(group_label = "Priority 1 Outcomes:", 1, 6) %>% 
-  pack_rows(group_label = "Secondary Outcomes/Controls:", 7, 13) %>% 
+  kable_styling(latex_options = "HOLD_position", font_size = 10) %>% 
+  pack_rows(group_label = "Panel A: Priority 1 Outcomes:", 1, 6,
+            italic = T, bold = F) %>% 
+  pack_rows(group_label = "Panel B: Secondary Outcomes/Controls:", 7, 13,
+            latex_gap_space = "0.5cm",
+            italic = T, bold = F) %>% 
   footnote(footnote, threeparttable = T)
 
 
-
-# balance -----------------------------------------------------------------
-
-
-
-# dispatch_panel %>% 
-#   mutate(across(c(entry_to_dispatch_1,
-#                   entry_to_onscene_1
-#   ), ~./60, .names = "{.col}_mins")) %>% 
-#   select(`Call to Dispatch (Priority 1)` = entry_to_dispatch_1,
-#                 entry_to_dispatch_1_mins,
-#                 `Call to On-Scene (Priority 1)` = entry_to_onscene_1,
-#                 entry_to_onscene_1_mins,
-#                 `Number Dispatches` = number_dispatches,
-#                 `Priority 1` = number_dispatches_1,
-#                 `Priority 2` = number_dispatches_2,
-#                 `Priority 3` = number_dispatches_3,
-#                 `Number SST Alerts` = number_sst_dispatches,
-#                 `Officer Hours` = officer_hours,
-#                 `Number Arrests` = arrests_made,
-#                 `Number Gun Victimizations` = number_gun_victims,
-#          never_treated) %>% 
-#   mutate(never_treated = if_else(never_treated == 0, "Treated Districts",
-#                                  "Untreated Districts")) %>% 
-#   datasummary_balance(~never_treated, data = ., output = "data.frame") %>% 
-#   mutate(across(c(-1), ~. %>% as.double() %>% scales::comma(accuracy  = 0.01))) %>%
-#   janitor::clean_names() %>% 
-#   mutate(x = if_else(str_detect(x, "mins$"),
-#                      "", x)) %>% 
-#   kbl(col.names = c(" ", "Mean", "Std. Dev.", "Mean", "Std.Dev", "Diff in Means", "Std. Error"),
-#       booktabs = T,
-#       caption = "\\label{summary_stats}Summary Statistics of Response Times (seconds)") %>% 
-#   kable_styling(latex_options = "HOLD_position") %>% 
-#   pack_rows("Main Outcomes:", 1, 4) %>% 
-#   pack_rows("Controls/Secondary Outcomes:", 5, 12) %>% 
-#   add_indent(c(6,7,8)) %>% 
-#   add_header_above(c(" " = 1, "Treated" = 2, "Never Treated" = 2, " " =2)) %>% 
-#   footnote(footnote, threeparttable = T)
-
-         

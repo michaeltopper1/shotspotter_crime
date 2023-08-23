@@ -8,7 +8,7 @@ editor_options:
 \FloatBarrier
 \section{Appendix A: Missing Call-to-On-Scene Data}\label{appendix:missing_data}
 
-In this appendix, we conduct analyses regarding the notable amount of data missing for one of the key outcome variables, Call-to-On-Scene. Recall that Call-to-On-Scene denotes the time interval between a 911 call and an officer's arrival at the scene of the incident. While we find suggestive evidence that missing Call-to-On-Scene times are correlated with ShotSpotter implementation, this section outlines several reasons to maintain confidence in the main results despite this limitation.
+In this appendix, we conduct analyses regarding the notable amount of data missing for one of the key outcome variables, Call-to-On-Scene (~45\%). Recall that Call-to-On-Scene denotes the time interval between a 911 call and an officer's arrival at the scene of the incident. While we find suggestive evidence that missing Call-to-On-Scene times are correlated with ShotSpotter implementation, this section outlines several reasons to maintain confidence in the main results despite this limitation.
 
 \subsection{Reasons for Missing Data}
 
