@@ -20,7 +20,7 @@ sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") %>%
 
 ## rolloutdates are for the treatment of SST
 rollout_dates <- read_csv("created_data/rollout_dates.csv") %>% 
-  mutate(across(starts_with("shotspot"), ~mdy(.)))
+  mutate(across(c(-1), ~mdy(.)))
 
 ## victims are victim injuries
 victims <- read_csv("created_data/victim_injuries.csv")
@@ -231,6 +231,7 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   left_join(rollout_dates) %>% 
   mutate(treatment = if_else(shotspot_activate <= date, 1, 0), 
+         treatment_sdsc = if_else(sdsc <= date, 1, 0 ),
          treatment_official = if_else(shotspot_activate_official <= date, 1, 0),
          treatment_first_shot = if_else(shotspot_activate_first_shot <= date, 1, 0),
          treatment_cpd = if_else(shotspot_activate_cpd <= date, 1, 0),
@@ -238,6 +239,7 @@ dispatches_filtered <- dispatches_filtered %>%
   mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
   mutate(treatment = if_else(is.na(treatment), 0, treatment
   ),
+  treatment_sdsc = if_else(is.na(treatment_sdsc), 0 , treatment_sdsc),
   treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
   treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
   .by = district)
