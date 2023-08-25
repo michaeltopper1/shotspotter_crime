@@ -21,10 +21,13 @@ header-includes:
 - \usepackage{placeins}
 - \usepackage{rotating}
 - \floatplacement{figure}{H}
+- \usepackage{afterpage}
+linkcolor: blue
+bibliography: "references.bib"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 library(tidyverse)
 library(kableExtra)
@@ -37,9 +40,6 @@ library(patchwork)
 options(modelsummary_model_labels="model")
 ```
 
-#
-
-
 ```{r}
 confound_figs <- list.files(here::here("figures/"), pattern = "^b")
 confound_tables <- list.files(here::here("tables/"), pattern = "^b")
@@ -50,6 +50,46 @@ for (file in confound_figs){
 for (file in confound_tables){
   source(here::here(paste0("tables/", file)))
 }
+```
+
+\section{Appendix B: Coinciding Initiatives}\label{appendix:coinciding}
+
+In this appendix, we discuss two initiatives that were implemented in the Chicago Police Department (CPD) near the timing of ShotSpotter: Strategic Decision Support Centers and Body-worn Cameras. While neither of these exactly coincide with ShotSpotter implementation, we perform several sets of analyses to mitigate concerns that these, rather than ShotSpotter, are causing increases in response times.
+
+\subsection{Strategic Decision Support Centers}
+
+Strategic Decision Support Centers (SDSC) are command and control centers created to give police officers more awareness of what is occurring in their districts, and decide on responses. The main objective of SDSCs is to reduce crime, improve officer safety, and reduce service times. Each SDSC has staff members which include a dedicated supervisor (usually a sworn officer who is a lieutenant or sergeant) and a data analyst. 
+
+These support centers act as a hub for all of Chicago's policing technologies whereby they can relay real-time information to police officers in the field. In particular, these centers are constantly analyzing data from automated license plate readers, social media monitoring, police observation cameras and devices, and geospatial predictive police software (Hunchlab).\footnote{Hunchlab was bought by ShotSpotter in fall of 2018 and is now known as ShotSpotter Missions. We refrain from using this terminology as it might be confusing to a reader.} While most of these technologies have already been in utilization by the CPD prior to SDSCs,\footnote{Automated license plate readers began as early as 2006, social media monitoring as early as 2014, and police observation cameras and devices as early as 2003.} the Hunchlab software is implemented at the exact timing of an SDSC.
+
+
+\subsubsection{SDSC Technology Effect on Police Patrolling}
+
+There may be reason to suspect that Hunchlab, the geospatial predictive policing technology implemented with SDSCs, affects police response times. Hunchlab functions by creating location hot-spots in which police officers are supposed to visit more frequently in their patrols. These hot-spots are places where Hunchlab algorithms are predicting crime to occur. Hence, Hunchlab could affect response times by placing officers closer (or farther) to reported incidents of crime, or by placing them in areas where they are more likely to make arrests/stops and be unavailable for dispatch. 
+
+Despite this potential limitation, a thorough analysis of this exact technology is provided in YENS. Specifically, they find that Hunchlab causes significant changes in police patrolling behavior for only two police districts (Distrct 7 and District 9). The null results they report in the other police districts are attributed to commanders or officers disregarding the software's suggestions. 
+
+\subsubsection{Main Results Controlling for SDSCs}
+
+In this subsection, we re-estimate the main specification and corresponding event studies on Call-to-Dispatch and Call-to-On-Scene times while controlling for the SDSC implementation. SDSCs are implemented in a district-by-district roll-out that is similar (although not exact) to ShotSpotters implementation. Appendix Table \ref{rollout_difference} reports the districts and corresponding dates of their implementation. On average, SDSCs are implemented 76 days prior to ShotSpotter. 
+
+Appendix Table \ref{confounding_table}, shows consistent findings of the effects of ShotSpotter on response times while controlling for the roll-out of SDSCs. In Columns 1, we use the OLS estimator while in Column 2, we use the \cite{gardner_two-stage_2022} estimator to account for possible treatment heterogeneity across groups and over time given the staggered design. In Panel A, Call-to-Dispatch times show increases of approximately one-minute, while in Panel B, Call-to-On-Scene times exhibit slightly smaller estimates than the main findings, but remain statistically significant at the 5\% level. Reassuringly, there appears to be no effect of the SDSC roll-out on Call-to-Dispatch times, suggesting that the Hunchlab technology in the SDSCs is not incapacitating officers' availability. On the other hand, there is suggestive evidence that SDSCs may be increasing Call-to-On-Scene times. However, this increase is not statistically significant at the 5\% level. 
+
+In Columns 3 and 4 of of Appendix Table \ref{confounding_table}, we re-estimate the specifications from Columns 1 and 2, but exclude police districts 7 and 9 which have been found to have changes in police patrolling behavior following the SDSC rollout YENS. In doing so, we focus the analysis on districts in which there are no patrolling changes whereby response times could be affected. The results for both Call-to-Dispatch and Call-to-On-Scene are consistent with the main findings, and in addition, show larger effect sizes than the entire pooled sample. This suggests that the Hunchlab technology utilized in the SDSCs, when properly utilized, may mitigate some of the response time lag attributed to ShotSpooter.
+
+Next, we estimate the event study specifications in Equation \ref{eq:es} while controlling for SDSC implementation. Appendix Figures \ref{entry_1_sdsc_es} and \ref{eos_1_sdsc_es} plot the event studies for Call-to-Dispatch and Call-to-On-Scene times using both the OLS estimator (red) and the \cite{gardner_two-stage_2022} estimator (blue). In both plots, the standard errors get significantly larger relative to the models without SDSC controls. This is likely due to the proximity of both ShotSpotter implementation and SDSCs. However, despite these larger standard errors, the pre-period shows no visual evidence of a violation of the common trends assumptions, and the post period results appear similar to the main event studies in Figures \ref{entry_1_es} and \ref{eos_1_es}.
+
+\subsection{Body-Worn Cameras}
+
+In this subsection, we show that controlling for the body-worn camera (BWC) implementation in Chicago has no effect on the response time results. As mentioned in the main text, the district implementation of BWCs differs by 283 days on average (see Appendix Table \ref{rollout_difference}) from the ShotSpotter roll-out (see Appendix Table \ref{rollout_difference}). Moreover, while body worn cameras have been found to affect complaints \citep{kim2019facilitating, noauthor_bodyworn_nodate, zamoff_who_2022, ferrazares_monitoring_2023}, arrests, and stops \citep{noauthor_bodyworn_nodate, zamoff_who_2022}, there is little reason to suspect that they significantly affect an officers ability to rapidly respond.
+
+Columns 5 and 6 of Appendix Table \ref{confounding_table} report the results for both Call-to-Dispatch and Call-to-On-Scene times while controlling for BWC implementation. The results are consistent with the main findings, and the negative coefficient on BWC does not show any evidence of affecting response times. 
+
+
+
+
+```{r}
+rollout_difference
 ```
 
 
@@ -69,7 +109,7 @@ confounding_table %>%
 entry_1_sdsc_es
 ```
 ```{=latex}
-\caption{Event Study w/ SDSC Controls (Call-to-Dispatch) \label{entry_1_es}}
+\caption{Event Study w/ SDSC Controls (Call-to-Dispatch) \label{entry_1_sdsc_es}}
 \textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification in addition to SDSC rollout. Standard errors are clustered at the district level. 
 \end{figure}
 ```
@@ -84,7 +124,7 @@ entry_1_sdsc_es
 eos_1_sdsc_es
 ```
 ```{=latex}
-\caption{Event Study w/ SDSC Controls (Call-to-On-Scene) \label{eos_1_es}}
+\caption{Event Study w/ SDSC Controls (Call-to-On-Scene) \label{eos_1_sdsc_es}}
 \textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-On-Scene times. Call-to-On-Scene is the amount of time from a 911 call to a police officer arriving to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification in addition to SDSC rollout. Standard errors are clustered at the district level. 
 \end{figure}
 ```
