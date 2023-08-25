@@ -74,6 +74,7 @@ sdsc_o1_2s <- did2s(data = dispatch_panel_p1,
                     treatment = "treatment",
                     cluster_var = "district")
 
+
 sdsc_o2 <- dispatch_panel_p1 %>% 
   filter(!district %in% c(7,9)) %>% 
   feols(entry_to_onscene ~treatment + treatment_sdsc + ..ctrl)
@@ -150,3 +151,5 @@ confounding_table <- confounding_table %>%
   add_header_above(c(" " =1, "SDSC Controls" = 4, "BWC Controls" = 2)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10)
+
+

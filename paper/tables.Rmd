@@ -28,14 +28,16 @@ for (file in table_files){
 summary_stats
 ```
 
-\afterpage{
-\newgeometry{left=1cm,top=1.5cm}
-```{r}
-main_results %>% 
-  landscape() 
+```{=latex}
+\begin{sidewaystable}
 ```
-\clearpage 
-\restoregeometry} 
+```{r}
+main_results 
+```
+```{=latex}
+\end{sidewaystable}
+```
+
 
 ```{r}
 mechanism_table %>% 

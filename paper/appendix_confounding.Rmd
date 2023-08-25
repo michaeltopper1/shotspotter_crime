@@ -1,0 +1,90 @@
+---
+title: "Untitled"
+output: pdf_document
+date: "2023-08-25"
+header-includes:
+- \usepackage{amsfonts}
+- \usepackage{amsthm}
+- \usepackage{amsmath}
+- \usepackage{bbm} ##for indicator
+- \usepackage[english]{babel}
+- \usepackage{bm}
+- \usepackage{float}
+- \usepackage{indentfirst}
+- \usepackage[fontsize=12pt]{scrextend}
+- \usepackage{graphicx}
+- \usepackage[utf8]{inputenc}
+- \usepackage{pdfpages}
+- \usepackage[round]{natbib}
+- \usepackage{setspace}\doublespacing
+- \usepackage{subfig}
+- \usepackage{placeins}
+- \usepackage{rotating}
+- \floatplacement{figure}{H}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+library(tidyverse)
+library(kableExtra)
+library(bookdown)
+library(modelsummary)
+library(fixest)
+library(grid)
+library(gridExtra)
+library(patchwork)
+options(modelsummary_model_labels="model")
+```
+
+#
+
+
+```{r}
+confound_figs <- list.files(here::here("figures/"), pattern = "^b")
+confound_tables <- list.files(here::here("tables/"), pattern = "^b")
+
+for (file in confound_figs){
+  source(here::here(paste0("figures/", file)))
+}
+for (file in confound_tables){
+  source(here::here(paste0("tables/", file)))
+}
+```
+
+
+```{r}
+confounding_table %>%
+  landscape()
+```
+
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## event study entry to dispatch
+entry_1_sdsc_es
+```
+```{=latex}
+\caption{Event Study w/ SDSC Controls (Call-to-Dispatch) \label{entry_1_es}}
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification in addition to SDSC rollout. Standard errors are clustered at the district level. 
+\end{figure}
+```
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## event study entry to on scene
+eos_1_sdsc_es
+```
+```{=latex}
+\caption{Event Study w/ SDSC Controls (Call-to-On-Scene) \label{eos_1_es}}
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-On-Scene times. Call-to-On-Scene is the amount of time from a 911 call to a police officer arriving to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification in addition to SDSC rollout. Standard errors are clustered at the district level. 
+\end{figure}
+```

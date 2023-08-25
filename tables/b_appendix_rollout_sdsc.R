@@ -23,13 +23,15 @@ footnotes <- map(list("This table shows
                       as controls are shown in Appendix Table BLANK."), ~str_remove_all(., "\n"))
 
 rollout_difference <- rollout_dates %>% 
-  left_join(bwc) %>% 
-  select(district, shotspot_activate, sdsc) %>% 
-  mutate(across(c(-1), ~mdy(.))) %>% 
-  mutate(difference = shotspot_activate - sdsc) %>%
+  full_join(bwc) %>% 
+  select(district, shotspot_activate, sdsc, bwc_date) %>% 
+  mutate(across(starts_with("s"), ~mdy(.))) %>% 
+  mutate(difference = shotspot_activate - sdsc,
+         difference_bwc = abs(shotspot_activate - bwc_date)) %>%
   kbl(booktabs = T,
-      col.names = c("District", "ShotSpotter Activated", "SDSC Implemented", "Difference"),
-      caption = "\\label{rollout_difference}Rollout Dates: ShotSpotter vs. SDSC") %>% 
+      col.names = c("District", "ShotSpotter", "SDSC", "BWC", "Difference SDSC",
+                    "Difference BWC"),
+      caption = "\\label{rollout_difference}Implementation Dates of ShotSpotter/SDSC/BWC") %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10)
   
