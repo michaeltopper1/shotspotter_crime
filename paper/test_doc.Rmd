@@ -54,7 +54,9 @@ This document is meant to test crap.
 ```
 ```{r}
 ## event study entry to dispatch
-hetero_resource + sst_by_hour + patchwork::plot_layout(ncol = 1, tag_level = "new")  
+sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
+  plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
+  theme(plot.tag = element_text(size = 11))
 ```
 ```{=latex}
 \caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}

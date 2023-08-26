@@ -65,7 +65,7 @@ hetero_resource <- watch_reg %>%
     type == "Watch 3:\n(4pm - 12am)" ~ "More Resource Constrained",
     type == "Watch 2:\n(8am - 4pm)" ~ "Lo",
     .default = "Less Resource Constrained"
-  )) %>% 
+  )) %>%
   ggplot(aes(type, estimate, color = resource_constraint)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.1) +
@@ -77,8 +77,8 @@ hetero_resource <- watch_reg %>%
   ggthemes::scale_color_stata() +
   labs(x = "", y = "Point Estimate (seconds) and 95% Confidence Interval", color = "") +
   theme(legend.position = "none",
-        axis.title.x = element_text(size = 8),
-        axis.title.y = element_text(size = 8))
+        axis.title.x = element_text(size = 9),
+        axis.title.y = element_text(size = 9))
 
 
 sst_by_hour <- sst %>% 
@@ -88,20 +88,22 @@ sst_by_hour <- sst %>%
          day = day(date),
          year_month = mdy(paste0(month, "-1-", year)),
          hour = hour(entry_received_date)) %>% 
+  summarize(n = n(), .by = hour) %>% 
   mutate(watch = case_when(
     hour < 8 ~ "Watch 1",
     hour < 16 & hour >=8 ~ "Watch 2",
     hour >= 16 ~ "Watch 3")) %>% 
-  ggplot(aes(hour, fill = watch)) +
-  geom_histogram(bins = 24, alpha = 0.8) +
+  mutate(average_watch = mean(n), .by = watch, .before = 1) %>% 
+  ggplot(aes(hour,n, fill = watch)) +
+  geom_col(alpha = 0.8) +
   scale_x_continuous(breaks = c(0:23)) +
   theme_minimal() +
   ggthemes::scale_fill_stata() +
-  labs(x = "Hour of the Day", y = "Number SST Dispatches", fill = "") +
+  labs(x = "Hour of the Day", y = "SST Dispatches", fill = "") +
   theme(legend.position = "bottom",
-        axis.title.x = element_text(size =8),
+        axis.title.x = element_text(size =9),
         panel.grid.major =  element_blank(),
-        axis.title.y = element_text(size = 8))
+        axis.title.y = element_text(size = 9))
 
 
 

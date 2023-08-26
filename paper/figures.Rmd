@@ -138,11 +138,13 @@ priorities_onscene
 ```
 ```{r}
 ## by priority: dispatch
-hetero_resource + sst_by_hour + patchwork::plot_layout(ncol = 1, tag_level = "new")
+sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
+  plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
+  theme(plot.tag = element_text(size = 11))
 ```
 ```{=latex}
 \caption{Effect of ShotSpotter by Watch \label{hetero_resource}}
-\textit{Note:} This figure shows that in times when officers are responding to more ShotSpotter alerts, their response times are slower. The top figure shows Call-to-Dispatch and Call-to-On-Scene estimates split by officer watch, while the bottom figure shows the number of ShotSpotter dispatches by hour of the day. There are three main watches in Chicago: Watch 1 (12:00am - 8:00-am), Watch 2 (8:00am - 4:00pm), and Watch 3 (4:00pm - 12:00am). In the top figure, OLS estimates are shown along with 95\% confidence intervals using the specification in Equation 1. 
+\textit{Note:} This figure shows that in times when officers are responding to more ShotSpotter (SST) alerts, their response times are slower. In Panel A, the number of ShotSpotter alerts are plotted by the hour of occurrence. The y-axis is the number of ShotSpotter alerts while the x-axis the hour of the day. In Panel B, Call-to-Dispatch and Call-to-On-Scene estimates using the specification in Equation 1 are shown along with the 95\% confidence intervals, split by officer watch. There are three main watches in Chicago: Watch 1 (12:00am - 8:00-am), Watch 2 (8:00am - 4:00pm), and Watch 3 (4:00pm - 12:00am). 
 \end{figure}
 
 ```
