@@ -71,59 +71,6 @@ knitr::include_graphics(here::here("figures/loo.jpeg"))
 
 
 
-<!-- ```{=latex} -->
-<!-- \begin{figure}[t!] -->
-<!-- ``` -->
-<!-- ```{r, fig.align='center'} -->
-<!-- entry_1_es_overlay -->
-<!-- ``` -->
-<!-- ```{=latex} -->
-<!-- \caption{Robustness of Main Results \label{entry_1_es_overlay}} -->
-<!-- \textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology. -->
-<!-- \end{figure} -->
-<!-- ``` -->
-
-
-<!-- ```{=latex} -->
-<!-- \begin{figure}[t!] -->
-<!-- ``` -->
-<!-- ```{r, fig.align='center'} -->
-<!-- eos_1_es_overlay -->
-<!-- ``` -->
-<!-- ```{=latex} -->
-<!-- \caption{Robustness of Main Results \label{eos_1_es_overlay}} -->
-<!-- \textit{Note:} This figure shows six different regression specifications for both call-to-dispatch and call-to-on-scene. Main Sample refers to the main sample used in the paper. Main Sample (2-Stage DID) uses the main sample, but uses the 2-Stage DID estimation technique as outlined in Gardner (2022). No Controls omits all controls, yet keeps day-by-month-by year and district fixed effects. Omitting 2020 uses the main specification in the paper, but omits the year 2020 due to Covid-19. Last, Omitting Never-Treated uses the full sample, but omits any police districts that did not receive ShotSpotter technology. -->
-<!-- \end{figure} -->
-<!-- ``` -->
 
 
 
-
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, out.width="85%", fig.align='center', fig.pos="H"}
-
-knitr::include_graphics(here::here("figures/roth_trends_dispatch.jpeg"))
-
-```
-```{=latex}
-\caption{Sensitivity Analysis of Pre-Trends \label{roth_dispatch}}
-\textit{Note:} This figure shows sensitivity analysis of the event study plot in Figure BLANK. The x-axis shows the maximum change in slope of pre-trends across consecutive periods (M). We gradually increase M where M = 0 corresponds to allowing a linear trend and M > 0 allows for increasingly more varied nonlinear trends. In red, the average of the post-implementation periods are plotted. In blue, alternative Fixed-Length Confidence Intervals (FLCI), averaged over all post-implementation periods,  that are proposed by Rambachan and Roth (2022) are plotted which relaxes the parallel trends assumption and requires only that differential trends evolve smoothly over time. Note that here, the breakdown value is 0.2 which means the significant effects observed in the post-implementation periods are only valid if we allow for the change in slope of the pre-period to change by no more than 0.2. 
-\end{figure}
-```
-
-
-```{=latex}
-\begin{figure}[t!]
-```
-```{r, out.width="85%", fig.align='center', fig.pos="H"}
-
-knitr::include_graphics(here::here("figures/roth_trends_onscene.jpeg"))
-
-```
-```{=latex}
-\caption{Sensitivity Analysis of Pre-Trends (Call-to-On-Scene)\label{roth_onscene}}
-\textit{Note:} This figure shows sensitivity analysis of the event study plot in Figure BLANK. The x-axis shows the maximum change in slope of pre-trends across consecutive periods (M). We gradually increase M where M = 0 corresponds to allowing a linear trend and M > 0 allows for increasingly more varied nonlinear trends. In red, the average of the post-implementation periods are plotted. In blue, alternative Fixed-Length Confidence Intervals (FLCI), averaged over all post-implementation periods,  that are proposed by Rambachan and Roth (2022) are plotted which relaxes the parallel trends assumption and requires only that differential trends evolve smoothly over time. Note that here, the breakdown value is larger than 0.5 which means the significant effects observed in the post-implementation periods are only valid if we allow for the change in slope of the pre-period to change by no more than a number larger than 0.5.  
-\end{figure}
-```

@@ -4,12 +4,40 @@ output: pdf_document
 date: "2023-08-21"
 ---
 
-\subsection{Dynamic Effects}\label{section:dynamic}
+\section{Appendix C: Sensitivity Analysis of Event Studies}\label{appendix:sensitivity}
 
-Next, to analyze the effect of ShotSpotter over time, we estimate an event study using Equation \ref{eq:es}. We estimate this model using both OLS and the \cite{gardner_two-stage_2022} robust estimator to account for potential treatment heterogeneity across groups and time periods. 
+In this appendix, we conduct analysis following \cite{rambachan_more_2023} on the OLS event study specifications in Figures \ref{entry_1_es} and \ref{eos_1_es} to illustrate the sensitivity of the estimates to possible violations of parallel trends. Specifically, we evaluate the degree of nonlinearity we can impose on a linear extrapolation of the pre-treatment trend. We adopt the notation used in \cite{rambachan_more_2023} and define $M$ as the maximum amount that the pre-treatment trend can change across consecutive periods. As an example, $M =0$ implies no change in the post-treatment trends—the counterfactual difference in trends is exactly linear. Conversely, as $M$ increases ($M >0$), we allow for more nonlinearity in the pre-treatment trend and therefore greater uncertainty in the treatment effect estimates.
 
-Figures \ref{entry_1_es} and \ref{eos_1_es} show that the effect of ShotSpotter implementation takes several months post-implementation to significantly alter Call-to-Dispatch and Call-to-On-Scene times respectively. In each figure, the red error bars represent the 95\% confidence intervals using OLS while the blue error bars are estimates using the \cite{gardner_two-stage_2022} estimator. We attribute the delayed effect in response times to ShotSpotter's functionality. Specifically, ShotSpotter relies on a machine learning algorithm to detect gunfire which improves with the volume of data it receives. Therefore, the initial months of implementation may not exhibit significant effects on response times due to lower quantities of ShotSpotter alerts. As shown in previously Figure \ref{}, the number of ShotSpotter dispatches appears to be trending up over time across each district.
 
-Additionally, we conduct analysis following \cite{rambachan_more_2023} to illustrate the sensitivity of the estimates to possible violations of parallel trends. Specifically, we evaluate the degree of nonlinearity we can impose on a linear extrapolation of the pre-treatment trend. We adopt the notation used in \cite{rambachan_more_2023} and define $M$ as the maximum amount that the pre-treatment trend can change across consecutive periods. As an example, $M =0$ implies no change in the post-treatment trends—the counterfactual difference in trends is exactly linear. Conversely, as $M$ increases ($M >0$), we allow for more nonlinearity in the pre-treatment trend and therefore greater uncertainty in the treatment effect estimates.
+Since we are most interested in the average effect of ShotSpotter post-implementation, rather than one particular post-period, we perform the sensitivity analysis on the average of all post-implementation estimates obtained from Equation \ref{eq:es}. Appendix Figures \ref{roth_dispatch} and \ref{roth_onscene} report two important features: the confidence interval of the average of all post-period estimates (Original) and the corresponding robust fixed-length confidence intervals (FLCI) which show the average post-period effect under the assumption that the difference in pre-period trends can differ by up to $M$ across consecutive periods. For both outcomes, the average of all post-implementation periods maintain their statistical significance under both a linear extrapolation of the pre-period ($M=0$) and increasing amounts of non-linearity ($M > 0$) for both the Call-to-Dispatch and Call-to-On-Scene time.
 
-Since we are most interested in the average effect of ShotSpotter post-implementation, rather than one particular post-period, we perform the sensitivity analysis on the average of all post-implementation estimates obtained from Equation \ref{eq:es}. Appendix Figures \ref{roth_dispatch} and \ref{roth_onscene} report two important features: the confidence interval of the average of all post-period estimates (Original) and the corresponding robust fixed-length confidence intervals (FLCI) which show the average post-period effect under the assumption that the difference in pre-period trends can differ by up to $M$ across consecutive periods. For both outcomes, the average of all post-implementation periods maintain their statistical significance under both a linear extrapolation of the pre-period ($M=0$) and increasing amounts of non-linearity ($M > 0$) for both the Call-to-Dispatch and Call-to-On-Scene time. 
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, out.width="85%", fig.align='center', fig.pos="H"}
+
+knitr::include_graphics(here::here("figures/roth_trends_dispatch.jpeg"))
+
+```
+```{=latex}
+\caption{Sensitivity Analysis of Pre-Trends \label{roth_dispatch}}
+\textit{Note:} This figure shows sensitivity analysis of the event study plot in Figure BLANK. The x-axis shows the maximum change in slope of pre-trends across consecutive periods (M). We gradually increase M where M = 0 corresponds to allowing a linear trend and M > 0 allows for increasingly more varied nonlinear trends. In red, the average of the post-implementation periods are plotted. In blue, alternative Fixed-Length Confidence Intervals (FLCI), averaged over all post-implementation periods,  that are proposed by Rambachan and Roth (2022) are plotted which relaxes the parallel trends assumption and requires only that differential trends evolve smoothly over time. Note that here, the breakdown value is 0.2 which means the significant effects observed in the post-implementation periods are only valid if we allow for the change in slope of the pre-period to change by no more than 0.2. 
+\end{figure}
+```
+
+
+```{=latex}
+\begin{figure}[t!]
+```
+```{r, out.width="85%", fig.align='center', fig.pos="H"}
+
+knitr::include_graphics(here::here("figures/roth_trends_onscene.jpeg"))
+
+```
+```{=latex}
+\caption{Sensitivity Analysis of Pre-Trends (Call-to-On-Scene)\label{roth_onscene}}
+\textit{Note:} This figure shows sensitivity analysis of the event study plot in Figure BLANK. The x-axis shows the maximum change in slope of pre-trends across consecutive periods (M). We gradually increase M where M = 0 corresponds to allowing a linear trend and M > 0 allows for increasingly more varied nonlinear trends. In red, the average of the post-implementation periods are plotted. In blue, alternative Fixed-Length Confidence Intervals (FLCI), averaged over all post-implementation periods,  that are proposed by Rambachan and Roth (2022) are plotted which relaxes the parallel trends assumption and requires only that differential trends evolve smoothly over time. Note that here, the breakdown value is larger than 0.5 which means the significant effects observed in the post-implementation periods are only valid if we allow for the change in slope of the pre-period to change by no more than a number larger than 0.5.  
+\end{figure}
+```
+
