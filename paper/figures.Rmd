@@ -100,24 +100,6 @@ raw_evidence_figure
 
 
 
-
-```{=latex}
-
-\begin{figure}[t]
-```
-```{r}
-## by priority: dispatch
-hetero_resource
-```
-```{=latex}
-\caption{Effect of ShotSpotter by Watch and 911 Dispatches \label{hetero_resource}}
-\textit{Note:} Two outcomes are pictured here: Call-to-Dispatch and Call-to-On-Scene. Moreover, there are two separate analyses for each outcome: shift watches and median splits of 911 dispatches. Each of these tests show that ShotSpotter delays are more apparent in times where police officers are more time-constrained. For instance, more crimes tend to occur in Watch 3 (4:00pm - 12:00am) than in Watch 1 (12:00am-8:00am) or Watch 2 (8:00am-4:00pm). OLS estimates are shown along with 95\% confidence intervals using the specification in Equation 1. 
-\end{figure}
-
-```
-
-
-
 ```{=latex}
 
 \begin{figure}[t]
@@ -148,3 +130,20 @@ priorities_onscene
 \end{figure}
 
 ```
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## by priority: dispatch
+hetero_resource + sst_by_hour + patchwork::plot_layout(ncol = 1, tag_level = "new")
+```
+```{=latex}
+\caption{Effect of ShotSpotter by Watch \label{hetero_resource}}
+\textit{Note:} This figure shows that in times when officers are responding to more ShotSpotter alerts, their response times are slower. The top figure shows Call-to-Dispatch and Call-to-On-Scene estimates split by officer watch, while the bottom figure shows the number of ShotSpotter dispatches by hour of the day. There are three main watches in Chicago: Watch 1 (12:00am - 8:00-am), Watch 2 (8:00am - 4:00pm), and Watch 3 (4:00pm - 12:00am). In the top figure, OLS estimates are shown along with 95\% confidence intervals using the specification in Equation 1. 
+\end{figure}
+
+```
+

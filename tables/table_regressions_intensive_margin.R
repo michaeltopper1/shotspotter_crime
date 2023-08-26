@@ -33,7 +33,8 @@ ed_preferred_1 <- feols(entry_to_dispatch ~ treatment | district + date +
 sst_ed_1 <- feols(entry_to_dispatch ~ number_sst_dispatches | district + date +
                     final_dispatch_description + hour,
                   cluster = ~district,
-                  data = dispatch_panel_p1)
+                  data = dispatch_panel_p1 %>% 
+                    filter(treatment == 1 | never_treated == 1))
 
 ed_above_med <- dispatch_panel_p1 %>%
   filter(officer_hours > officer_hours_median) %>%

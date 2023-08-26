@@ -10,7 +10,7 @@ library(tidyverse)
 sst <- read_csv("created_data/sst_dispatch_cpd.csv")
 
 
-sst %>% 
+sst_by_hour <- sst %>% 
   mutate(date = as_date(entry_received_date),
           year = year(date),
           month = month(date),
@@ -26,5 +26,5 @@ sst %>%
   scale_x_continuous(breaks = c(0:23)) +
   theme_minimal() +
   ggthemes::scale_fill_stata() +
-  labs(x = "Hour", y = "Number SST Dispatches", fill = "Shift") +
-  theme(legend.position = "bottom")
+  labs(x = "Hour of the Day", y = "Number SST Dispatches", fill = "") +
+  theme(legend.position = "bottom",  panel.grid.major =  element_blank())

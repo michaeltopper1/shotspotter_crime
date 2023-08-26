@@ -1,0 +1,65 @@
+---
+title: "Test Document"
+output: pdf_document
+date: "2023-08-26"
+header-includes:
+- \usepackage{amsfonts}
+- \usepackage{amsthm}
+- \usepackage{amsmath}
+- \usepackage{bbm} ##for indicator
+- \usepackage[english]{babel}
+- \usepackage{bm}
+- \usepackage{float}
+- \usepackage{indentfirst}
+- \usepackage[fontsize=12pt]{scrextend}
+- \usepackage{graphicx}
+- \usepackage[utf8]{inputenc}
+- \usepackage{pdfpages}
+- \usepackage[round]{natbib}
+- \usepackage{setspace}\doublespacing
+- \usepackage{subfig}
+- \usepackage{placeins}
+- \usepackage{rotating}
+- \floatplacement{figure}{H}
+- \usepackage{afterpage}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+library(tidyverse)
+library(kableExtra)
+library(bookdown)
+library(modelsummary)
+library(fixest)
+library(grid)
+library(gridExtra)
+library(patchwork)
+options(modelsummary_model_labels="model")
+```
+
+## R Markdown
+
+```{r}
+source(here::here("figures/figure_heterogeneity_watch_number.R"))
+```
+
+This document is meant to test crap.
+
+\clearpage
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+## event study entry to dispatch
+hetero_resource + sst_by_hour + patchwork::plot_layout(ncol = 1, tag_level = "new")  
+```
+```{=latex}
+\caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}
+\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
+\end{figure}
+```
+
+
