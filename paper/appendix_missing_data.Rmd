@@ -30,9 +30,27 @@ Last, given that Call-to-Dispatch times are fully reported and there is no chang
 
 ```{r}
 source(here::here("tables/a_appendix_missing_data.R"))
+source(here::here("figures/a_appendix_missing_data.R"))
 ```
 
 ```{r}
 missing_table
 ```
+
+
+
+```{=latex}
+\begin{figure}[t]
+```
+```{r, fig.height=7}
+## by priority: onscene
+missing_data_trend
+```
+```{=latex}
+\caption{Corresponding Event Study Trends\label{missing_data_trend}}
+\textit{Note:} This figure plots the point estimates of the event study specifications in Equation 2 for both Call-to-Dispatch (blue) and Call-to-On-Scene (red). In effect, this figure shows that the trends for each of these outcomes are similar. The y-axis denotes the point estimate in seconds and the x-axis displays the number of months to ShotSpotter implementation. Recall that Call-to-Dispatch has no missing data, while Call-to-On-Scene is approximately 45 percent missing. This figure is intended to show that Call-to-Dispatch, a mechanism underlying slower on-scene times, has a similar trend to Call-to-On-Scene, suggesting that missing data may not be a substantial issue. 
+\end{figure}
+
+```
+
 

@@ -42,7 +42,10 @@ ed_above_med <- dispatch_panel_p1 %>%
           final_dispatch_description + hour,
         cluster = ~district)
 
+## this ensures the median is after the restriction
 sst_ed_above_med <- dispatch_panel_p1 %>%
+  filter(treatment == 1 | never_treated == 1) %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district) %>% 
   filter(officer_hours > officer_hours_median) %>%
   feols(entry_to_dispatch ~ number_sst_dispatches |district + date +
           final_dispatch_description + hour,
@@ -55,6 +58,8 @@ ed_below_med <- dispatch_panel_p1 %>%
         cluster = ~district)
 
 sst_ed_below_med <- dispatch_panel_p1 %>%
+  filter(treatment == 1 | never_treated == 1) %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district) %>% 
   filter(officer_hours <= officer_hours_median) %>%
   feols(entry_to_dispatch ~ number_sst_dispatches |district + date +
           final_dispatch_description + hour,
@@ -72,7 +77,8 @@ os_preferred_1 <- feols(entry_to_onscene ~ treatment | district + date +
 sst_os_1 <- feols(entry_to_onscene ~ number_sst_dispatches | district + date +
                     final_dispatch_description + hour,
                   cluster = ~district,
-                  data = dispatch_panel_p1)
+                  data = dispatch_panel_p1 %>% 
+                    filter(treatment == 1 | never_treated == 1) )
 
 
 os_above_med <- dispatch_panel_p1 %>%
@@ -82,6 +88,8 @@ os_above_med <- dispatch_panel_p1 %>%
         cluster = ~district)
 
 sst_os_above_med <- dispatch_panel_p1 %>%
+  filter(treatment == 1 | never_treated == 1) %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district) %>% 
   filter(officer_hours > officer_hours_median) %>%
   feols(entry_to_onscene ~ number_sst_dispatches |district + date +
           final_dispatch_description + hour,
@@ -94,6 +102,8 @@ os_below_med <- dispatch_panel_p1 %>%
         cluster = ~district)
 
 sst_os_below_med <- dispatch_panel_p1 %>%
+  filter(treatment == 1 | never_treated == 1) %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district) %>% 
   filter(officer_hours <= officer_hours_median) %>%
   feols(entry_to_onscene ~ number_sst_dispatches |district + date +
           final_dispatch_description + hour,

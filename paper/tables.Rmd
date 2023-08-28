@@ -50,5 +50,8 @@ arrest_prob %>%
   landscape()
 ```
 
+```{r}
+victim_table
+```
 
 
