@@ -22,10 +22,12 @@ header-includes:
 - \usepackage{rotating}
 - \floatplacement{figure}{H}
 - \usepackage{afterpage}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, message = F, warning = F)
+knitr::opts_chunk$set(echo = F, message = F, warning = F, cache = F)
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 library(tidyverse)
 library(kableExtra)
@@ -40,28 +42,83 @@ options(modelsummary_model_labels="model")
 
 ## R Markdown
 
-```{r}
-source(here::here("figures/figure_heterogeneity_watch_number.R"))
-```
+<!-- ```{r} -->
+<!-- source(here::here("tables/table_summary_stats.R")) -->
+<!-- ``` -->
 
 This document is meant to test crap.
 
 \clearpage
 
+
+
+```{=latex}
+\input{tables/summary_stats.tex}
+```
+
+
+```{=latex}
+\input{tables/main_results.tex}
+```
+```{=latex}
+\begin{sidewaystable}
+\input{tables/arrest_prob.tex}
+\end{sidewaystable}
+```
+
+
+```{=latex}
+\input{tables/victim_table.tex}
+```
+
+```{=latex}
+\begin{sidewaystable}
+\input{tables/mechanism_table.tex}
+\end{sidewaystable}
+```
+
+
+```{=latex}
+\input{appendix_tables/bad_controls.tex}
+```
+
+```{=latex}
+\input{appendix_tables/missing_table.tex}
+```
+
+```{=latex}
+\input{appendix_tables/confounding_table.tex}
+```
+
+
 ```{=latex}
 
 \begin{figure}[t]
 ```
-```{r}
-## event study entry to dispatch
-sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
-  plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
-  theme(plot.tag = element_text(size = 11))
+```{r, fig.width=3.5, fig.height = 3.5}
+knitr::include_graphics(here::here("paper/figures/distribution_outcomes.pdf"), error = F)
 ```
 ```{=latex}
-\caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}
-\textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level. 
+\caption{Distribution of Outcome Variables \label{distribution_outcomes}}
+\textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome. However, the main results remain consistent when including these outliers as shown in Appendix Figure BLANK.
 \end{figure}
 ```
+
+
+<!-- ```{=latex} -->
+
+<!-- \begin{figure}[t] -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- ## event study entry to dispatch -->
+<!-- sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) + -->
+<!--   plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") &  -->
+<!--   theme(plot.tag = element_text(size = 11)) -->
+<!-- ``` -->
+<!-- ```{=latex} -->
+<!-- \caption{Event Study (Call-to-Dispatch) \label{entry_1_es}} -->
+<!-- \textit{Note:} This figure shows the event study as specified in Equation 2 for Call-to-Dispatch times. Call-to-Dispatch is the amount of time from a 911 call to a police officer being dispatched to the crime scene. The x-axis denotes the number of months pre/post adoption of ShotSpotter technology. The y-axis denotes the 95\% confidence intervals and point estimates (in seconds). The red errorbars/points represent confidence intervals/point estimates from OLS estimation while the blue are from Gardner (2022) two-stage difference-in-difference estimators which are robust to heterogeneous treatment effects in staggered adoptions. All pre/post periods are normalized by the month before ShotSpotter adoption. Twelve periods are estimated, but only 11 pre-periods and 23 post-periods are reported as the -12 and +24 are binned endpoints. Controls are synonymous with the preferred specification. Standard errors are clustered at the district level.  -->
+<!-- \end{figure} -->
+<!-- ``` -->
 
 

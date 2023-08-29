@@ -1,0 +1,47 @@
+\begin{table}[H]
+
+\caption{\label{confounding_table}Robustness of Estimates Controlling for Other Technologies}
+\centering
+\begin{threeparttable}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{lcccccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{SDSC Controls} & \multicolumn{2}{c}{BWC Controls} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-7}
+\multicolumn{3}{c}{ } & \multicolumn{2}{c}{Omitting Districts 7 and 9} & \multicolumn{2}{c}{ } \\
+\cmidrule(l{3pt}r{3pt}){4-5}
+  & (1) & (2) & (3) & (4) & (5) & (6)\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textit{Panel A: Call-to-Dispatch}}\\
+\hspace{1em}ShotSpotter Activated & 50.097** & 69.056*** & 57.445** & 86.995*** & 61.256*** & 71.856***\\
+\hspace{1em} & (22.185) & (20.481) & (23.098) & (19.580) & (20.988) & (22.523)\\
+\hspace{1em}SDSC Activated & 16.921 &  & 17.795 &  &  & \\
+\hspace{1em} & (22.102) &  & (22.342) &  &  & \\
+\hspace{1em}BWC Activated &  &  &  &  & -30.735 & \\
+\hspace{1em} &  &  &  &  & (20.755) & \\
+\hspace{1em}Mean of Dependent Variable & 281.890 & 281.890 & 289.018 & 289.018 & 281.890 & 281.890\\
+\hspace{1em}Observations & 3,582,560 & 3,582,528 & 3,198,525 & 3,198,500 & 3,582,560 & 3,582,528\\
+\hspace{1em}Wild Bootstrap P-Value & 0.008 & 0.003 &  &  & 0.062 \vphantom{1} & \\
+\addlinespace[0.5cm]
+\multicolumn{7}{l}{\textit{Panel B: Call-to-On-Scene}}\\
+\hspace{1em}ShotSpotter Activated & 68.486** & 100.562*** & 72.692** & 123.226*** & 98.403*** & 120.214***\\
+\hspace{1em} & (27.013) & (28.118) & (29.436) & (24.756) & (27.843) & (28.246)\\
+\hspace{1em}SDSC Activated & 43.771* &  & 48.562* &  &  & \\
+\hspace{1em} & (24.711) &  & (25.830) &  &  & \\
+\hspace{1em}BWC Activated &  &  &  &  & -40.821 & \\
+\hspace{1em} &  &  &  &  & (26.223) & \\
+\hspace{1em}Mean of Dependent Variable & 770.863 & 770.863 & 790.897 & 790.897 & 770.863 & 770.863\\
+\hspace{1em}Observations & 1,997,102 & 1,997,076 & 1,762,676 & 1,762,656 & 1,997,102 & 1,997,076\\
+\hspace{1em}Wild Bootstrap P-Value & 0.008 & 0.003 &  &  & 0.062 & \\
+\midrule
+Gardner (2022) Robust &  & X &  & X &  & X\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                                      
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -4,54 +4,48 @@ output: pdf_document
 fontsize: 11pt
 ---
 
+
 <!-- ```{r setup, include=FALSE} -->
-<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F) -->
+<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F, cache = F) -->
 <!-- knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) -->
+<!-- library(tidyverse) -->
 <!-- library(kableExtra) -->
+<!-- library(bookdown) -->
+<!-- library(modelsummary) -->
+<!-- library(fixest) -->
+<!-- library(grid) -->
+<!-- library(gridExtra) -->
+<!-- library(patchwork) -->
+<!-- options(modelsummary_model_labels="model") -->
 <!-- ``` -->
 
 \FloatBarrier
 # Tables
 
-```{r, echo = F, message = F, warning = F}
-
-table_files <- list.files(here::here("tables/"),pattern = "^table")
-
-## read in the figures
-for (file in table_files){
-  source(here::here(paste0("tables/", file)))
-}
+```{=latex}
+\input{tables/summary_stats.tex}
 ```
 
-
-```{r}
-summary_stats
+```{=latex}
+\input{tables/main_results.tex}
 ```
+
 
 ```{=latex}
 \begin{sidewaystable}
-```
-```{r}
-main_results 
-```
-```{=latex}
+\input{tables/mechanism_table.tex}
 \end{sidewaystable}
 ```
 
 
-```{r}
-mechanism_table %>% 
-  landscape() 
+```{=latex}
+\begin{sidewaystable}
+\input{tables/arrest_prob.tex}
+\end{sidewaystable}
 ```
 
-
-```{r}
-arrest_prob %>% 
-  landscape()
-```
-
-```{r}
-victim_table
+```{=latex}
+\input{tables/victim_table.tex}
 ```
 
 

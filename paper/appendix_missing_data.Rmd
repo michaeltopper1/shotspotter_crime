@@ -29,12 +29,11 @@ Last, given that Call-to-Dispatch times are fully reported and there is no chang
 
 
 ```{r}
-source(here::here("tables/a_appendix_missing_data.R"))
 source(here::here("figures/a_appendix_missing_data.R"))
 ```
 
-```{r}
-missing_table
+```{=latex}
+\input{appendix_tables/missing_table.tex}
 ```
 
 

@@ -82,7 +82,7 @@ bad_controls <- panelsummary_raw(list(number_dispatches, number_dispatches_2s),
           `Model 1` = "", `Model 2` = "X") %>% 
   slice(-c(5:8)) %>% 
   clean_raw(caption = "\\label{bad_controls}Bad Controls (OLS)",
-            pretty_num = T) %>% 
+            pretty_num = T, format = "latex") %>% 
   pack_rows("Panel A: Number 911 Dispatches",start_row = 1, end_row = 4,
             italic = T, bold = F) %>% 
   pack_rows("Panel B: Officer Hours", start_row = 5, end_row = 8,
@@ -91,6 +91,7 @@ bad_controls <- panelsummary_raw(list(number_dispatches, number_dispatches_2s),
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
+writeLines(bad_controls, "paper/appendix_tables/bad_controls.tex")
 
 # 
 # missing_onscene %>% 

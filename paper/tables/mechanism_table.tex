@@ -1,0 +1,46 @@
+\begin{table}[H]
+
+\caption{\label{mechanism_table}Effect of ShotSpotter on Response Times Mechanisms (OLS)}
+\centering
+\begin{threeparttable}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lcccccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{ShotSpotter Rollout} & \multicolumn{3}{c}{ShotSpotter Dispatches} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Hours} & \multicolumn{1}{c}{ } & \multicolumn{2}{c}{Officer Hours} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){6-7}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Full Sample} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} & \multicolumn{1}{c}{Full Sample} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6} \cmidrule(l{3pt}r{3pt}){7-7}
+  & (1) & (2) & (3) & (4) & (5) & (6)\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textit{Panel A: Call-to-Dispatch}}\\
+\hspace{1em}ShotSpotter Activated & 64.131*** & 27.222** & 93.794*** &  &  & \\
+\hspace{1em} & (22.379) & (12.382) & (31.497) &  &  & \\
+\hspace{1em}Number SST Dispatches &  &  &  & 5.272*** & 3.344*** & 4.237***\\
+\hspace{1em} &  &  &  & (1.490) & (0.945) & (0.879)\\
+\hspace{1em}Mean of Dependent Variable & 281.890 & 229.785 & 333.871 & 291.300 & 232.886 & 349.536\\
+\hspace{1em}Observations & 3,582,560 & 1,789,157 & 1,793,403 & 2,958,754 & 1,477,121 & 1,481,633\\
+\addlinespace[0.5cm]
+\multicolumn{7}{l}{\textit{Panel B: Call-to-On-Scene}}\\
+\hspace{1em}ShotSpotter Activated & 102.682*** & 55.508** & 141.492*** &  &  & \\
+\hspace{1em} & (28.724) & (21.030) & (38.611) &  &  & \\
+\hspace{1em}Number SST Dispatches &  &  &  & 7.053*** & 4.857*** & 5.152***\\
+\hspace{1em} &  &  &  & (1.885) & (1.158) & (1.133)\\
+\hspace{1em}Mean of Dependent Variable & 770.863 & 700.283 & 837.941 & 771.964 & 690.147 & 853.515\\
+\hspace{1em}Observations & 1,997,102 & 973,138 & 1,023,964 & 1,732,479 & 864,836 & 867,643\\
+\midrule
+FE: Day-by-Month-by-Year & X & X & X & X & X & X\\
+FE: District & X & X & X & X & X & X\\
+FE: Call-Type & X & X & X & X & X & X\\
+FE: Hour-of-Day & X & X & X & X & X & X\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                       Number SST Dispatches refers to the number of                      ShotSpotter dispatches that occur within a district-day.                      All coefficient estimates are in seconds. Panel A reports results for                      Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.                      Call-to-Dispatch is the amount of time from a 911 call to                       when a police officer is dispatched to the scene of the crime.                      Call-to-On-Scene is the time from a 911 call to the time a police                      officer arrives on-scene. In Column 1, the controls of officer hours and number of                      911 dispatches are not included. Column 2 shows the preferred                      specification, while Columns 3 and 4 split the sample by median number                      of officer hours                      within districts to show that response times are driven by                      resource-constrained time periods. Observations for Call-to-On-Scene                      do not exactly match Call-to-Dispatch since there is one district-day                      that is missing information for Call-to-On-Scene.                   
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -12,22 +12,12 @@ fontsize: 11pt
 \FloatBarrier
 # Appendix Tables
 
-```{r, echo = F, message = F, warning = F}
 
-table_appendix_files <- list.files(here::here("tables/"),pattern = "^appendix")
-
-## read in the figures
-for (file in table_appendix_files){
-  source(here::here(paste0("tables/", file)))
-}
+```{=latex}
+\input{appendix_tables/bad_controls.tex}
 ```
 
-
-```{r}
-bad_controls
-```
-
-```{r}
-injury_descriptions
+```{=latex}
+\input{appendix_tables/injury_descriptions.tex}
 ```
 

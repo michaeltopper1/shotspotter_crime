@@ -34,7 +34,10 @@ injury_descriptions <- victim_define %>%
          "Potential for Injury" = `1`) %>% 
   select(-id) %>% 
   kbl(caption = "\\label{injury_descriptions}Categorization for Injury-Related Dispatches",
-      booktabs = T) %>% 
+      booktabs = T,
+      format = "latex") %>% 
   add_header_above(c("Injury-Confirmed Call Descriptions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 9)
+
+writeLines(injury_descriptions, "paper/appendix_tables/injury_descriptions.tex")

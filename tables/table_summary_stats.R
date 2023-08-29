@@ -42,7 +42,7 @@ if (!exists("dispatch_panel")){
 victim <- dispatch_panel_p1 %>% 
   filter(time_sensitive_call == 1) %>% 
   datasummary((`Victim Injury (Time-Sensitive)` = victim_injury_time_sensitive_call)~
-                Mean + SD + Median + Min  +Max + N,
+                Mean + SD  + Min  +Max + N,
               data = .,
               output = "data.frame")
 
@@ -53,7 +53,7 @@ onscene_3 <- dispatch_panel %>%
                 entry_to_dispatch_mins +
                 (`Call-to-On-Scene (Priority 3)` = entry_to_onscene) +
                 entry_to_onscene_mins
-              ~ Mean + SD + Median + Min  +Max + N,
+              ~ Mean + SD + Min  +Max + N,
                data = .,
                output = "data.frame")
 
@@ -65,11 +65,11 @@ onscene_2 <- dispatch_panel %>%
       entry_to_dispatch_mins +
       (`Call-to-On-Scene (Priority 2)` = entry_to_onscene) +
                 entry_to_onscene_mins
-              ~ Mean + SD + Median + Min  +Max + N,
+              ~ Mean + SD + Min  +Max + N,
               data = .,
               output = "data.frame")
 
-summary_stats <- dispatch_panel_p1 %>% 
+summary_stats_raw <- dispatch_panel_p1 %>% 
   mutate(across(c(entry_to_dispatch,
                   entry_to_onscene
   ), ~./60, .names = "{.col}_mins")) %>% 
@@ -80,7 +80,7 @@ summary_stats <- dispatch_panel_p1 %>%
                 (`Arrest Made` = arrest_made) +
                 (`Number Dispatches` = number_dispatches) +
                 (`Number SST Dispatches` = number_sst_dispatches) +
-                (`Officer Hours` = officer_hours) ~ Mean + SD + Median + Min  +Max + N,
+                (`Officer Hours` = officer_hours) ~ Mean + SD + Min  +Max + N,
               data = .,
               output = "data.frame")
 
@@ -110,25 +110,28 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          ShotSpotter alerts can be as high as 392 on these days. 
                   "), ~str_remove_all(., "\n"))
 
-. <- summary_stats %>% 
+summary_stats <- summary_stats_raw %>% 
   add_row(victim, .before = 6) %>% 
   add_row(onscene_2, .before = 7) %>% 
   add_row(onscene_3, .before = 11) %>% 
   janitor::clean_names() %>% 
   mutate(across(.cols = c(-1), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 
   mutate(x = if_else(str_detect(x, "mins$"),
-                     "", x)) %>% 
-  mutate(across(c(-1), ~if_else(x == "", paste0("(", ., " mins)"), .))) %>% 
+                     "", x)) %>%
+  mutate(across(c(-1), ~if_else(x == "", paste0("(", str_trim(.), " mins)"), .))) %>% 
   mutate(n = if_else(x == "", "", n)) %>% 
-  kbl(col.names = c(" ", "Mean", "Std. Dev.", "Median", "Min", "Max", "N"),
+  kbl(col.names = c(" ", "Mean", "Std. Dev.", "Min", "Max", "N"),
       booktabs = T,
-      caption = "\\label{summary_stats}Summary Statistics") %>% 
+      caption = "\\label{summary_stats}Summary Statistics",
+      format = "latex") %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10) %>% 
   pack_rows(group_label = "Panel A: Priority 1 Outcomes:", 1, 6,
-            italic = T, bold = F) %>% 
-  pack_rows(group_label = "Panel B: Secondary Outcomes/Controls:", 7, 13,
+            italic = F, bold = T) %>% 
+  pack_rows(group_label = "Panel B: Secondary Outcomes:", 7, 13,
             latex_gap_space = "0.5cm",
-            italic = T, bold = F) %>% 
+            italic = F, bold = T) %>% 
+  pack_rows(group_label = "Panel C: Other Variables:", 15, 17,
+            latex_gap_space = "0.3cm") %>% 
   footnote(footnote, threeparttable = T)
 
-
+writeLines(summary_stats, "paper/tables/summary_stats.tex")

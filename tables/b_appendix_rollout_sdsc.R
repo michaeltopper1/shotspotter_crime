@@ -31,7 +31,10 @@ rollout_difference <- rollout_dates %>%
   kbl(booktabs = T,
       col.names = c("District", "ShotSpotter", "SDSC", "BWC", "Difference SDSC",
                     "Difference BWC"),
-      caption = "\\label{rollout_difference}Implementation Dates of ShotSpotter/SDSC/BWC") %>% 
+      caption = "\\label{rollout_difference}Implementation Dates of ShotSpotter/SDSC/BWC",
+      format = "latex") %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10)
+
+writeLines(rollout_difference, "paper/appendix_tables/rollout_difference.tex")
   

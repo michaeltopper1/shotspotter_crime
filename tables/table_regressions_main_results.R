@@ -16,15 +16,17 @@ if (!exists("dispatch_panel")){
   ## priority 1 dispatches only
   dispatch_panel_p1 <- dispatch_panel %>% 
     filter(priority_code ==1)
-  
-}
+  }
 
 
 
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
   mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district)
 
-
+## for wild cluster boot only
+# dispatch_panel_p1 <- dispatch_panel_p1 %>% 
+#   mutate(date = as.integer(date),
+#          final_dispatch_code = match(final_dispatch_code, unique(final_dispatch_code)))
 
 # entry to dispatch -------------------------------------------------------
 
@@ -33,7 +35,7 @@ entry_d <- feols(entry_to_dispatch ~ treatment | district + date,
                   data = dispatch_panel_p1)
 
 entry_d_1 <- feols(entry_to_dispatch ~ treatment | district + date +
-                      final_dispatch_code + hour,
+                     hour + final_dispatch_code,
                     cluster = ~district,
                     data = dispatch_panel_p1)
 
@@ -146,10 +148,10 @@ main_results <- dispatch_table %>%
                              term == "FE: Hour-of-Day", "X", model_4)) %>% 
   mutate(model_4 = if_else(term == "Mean of Dependent Variable", 
                              model_2, model_4)) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.008", model_2 = "0.003",
-          model_3 = "", model_4 = "", model_5 = "0.062", .before = 7) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.008", model_2 = "0.003",
-          model_3 = "", model_4 = "", model_5 = "0.062", .before = 14) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.015", model_2 = "0.012",
+          model_3 = "0.015", model_4 = "", model_5 = "0.017", .before = 7) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.005", model_2 = "0.001",
+          model_3 = "0.002", model_4 = "", model_5 = "0.001", .before = 14) %>% 
   add_row(term = "Officer Hours", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "") %>% 
   add_row(term = "Number 911 Dispatches", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
@@ -159,12 +161,14 @@ main_results <- dispatch_table %>%
   mutate(across(c(2:6), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 
   mutate(across(tidyselect::where(is.character), ~stringr::str_replace(., pattern = "NA", replacement = ""))) %>% 
   clean_raw(caption = "\\label{main_results}Effect of ShotSpotter on Response Times (OLS)",
-            pretty_num = F) %>% 
+            pretty_num = F,
+            format = "latex") %>% 
   pack_rows("Panel A: Call-to-Dispatch", 1, 7, italic = T, bold = F) %>% 
-  pack_rows("Panel B: Call-to-On-Scene", 8,14, italic = T, bold = F) %>% 
+  pack_rows("Panel B: Call-to-On-Scene", 8,14, italic = T, bold = F,
+            latex_gap_space = "0.5cm") %>% 
   row_spec(14, hline_after = TRUE) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 10)
+  kable_styling(latex_options = "HOLD_position", font_size = 11)
 
 
-
+writeLines(main_results, "paper/tables/main_results.tex")

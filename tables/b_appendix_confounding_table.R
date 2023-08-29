@@ -117,7 +117,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
 
 
 
-confounding_table <- panelsummary_raw(list(sdsc_d1, sdsc_d1_2s, sdsc_d2, sdsc_d2_2s, bwc_d1, bwc_d1_2s),
+confounding_table_raw <- panelsummary_raw(list(sdsc_d1, sdsc_d1_2s, sdsc_d2, sdsc_d2_2s, bwc_d1, bwc_d1_2s),
                  list(sdsc_o1, sdsc_o1_2s, sdsc_o2, sdsc_o2_2s, bwc_o1, bwc_o1_2s),
                  stars = "econ",
                  mean_dependent = T,
@@ -127,7 +127,7 @@ confounding_table <- panelsummary_raw(list(sdsc_d1, sdsc_d1_2s, sdsc_d2, sdsc_d2
                  gof_omit = "^R|A|B|S",
                  gof_map = gof_mapping)
 
-confounding_table <- confounding_table %>% 
+confounding_table <- confounding_table_raw %>% 
   slice(-c(9:11)) %>% 
   slice(-c(17:19)) %>% 
   janitor::clean_names() %>% 
@@ -143,13 +143,15 @@ confounding_table <- confounding_table %>%
           model_3 = "", model_4 = "", model_5 = "0.062", model_6 = "", .before = 18) %>% 
   add_row(term = "Gardner (2022) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "X",
           model_5 = "", model_6 = "X") %>% 
-  clean_raw(pretty_num =  T, caption = "\\label{confounding_table}Robustness of Estimates Controlling for Other Technologies") %>% 
+  clean_raw(pretty_num =  T, caption = "\\label{confounding_table}Robustness of Estimates Controlling for Other Technologies",
+            format = "latex") %>% 
   pack_rows("Panel A: Call-to-Dispatch", 1, 9, italic = T, bold = F) %>% 
-  pack_rows("Panel B: Call-to-On-Scene", 10,18, italic = T, bold = F) %>% 
+  pack_rows("Panel B: Call-to-On-Scene", 10,18, italic = T, bold = F,
+            latex_gap_space = "0.5cm") %>% 
   row_spec(18, hline_after = T) %>% 
   add_header_above(c(" " = 3, "Omitting Districts 7 and 9" = 2, " " = 2)) %>% 
   add_header_above(c(" " =1, "SDSC Controls" = 4, "BWC Controls" = 2)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10)
 
-
+writeLines(confounding_table, "paper/appendix_tables/confounding_table.tex")

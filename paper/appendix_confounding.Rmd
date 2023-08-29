@@ -42,14 +42,11 @@ options(modelsummary_model_labels="model")
 
 ```{r}
 confound_figs <- list.files(here::here("figures/"), pattern = "^b")
-confound_tables <- list.files(here::here("tables/"), pattern = "^b")
 
 for (file in confound_figs){
   source(here::here(paste0("figures/", file)))
 }
-for (file in confound_tables){
-  source(here::here(paste0("tables/", file)))
-}
+
 ```
 
 \section{Appendix B: Coinciding Initiatives}\label{appendix:coinciding}
@@ -88,14 +85,13 @@ Columns 5 and 6 of Appendix Table \ref{confounding_table} report the results for
 
 
 
-```{r}
-rollout_difference
+```{=latex}
+\input{appendix_tables/rollout_table.tex}
 ```
 
 
-```{r}
-confounding_table %>%
-  landscape()
+```{=latex}
+\input{appendix_tables/confounding_table.tex}
 ```
 
 

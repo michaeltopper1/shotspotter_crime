@@ -77,7 +77,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
 
 
 
-missing_table <- panelsummary_raw(list(missing, missing_above, missing_below),
+missing_table_raw <- panelsummary_raw(list(missing, missing_above, missing_below),
              list(dispatch_missing, dispatch_missing_above, dispatch_missing_below),
              stars = "econ",
              mean_dependent = T,
@@ -88,10 +88,11 @@ missing_table <- panelsummary_raw(list(missing, missing_above, missing_below),
              gof_omit = "^R|A|B|S",
              gof_map = gof_mapping) 
 
-missing_table <- missing_table %>% 
+missing_table <- missing_table_raw %>% 
   slice(-c(5:8)) %>% 
   clean_raw(pretty_num =T, 
-            caption = "\\label{missing_data}Analysis of Missing Call-to-On-Scene Data (OLS)") %>% 
+            caption = "\\label{missing_data}Analysis of Missing Call-to-On-Scene Data (OLS)",
+            format = "latex") %>% 
   pack_rows("Panel A: Missing Call-to-On-Scene", 1, 4,
             bold = F, italic = T) %>% 
   pack_rows("Panel B: Call-to-Dispatch", 5, 10,
@@ -99,4 +100,4 @@ missing_table <- missing_table %>%
   add_header_above(c(" " = 2, "> Median", "<= Median")) %>% 
   add_header_above(c(" " = 2, "Officer Hours" = 2))
 
-
+writeLines(missing_table, "paper/appendix_tables/missing_table.tex")

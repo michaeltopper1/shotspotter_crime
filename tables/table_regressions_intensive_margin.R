@@ -141,7 +141,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       that is missing information for Call-to-On-Scene. 
                   "), ~str_remove_all(., "\n"))
 
-mechanism_table <- panelsummary_raw(list(ed_preferred_1,
+mechanism_table_raw <- panelsummary_raw(list(ed_preferred_1,
                                          ed_above_med, ed_below_med,
                                          sst_ed_1, sst_ed_above_med, sst_ed_below_med),
                       list(os_preferred_1,
@@ -155,11 +155,12 @@ mechanism_table <- panelsummary_raw(list(ed_preferred_1,
                  gof_map = gof_mapping) 
 
 
-mechanism_table <- mechanism_table %>% 
+mechanism_table <- mechanism_table_raw %>% 
   janitor::clean_names() %>% 
   slice(-c(7:10)) %>% 
   clean_raw(caption = "\\label{mechanism_table}Effect of ShotSpotter on Response Times Mechanisms (OLS)",
-            pretty_num = T) %>% 
+            pretty_num = T,
+            format = "latex") %>% 
   pack_rows("Panel A: Call-to-Dispatch",1,6, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 7, 12, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(12, hline_after = TRUE) %>% 
@@ -175,4 +176,4 @@ mechanism_table <- mechanism_table %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
-
+writeLines(mechanism_table, "paper/tables/mechanism_table.tex")

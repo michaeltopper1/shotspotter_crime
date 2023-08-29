@@ -69,9 +69,11 @@ victim_table <- panelsummary(list(victim_1, victim_gun, victim_no_gun),
              gof_map = gof_mapping,
              collapse_fe = T,
              pretty_num = T,
-             caption = "\\label{victim_table}Effect of ShotSpotter Implementation on Victim Injury (OLS)") %>% 
+             caption = "\\label{victim_table}Effect of ShotSpotter Implementation on Victim Injury (OLS)",
+             format = "latex") %>% 
   add_header_above(c(" " = 1,"Full Sample" = 1, "Gun Dispatch" = 1, "Non-Gun Dispatch" = 1)) %>% 
   add_header_above(c(" " = 1, "Probability of Victim Injury" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
+writeLines(victim_table, "paper/tables/victim_table.tex")

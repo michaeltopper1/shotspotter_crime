@@ -1,0 +1,32 @@
+\begin{table}[H]
+
+\caption{\label{victim_table}Effect of ShotSpotter Implementation on Victim Injury (OLS)}
+\centering
+\begin{threeparttable}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Probability of Victim Injury} \\
+\cmidrule(l{3pt}r{3pt}){2-4}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Full Sample} & \multicolumn{1}{c}{Gun Dispatch} & \multicolumn{1}{c}{Non-Gun Dispatch} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4}
+  & (1) & (2) & (3)\\
+\midrule
+ShotSpotter Activated & -0.001* & -0.003 & 0.000\\
+ & (0.000) & (0.002) & (0.000)\\
+Mean of Dependent Variable & 0.014 & 0.024 & 0.012\\
+Observations & 2,434,526 & 304,544 & 2,129,982\\
+FE: Day-by-Month-by-Year & X & X & X\\
+\addlinespace
+FE: District & X & X & X\\
+FE: Call-Type & X & X & X\\
+FE: Hour-of-Day & X & X & X\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                       The main outcome variable is the probability of a victim being                      injured.                      The sample here is restricted to only Priority 1 dispatches that                      are time-sensitive and have the possibility of an injury. For instance,                      a dispatch for a person shot is not time sensitive since                      the injury has already been realized. On the other                      hand, a dispatch for a person with a knife is considered time-sensitive as                      an injury has not yet occurred, but may occur if an officer arrives slower.                      Gun Dispatch is restricted to only time-sensitive gun dispatches including                      'Person with a Gun' and 'Shots Fired'. Non-Gun Dispatch are all other                      time-sensitive dispatches.                   .                   
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

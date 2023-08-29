@@ -78,6 +78,7 @@ arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gu
              fmt = 3,
              gof_map = gof_mapping,
              collapse_fe = T,
+             format = "latex",
              pretty_num = T,
              caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
   add_header_above(c(" " = 1,
@@ -89,6 +90,7 @@ arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gu
                      "Robbery" = 1)) %>% 
   add_header_above(c(" " = 4,
                      "Most Frequent Arrest Types" = 3)) %>% 
-  column_spec(c(2:7), width = "4em") %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
+
+writeLines(arrest_prob, "paper/tables/arrest_prob.tex")
