@@ -1,0 +1,51 @@
+---
+title: "Tables"
+output: pdf_document
+fontsize: 11pt
+---
+
+
+<!-- ```{r setup, include=FALSE} -->
+<!-- knitr::opts_chunk$set(echo = F, message = F, warning = F, cache = F) -->
+<!-- knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) -->
+<!-- library(tidyverse) -->
+<!-- library(kableExtra) -->
+<!-- library(bookdown) -->
+<!-- library(modelsummary) -->
+<!-- library(fixest) -->
+<!-- library(grid) -->
+<!-- library(gridExtra) -->
+<!-- library(patchwork) -->
+<!-- options(modelsummary_model_labels="model") -->
+<!-- ``` -->
+
+\FloatBarrier
+# Tables
+
+```{=latex}
+\input{tables/summary_stats.tex}
+```
+
+```{=latex}
+\input{tables/main_results.tex}
+```
+
+
+```{=latex}
+
+\input{tables/mechanism_table.tex}
+
+```
+
+
+```{=latex}
+
+\input{tables/arrest_prob.tex}
+
+```
+
+```{=latex}
+\input{tables/victim_table.tex}
+```
+
+

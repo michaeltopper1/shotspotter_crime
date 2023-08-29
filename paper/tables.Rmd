@@ -32,16 +32,16 @@ fontsize: 11pt
 
 
 ```{=latex}
-\begin{sidewaystable}
+
 \input{tables/mechanism_table.tex}
-\end{sidewaystable}
+
 ```
 
 
 ```{=latex}
-\begin{sidewaystable}
+
 \input{tables/arrest_prob.tex}
-\end{sidewaystable}
+
 ```
 
 ```{=latex}

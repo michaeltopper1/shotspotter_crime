@@ -28,10 +28,6 @@ To begin, we supplement Equation \ref{eq:main} with an interaction between ShotS
 Last, given that Call-to-Dispatch times are fully reported and there is no change when  Call-to-On-Scene  times are missing, we plot the event study coefficients from Figures \ref{entry_1_es} and \ref{eos_1_es} in Appendix Figure \ref{missing_data_trend} which shows that there is a consistent time trend for each outcome variable. The convergence in trends reinforces the notion that even when Call-to-On-Scene data is absent, officers may still experience delays in reaching the scene due to slower dispatching procedures. This consistent pattern underscores the reliability of the Call-to-On-Scene findings.
 
 
-```{r}
-source(here::here("figures/a_appendix_missing_data.R"))
-```
-
 ```{=latex}
 \input{appendix_tables/missing_table.tex}
 ```
@@ -43,7 +39,7 @@ source(here::here("figures/a_appendix_missing_data.R"))
 ```
 ```{r, fig.height=7}
 ## by priority: onscene
-missing_data_trend
+knitr::include_graphics(here::here("paper/appendix_figures/missing_data_trend.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Corresponding Event Study Trends\label{missing_data_trend}}

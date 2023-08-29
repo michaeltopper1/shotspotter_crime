@@ -78,7 +78,7 @@ Columns 5 and 6 of Appendix Table \ref{confounding_table} report the results for
 
 
 ```{=latex}
-\input{appendix_tables/rollout_table.tex}
+\input{appendix_tables/rollout_difference.tex}
 ```
 
 

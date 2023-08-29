@@ -107,7 +107,7 @@ options(modelsummary_model_labels="model")
 
 ```
 
-\newpage
+\clearpage
 ```{=tex}
 \appendix
 \renewcommand{\thefigure}{A\arabic{figure}} \setcounter{figure}{0}
@@ -120,14 +120,39 @@ options(modelsummary_model_labels="model")
 
 ```
 
-
-\newpage
-
+\clearpage
 ```{=tex}
 \appendix
 \renewcommand{\thefigure}{B\arabic{figure}} \setcounter{figure}{0}
 \renewcommand{\thetable}{B\arabic{table}} \setcounter{table}{0}
 \renewcommand{\theequation}{B\arabic{table}} \setcounter{equation}{0}
+\setcounter{page}{1}
+```
+
+```{r, child = "paper/appendix_confounding.Rmd", fig.pos='H' }
+
+```
+
+\clearpage
+```{=tex}
+\appendix
+\renewcommand{\thefigure}{C\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{C\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{C\arabic{table}} \setcounter{equation}{0}
+\setcounter{page}{1}
+```
+
+```{r, child = "paper/appendix_roth_trends.Rmd", fig.pos='H' }
+
+```
+
+\newpage
+
+```{=tex}
+\appendix
+\renewcommand{\thefigure}{D\arabic{figure}} \setcounter{figure}{0}
+\renewcommand{\thetable}{D\arabic{table}} \setcounter{table}{0}
+\renewcommand{\theequation}{D\arabic{table}} \setcounter{equation}{0}
 \setcounter{footnote}{0}
 \setcounter{page}{1}
 ```

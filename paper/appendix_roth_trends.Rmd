@@ -17,7 +17,7 @@ Since we are most interested in the average effect of ShotSpotter post-implement
 ```
 ```{r, out.width="85%", fig.align='center', fig.pos="H"}
 
-knitr::include_graphics(here::here("figures/roth_trends_dispatch.jpeg"))
+knitr::include_graphics(here::here("paper/appendix_figures/roth_trends_dispatch.jpeg"), error = F)
 
 ```
 ```{=latex}
@@ -32,7 +32,7 @@ knitr::include_graphics(here::here("figures/roth_trends_dispatch.jpeg"))
 ```
 ```{r, out.width="85%", fig.align='center', fig.pos="H"}
 
-knitr::include_graphics(here::here("figures/roth_trends_onscene.jpeg"))
+knitr::include_graphics(here::here("paper/appendix_figures/roth_trends_onscene.jpeg"), error = F)
 
 ```
 ```{=latex}

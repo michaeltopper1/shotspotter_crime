@@ -11,25 +11,14 @@ fontsize: 11pt
 \FloatBarrier
 
 # Appendix Figures
-```{r, echo = F, message = F, warning = F}
-
-figure_appendix_files <- list.files(here::here("figures/"),pattern = "^appendix")
-figure_appendix_files <- figure_appendix_files[!figure_appendix_files %in%c("appendix_loo.R",
-                                                 "appendix_event_study_longer.R")]
-
-## read in the figures
-for (file in figure_appendix_files){
-  source(here::here(paste0("figures/", file)))
-}
-```
-
 
 ```{=latex}
 \begin{figure}[t!]
 ```
 ```{r, out.width="85%", fig.align='center', fig.pos="H"}
 
-knitr::include_graphics(here::here("figures/map_2.jpeg"))
+knitr::include_graphics(here::here("paper/appendix_figures/map_2.jpeg"),
+                        error = F)
 
 ```
 ```{=latex}
@@ -42,7 +31,7 @@ knitr::include_graphics(here::here("figures/map_2.jpeg"))
 \begin{figure}[t!]
 ```
 ```{r, fig.align='center'}
-forest_sample_plot
+knitr::include_graphics(here::here("paper/appendix_figures/forest_sample_plot.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Robustness of Main Results \label{forest_sample_plot}}
@@ -55,9 +44,10 @@ forest_sample_plot
 ```{=latex}
 \begin{figure}[t!]
 ```
-```{r, out.width="85%", fig.align='center', fig.pos="H"}
+```{r}
 
-knitr::include_graphics(here::here("figures/loo.jpeg"))
+knitr::include_graphics(here::here("paper/appendix_figures/loo.jpeg"),
+                        error = F)
 
 ```
 ```{=latex}
