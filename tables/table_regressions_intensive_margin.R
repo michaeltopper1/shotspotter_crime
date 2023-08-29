@@ -164,8 +164,8 @@ mechanism_table <- mechanism_table_raw %>%
   pack_rows("Panel A: Call-to-Dispatch",1,6, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 7, 12, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
   row_spec(12, hline_after = TRUE) %>% 
-  add_header_above(c(" " = 1, "Full Sample" = 1, "> Median" = 1, "<= Median" = 1,
-                     "Full Sample" = 1, "> Median" = 1, "<= Median" = 1)) %>% 
+  add_header_above(c(" " = 1, "Pooled" = 1, "> Median" = 1, "<= Median" = 1,
+                     "Pooled" = 1, "> Median" = 1, "<= Median" = 1)) %>% 
   add_header_above(c(" " = 2,
                      "Officer Hours" = 2,
                      " " = 1,
@@ -174,6 +174,6 @@ mechanism_table <- mechanism_table_raw %>%
                      "ShotSpotter Rollout" = 3,
                      "ShotSpotter Dispatches" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 11)
+  kable_styling(latex_options = "HOLD_position", font_size = 10)
 
 writeLines(mechanism_table, "paper/tables/mechanism_table.tex")

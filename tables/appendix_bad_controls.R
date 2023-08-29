@@ -89,7 +89,8 @@ bad_controls <- panelsummary_raw(list(number_dispatches, number_dispatches_2s),
             italic = T, bold = F) %>% 
   row_spec(8, hline_after = T) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_styling(latex_options = "HOLD_position", font_size = 11)
+  kable_styling(latex_options = "HOLD_position", font_size = 11) %>%
+  column_spec(1, width = "8cm")
 
 writeLines(bad_controls, "paper/appendix_tables/bad_controls.tex")
 

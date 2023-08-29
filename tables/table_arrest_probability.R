@@ -83,12 +83,13 @@ arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gu
              caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
   add_header_above(c(" " = 1,
                      "All" = 1,
-                     "Gun-Related" = 1,
-                     "Non-Gun-Related" = 1,
-                     "Domestic Disturbance" = 1,
-                     "Domestic Battery" =1,
+                     "Gun" = 1,
+                     "Non-Gun" = 1,
+                     "Domestic\nDisturbance" = 1,
+                     "Domestic\nBattery" =1,
                      "Robbery" = 1)) %>% 
-  add_header_above(c(" " = 4,
+  add_header_above(c(" " = 2,
+                     "Gun-Relation" = 2,
                      "Most Frequent Arrest Types" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)

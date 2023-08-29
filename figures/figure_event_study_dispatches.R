@@ -137,55 +137,11 @@ eos_1_es <- eos_1 %>%
 
 
 
-
-# 
-# 
-# entry_1 %>% 
-#   bind_rows(entry_1_2sdid) %>% 
-#   filter(periods %in% c(-11:11)) %>% 
-#   left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>% 
-#   event_study_graph() +
-#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches")) 
-# 
-# eos_1 %>% 
-#   bind_rows(eos_1_2sdid) %>% 
-#   filter(periods %in% c(-11:11)) %>% 
-#   filter(periods %in% c(-11:11)) %>% 
-#   left_join(number_sst_alerts, join_by(periods == time_to_treat)) %>% 
-#   event_study_graph() +
-#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~./1000, name = "Number SST Alerts/Number Dispatches")) 
-event_study_graph_overlay <- function(x){
-  graph <- x %>%
-    ggplot(aes(periods, estimate, color = type, shape = type)) +
-    geom_line(aes(x = periods, y = number_sst_dispatches/10, color = NULL,shape = NULL), alpha = 0.3, position = "dodge", fill = "grey") +
-    geom_point(position = position_dodge(width = 0.5)) +
-    geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
-                  position = position_dodge(width = 0.5)) +
-    geom_hline(yintercept = 0, color = "dark red") +
-    labs(x = "Months to Adoption",
-         y = "95% Confidence Interval and Point Estimate",
-         color = "",
-         shape = "") +
-    theme_minimal() +
-    ggthemes::scale_color_stata() +
-    theme(legend.position = "bottom")
-  return(graph)
-}
+ggsave(entry_1_es, filename = "paper/figures/entry_1_es.jpeg",
+       width = 7, height = 5)
 
 
-# 
-# entry_1_es_overlay <- entry_1 %>%
-#   bind_rows(entry_1_2sdid) %>%
-#   filter(periods %in% c(-11:11)) %>%
-#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
-#   event_study_graph_overlay() +
-#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches"))
-# 
-# eos_1_es_overlay <- eos_1 %>%
-#   bind_rows(eos_1_2sdid) %>%
-#   filter(periods %in% c(-11:11)) %>%
-#   filter(periods %in% c(-11:11)) %>%
-#   left_join(number_sst_dispatches, join_by(periods == time_to_treat)) %>%
-#   event_study_graph_overlay() +
-#   scale_y_continuous("95% Confidence Interval and Point Estimate", sec.axis = sec_axis(~.*10, name = "Number SST Dispatches/Number Dispatches"))
-# 
+ggsave(eos_1_es, filename = "paper/figures/eos_1_es.jpeg",
+       width = 7, height = 5)
+
+

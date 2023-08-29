@@ -142,5 +142,8 @@ eos_1_sdsc_es <- eos_sdsc_1 %>%
   event_study_graph()
 
 
-
+ggsave(entry_1_sdsc_es, filename = "paper/appendix_figures/entry_1_sdsc_es.jpeg",
+       width = 7, height = 5)
+ggsave(eos_1_sdsc_es, filename = "paper/appendix_figures/eos_1_sdsc_es.jpeg",
+       width = 7, height = 5)
 

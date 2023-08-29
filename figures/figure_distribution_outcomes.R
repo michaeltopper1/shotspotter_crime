@@ -35,4 +35,6 @@ distribution_outcomes <- dispatch_panel_p1 %>%
   theme_minimal() +
   theme(legend.position = "bottom", panel.grid.major = element_blank())
 
+ggsave(distribution_outcomes, filename = "paper/figures/distribution_outcomes.jpeg",
+       width = 7, height = 5)
 

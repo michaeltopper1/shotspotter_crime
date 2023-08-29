@@ -43,4 +43,7 @@ raw_evidence_figure <-dispatch_panel_p1 %>%
   coord_flip() +
   theme(legend.position = "bottom", panel.grid.major =  element_blank())
 
+ggsave(raw_evidence_figure, filename = "paper/figures/raw_evidence_figure.jpeg",
+       width = 7, height = 5)
+
 

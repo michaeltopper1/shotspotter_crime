@@ -97,6 +97,7 @@ sst_by_hour <- sst %>%
   ggplot(aes(hour,n, fill = watch)) +
   geom_col(alpha = 0.8) +
   scale_x_continuous(breaks = c(0:23)) +
+  scale_y_continuous(labels = scales::comma) +
   theme_minimal() +
   ggthemes::scale_fill_stata() +
   labs(x = "Hour of the Day", y = "SST Dispatches", fill = "") +
@@ -106,4 +107,9 @@ sst_by_hour <- sst %>%
         axis.title.y = element_text(size = 9))
 
 
+watch_graph <- sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
+  plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
+  theme(plot.tag = element_text(size = 11))
 
+ggsave(watch_graph, filename = "paper/figures/watch_graph.jpeg",
+       width = 7, height = 6.5)

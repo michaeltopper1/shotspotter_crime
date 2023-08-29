@@ -180,3 +180,6 @@ priorities_dispatch <- descriptions %>%
   labs(x = "", y = "Percent Change from Mean and 95% Confidence Interval") +
   theme_minimal() +
   theme(legend.position = "non")
+
+ggsave(priorities_dispatch, filename = "paper/figures/priorities_dispatch.jpeg",
+       width = 7, height = 7)

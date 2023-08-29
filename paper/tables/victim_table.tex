@@ -4,11 +4,11 @@
 \centering
 \begin{threeparttable}
 \fontsize{11}{13}\selectfont
-\begin{tabular}[t]{lccc}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{8cm}ccc}
 \toprule
 \multicolumn{1}{c}{ } & \multicolumn{3}{c}{Probability of Victim Injury} \\
 \cmidrule(l{3pt}r{3pt}){2-4}
-\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Full Sample} & \multicolumn{1}{c}{Gun Dispatch} & \multicolumn{1}{c}{Non-Gun Dispatch} \\
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{Gun Dispatch} & \multicolumn{1}{c}{Non-Gun Dispatch} \\
 \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4}
   & (1) & (2) & (3)\\
 \midrule
@@ -19,14 +19,12 @@ Observations & 2,434,526 & 304,544 & 2,129,982\\
 FE: Day-by-Month-by-Year & X & X & X\\
 \addlinespace
 FE: District & X & X & X\\
-FE: Call-Type & X & X & X\\
 FE: Hour-of-Day & X & X & X\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
-\item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district.                       The main outcome variable is the probability of a victim being                      injured.                      The sample here is restricted to only Priority 1 dispatches that                      are time-sensitive and have the possibility of an injury. For instance,                      a dispatch for a person shot is not time sensitive since                      the injury has already been realized. On the other                      hand, a dispatch for a person with a knife is considered time-sensitive as                      an injury has not yet occurred, but may occur if an officer arrives slower.                      Gun Dispatch is restricted to only time-sensitive gun dispatches including                      'Person with a Gun' and 'Shots Fired'. Non-Gun Dispatch are all other                      time-sensitive dispatches.                   .                   
+\item All descriptions are from confirmed 911 dispatches that resulted                       in an injury. Time-Insensitive 911 dispatches are those in which                       an injury has likely been realized prior to an officer dispatch.                       On the other hand, Time-Sensitive dispatches are those in which                       a victim may avoid injury if an officer can rapidly respond in time                       to intervene.                   
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

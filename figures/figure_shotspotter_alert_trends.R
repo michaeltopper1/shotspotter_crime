@@ -35,6 +35,7 @@ time_graph <- dispatch_panel %>%
   geom_line() +
   scale_x_date(date_breaks =  "2 years",
                date_labels = "%Y") +
+  scale_y_continuous(labels = scales::comma) +
   geom_vline(aes(xintercept = shotspot_activate), linetype = "dashed", color = "dark red") +
   facet_wrap(~district_label) +
   labs(x = "", y = "Number of ShotSpotter Dispatches") +
@@ -45,4 +46,5 @@ time_graph <- dispatch_panel %>%
 shotspotter_trend <- time_graph + gridExtra::tableGrob(table_shots, rows=NULL, 
                                   theme = ggpp::ttheme_gtlight(base_size = 9)) + plot_layout(widths = c(2, 1))
   
-
+ggsave(shotspotter_trend, filename = "paper/figures/shotspotter_trend.jpeg",
+       width = 7, height = 5)

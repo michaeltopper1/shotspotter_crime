@@ -179,3 +179,6 @@ priorities_onscene <- descriptions %>%
   labs(x = "", y = "Percent Change from Mean and 95% Confidence Interval") +
   theme_minimal() +
   theme(legend.position = "non")
+
+ggsave(priorities_onscene, filename = "paper/figures/priorities_onscene.jpeg",
+       width = 7, height = 7)

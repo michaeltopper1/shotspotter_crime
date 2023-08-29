@@ -4,7 +4,7 @@
 \centering
 \begin{threeparttable}
 \fontsize{11}{13}\selectfont
-\begin{tabular}[t]{lcc}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{8cm}cc}
 \toprule
   & (1) & (2)\\
 \midrule
@@ -16,22 +16,19 @@
 \hspace{1em}Observations & 3,582,560 & \vphantom{1} 3,582,528\\
 \addlinespace[0.3em]
 \multicolumn{3}{l}{\textit{Panel B: Officer Hours}}\\
-\hspace{1em}ShotSpotter Activated & -28.855 & -53.757*\\
 \hspace{1em} & (22.204) & (26.299)\\
 \hspace{1em}Mean of Dependent Variable & 1,259.497 & 1,259.497\\
 \hspace{1em}Observations & 3,582,560 & 3,582,528\\
+\hspace{1em}FE: Day-by-Month-by-Year & X & X\\
 \midrule
-FE: Day-by-Month-by-Year & X & X\\
 FE: District & X & X\\
-FE: Call-Type & X & X\\
 FE: Hour-of-Day & X & X\\
 Gardner (2022) Robust &  & X\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
-\item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district.                      This table shows estimations on two outcome variables,                       Number 911 Dispatches and Officer Hours, which are not                      included in the main specification due to possibly being                      bad controls.                      Each panel refers to a distinct outcome variable.                  Number 911 Dispatches is the number of 911 dispatches.                  Officer Hours is the number of police officer hours.                  ShotSpotter Activated refers to the                  timing in which each district receives ShotSpotter technology. The                  Gardner (2022) estimator is robust to the heterogeneous                  treatment effects in staggered two-way-fixed-effects designs.
+\item All descriptions are from confirmed 911 dispatches that resulted                       in an injury. Time-Insensitive 911 dispatches are those in which                       an injury has likely been realized prior to an officer dispatch.                       On the other hand, Time-Sensitive dispatches are those in which                       a victim may avoid injury if an officer can rapidly respond in time                       to intervene.                   
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

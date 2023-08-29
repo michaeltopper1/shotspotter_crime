@@ -67,3 +67,6 @@ missing_data_trend <- bind_rows(entry_1,eos_1) %>%
   theme_minimal() +
   ggthemes::scale_color_stata() +
   theme(legend.position = "bottom")
+
+ggsave(missing_data_trend, filename = "paper/appendix_figures/missing_data_trend.jpeg",
+       width = 7, height = 5)

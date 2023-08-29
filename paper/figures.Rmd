@@ -2,6 +2,8 @@
 title: "Figures"
 output: pdf_document
 fontsize: 11pt
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- ```{r, include=FALSE} -->
@@ -12,14 +14,14 @@ fontsize: 11pt
 \FloatBarrier
 # Figures
 
-```{r, echo = F, message = F, warning = F}
-figure_files <- list.files(here::here("figures/"),pattern = "^figure")
+<!-- ```{r, echo = F, message = F, warning = F} -->
+<!-- figure_files <- list.files(here::here("figures/"),pattern = "^figure") -->
 
-## read in the figures
-for (file in figure_files){
-  source(here::here(paste0("figures/", file)))
-}
-```
+<!-- ## read in the figures -->
+<!-- for (file in figure_files){ -->
+<!--   source(here::here(paste0("figures/", file))) -->
+<!-- } -->
+<!-- ``` -->
 
 
 
@@ -28,7 +30,7 @@ for (file in figure_files){
 \begin{figure}[t]
 ```
 ```{r}
-shotspotter_trend
+knitr::include_graphics(here::here("paper/figures/shotspotter_trend.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{ShotSpotter Alert Trends and Enactment Dates \label{shotspotter_trend}}
@@ -44,7 +46,7 @@ shotspotter_trend
 \begin{figure}[t]
 ```
 ```{r}
-distribution_outcomes
+knitr::include_graphics(here::here("paper/figures/distribution_outcomes.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Distribution of Outcome Variables \label{distribution_outcomes}}
@@ -59,7 +61,7 @@ distribution_outcomes
 ```
 ```{r}
 ## event study entry to dispatch
-entry_1_es
+knitr::include_graphics(here::here("paper/figures/entry_1_es.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Event Study (Call-to-Dispatch) \label{entry_1_es}}
@@ -74,7 +76,7 @@ entry_1_es
 ```
 ```{r}
 ## event study entry to on scene
-eos_1_es
+knitr::include_graphics(here::here("paper/figures/eos_1_es.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Event Study (Call-to-On-Scene) \label{eos_1_es}}
@@ -90,7 +92,7 @@ eos_1_es
 \begin{figure}[t]
 ```
 ```{r}
-raw_evidence_figure
+knitr::include_graphics(here::here("paper/figures/raw_evidence_figure.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Average Outcomes in Police Districts \label{raw_evidence_figure}}
@@ -104,9 +106,9 @@ raw_evidence_figure
 
 \begin{figure}[t]
 ```
-```{r, fig.height=7}
+```{r}
 ## by priority: dispatch
-priorities_dispatch
+knitr::include_graphics(here::here("paper/figures/priorities_dispatch.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Effect of ShotSpotter by Priority (Call-to-Dispatch) \label{priorities_dispatch}}
@@ -122,7 +124,7 @@ priorities_dispatch
 ```
 ```{r, fig.height=7}
 ## by priority: onscene
-priorities_onscene
+knitr::include_graphics(here::here("paper/figures/priorities_onscene.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Effect of ShotSpotter by Priority (Call-to-On-Scene)\label{priorities_onscene}}
@@ -138,9 +140,7 @@ priorities_onscene
 ```
 ```{r}
 ## by priority: dispatch
-sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
-  plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
-  theme(plot.tag = element_text(size = 11))
+knitr::include_graphics(here::here("paper/figures/watch_graph.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Effect of ShotSpotter by Watch \label{hetero_resource}}

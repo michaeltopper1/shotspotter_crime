@@ -40,14 +40,6 @@ library(patchwork)
 options(modelsummary_model_labels="model")
 ```
 
-```{r}
-confound_figs <- list.files(here::here("figures/"), pattern = "^b")
-
-for (file in confound_figs){
-  source(here::here(paste0("figures/", file)))
-}
-
-```
 
 \section{Appendix B: Coinciding Initiatives}\label{appendix:coinciding}
 
@@ -102,7 +94,7 @@ Columns 5 and 6 of Appendix Table \ref{confounding_table} report the results for
 ```
 ```{r}
 ## event study entry to dispatch
-entry_1_sdsc_es
+knitr::include_graphics(here::here("paper/appendix_figures/entry_1_sdsc_es.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Event Study w/ SDSC Controls (Call-to-Dispatch) \label{entry_1_sdsc_es}}
@@ -117,7 +109,7 @@ entry_1_sdsc_es
 ```
 ```{r}
 ## event study entry to on scene
-eos_1_sdsc_es
+knitr::include_graphics(here::here("paper/appendix_figures/eos_1_sdsc_es.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Event Study w/ SDSC Controls (Call-to-On-Scene) \label{eos_1_sdsc_es}}

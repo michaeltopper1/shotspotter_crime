@@ -61,9 +61,9 @@ This document is meant to test crap.
 \input{tables/main_results.tex}
 ```
 ```{=latex}
-\begin{sidewaystable}
+
 \input{tables/arrest_prob.tex}
-\end{sidewaystable}
+
 ```
 
 
@@ -72,9 +72,9 @@ This document is meant to test crap.
 ```
 
 ```{=latex}
-\begin{sidewaystable}
+
 \input{tables/mechanism_table.tex}
-\end{sidewaystable}
+
 ```
 
 
@@ -95,11 +95,38 @@ This document is meant to test crap.
 
 \begin{figure}[t]
 ```
-```{r, fig.width=3.5, fig.height = 3.5}
-knitr::include_graphics(here::here("paper/figures/distribution_outcomes.pdf"), error = F)
+```{r}
+knitr::include_graphics(here::here("paper/figures/distribution_outcomes.jpeg"), error = F)
 ```
 ```{=latex}
 \caption{Distribution of Outcome Variables \label{distribution_outcomes}}
+\textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome. However, the main results remain consistent when including these outliers as shown in Appendix Figure BLANK.
+\end{figure}
+```
+
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+knitr::include_graphics(here::here("paper/figures/entry_1_es.jpeg"), error = F)
+```
+```{=latex}
+\caption{Distribution of Outcome Variables \label{distribution_outcomes}}
+\textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome. However, the main results remain consistent when including these outliers as shown in Appendix Figure BLANK.
+\end{figure}
+```
+
+```{=latex}
+
+\begin{figure}[t]
+```
+```{r}
+knitr::include_graphics(here::here("paper/figures/shotspotter_trend.jpeg"), error = F)
+```
+```{=latex}
+\caption{Distribution of Outcome Variables \label{s}}
 \textit{Note:} The two plotted variables are Call-to-Dispatch and Call-to-On-Scene. Call-to-Dispatch is time it takes for a police officer to be dispatched to the scene of the reported crime from the time of the 911 call. Call-to-On-Scene is the time from a 911 call to the time a police officer arrives at the scene of the reported crime. This sample excludes outliers that are greater than three standard deviations from the mean for each outcome. However, the main results remain consistent when including these outliers as shown in Appendix Figure BLANK.
 \end{figure}
 ```
