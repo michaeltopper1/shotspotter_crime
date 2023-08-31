@@ -109,7 +109,16 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "Standard errors are clustered by district. 
+                      "Standard errors are clustered by district. Columns 1-2 of Panel A show
+                       Call-to-Dispatch estimates when controlling for Strategic
+                      Decision Support Center (SDSC) rollout. In Columns 3 and 4, 
+                      police districts 7 and 9 are omitted as Kapustin et al. (2022) shows that SDSCs 
+                      affect
+                      police patrolling in these districts. Panel B is similar to Panel A,
+                      with the outcome of interest being Call-to-On-Scene times. In Columns 5 and 6,
+                      we control for Body-Worn Camera (BWC) adoption. Note that in each specification,
+                      controls are consistent with the preferred specification. OLS estimates are reported
+                      in odd-numbered columns, while Gardner (2022) robust estimates are reported in even columns.
                    
                   "), ~str_remove_all(., "\n"))
 

@@ -19,12 +19,14 @@ Observations & 2,434,526 & 304,544 & 2,129,982\\
 FE: Day-by-Month-by-Year & X & X & X\\
 \addlinespace
 FE: District & X & X & X\\
+FE: Call-Type & X & X & X\\
 FE: Hour-of-Day & X & X & X\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
-\item All descriptions are from confirmed 911 dispatches that resulted                       in an injury. Time-Insensitive 911 dispatches are those in which                       an injury has likely been realized prior to an officer dispatch.                       On the other hand, Time-Sensitive dispatches are those in which                       a victim may avoid injury if an officer can rapidly respond in time                       to intervene.                   
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                       The main outcome variable is the probability of a victim being                      injured.                      The sample here is restricted to only Priority 1 dispatches that                      are time-sensitive and have the possibility of an injury. For instance,                      a dispatch for a person shot is not time sensitive since                      the injury has already been realized. On the other                      hand, a dispatch for a person with a knife is considered time-sensitive as                      an injury has not yet occurred, but may occur if an officer arrives slower.                      The Pooled column refers to using the entire sample of time-sensitive Priority 1                      dispatches.                      Gun Dispatch is restricted to only time-sensitive gun dispatches including                      'Person with a Gun' and 'Shots Fired'. Non-Gun Dispatch are all other                      time-sensitive dispatches. In all columns the preferred specification is estimated using                      OLS.                   .                   
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

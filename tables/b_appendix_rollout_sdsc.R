@@ -18,9 +18,9 @@ footnotes <- map(list("This table shows
                       only Hunchlab, a location prediction software,
                       is implemented in conjuction with these. This software has been
                       found to only change patroling behaviors in
-                      districts 7 and 9 as discussed in YENS PAPER. Further
+                      districts 7 and 9 as discussed in Kapustin et al. (2022). Further
                       robustness of the results including SDSC implementation dates
-                      as controls are shown in Appendix Table BLANK."), ~str_remove_all(., "\n"))
+                      as controls are shown in Appendix Table B2."), ~str_remove_all(., "\n"))
 
 rollout_difference <- rollout_dates %>% 
   full_join(bwc) %>% 
@@ -28,6 +28,9 @@ rollout_difference <- rollout_dates %>%
   mutate(across(starts_with("s"), ~mdy(.))) %>% 
   mutate(difference = shotspot_activate - sdsc,
          difference_bwc = abs(shotspot_activate - bwc_date)) %>%
+  mutate(across(everything(), ~as.character(.) %>% replace_na(""))) %>%
+  mutate(difference = if_else(difference != "",glue::glue("{difference} days"), ""),
+         difference_bwc = if_else(difference != "",glue::glue("{difference_bwc} days"), "")) %>% 
   kbl(booktabs = T,
       col.names = c("District", "ShotSpotter", "SDSC", "BWC", "Difference SDSC",
                     "Difference BWC"),

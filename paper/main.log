@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.21)  29 AUG 2023 11:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.21)  29 AUG 2023 12:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -838,11 +838,11 @@ Overfull \hbox (13.76846pt too wide) in paragraph at lines 6--32
  []
 
 ) [38] (./tables/victim_table.tex
-Overfull \hbox (3.59273pt too wide) in paragraph at lines 6--30
+Overfull \hbox (3.59273pt too wide) in paragraph at lines 6--32
  [] 
  []
 
-) [39]
+) [39] [40]
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -850,17 +850,17 @@ l.1112
         [1
 
 ] (./appendix_tables/missing_table.tex)
-<appendix_figures/missing_data_trend.jpeg, id=581, 2107.875pt x 1505.625pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1139 
+        [2]
+<appendix_figures/missing_data_trend.jpeg, id=590, 2107.875pt x 1505.625pt>
 File: appendix_figures/missing_data_trend.jpeg Graphic file (type jpg)
 <use appendix_figures/missing_data_trend.jpeg>
 Package pdftex.def Info: appendix_figures/missing_data_trend.jpeg  used on input line 1142.
 (pdftex.def)             Requested size: 469.74852pt x 335.53465pt.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1148 \clearpage
-                  [2]
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -913,12 +913,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has b
                    \relax 
 l.1281 
         [4]
-<appendix_figures/entry_1_sdsc_es.jpeg, id=643, 2107.875pt x 1505.625pt>
+<appendix_figures/entry_1_sdsc_es.jpeg, id=648, 2107.875pt x 1505.625pt>
 File: appendix_figures/entry_1_sdsc_es.jpeg Graphic file (type jpg)
 <use appendix_figures/entry_1_sdsc_es.jpeg>
 Package pdftex.def Info: appendix_figures/entry_1_sdsc_es.jpeg  used on input line 1284.
 (pdftex.def)             Requested size: 469.74852pt x 335.53465pt.
-<appendix_figures/eos_1_sdsc_es.jpeg, id=644, 2107.875pt x 1505.625pt>
+<appendix_figures/eos_1_sdsc_es.jpeg, id=649, 2107.875pt x 1505.625pt>
 File: appendix_figures/eos_1_sdsc_es.jpeg Graphic file (type jpg)
 <use appendix_figures/eos_1_sdsc_es.jpeg>
 Package pdftex.def Info: appendix_figures/eos_1_sdsc_es.jpeg  used on input line 1292.
@@ -944,12 +944,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{appendix.A}) h
                    \relax 
 l.1306 ...: Sensitivity Analysis of Event Studies}
                                                   \label{appendix:sensitivity}
-<appendix_figures/roth_trends_dispatch.jpeg, id=665, 2153.04375pt x 1668.2325pt>
+<appendix_figures/roth_trends_dispatch.jpeg, id=670, 2153.04375pt x 1668.2325pt>
 File: appendix_figures/roth_trends_dispatch.jpeg Graphic file (type jpg)
 <use appendix_figures/roth_trends_dispatch.jpeg>
 Package pdftex.def Info: appendix_figures/roth_trends_dispatch.jpeg  used on input line 1339.
 (pdftex.def)             Requested size: 399.29245pt x 309.38184pt.
-<appendix_figures/roth_trends_onscene.jpeg, id=666, 2153.04375pt x 1668.2325pt>
+<appendix_figures/roth_trends_onscene.jpeg, id=671, 2153.04375pt x 1668.2325pt>
 File: appendix_figures/roth_trends_onscene.jpeg Graphic file (type jpg)
 <use appendix_figures/roth_trends_onscene.jpeg>
 Package pdftex.def Info: appendix_figures/roth_trends_onscene.jpeg  used on input line 1347.
@@ -977,17 +977,17 @@ pdfTeX warning (ext4): destination with the same identifier (name{appendix.A}) h
                    \relax 
 l.1365 ...pendix Figures}\label{appendix-figures}}
                                                   
-<appendix_figures/map_2.jpeg, id=676, 2818.53pt x 3249.13875pt>
+<appendix_figures/map_2.jpeg, id=681, 2818.53pt x 3249.13875pt>
 File: appendix_figures/map_2.jpeg Graphic file (type jpg)
 <use appendix_figures/map_2.jpeg>
 Package pdftex.def Info: appendix_figures/map_2.jpeg  used on input line 1369.
 (pdftex.def)             Requested size: 399.27931pt x 460.28032pt.
-<appendix_figures/forest_sample_plot.jpeg, id=677, 1957.3125pt x 1354.05875pt>
+<appendix_figures/forest_sample_plot.jpeg, id=682, 1957.3125pt x 1354.05875pt>
 File: appendix_figures/forest_sample_plot.jpeg Graphic file (type jpg)
 <use appendix_figures/forest_sample_plot.jpeg>
 Package pdftex.def Info: appendix_figures/forest_sample_plot.jpeg  used on input line 1377.
 (pdftex.def)             Requested size: 469.73474pt x 324.96008pt.
-<appendix_figures/loo.jpeg, id=678, 2132.96875pt x 1668.2325pt>
+<appendix_figures/loo.jpeg, id=683, 2132.96875pt x 1668.2325pt>
 File: appendix_figures/loo.jpeg Graphic file (type jpg)
 <use appendix_figures/loo.jpeg>
 Package pdftex.def Info: appendix_figures/loo.jpeg  used on input line 1385.
@@ -1046,18 +1046,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: FBE2859CD2D671392E41D9ADAFB37A6E;7415.
  ) 
 Here is how much of TeX's memory you used:
- 18452 strings out of 477149
- 306691 string characters out of 5811719
+ 18454 strings out of 477149
+ 306714 string characters out of 5811719
  1949254 words of memory out of 5000000
  38926 multiletter control sequences out of 15000+600000
  712402 words of font info for 151 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,19n,107p,1699b,614s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/michaeltopper/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (59 pages, 9387993 bytes).
+Output written on main.pdf (60 pages, 9390269 bytes).
 PDF statistics:
- 826 PDF objects out of 1000 (max. 8388607)
- 705 compressed objects within 8 object streams
- 159 named destinations out of 1000 (max. 500000)
+ 831 PDF objects out of 1000 (max. 8388607)
+ 709 compressed objects within 8 object streams
+ 161 named destinations out of 1000 (max. 500000)
  393 words of extra memory for PDF output out of 10000 (max. 10000000)
 

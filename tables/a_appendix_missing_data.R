@@ -72,7 +72,17 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "S 
+                      "Standard errors are clustered by district. In Panel A,
+                      the table shows regressions on a binary variable equal to
+                      one if Call-to-On-Scene is missing. Columns 2 and 3 are split by
+                      district-day medians of officer hours. In Panel B, Call-to-Dispatch
+                      time is estimated with an additional interaction term in order to show
+                      that there is no difference in Call-to-Dispatch time when there is 
+                      missing on-scene data. Note that in these specifications, the fixed effects
+                      are also interacted to get a similar interpretation as if there were two separate
+                      regressions estimated. All controls utilized in these regressions
+                      are consistent with the preferred specification and are estimated
+                      using OLS.
                   "), ~str_remove_all(., "\n"))
 
 
@@ -97,7 +107,10 @@ missing_table <- missing_table_raw %>%
             bold = F, italic = T) %>% 
   pack_rows("Panel B: Call-to-Dispatch", 5, 10,
             bold = F, italic = T) %>% 
-  add_header_above(c(" " = 2, "> Median", "<= Median")) %>% 
-  add_header_above(c(" " = 2, "Officer Hours" = 2))
+  add_header_above(c(" " = 1, "Pooled" = 1, "> Median", "<= Median")) %>% 
+  add_header_above(c(" " = 2, "Officer Hours" = 2)) %>% 
+  column_spec(1, width = "8cm") %>% 
+  footnote(footnotes, threeparttable = T) %>% 
+  kable_styling(latex_options = "HOLD_position", font_size = 11)
 
 writeLines(missing_table, "paper/appendix_tables/missing_table.tex")

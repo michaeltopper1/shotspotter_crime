@@ -27,7 +27,7 @@ editor_options:
 
 ```{=latex}
 
-\begin{figure}[t]
+\begin{figure}[h]
 ```
 ```{r}
 knitr::include_graphics(here::here("paper/figures/shotspotter_trend.jpeg"), error = F)

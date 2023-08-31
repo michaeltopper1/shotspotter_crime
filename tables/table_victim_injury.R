@@ -54,9 +54,12 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       the injury has already been realized. On the other
                       hand, a dispatch for a person with a knife is considered time-sensitive as
                       an injury has not yet occurred, but may occur if an officer arrives slower.
+                      The Pooled column refers to using the entire sample of time-sensitive Priority 1
+                      dispatches.
                       Gun Dispatch is restricted to only time-sensitive gun dispatches including
                       'Person with a Gun' and 'Shots Fired'. Non-Gun Dispatch are all other
-                      time-sensitive dispatches. 
+                      time-sensitive dispatches. In all columns the preferred specification is estimated using
+                      OLS. 
                   . 
                   "), ~str_remove_all(., "\n"))
 
