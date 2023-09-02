@@ -39,7 +39,9 @@ table_values <- shotspotter %>%
 
 district_graph <- chicago_beats %>% 
   left_join(joined_aggregated)
-  
+
+district_graph %>% 
+  summarize(max(number_alerts, na.rm = T))
 
 x <- district_graph %>% 
   mutate(number_alerts = ifelse(is.na(number_alerts), 0, number_alerts)) %>% 
@@ -51,9 +53,11 @@ x <- district_graph %>%
                nudge_x = 0.005,
                size = 2.3,
                alpha = 0.3) +
-  scale_fill_gradient(low = "white", high = "red") +
-  labs(fill = "ShotSpotter Alerts in\nChicago from 2016-2022") +
-  ggthemes::theme_map() 
+  scale_fill_gradient(low = "white", high = "red",
+                      breaks = c(0,1000, 2000, 2900)) +
+  labs(fill = "ShotSpotter Alerts") +
+  ggthemes::theme_map() +
+  theme(legend.position = "bottom")
 
 
 
@@ -85,7 +89,8 @@ map <- x + ggthemes::theme_map() + annotation_custom(tableGrob(table_values,rows
 #         legend.title = element_text(size=16), #change legend title font size
 #         legend.text = element_text(size=16)) #change legend text font size
 # # map_2 <- x 
-ggsave(map, filename = "figures/map.jpeg")
+ggsave(x, filename = "presentations/figures/map.jpeg",
+       width = 5, height = 7)
 # ggsave(map_2, filename = "figures/map_2.jpeg")
 # ## this gets the scales of the ggplot
 # layer_scales(x)$y$range$range

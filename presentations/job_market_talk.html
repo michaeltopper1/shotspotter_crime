@@ -143,10 +143,10 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
   - A fixed amount of daily resources
   
 ### ShotSpotter Resource-Intensive:
-  - Classified as Priority 1 
+  - Classified as Priority 1 (highest)
   - Respond to every *hypothesized* alert 
   - ~60 daily dispatches
-  - ~20 min investigating
+  - ~20 min investigating the scene
 
 ### Time Wasted?
  - Costly for other *confirmed* 911 calls from civilians?
@@ -156,7 +156,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 
 
 ---
-# Summary of Paper:
+# Summary of the Paper:
 
 --
 .pull-left[
@@ -166,7 +166,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
     - Third largest city
 
 ## Data:
- - All 911 call dispatches from Chicago
+ - All dispatched 911 calls for police service
  - Merge with:
   - Police shifts
   - Arrests
@@ -184,14 +184,14 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
   - For Priority 1 911 calls:
     - +1 minute Call-to-Dispatch (23%)
     - ~+2 minutes Call-to-On-Scene (13%)
-  - Lower arrest probability (8%)
+    - Lower arrest probability (8%)
 ]
 ---
 # Contribution:
 ### In-depth, causal analysis on a wide-spread police technology, whose consequences are relatively unknown.
 
 --
-### Related Literature:
+### Related Literature
 
 .panelset.sideways[
 .panel[.panel-name[ShotSpotter Specific]
@@ -232,32 +232,66 @@ class: inverse, mline, center, middle
 # Institutional Background and Setting
 
 ---
-# The Pipeline of 911 Calls:
+# Officer Responsibilities/911 Dispatch Routine:
 
-&lt;img src="figures/flow_chart.jpg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+.pull-left[
+### 1. Patrol Assigned District
+  - .font80[Respond to incidents that are observed/unobserved]
+  - .font80[District is ~100k people]
+  - .font80[Officers are assigned beats within districts]
 
+### 2. Respond to 911 calls
+  - .font80[Only assigned to calls within district]
+  - .font80[Also arrive to emergency medical crime scenes]
+  - .font80[Can result in arrest or case report]]
+  
+.pull-right[
+### 3. When a Civilian Calls 911:
+&lt;img src="figures/flow_chart.jpg" width="550px" height="400px" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# 911 Call Priorities in Chicago:
+
+.pull-left[
+
+### Priority 1 (immediate dispatch):
+  - .font60[Imminent threat to life, bodily injury, or major property damage/loss]
+
+### Priority 2 (rapid dispatch):
+  - .font60[Timely police action has the potential to affect the outcome of an incident]
+  
+### Priority 3 (routine dispatch):
+  - .font60[Does not involve an imminent threat...a reasonable delay in police action will not affect the outcome of the incident]
+]
+
+.pull-right[
+
+&lt;img src="figures/priority_fractions.jpeg" width="600px" height="500px" style="display: block; margin: auto;" /&gt;
+]
 ---
 # ShotSpotter in Chicago:
 .pull-left[
 ### Staggered Rollout
- - 12 of 22 police districts in 2017-2018
+ - .font80[12 of 22 police districts in 2017-2018]
+ - .font80[Implemented with full coverage across districts]
+ - .font80[Rational: respond to high gun-crime]
 
 ### Resource Intensive
-  - Priority 1 (immediate dispatch)
-      - Active shooter, domestic disturbance
-      - ~5% of all Priority 1 dispatches
-  - Same operating procedure as 911
-      - No specialized response team
+  - .font80[Priority 1]
+  - .font80[Same *dispatch* procedure as 911 call]
+  - .font80[Additional: canvass 25 meter radius, add information]
+  - .font80[~60 daily dispatches, 20 min avg.]
 ]
 
 .pull-right[
-&lt;img src="libs/figures/map_2.jpeg" width="650px" height="520px" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/map.jpeg" width="400px" height="500px" style="display: block; margin: auto;" /&gt;
 
 ]
 ---
 # ShotSpotter Alert Trends/Averages:
 
-&lt;img src="job_market_talk_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/shotspotter_trend.jpeg" width="950px" height="550px" style="display: block; margin: auto;" /&gt;
 ---
 class: inverse, mline, center, middle
 
@@ -270,15 +304,15 @@ class: regression
 .pull-left[
 ### Data Overview:
 - Freedom of Information Act
-- Priority 1 911 Dispatches (2016-2022)
+- Priority 1 911 Call-Related Dispatches (2016-2022)
 - No ShotSpotter dispatches
 ]
 
 .pull-right[
 ### Exclusions:
-- Outliers (0.04%; 1.6%)
+- Exclude lower priority calls
+- Outliers (0.04%; 1.6%), Negative response times (.03%)
 - January 1/July 4/December 31 (1%)
-- Negative response times (.03%)
 ]
 
 --
@@ -332,6 +366,7 @@ class: regression
 
 
 ---
+class: regression
 # Estimation Strategy:
 ### Specification (OLS):
 
@@ -346,7 +381,38 @@ class: regression
 * `\(\mathbb{X}_{f(t)}\)` is a vector of time-varying controls:
     - Hour-of-day and day-by-month-by-year
 * Standard errors clustered by police district
-*  Intuition: &lt;font color="blue"&gt; average change in response times on days when ShotSpotter is implemented accounting for expected differences in districts/time/call-types. &lt;/font&gt;
+* &lt;font color="blue"&gt; Intuitively, this is the average change in response times on days with ShotSpotter accounting for expected differences in districts/time/call-types. &lt;/font&gt;
+
+
+---
+# Potential Threats to Identification:
+
+--
+
+#### 1. Violation of Common Trends:
+  * .font80[Event studies] 
+  * .font80[Rambachan and Roth (2023) sensitivity analysis]
+
+--
+
+#### 2. Change in dispatching procedures/call-types post-implementation:
+  * .font80[Standard operating procedures same for Priority 1 911 calls]
+  * .font80[Specific call-type analysis]
+
+--
+
+#### 3. Other policies that coincide that may affect response times:
+  * .font80[Strategic Decision Support Centers (SDSC) and Body-Worn Cameras (BWC)]
+
+--
+
+#### 4. OLS with staggered rollouts:
+  * .font80[Two-stage difference-in-differences (Garnder 2022)]
+
+---
+class: inverse, mline, center, middle
+
+# Results
 
 ---
 class: regression
@@ -625,7 +691,51 @@ class: regression
 ]
 
 ---
-# Mechanisms:
+# Dynamic Effects: Call-to-Dispatch
+
+&lt;img src="figures/entry_1_es.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
+---
+# Dynamic Effects: Call-to-On-Scene
+
+&lt;img src="figures/eos_1_es.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+---
+# Robustness:
+
+.pull-left[
+## Main Results:
+- Leave-one-out analysis
+- Sample restrictions:
+  - Omit 2020 (Covid-19)
+  - Reintroduce outliers
+  - Reintroduce omitted days
+  
+## Event Studies:
+- Rambachan and Roth (2023) sensitivity 
+- Robust to varying linear trends
+]
+
+
+.pull-right[
+&lt;img src="figures/forest_sample_plot.jpeg" width="550px" height="500px" style="display: block; margin: auto;" /&gt;
+]
+---
+# Potential Mechanism:
+
+&lt;font color="blue"&gt;&lt;b&gt;ShotSpotter overflows an officer's production function and incapacitates them from attending to other tasks.&lt;/b&gt;&lt;/font&gt;
+
+#### 1. Estimate most resource-constrained times (extensive margin)
+  - Split by police-district median number of officer hours
+  - Separate by shift-type
+    
+#### 2. Use ShotSpotter dispatches as intensity measure (intensive margin)
+
+`$$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$`
+
+  - `\(\text{NumberSSTDispatches}_{dt}\)` is number of ShotSpotter dispatches in a police-district
+  - Restrict to only treated periods
+
+
 
 ---
 class: regression
@@ -780,42 +890,12 @@ class: regression
 &lt;/table&gt;
 
 ---
-# Figure (Watch)
+# Police Schedule Heterogeneity:
 &lt;img src="figures/watch_graph.jpeg" width="1000px" height="550px" style="display: block; margin: auto;" /&gt;
 
----
-# Assumptions:
-
---
-
-### 1. Response times similar trend without ShotSpotter
-  * Event studies 
-  * Rambachan and Roth (2023) sensitivity analysis
-
---
-
-### 2. No change in dispatching procedures/call-types post-implementation
-  * Standard Operating Procedures do not change
-  * Specific call-type analysis
-
---
-
-### 3. No other policies that coincide that may affect response times
-  * Strategic Decision Support Centers (SDSC)
-  * Body-Worn Cameras (BWC)
-
 
 ---
-# Common Trends: Call-to-Dispatch
-
-&lt;img src="figures/entry_1_es.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
-
----
-# Common Trends: Call-to-On-Scene
-
-&lt;img src="figures/eos_1_es.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
----
-# Relaxing Common Trends
+# Relaxing Common Trends:
 
 ---
 # Trickle Down Effect: 
@@ -836,8 +916,21 @@ class: regression
 ]
 
 ]
+---
+# Conclusion:
 
+### Main Takeaways:
 
+- An in-depth analysis on consequences of ShotSpotter:
+    - Unintended Consequences:
+      - Higher response times 
+          - Call-to-Dispatch (+1 minute/ 23% increase)
+          - Call-to-On-Scene (+2 minutes/ 13% increase)
+      - Lower arrest rates  (8% decrease)
+- Suggestive evidence of effectiveness `\(\rightarrow\)` more officers needed to mitigate unintended consequences
+- Other recommendations appreciated
+
+  
 
 
     </textarea>
