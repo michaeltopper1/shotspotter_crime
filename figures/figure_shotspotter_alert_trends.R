@@ -25,6 +25,9 @@ table_shots <- dispatch_panel %>%
   select(-`Daily Alerts`)
 
 time_graph <- dispatch_panel %>% 
+  distinct(date, district, number_sst_dispatches, year_month) %>% 
+  select(district, number_sst_dispatches, date, year_month) %>% 
+  arrange(desc(number_sst_dispatches)) %>% 
   group_by(year_month, district) %>% 
   summarize(number_shots = sum(number_sst_dispatches)) %>% 
   left_join(rollout_dates) %>% 
