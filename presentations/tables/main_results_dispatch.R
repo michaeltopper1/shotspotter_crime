@@ -64,7 +64,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: final_dispatch_description", "FE: Call-Type", 3,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
-dispatch_raw <- panelsummary_raw(list(entry_d, entry_d_1,  entry_d_2,
+dispatch_raw <- panelsummary_raw(list(entry_d, entry_d_1,
                       entry_d_3, entry_d_4),
                  stars = "econ",
                  mean_dependent = T,
@@ -76,20 +76,15 @@ dispatch_raw <- panelsummary_raw(list(entry_d, entry_d_1,  entry_d_2,
 
 dispatch_table <- dispatch_raw %>% 
   select(-model_1) %>% 
-  mutate(model_4 = if_else(term == "FE: District" |
-                             term == "FE: Day-by-Month-by-Year", "X", model_4)) %>%
-  mutate(model_4 = if_else(term == "FE: Call-Type" |
-                             term == "FE: Hour-of-Day", "X", model_4)) %>% 
-  mutate(model_4 = if_else(term == "Mean of Dependent Variable", 
-                           model_2, model_4)) %>% 
+  mutate(model_3 = if_else(term == "FE: District" |
+                             term == "FE: Day-by-Month-by-Year", "X", model_3)) %>%
+  mutate(model_3 = if_else(term == "FE: Call-Type" |
+                             term == "FE: Hour-of-Day", "X", model_3)) %>% 
+  mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
+                           model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_2 = "0.012",
-          model_3 = "0.015", model_4 = "", model_5 = "0.017", .before = 7) %>% 
-  add_row(term = "Officer Hours", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
-  add_row(term = "Number 911 Dispatches", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
-  add_row(term = "Gardner (2022) Robust", model_2 = "", model_3 = "", model_4 = "X",
-          model_5 = "") %>% 
+          model_3 = "", model_4 = "0.017", .before = 7) %>% 
+  add_row(term = "Gardner (2022) Robust", model_2 = "", model_3 = "X", model_4 = "") %>% 
   slice(-c(8:11)) %>% 
   clean_raw(pretty_num = T,
             format = "html",

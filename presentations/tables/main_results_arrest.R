@@ -52,11 +52,13 @@ fmt = 3,
 gof_map = gof_mapping) %>% 
   slice(-c(5:8))
 
+wild_bootstrap_arrest <- c('0.001', '0.412', '0.003', '0.049', 0.109)
+
 
 arrest_table <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
-  add_row(term = "Wild Bootstrap P-Value",model_1 = "", model_2 = "0.012",
-          model_3 = "0.015", model_4 = "", model_5 = "0.017", model_6 = "", .before = 5) %>% 
+  add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.412",
+          model_3 = "0.003", model_4 = "0.003", model_5 = "0.049", model_6 = "0.109", .before = 5) %>%
   clean_raw(pretty_num = T, format = 'html',
             caption = "Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
   add_header_above(c(" " = 1,
@@ -70,7 +72,7 @@ arrest_table <- arrest_table_raw %>%
                      "Gun-Relation" = 2,
                      "Most Frequent Arrest Types" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
-  kable_classic(full_width = F, html_font = "Cambria")
+  kable_classic(full_width = T, html_font = "Cambria")
 
 write_file(arrest_table, file = "presentations/tables/arrest_table.html")
 

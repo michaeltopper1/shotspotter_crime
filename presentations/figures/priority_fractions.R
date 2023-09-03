@@ -12,7 +12,7 @@ priority_fractions <- priorities %>%
   mutate(priority_code = glue::glue("Priority {priority_code}")) %>%
   mutate(priority_code = fct_reorder(as.factor(priority_code), n)) %>%
   mutate(total = sum(n),
-         fraction = round(n/total, 3)) %>% 
+         fraction = round(n/total, 3) %>% scales::percent()) %>% 
   mutate(n_comma = n %>% scales::comma()) %>% 
   ggplot(aes(priority_code, n, fill = priority_code)) +
   geom_col(width = .3, alpha = 0.8) +

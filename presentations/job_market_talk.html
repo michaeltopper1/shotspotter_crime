@@ -85,7 +85,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 
 .pull-left[
 ### Rise of AI Technology:
-  - Artificial Intelligence (AI) -&gt; police forces
+  - Artificial Intelligence (AI) `\(\rightarrow\)` police forces
   - License plate readers, observation cameras, predictive policing
   - AI changes officer production function]
 
@@ -96,7 +96,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
   - Gunshot detection
   - 12% of gunfire reported (Carr and Doleac, 2017)
   - Widespread (150+ cities world-wide)
-  - Costly: $11 million a year
+  - In Chicago: $11 million a year
 ]
 
 --
@@ -123,21 +123,16 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 ### Support for Reponse Times:
 .font110[
 - Lower response times results in:
-    - Less likelihood of an injury (DeAngelo et al. 2023)
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
+    - Less likelihood of an injury (DeAngelo et al. 2023)
 - Rapid response most important (College of Policing 2013)
 - Health implications
-    - Longer travel -&gt; worse patient outcomes (Wilde, 2013, Avdic, 2016)
+    - Longer travel `\(\rightarrow\)` worse patient outcomes (Wilde, 2013, Avdic, 2016)
 ]
 ---
 # Why would ShotSpotter affect response times?
 
 .pull-left[
-&lt;img src="libs/figures/ShotSpotter__graphic.png" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
---
-.pull-right[
 
 ### Police Forces:
   - A fixed amount of daily resources
@@ -154,6 +149,12 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 
 ]
 
+--
+.pull-right[
+&lt;img src="libs/figures/ShotSpotter__graphic.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
 
 ---
 # Summary of the Paper:
@@ -167,7 +168,6 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 
 ## Data:
  - All dispatched 911 calls for police service
- - Merge with:
   - Police shifts
   - Arrests
   - Victimizations
@@ -183,7 +183,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 ## Main Results:
   - For Priority 1 911 calls:
     - +1 minute Call-to-Dispatch (23%)
-    - ~+2 minutes Call-to-On-Scene (13%)
+    - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (8%)
 ]
 ---
@@ -220,7 +220,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 .panel[.panel-name[Emergency Medical Services]
 &lt;font color="blue"&gt; We find substantial delays in emergency medical service calls `\(\rightarrow\)` delay victim treatment. &lt;/font&gt;
 - Effects on delayed medical treatment in the field:
-  - Longer ambulance resposne `\(\rightarrow\)` lower mortality (Wilde, 2013)
+  - Longer ambulance response `\(\rightarrow\)` lower mortality (Wilde, 2013)
   - Longer travel times `\(\rightarrow\)` lower mortality (Avdic, 2016)
 ]
 
@@ -244,10 +244,18 @@ class: inverse, mline, center, middle
   - .font80[Only assigned to calls within district]
   - .font80[Also arrive to emergency medical crime scenes]
   - .font80[Can result in arrest or case report]]
-  
+
+--
 .pull-right[
-### 3. When a Civilian Calls 911:
-&lt;img src="figures/flow_chart.jpg" width="550px" height="400px" style="display: block; margin: auto;" /&gt;
+### 911 Dispatch Pipeline:
+1. Call
+  - .font80[Civilian reports crime to 911.]
+2. Dispatch
+  - .font80[Dispatcher records info, finds available police to dispatch.]
+3. Travel
+  - .font80[Police officer travels to the crime scene.]
+4. On-Scene
+  - .font80[Officer arrives on-scene; makes case report or arrest if necessary]
 ]
 
 ---
@@ -289,9 +297,9 @@ class: inverse, mline, center, middle
 
 ]
 ---
-# ShotSpotter Alert Trends/Averages:
+# ShotSpotter Dispatch Trends/Averages:
 
-&lt;img src="figures/shotspotter_trend.jpeg" width="950px" height="550px" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/shotspotter_trend.jpeg" width="900px" height="550px" style="display: block; margin: auto;" /&gt;
 ---
 class: inverse, mline, center, middle
 
@@ -312,7 +320,7 @@ class: regression
 ### Exclusions:
 - Exclude lower priority calls
 - Outliers (0.04%; 1.6%), Negative response times (.03%)
-- January 1/July 4/December 31 (1%)
+- January 1/July 4/December 31
 ]
 
 --
@@ -407,7 +415,7 @@ class: regression
 --
 
 #### 4. OLS with staggered rollouts:
-  * .font80[Two-stage difference-in-differences (Garnder 2022)]
+  * .font80[Two-stage difference-in-differences (Gardner 2022)]
 
 ---
 class: inverse, mline, center, middle
@@ -415,11 +423,15 @@ class: inverse, mline, center, middle
 # Results
 
 ---
+# Raw Data Preview:
+&lt;img src="figures/raw_evidence_figure.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
+---
 class: regression
 
 # Main Results:
 
-.panelset.sideways[
+.panelset[
 .panel[.panel-name[Call-to-Dispatch]
 &lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
 &lt;caption&gt;Effect of ShotSpotter Enactment on Call-to-Dispatch (OLS)&lt;/caption&gt;
@@ -429,21 +441,18 @@ class: regression
    &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 64.025*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 72.063*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 61.446*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.220) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (22.356) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (21.627) &lt;/td&gt;
   &lt;/tr&gt;
@@ -451,12 +460,10 @@ class: regression
    &lt;td style="text-align:left;"&gt; Border District Activated &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 21.442 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (16.503) &lt;/td&gt;
@@ -466,11 +473,9 @@ class: regression
    &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 3,582,528 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
@@ -478,27 +483,11 @@ class: regression
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.015 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.017 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Officer Hours &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Number 911 Dispatches &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Gardner (2022) Robust &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
@@ -522,21 +511,18 @@ class: regression
    &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 103.145*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 120.389*** &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 100.986*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (28.103) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (27.913) &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (28.099) &lt;/td&gt;
   &lt;/tr&gt;
@@ -544,12 +530,10 @@ class: regression
    &lt;td style="text-align:left;"&gt; Border District Activated &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 24.178 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; (17.847) &lt;/td&gt;
@@ -559,11 +543,9 @@ class: regression
    &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1,997,076 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
@@ -571,27 +553,11 @@ class: regression
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.015 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0.017 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Officer Hours &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Number 911 Dispatches &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Gardner (2022) Robust &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
@@ -606,7 +572,7 @@ class: regression
 ]
 
 .panel[.panel-name[Arrest Rate]
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
 &lt;caption&gt;Effect of ShotSpotter Enactment on Arrest Probability (OLS)&lt;/caption&gt;
  &lt;thead&gt;
 &lt;tr&gt;
@@ -672,12 +638,12 @@ class: regression
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.015 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.017 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.412 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.003 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.003 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.049 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.109 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;tfoot&gt;
@@ -702,7 +668,6 @@ class: regression
 ---
 # Robustness:
 
-.pull-left[
 ## Main Results:
 - Leave-one-out analysis
 - Sample restrictions:
@@ -713,12 +678,19 @@ class: regression
 ## Event Studies:
 - Rambachan and Roth (2023) sensitivity 
 - Robust to varying linear trends
-]
 
 
-.pull-right[
-&lt;img src="figures/forest_sample_plot.jpeg" width="550px" height="500px" style="display: block; margin: auto;" /&gt;
-]
+
+---
+# Robustness Sample Restrictions:
+&lt;img src="figures/forest_sample_plot.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, mline, center, middle
+
+# Mechanism
+
+
 ---
 # Potential Mechanism:
 
@@ -739,7 +711,7 @@ class: regression
 
 ---
 class: regression
-# Mechanism (Extensive Margin):
+# Mechanism: Less Officers
 &lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
 &lt;caption&gt;Extensive Margin: Effect of ShotSpotter Implementation&lt;/caption&gt;
  &lt;thead&gt;
@@ -814,8 +786,12 @@ class: regression
 &lt;/table&gt;
 
 ---
+# Mechanism: Shift Times
+&lt;img src="figures/watch_graph.jpeg" width="1000px" height="550px" style="display: block; margin: auto;" /&gt;
+
+---
 class: regression
-# Mechanisms (Intensive Margin)
+# Mechanism: Intensive Margin
 &lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
 &lt;caption&gt;Intensive Margin: Effect of Number of SST Dispatches&lt;/caption&gt;
  &lt;thead&gt;
@@ -889,13 +865,11 @@ class: regression
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
----
-# Police Schedule Heterogeneity:
-&lt;img src="figures/watch_graph.jpeg" width="1000px" height="550px" style="display: block; margin: auto;" /&gt;
-
 
 ---
-# Relaxing Common Trends:
+class: inverse, mline, center, middle
+
+# Heterogeneity by Priority
 
 ---
 # Trickle Down Effect: 
@@ -916,6 +890,87 @@ class: regression
 ]
 
 ]
+---
+class: inverse, mline, center, middle
+
+# Why Implement ShotSpotter?
+
+---
+# Possible Benefits?
+
+## Does ShotSpotter provide benefits?
+
+* Analyze the probability of a victim injury
+    - Following DeAngelo et al. (2023)
+
+## New Restrictions:
+
+* Restrict data to only *unrealized* events `\(\rightarrow\)` police intervention may affect outcome
+* Examples: 
+  * Include: 'Call for Help' `\(\rightarrow\)` unrealized
+  * Exclude: 'Person Shot' `\(\rightarrow\)` realized
+* Main Result: Suggestive (not conclusive!) evidence of lower injury for gun-related calls
+
+---
+# Effect on Victim Injury:
+&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;caption&gt;Effect of ShotSpotter Implementation on Probability of Injury (OLS)&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Probability of Victim Injury&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Pooled&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun Dispatch&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun Dispatch&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.001* &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.003 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.000) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.002) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.000) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.014 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.024 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2,434,526 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 304,544 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2,129,982 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.123 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.114 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.751 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;&lt;span style="font-style: italic;"&gt;Note: &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
 ---
 # Conclusion:
 

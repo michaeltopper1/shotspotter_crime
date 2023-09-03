@@ -86,7 +86,7 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 
 .pull-left[
 ### Rise of AI Technology:
-  - Artificial Intelligence (AI) -> police forces
+  - Artificial Intelligence (AI) $\rightarrow$ police forces
   - License plate readers, observation cameras, predictive policing
   - AI changes officer production function]
 
@@ -97,7 +97,7 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
   - Gunshot detection
   - 12% of gunfire reported (Carr and Doleac, 2017)
   - Widespread (150+ cities world-wide)
-  - Costly: $11 million a year
+  - In Chicago: $11 million a year
 ]
 
 --
@@ -126,23 +126,16 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
 ### Support for Reponse Times:
 .font110[
 - Lower response times results in:
-    - Less likelihood of an injury (DeAngelo et al. 2023)
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
+    - Less likelihood of an injury (DeAngelo et al. 2023)
 - Rapid response most important (College of Policing 2013)
 - Health implications
-    - Longer travel -> worse patient outcomes (Wilde, 2013, Avdic, 2016)
+    - Longer travel $\rightarrow$ worse patient outcomes (Wilde, 2013, Avdic, 2016)
 ]
 ---
 # Why would ShotSpotter affect response times?
 
 .pull-left[
-```{r}
-knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
-```
-]
-
---
-.pull-right[
 
 ### Police Forces:
   - A fixed amount of daily resources
@@ -159,6 +152,14 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 
 ]
 
+--
+.pull-right[
+```{r}
+knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
+```
+]
+
+
 
 ---
 # Summary of the Paper:
@@ -172,7 +173,6 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 
 ## Data:
  - All dispatched 911 calls for police service
- - Merge with:
   - Police shifts
   - Arrests
   - Victimizations
@@ -188,7 +188,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ## Main Results:
   - For Priority 1 911 calls:
     - +1 minute Call-to-Dispatch (23%)
-    - ~+2 minutes Call-to-On-Scene (13%)
+    - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (8%)
 ]
 ---
@@ -225,7 +225,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 .panel[.panel-name[Emergency Medical Services]
 <font color="blue"> We find substantial delays in emergency medical service calls $\rightarrow$ delay victim treatment. </font>
 - Effects on delayed medical treatment in the field:
-  - Longer ambulance resposne $\rightarrow$ lower mortality (Wilde, 2013)
+  - Longer ambulance response $\rightarrow$ lower mortality (Wilde, 2013)
   - Longer travel times $\rightarrow$ lower mortality (Avdic, 2016)
 ]
 
@@ -249,12 +249,18 @@ class: inverse, mline, center, middle
   - .font80[Only assigned to calls within district]
   - .font80[Also arrive to emergency medical crime scenes]
   - .font80[Can result in arrest or case report]]
-  
+
+--
 .pull-right[
-### 3. When a Civilian Calls 911:
-```{r, out.width = "550px", out.height = "400px", fig.align="center"}
-knitr::include_graphics("figures/flow_chart.jpg")
-```
+### 911 Dispatch Pipeline:
+1. Call
+  - .font80[Civilian reports crime to 911.]
+2. Dispatch
+  - .font80[Dispatcher records info, finds available police to dispatch.]
+3. Travel
+  - .font80[Police officer travels to the crime scene.]
+4. On-Scene
+  - .font80[Officer arrives on-scene; makes case report or arrest if necessary]
 ]
 
 ---
@@ -300,9 +306,9 @@ knitr::include_graphics("figures/map.jpeg")
 
 ]
 ---
-# ShotSpotter Alert Trends/Averages:
+# ShotSpotter Dispatch Trends/Averages:
 
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
+```{r, out.width = "900px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/shotspotter_trend.jpeg")
 ```
 ---
@@ -325,7 +331,7 @@ class: regression
 ### Exclusions:
 - Exclude lower priority calls
 - Outliers (0.04%; 1.6%), Negative response times (.03%)
-- January 1/July 4/December 31 (1%)
+- January 1/July 4/December 31
 ]
 
 --
@@ -378,7 +384,7 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + 
 --
 
 #### 4. OLS with staggered rollouts:
-  * .font80[Two-stage difference-in-differences (Garnder 2022)]
+  * .font80[Two-stage difference-in-differences (Gardner 2022)]
 
 ---
 class: inverse, mline, center, middle
@@ -386,11 +392,17 @@ class: inverse, mline, center, middle
 # Results
 
 ---
+# Raw Data Preview:
+```{r, out.width = "850px", out.height = "550px", fig.align="center"}
+knitr::include_graphics("figures/raw_evidence_figure.jpeg")
+```
+
+---
 class: regression
 
 # Main Results:
 
-.panelset.sideways[
+.panelset[
 .panel[.panel-name[Call-to-Dispatch]
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/dispatch_table.html')
@@ -428,7 +440,6 @@ knitr::include_graphics("figures/eos_1_es.jpeg")
 ---
 # Robustness:
 
-.pull-left[
 ## Main Results:
 - Leave-one-out analysis
 - Sample restrictions:
@@ -439,14 +450,21 @@ knitr::include_graphics("figures/eos_1_es.jpeg")
 ## Event Studies:
 - Rambachan and Roth (2023) sensitivity 
 - Robust to varying linear trends
-]
 
 
-.pull-right[
-```{r, out.width = "550px", out.height = "500px", fig.align="center"}
+
+---
+# Robustness Sample Restrictions:
+```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/forest_sample_plot.jpeg")
 ```
-]
+
+---
+class: inverse, mline, center, middle
+
+# Mechanism
+
+
 ---
 # Potential Mechanism:
 
@@ -467,27 +485,29 @@ $$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\ba
 
 ---
 class: regression
-# Mechanism (Extensive Margin):
+# Mechanism: Less Officers
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_extensive.html')
 ```
 
 ---
-class: regression
-# Mechanisms (Intensive Margin)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_intensive.html')
-```
-
----
-# Police Schedule Heterogeneity:
+# Mechanism: Shift Times
 ```{r, out.width = "1000px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/watch_graph.jpeg")
 ```
 
+---
+class: regression
+# Mechanism: Intensive Margin
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/mechanism_intensive.html')
+```
+
 
 ---
-# Relaxing Common Trends:
+class: inverse, mline, center, middle
+
+# Heterogeneity by Priority
 
 ---
 # Trickle Down Effect: 
@@ -514,6 +534,32 @@ knitr::include_graphics("figures/priority_3_graph.jpeg")
 ]
 
 ]
+---
+class: inverse, mline, center, middle
+
+# Why Implement ShotSpotter?
+
+---
+# Possible Benefits?
+
+## Does ShotSpotter provide benefits?
+
+* Analyze the probability of a victim injury
+    - Following DeAngelo et al. (2023)
+
+## New Restrictions:
+
+* Restrict data to only *unrealized* events $\rightarrow$ police intervention may affect outcome
+* Examples: 
+  * Include: 'Call for Help' $\rightarrow$ unrealized
+  * Exclude: 'Person Shot' $\rightarrow$ realized
+* Main Result: Suggestive (not conclusive!) evidence of lower injury for gun-related calls
+
+---
+# Effect on Victim Injury:
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/victim_table.html')
+```
 ---
 # Conclusion:
 
