@@ -1,6 +1,6 @@
 ---
 title: "The Effect of ShotSpotter Technology on Police Response Times"
-subtitle: "Job Market Presentation"
+subtitle: "Applied Micro Lunch"
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
 date: "9/8/2023"
@@ -103,9 +103,9 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 --
 
 ### <font color="blue">**Research Question**</font>: 
-### How does investment in ShotSpotter affect the time allocation of scarce police resources ?
+### How does investment in ShotSpotter affect the time allocation of scarce police resources in terms of 911 response times?
 
-- Priority 1: 911 Call-to-Dispatch / 911 Call-to-On-Scene
+- Two outcomes: Priority 1 911 Call-to-Dispatch / Call-to-On-Scene
 
 ---
 # What is ShotSpotter and how does it work?
@@ -118,7 +118,7 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
 # Why do we care about response times?
 
 .font120[
-> “If police can arrive within one minute of the commission of an offense, they are more likely to catch the suspect. Any later and the chances of capture are very small, probably less than one in ten.”- (Baley 1996)
+> “If police can arrive within one minute of the commission of an offense, they are more likely to catch the suspect. Any later and the chances of capture are very small, probably less than one in ten.”- (David H. Baley 1996) 
 ]
 
 --
@@ -128,9 +128,9 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
 - Lower response times results in:
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
     - Less likelihood of an injury (DeAngelo et al. 2023)
-- Rapid response most important (College of Policing 2013)
+- Response $\rightarrow$ important component of investigation (College of Policing 2013)
 - Health implications
-    - Longer travel $\rightarrow$ worse patient outcomes (Wilde, 2013, Avdic, 2016)
+    - Delayed treatment $\rightarrow$ worse patient outcomes (Wilde, 2013, Avdic, 2016)
 ]
 ---
 # Why would ShotSpotter affect response times?
@@ -141,8 +141,8 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
   - A fixed amount of daily resources
   
 ### ShotSpotter Resource-Intensive:
-  - Classified as Priority 1 (highest)
   - Respond to every *hypothesized* gunfire 
+    - Known as a *ShotSpotter Alert*
   - ~60 daily dispatches
   - ~20 min investigating the scene
 
@@ -175,7 +175,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
  - All dispatched Priority 1 911 calls for police service
   - Police shifts
   - Arrests
-  - Victimizations
+  - Victim Injuries
 ]
 
 --
@@ -186,7 +186,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
   
 
 ## Main Results:
-  - For Priority 1 911 calls:
+  - When a civilian calls 911, a Priority 1 911 call experiences:
     - +1 minute Call-to-Dispatch (23%)
     - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (8%)
@@ -196,7 +196,7 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 ### In-depth, causal analysis on a wide-spread police technology, whose consequences are relatively unknown.
 
 --
-### Related Literature
+#### Related Literature
 
 .panelset.sideways[
 .panel[.panel-name[ShotSpotter Specific]
@@ -216,11 +216,18 @@ knitr::include_graphics("libs/figures/ShotSpotter__graphic.png")
 
 .panel[.panel-name[Rapid Response]
 <font color="blue"> We identify a determinant of higher response times, and can quantify at a micro-level. </font>
-- Effects of Response Times:
+- Lower Response Times:
   - Higher crime clearance (Blanes i Vidal and Kirchmaier, 2018)
   - Less likelihood of an injury (DeAngelo et al., 2023)
 ]
 
+.panel[.panel-name[AI in Workforce]
+<font color="blue"> Our results imply that artificial intelligence cannot replace police officers. </font>
+- Substitutes:
+  - AI operates better than human managers (Hoffman et al., 2018)
+- Complements:
+  - Human and algorithmic targeting work best together (Bhatt et al., 2023)
+]
 ]
 
 ---
@@ -228,29 +235,6 @@ class: inverse, mline, center, middle
 
 # Institutional Background and Setting
 
----
-# Important Officer Responsibilities:
-
-.pull-left[
-### 1. Patrol Assigned District
-  - .font80[Respond to incidents that are observed]
-  - .font80[District is ~100k people]
-  - .font80[Officers are assigned beats within districts]
-
-### 2. Respond to 911 calls
-  - .font80[Only assigned to calls within district]
-  - .font80[Also arrive to emergency medical crime scenes]
-  - .font80[Can result in arrest or case report]
-]
-
-.pull-right[
-### 3. Paperwork
-  - .font80[Document all their activity]
-  - .font80[Use-of-force, street stops, arrests, case reports all require substantial documentation.]
-
-### 4. Appear in Court
-  - .font80[Presents testimony]
-]
 ---
 # 911 Dispatch Procedure:
 
@@ -294,20 +278,6 @@ class: inverse, mline, center, middle
   - .font80[Officer arrives on-scene; makes case report or arrest if necessary.]
 ]
 
-.panel[.panel-name[Arrest]
-## 911 Dispatch Pipeline:
-
-1. Emergency call is made
-  - .font80[Civilian reports crime to 911.]
-2. Dispatcher dispatches police
-  - .font80[Dispatcher records info, finds available police to dispatch.] 
-3. Police travel to crime scene
-  - .font80[Police officer travels to the crime scene.]
-4. <mark>Police arrive on-scene</mark>
-  - .font80[<mark>Officer arrives on-scene; makes case report or arrest if necessary.</mark>]
-]
-
-
 ]
 
 ---
@@ -316,13 +286,13 @@ class: inverse, mline, center, middle
 .pull-left[
 
 ### Priority 1 (immediate dispatch):
-  - .font60[Imminent threat to life, bodily injury, or major property damage/loss]
+  - .font60[Imminent threat to life, bodily injury, or major property damage/loss. Example: 'person with gun' 'domestic battery']
 
 ### Priority 2 (rapid dispatch):
-  - .font60[Timely police action has the potential to affect the outcome of an incident]
+  - .font60[Timely police action has the potential to affect the outcome of an incident. Example: 'suspicious auto']
   
 ### Priority 3 (routine dispatch):
-  - .font60[Does not involve an imminent threat...a reasonable delay in police action will not affect the outcome of the incident]
+  - .font60[Does not involve an imminent threat...a reasonable delay in police action will not affect the outcome of the incident. Example: 'parking violation']
 ]
 
 .pull-right[
@@ -339,11 +309,10 @@ knitr::include_graphics("figures/priority_fractions.jpeg")
  - .font80[Implemented with full coverage across districts]
  - .font80[Rational: respond to high gun-crime]
 
-### Resource Intensive
-  - .font80[Priority 1]
+### Administrative Background
+  - .font80[Priority 1 - same as active shooter]
   - .font80[Same officers responding as 911 call]
   - .font80[Additional: canvass 25 meter radius, add information]
-  - .font80[~60 daily dispatches, 20 min avg.]
 ]
 
 .pull-right[
@@ -353,9 +322,9 @@ knitr::include_graphics("figures/map.jpeg")
 
 ]
 ---
-# ShotSpotter Dispatch Trends/Averages:
+# ShotSpotter Dispatch Trends:
 
-```{r, out.width = "900px", out.height = "550px", fig.align="center"}
+```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/shotspotter_trend.jpeg")
 ```
 ---
@@ -369,14 +338,14 @@ class: regression
 
 .pull-left[
 ### Data Overview:
+- Priority 1 911 Calls (2016-2022) with police dispatch
+- ShotSpotter dispatches $\neq$ 911 call
 - Freedom of Information Act
-- Priority 1 911 Call-Related Dispatches (2016-2022)
-- No ShotSpotter dispatches
+
 ]
 
 .pull-right[
 ### Exclusions:
-- Exclude lower priority calls
 - Outliers (0.04%; 1.6%), Negative response times (.03%)
 - January 1/July 4/December 31
 ]
@@ -390,7 +359,7 @@ xfun::file_string('tables/summary_stats.html')
 
 
 ---
-class: regression
+
 # Estimation Strategy:
 ### Specification (OLS):
 
@@ -398,14 +367,13 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + 
 --
 
 * $\text{ResponseTime}_{cdt}$ is call $c$ in police district $d$ in time $t$.
-  - Priority 1 911 Call-to-Dispatch/911 Call-to-On-Scene
 * $\text{ShotSpotter}_{dt}$ is the binary treatment
 * $\eta_{\bar{c}}$ is a call-type fixed effect
 * $\delta_{d}$ is a police district-specific fixed effect
 * $\mathbb{X}_{f(t)}$ is a vector of time-varying controls:
     - Hour-of-day and day-by-month-by-year
 * Standard errors clustered by police district
-* <font color="blue"> Intuitively, this is the average change in response times on days with ShotSpotter accounting for expected differences in districts/time/call-types. </font>
+* <font color="blue"> Intuitively, this is estimating the average change in response times on days with ShotSpotter accounting for expected differences in districts/time/call-types. </font>
 
 
 ---
@@ -431,7 +399,7 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + 
 --
 
 #### 4. OLS with staggered rollouts:
-  * .font80[Two-stage difference-in-differences (Gardner 2022)]
+  * .font80[Two-stage difference-in-differences (Gardner 2022) similar to Borusyak et al. (2021)]
 
 ---
 class: inverse, mline, center, middle
@@ -463,7 +431,7 @@ xfun::file_string('tables/onscene_table.html')
 ```
 ]
 
-.panel[.panel-name[Arrest Rate]
+.panel[.panel-name[Arrest Probability]
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/arrest_table.html')
 ```
@@ -488,23 +456,15 @@ knitr::include_graphics("figures/eos_1_es.jpeg")
 # Robustness:
 
 ## Main Results:
-- Leave-one-out analysis
+- Leave-one-out analysis - ensure results are not driven by 1 district
 - Sample restrictions:
-  - Omit 2020 (Covid-19)
+  - Omit 2020 (Covid-19) 
   - Reintroduce outliers
   - Reintroduce omitted days
   
 ## Event Studies:
 - Rambachan and Roth (2023) sensitivity 
-- Robust to varying linear trends
-
-
-
----
-# Robustness Sample Restrictions:
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/forest_sample_plot.jpeg")
-```
+- Robust to varying trend-types
 
 ---
 class: inverse, mline, center, middle
@@ -515,37 +475,38 @@ class: inverse, mline, center, middle
 ---
 # Potential Mechanism:
 
-<font color="blue"><b>ShotSpotter overflows an officer's production function and incapacitates them from attending to other tasks.</b></font>
+<font color="blue"><b>ShotSpotter expands an officer's responsibilities and incapacitates them from attending to other tasks.</b></font>
 
-#### 1. Estimate most resource-constrained times (extensive margin)
-  - Split by police-district median number of officer hours
-  - Separate by shift-type
+#### 1. Extensive Margin: Estimate most resource-constrained times 
+  - .font80[Split by police-district median number of officer hours]
+  - .font80[Separate by shift-type]
     
-#### 2. Use ShotSpotter dispatches as intensity measure (intensive margin)
+#### 2. Intensive Margin: Use ShotSpotter dispatches as intensity measure 
+  - .font80[If we can assume the number of alerts within a district day is random, the following will estimate the marginal effect of an extra ShotSpotter dispatch:]
 
 $$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$
 
-  - $\text{NumberSSTDispatches}_{dt}$ is number of ShotSpotter dispatches in a police-district
-  - Restrict to only treated periods
+  - $\text{NumberSSTDispatches}_{dt}$ .font80[is number of ShotSpotter dispatches in a police-district]
+  - .font80[Restrict to only treated periods]
 
 
 
 ---
 class: regression
-# Mechanism: Less Officers
+# Extensive Margin: Less Officers
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_extensive.html')
 ```
 
 ---
-# Mechanism: Shift Times
+# Extensive Margin: Shift Times
 ```{r, out.width = "1000px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/watch_graph.jpeg")
 ```
 
 ---
 class: regression
-# Mechanism: Intensive Margin
+# Intensive Margin: ShotSpotter Dispatches
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_intensive.html')
 ```
@@ -554,10 +515,23 @@ xfun::file_string('tables/mechanism_intensive.html')
 ---
 class: inverse, mline, center, middle
 
-# Heterogeneity by Priority
+# Heterogeneity 
 
 ---
-# Trickle Down Effect: 
+# Two Types of Heterogeneity Analysis:
+
+## 1. Analyze specific call-types
+  - Analyze a specific call for the most frequent offenses
+  - Large health implications with emergency medical services/domestic calls
+
+## 2. Split by priority of call
+  - A 'trickle down' effect in Priority 2, suggestive for Priority 3
+  - No time for high priority == no time for lower priorities
+  - Lends to the idea that officers are facing more responsibilities than they can handle
+  
+
+---
+# Priority and Call-type Heterogeneity: 
 
 
 .panelset.sideways[
@@ -584,7 +558,7 @@ knitr::include_graphics("figures/priority_3_graph.jpeg")
 ---
 class: inverse, mline, center, middle
 
-# Why Implement ShotSpotter?
+# Intended Consequence?
 
 ---
 # Possible Benefits?
@@ -600,7 +574,7 @@ class: inverse, mline, center, middle
 * Examples: 
   * Include: 'Call for Help' $\rightarrow$ unrealized
   * Exclude: 'Person Shot' $\rightarrow$ realized
-* Main Result: Suggestive (not conclusive!) evidence of lower injury for gun-related calls
+* Main Result: Suggestive (not conclusive!) evidence of lower injury probability, driven by gun-related calls
 
 ---
 # Effect on Victim Injury:
@@ -618,9 +592,16 @@ xfun::file_string('tables/victim_table.html')
           - Call-to-Dispatch (+1 minute/ 23% increase)
           - Call-to-On-Scene (+2 minutes/ 13% increase)
       - Lower arrest rates  (8% decrease)
-- Suggestive evidence of effectiveness $\rightarrow$ more officers needed to mitigate unintended consequences
+    - Intended Consequence:
+          - Suggestive evidence of effectiveness in probability of gun-related victim injury
+- Mechanism: incapacitation and misallocation of officer resources
+    - More officers needed to mitigate unintended consequences
 - Other recommendations appreciated
 
-  
+---
+class: inverse, mline, center, middle
+
+# Thank you
+
 
 

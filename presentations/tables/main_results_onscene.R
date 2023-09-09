@@ -84,7 +84,7 @@ onscene_table <- dispatch_raw_os %>%
                            model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_2 = "0.012",
             model_3 = "", model_4 = "0.017", .before = 7) %>% 
-  add_row(term = "Gardner (2022) Robust", model_2 = "", model_3 = "X", model_4 = "") %>% 
+  add_row(term = "Gardner (2022) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
   slice(-c(8:11)) %>% 
   clean_raw(caption = "Effect of ShotSpotter Enactment on Call-to-On-Scene (OLS)",
             pretty_num = T) %>% 
