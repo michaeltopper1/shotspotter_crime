@@ -12,7 +12,9 @@ if (!exists("dispatch_panel")){
 }
 
 ## need this for body worn camera implementation
-bwc <- read_csv("created_data/bwc_rollout.csv")
+bwc <- read_csv("created_data/bwc_rollout.csv") %>% 
+  mutate(bwc_date = mdy(bwc_date),
+         sdsc_max = mdy(sdsc_max))
 
 setFixest_fml(..ctrl = ~0| district + date +
                 final_dispatch_description + hour)
@@ -21,7 +23,10 @@ setFixest_fml(..ctrl = ~0| district + date +
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
   left_join(bwc) %>% 
   mutate(treatment_bwc = if_else(date >= bwc_date, 1, 0),
-         treatment_bwc = if_else(is.na(treatment_bwc), 0, treatment_bwc), .by = district)
+         treatment_bwc = if_else(is.na(treatment_bwc), 0, treatment_bwc),
+         treatment_sdsc = if_else(date >=sdsc_max, 1, 0),
+         treatment_sdsc = if_else(is.na(treatment_sdsc), 0, treatment_sdsc),
+         .by = district)
 
 
 # Panel A: call to dispatch --------------------------------------------------------

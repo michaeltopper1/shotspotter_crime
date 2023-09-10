@@ -29,7 +29,7 @@ produce evidence of a shooting or any other criminal activity, a corresponding c
 sst_fraction_found <- sst %>% 
   count(final_disposition_description,rd, sort = T) %>% 
   mutate(total = sum(n)) %>% 
-  mutate(n/total) %>%View()
+  mutate(n/total) %>%
   head()
 
 sst_fraction_found

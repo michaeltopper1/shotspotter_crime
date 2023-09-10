@@ -6,6 +6,10 @@ library(did2s)
 
 
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
+bwc <- read_csv("created_data/bwc_rollout.csv") %>% 
+  mutate(bwc_date = mdy(bwc_date),
+         sdsc_max = mdy(sdsc_max))
+
 
 footnotes <- map(list("This table shows
                       the implementation dates of ShotSpotter technology and
@@ -14,7 +18,7 @@ footnotes <- map(list("This table shows
                       The Difference column shows the number of days between
                       the SDSC implementation and ShotSpotter activation. On
                       average, this is approximately
-                      73 days. SDSCs contain many police prediction softwares, however,
+                      73 days in districts that have both ShotSpotter and an SDSC. SDSCs contain many police prediction softwares, however,
                       only Hunchlab, a location prediction software,
                       is implemented in conjuction with these. This software has been
                       found to only change patroling behaviors in
@@ -24,9 +28,9 @@ footnotes <- map(list("This table shows
 
 rollout_difference <- rollout_dates %>% 
   full_join(bwc) %>% 
-  select(district, shotspot_activate, sdsc, bwc_date) %>% 
-  mutate(across(starts_with("s"), ~mdy(.))) %>% 
-  mutate(difference = shotspot_activate - sdsc,
+  select(district, shotspot_activate, sdsc_max, bwc_date) %>% 
+  mutate(across(starts_with("shotspot"), ~mdy(.))) %>% 
+  mutate(difference = shotspot_activate - sdsc_max,
          difference_bwc = abs(shotspot_activate - bwc_date)) %>%
   mutate(across(everything(), ~as.character(.) %>% replace_na(""))) %>%
   mutate(difference = if_else(difference != "",glue::glue("{difference} days"), ""),

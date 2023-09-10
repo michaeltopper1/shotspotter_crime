@@ -105,9 +105,9 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          number of dispatches due to ShotSpotter alerts. Importantly, Number of SST Dispatches is
          also at the district-by-day level and includes days in which
          ShotSpotter is not implemented. The average daily number of ShotSpotter dispatches across Chicago
-         once all 12 districts have implemented ShotSpotter is approximately 60. Note that
+         once all 12 districts have implemented ShotSpotter is approximately 70. Note that
          New Years Eve/New Years Day/Fourth of July are excluded from the sample as
-         ShotSpotter alerts can be as high as 392 on these days. 
+         these days correspond with high amounts of celebratory gunfire. 
                   "), ~str_remove_all(., "\n"))
 
 summary_stats <- summary_stats_raw %>% 
