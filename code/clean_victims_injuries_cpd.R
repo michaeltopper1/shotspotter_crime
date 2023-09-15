@@ -7,15 +7,38 @@
 
 library(tidyverse)
 
-adult_1 <- readxl::read_excel("raw_data/arrests_injuries.xlsx", sheet = "Adult Victims 1")
+adult_1 <- readxl::read_excel("raw_data/victim_injuries.xlsx", sheet = "Adult Victims 1")
 
-adult_2 <- readxl::read_excel("raw_data/arrests_injuries.xlsx", sheet = "Adult Victims 2")
+adult_2 <- readxl::read_excel("raw_data/victim_injuries.xlsx", sheet = "Adult Victims 2")
+
+juvenile <- readxl::read_excel("raw_data/victim_injuries.xlsx", sheet = "Juvenile Data") %>% 
+  janitor::clean_names()
 
 all_victims <- adult_1 %>% 
   bind_rows(adult_2)
 
-all_victims <- all_arrests %>% janitor::clean_names()
+all_victims <- all_victims %>% janitor::clean_names()
 
+
+# finding amount of juveniles ---------------------------------------------
+
+# 
+# victims_adults <- all_victims %>% 
+#   mutate(date_time = mdy_hm(date_time),
+#          date = as_date(date_time), 
+#          year = year(date)) %>%
+#   mutate(victim_injury = if_else(victim_injury == "Y", 1, 0)) %>% 
+#   filter(victim_injury == 1) %>% 
+#   summarize(total_victims = sum(victim_injury), .by = year)
+# victims_juvenile <- juvenile %>% 
+#   filter(victim_injury == "Y") %>% 
+#   summarize(juvenile_total = sum(total, na.rm = T), .by = year)
+# 
+# victims_adults %>% 
+#   bind_cols(victims_juvenile) %>% 
+#   janitor::adorn_totals() %>% 
+#   mutate(frac_juv = juvenile_total / total_victims)
+# 
 
 # This is a trend graph to make certain all the data is there.
 # all_victims %>% 

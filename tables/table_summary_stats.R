@@ -40,8 +40,7 @@ if (!exists("dispatch_panel")){
 #   round(2)
 
 victim <- dispatch_panel_p1 %>% 
-  filter(time_sensitive_call == 1) %>% 
-  datasummary((`Victim Injury (Time-Sensitive)` = victim_injury_time_sensitive_call)~
+  datasummary((`Victim Injury` = victim_injury)~
                 Mean + SD  + Min  +Max + N,
               data = .,
               output = "data.frame")
@@ -94,8 +93,7 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          Arrest Probability is the probability of
          an arrest occuring during a dispatch.
          Victim Injury Probability is the probability of a victim being injured
-         during a time-sensitive dispatch call. A time-sensitive dispatch call is one
-         in which the injury outcome has not yet been realized.
+         on the 911 dispatch call.
          Priority 1 refers to an immediate dispatch, 
          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. Officer Hours are the 
          number of working hours sworn police officers work at the district-day level. 

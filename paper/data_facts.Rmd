@@ -62,5 +62,5 @@ sst %>%
   theme_minimal()
 ```
 
-
+Juneviles account for 11% of victims in our data over 2016-2022. We cannot connect these to 911 calls.
 

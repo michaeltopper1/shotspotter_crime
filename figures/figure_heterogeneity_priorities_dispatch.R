@@ -30,14 +30,15 @@ tidy_estimates <- function(model, description, priority) {
     filter(term == "treatment") %>% 
     mutate(term = description,
            priority = priority)
-  mean <- model %>% fitstat(., type = "my") %>% as.numeric() %>% 
+  mean <- model %>% fitstat(., type = "my") %>% as.numeric() %>%
+    round(2) %>% 
     as_tibble() %>% rename(mean = value)
   nobs <- model$nobs %>% as_tibble() %>% rename(nobs = value) %>% 
     mutate(nobs = nobs %>% scales::comma())
   results <- estimates %>% 
     mutate(estimate = round(estimate, 2)) %>% 
     bind_cols(nobs, mean) %>% 
-    mutate(term_expand = glue::glue("{term}\nEstimate: {estimate} N: {nobs}")) %>% 
+    mutate(term_expand = glue::glue("{term}\nMean: {mean} N: {nobs}")) %>% 
     mutate(percent_change = estimate/mean)
   return(results)
 }
@@ -49,7 +50,7 @@ tidy_estimates <- function(model, description, priority) {
 
 p1_0 <- dispatch_panel_p1 %>% 
   feols(entry_to_dispatch ~treatment + ..ctrl) %>% 
-  tidy_estimates(description = "Aggregate Estimate", 1)
+  tidy_estimates(description = "Pooled Estimate", 1)
   
 p1_1 <- dispatch_panel_p1 %>%
   filter(final_dispatch_description == "DOMESTIC DISTURBANCE") %>% 
@@ -82,7 +83,7 @@ p1_5 <- dispatch_panel_p1 %>%
 
 p2_0 <- dispatch_panel_p2 %>% 
   feols(entry_to_dispatch ~treatment + ..ctrl) %>% 
-  tidy_estimates("Aggregate Estimate", 2)
+  tidy_estimates("Pooled Estimate", 2)
 
 p2_1 <- dispatch_panel_p2 %>%
   filter(final_dispatch_description == "ALARM BURGLAR") %>% 
@@ -116,7 +117,7 @@ p2_5 <- dispatch_panel_p2 %>%
 
 p3_0 <- dispatch_panel_p3 %>% 
   feols(entry_to_dispatch ~treatment + ..ctrl) %>% 
-  tidy_estimates("Aggregate Estimate", 3)
+  tidy_estimates("Pooled Estimate", 3)
 
 p3_1 <- dispatch_panel_p3 %>% 
   filter(final_dispatch_description == "DISTURBANCE") %>% 
@@ -160,12 +161,13 @@ priorities_dispatch <- descriptions %>%
   mutate(priority_description = case_when(
     priority ==1  ~ "Immediate Dispatch",
     priority == 2 ~ "Rapid Dispatch",
-    priority == 3 ~ "Administrative Dispatch"
+    priority == 3 ~ "Routine Dispatch"
   )) %>% 
   mutate(across(starts_with("conf"), ~./mean )) %>% 
   mutate(priority = glue::glue("Priority {priority}\n({priority_description})")) %>% 
-  mutate(main_estimate = if_else(term == "Aggregate Estimate", "Color1", "Color2")) %>% 
-  mutate(term_expand = fct_reorder(term_expand, -row_number())) %>% 
+  mutate(main_estimate = if_else(term == "Pooled Estimate", "Color1", "Color2")) %>% 
+  mutate(term_expand = fct_reorder(term_expand, mean) , .by = c( main_estimate, priority)) %>%
+  mutate(term_expand = fct_rev(term_expand)) %>% 
   ggplot(aes(term_expand, percent_change, shape = priority,
              color = main_estimate)) +
   geom_point() +
@@ -177,7 +179,7 @@ priorities_dispatch <- descriptions %>%
   coord_flip() +
   facet_wrap(~priority,scales = "free_y", ncol = 1) +
   ggthemes::scale_color_stata() +
-  labs(x = "", y = "Percent Change from Mean and 95% Confidence Interval") +
+  labs(x = "", y = "Percentage Change from the Mean and 95% Confidence Interval") +
   theme_minimal() +
   theme(legend.position = "non")
 
