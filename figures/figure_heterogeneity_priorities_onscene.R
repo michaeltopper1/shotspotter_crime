@@ -175,11 +175,11 @@ priorities_onscene <- descriptions %>%
              linetype = "dashed") +
   scale_y_continuous(labels =scales::percent_format()) +
   coord_flip() +
-  facet_wrap(~priority,scales = "free_y", ncol = 1) +
+  facet_wrap(~priority,scales = "free_y", ncol = 2) +
   ggthemes::scale_color_stata() +
   labs(x = "", y = "Percent Change from Mean and 95% Confidence Interval") +
   theme_minimal() +
   theme(legend.position = "non")
 
 ggsave(priorities_onscene, filename = "paper/figures/priorities_onscene.jpeg",
-       width = 7, height = 7)
+       width = 7, height = 5)

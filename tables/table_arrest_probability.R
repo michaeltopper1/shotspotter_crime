@@ -51,36 +51,49 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "Standard errors are clustered by district. 
-                  Panel A shows Arrest Rate defined as the number of arrests made
-                  divided by the number of dispatches, while Panel B shows Injury defined as the
-                  number of injury-related dispatches divided by the number of dispatches that are time-sensitive (see Appendix Figure BLANK). 
-                  Columns 2 and 3 subset Column 1 by gun-related and non-gun-related arrest rates and injury rates.
-                  Gun-related crimes for Arrest Rate are those corresponding to a person with a gun,
-                  shots fired, or a person shot. Gun-related crimes to Injury Rate corresponds to
-                  person with gun or shots fired.
-                  Columns 3-5 report the 
-                  top 3 most frequent calls that end in arrests: Domestic Battery,
-                  Domestic Disturbance, and Battery. Observations are not consistent across each
-                  call type since not every type of call occurs on every district-day. Controls
-                  of officer hours and number of dispatches
-                  are included in all specifications. 
+                      "Standard errors are clustered by district. All
+                      coefficient estimates are in seconds.
+                      The dependent variable is an indicator equal to one if a 911 call ended in an arrest.
+                      Column 1 reports the pooled estimates using the entire sample.
+                  Columns 2 and 3 subset Column 1 by gun-related and non-gun-related 911 calls.
+                  Gun-related crimes are those corresponding to the following
+                  911 code descriptions: `person with a gun',
+                  `shots fired', or `person shot'. 
+                  Columns 4-6 report the three most frequent 911 calls that end in arrest: Domestic Disturbance,
+                  Domestic Battery, and Robbery. Wild cluster bootstrap p-values using 999 replications are also reported
+                  since the number of clusters (22) is below the threshold of 30 put forth in
+                  Cameron et al. (2008).
                   "), ~str_remove_all(., "\n"))
 
+arrest_table_raw <-
+  panelsummary_raw(
+    list(
+      arrest_rate,
+      arrest_rate_gun,
+      arrest_rate_no_gun,
+      arrest_rate_domestic_bat,
+      arrest_rate_domestic_disturb,
+      arrest_rate_battery
+    ),
+    mean_dependent = T,
+    stars = "econ",
+    coef_map = c(
+      "treatment" = "ShotSpotter Activated",
+      "shotspot_border_treatment" = "Border Activated"
+    ),
+    gof_omit = "^R|A|B|S",
+    fmt = 3,
+    gof_map = gof_mapping
+  ) 
 
-arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_domestic_bat,
-                  arrest_rate_domestic_disturb, arrest_rate_battery
-                  ),
-             mean_dependent = T, stars = "econ",
-             coef_map = c( "treatment" = "ShotSpotter Activated",
-                           "shotspot_border_treatment" = "Border Activated"),
-             gof_omit = "^R|A|B|S",
-             fmt = 3,
-             gof_map = gof_mapping,
-             collapse_fe = T,
-             format = "latex",
-             pretty_num = T,
-             caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
+
+arrest_prob <- arrest_table_raw %>% 
+  janitor::clean_names() %>% 
+  add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.412",
+          model_3 = "0.003", model_4 = "0.003", model_5 = "0.049", model_6 = "0.109", .before = 5) %>%
+  clean_raw(pretty_num = T, format = 'latex',
+            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Probability (OLS)") %>% 
+  row_spec(5, hline_after = T) %>% 
   add_header_above(c(" " = 1,
                      "All" = 1,
                      "Gun" = 1,
@@ -90,7 +103,7 @@ arrest_prob <- panelsummary(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gu
                      "Robbery" = 1)) %>% 
   add_header_above(c(" " = 2,
                      "Gun-Relation" = 2,
-                     "Most Frequent Arrest Types" = 3)) %>% 
+                     "Most Frequent Arrest 911 Calls" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 

@@ -64,3 +64,25 @@ sst %>%
 
 Juneviles account for 11% of victims in our data over 2016-2022. We cannot connect these to 911 calls.
 
+
+## victimization over time
+
+```{r}
+
+
+victims_overal <- read_csv(here::here("analysis_data/victims_panel.csv"))
+
+victims_overal %>% 
+  mutate(
+          year = year(date),
+          month = month(date),
+          day = day(date),
+          year_month = mdy(paste0(month, "-1-", year))) %>% 
+  mutate(victim_gun = num_any_victim - num_victim_no_gun) %>% 
+  group_by(year_month) %>% 
+  summarize(n = sum(victim_gun, na.rm  = T)) %>% 
+  ggplot(aes(year_month, n)) +
+  geom_line()
+
+```
+

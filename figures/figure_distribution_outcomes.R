@@ -26,11 +26,11 @@ distribution_outcomes <- dispatch_panel_p1 %>%
   geom_histogram(position = "identity", alpha = 0.6) +
   geom_vline(aes(xintercept = mean, color = outcome), linetype = "dashed") +
   scale_y_continuous(labels = scales::comma) +
-  scale_x_continuous(breaks = c(0, 1000,  2000, 3000),
-                     labels = c("0","1000", "2000", "3000+")) +
+  scale_x_continuous(breaks = c(0, 281, 770,1000,  2000, 3000),
+                     labels = c("0","281","770","1000", "2000", "3000+")) +
   ggthemes::scale_fill_stata() +
   ggthemes::scale_color_stata() +
-  labs(x = "Time (seconds)", y = "Count",
+  labs(x = "Response Time (seconds)", y = "Count",
        color = "", fill = "") +
   theme_minimal() +
   theme(legend.position = "bottom", panel.grid.major = element_blank())

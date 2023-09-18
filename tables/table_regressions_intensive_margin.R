@@ -124,21 +124,16 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. 
+                      ShotSpotter Activated is a binary equal to one when
+                      a district has ShotSpotter technology (extensive margin).
                       Number SST Dispatches refers to the number of
-                      ShotSpotter dispatches that occur within a district-day.
+                      ShotSpotter dispatches that occur within a district-day (intensive margin).
                       All coefficient estimates are in seconds. Panel A reports results for
                       Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.
-                      Call-to-Dispatch is the amount of time from a 911 call to 
-                      when a police officer is dispatched to the scene of the crime.
-                      Call-to-On-Scene is the time from a 911 call to the time a police
-                      officer arrives on-scene. In Column 1, the controls of officer hours and number of
-                      911 dispatches are not included. Column 2 shows the preferred
-                      specification, while Columns 3 and 4 split the sample by median number
-                      of officer hours
-                      within districts to show that response times are driven by
-                      resource-constrained time periods. Observations for Call-to-On-Scene
-                      do not exactly match Call-to-Dispatch since there is one district-day
-                      that is missing information for Call-to-On-Scene. 
+                      Officer availability is measured by number of officer hours within a district-day. 
+                      Columns 2 and 5 correspond to district-days that have officer hours above
+                      their district median (more officer availability), while Columns 3 and 6 correspond to district-days that
+                      have officer hours below their district median (less officer availability).
                   "), ~str_remove_all(., "\n"))
 
 mechanism_table_raw <- panelsummary_raw(list(ed_preferred_1,
@@ -167,9 +162,9 @@ mechanism_table <- mechanism_table_raw %>%
   add_header_above(c(" " = 1, "Pooled" = 1, "> Median" = 1, "<= Median" = 1,
                      "Pooled" = 1, "> Median" = 1, "<= Median" = 1)) %>% 
   add_header_above(c(" " = 2,
-                     "Officer Hours" = 2,
+                     "Officer Availability" = 2,
                      " " = 1,
-                     "Officer Hours" = 2)) %>% 
+                     "Officer Availability" = 2)) %>% 
   add_header_above(c(" " =1,
                      "ShotSpotter Rollout" = 3,
                      "ShotSpotter Dispatches" = 3)) %>% 

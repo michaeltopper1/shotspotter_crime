@@ -100,4 +100,4 @@ decile_figure <- decile_dispatch %>%
 
 
 ggsave(decile_figure, filename = "paper/appendix_figures/decile_figure.jpeg",
-       width = 7, height = 7)
+       width = 7, height =5)

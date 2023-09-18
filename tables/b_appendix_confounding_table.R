@@ -114,16 +114,28 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "Standard errors are clustered by district. Columns 1-2 of Panel A show
-                       Call-to-Dispatch estimates when controlling for Strategic
-                      Decision Support Center (SDSC) rollout. In Columns 3 and 4, 
+                      "Standard errors are clustered by district.
+                      Coefficient estimates are in seconds.
+                      Columns 1 and 2 of Panel A show
+                       Call-to-Dispatch estimates when controlling for the implementation
+                      of Strategic
+                      Decision Support Centers (SDSC). In Columns 3 and 4, 
                       police districts 7 and 9 are omitted as Kapustin et al. (2022) shows that SDSCs 
                       affect
                       police patrolling in these districts. Panel B is similar to Panel A,
                       with the outcome of interest being Call-to-On-Scene times. In Columns 5 and 6,
                       we control for Body-Worn Camera (BWC) adoption. Note that in each specification,
                       controls are consistent with the preferred specification. OLS estimates are reported
-                      in odd-numbered columns, while Gardner (2022) robust estimates are reported in even columns.
+                      in odd-numbered columns, while Gardner (2021) robust estimates are reported in even columns.
+                      The coefficient estimates of controls when using Gardner (2021) estimator are not reported as the 
+                      two-stage method only returns the coefficient estimate of interest on
+                      the treated variable. In addition, the two-stage procedure may drop observations
+                      in the first stage if unable to predict values. This happens infrequently as shown
+                      in the observation counts, but is worth noting. Finally,
+                      Wild cluster bootstrap p-values using 999 iterations are also reported
+                  as the number of clusters (22) is below the threshold of 30 put forth in
+                  Cameron et al. (2008). The bootstrap procedure cannot be performed using the Gardner (2021) estimator.
+                      
                    
                   "), ~str_remove_all(., "\n"))
 
@@ -151,13 +163,13 @@ confounding_table <- confounding_table_raw %>%
                            model_1, model_2),
          model_6 = if_else(term == "Mean of Dependent Variable", 
                            model_5, model_6)) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.008", model_2 = "0.003",
-          model_3 = "", model_4 = "", model_5 = "0.062", model_6 = "", .before = 9) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.008", model_2 = "0.003",
-          model_3 = "", model_4 = "", model_5 = "0.062", model_6 = "", .before = 18) %>% 
-  add_row(term = "Gardner (2022) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "X",
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.006", model_2 = "",
+          model_3 = "0.004", model_4 = "", model_5 = "0.010", model_6 = "", .before = 9) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.002", model_2 = "",
+          model_3 = "0.001", model_4 = "", model_5 = "0.002", model_6 = "", .before = 18) %>% 
+  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "X",
           model_5 = "", model_6 = "X") %>% 
-  clean_raw(pretty_num =  T, caption = "\\label{confounding_table}Robustness of Estimates Controlling for Other Technologies",
+  clean_raw(pretty_num =  T, caption = "\\label{confounding_table}Robustness of Estimates Controlling for Other Technologies (OLS)",
             format = "latex") %>% 
   pack_rows("Panel A: Call-to-Dispatch", 1, 9, italic = T, bold = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 10,18, italic = T, bold = F,

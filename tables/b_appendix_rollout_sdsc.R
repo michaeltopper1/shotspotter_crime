@@ -18,10 +18,13 @@ footnotes <- map(list("This table shows
                       The Difference column shows the number of days between
                       the SDSC implementation and ShotSpotter activation. On
                       average, this is approximately
-                      73 days in districts that have both ShotSpotter and an SDSC. SDSCs contain many police prediction softwares, however,
+                      73 days in districts that have both ShotSpotter and an SDSC. SDSCs contain many 
+                      police prediction softwares, however,
                       only Hunchlab, a location prediction software,
-                      is implemented in conjuction with these. This software has been
-                      found to only change patroling behaviors in
+                      is implemented in conjuction with these as the others
+                      had been previously used in Chicago prior to SDSCs. 
+                      Hunchlab has been
+                      found to only change patrolling behaviors in
                       districts 7 and 9 as discussed in Kapustin et al. (2022). Further
                       robustness of the results including SDSC implementation dates
                       as controls are shown in Appendix Table B2."), ~str_remove_all(., "\n"))

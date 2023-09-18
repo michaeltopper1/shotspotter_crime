@@ -69,7 +69,7 @@ hetero_resource <- watch_reg %>%
   ggplot(aes(type, estimate, color = resource_constraint)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.1) +
-  facet_wrap(outcome~group, scales = "free") +
+  facet_wrap(~outcome, scales = "free") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
   scale_fill_manual(values =c("#808080","#1a476f", "#90353b")) +
   coord_flip() +
@@ -96,7 +96,11 @@ sst_by_hour <- sst %>%
   mutate(average_watch = mean(n), .by = watch, .before = 1) %>% 
   ggplot(aes(hour,n, fill = watch)) +
   geom_col(alpha = 0.8) +
-  scale_x_continuous(breaks = c(0:23)) +
+  scale_x_continuous(breaks = c(0, 8, 16, 23),
+                     labels = c("00:00",
+                                "08:00",
+                                "16:00",
+                                "23:00")) +
   scale_y_continuous(labels = scales::comma) +
   theme_minimal() +
   ggthemes::scale_fill_stata() +
@@ -109,7 +113,7 @@ sst_by_hour <- sst %>%
 
 watch_graph <- sst_by_hour + hetero_resource  + patchwork::plot_layout(ncol = 1) +
   plot_annotation(tag_levels = 'A', tag_prefix = "Panel ") & 
-  theme(plot.tag = element_text(size = 11))
+  theme(plot.tag = element_text(size = 10))
 
 ggsave(watch_graph, filename = "paper/figures/watch_graph.jpeg",
-       width = 7, height = 6.5)
+       width = 7, height = 6)

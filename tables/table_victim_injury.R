@@ -44,16 +44,20 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "Standard errors are clustered by district. 
-                      The main outcome variable is the probability of a victim being
-                      injured.
-                      The Pooled column refers to using the entire sample of time-sensitive Priority 1
+                      "Standard errors are clustered by district. All coefficient
+                      estimates are in seconds.
+                      The main variable is the probability of a victim being
+                      injured during a 911 call dispatch.
+                      The Pooled column reports estimates using the entire sample of Priority 1
                       dispatches.
-                      Gun Dispatch is restricted to only gun-related dispatches including
-                      'Person with a Gun', 'Person Shot', and 'Shots Fired'. Non-Gun Dispatch are all other
-                      dispatches. In all columns the preferred specification is estimated using
-                      OLS. Wild Cluster Bootstrap pvalues are obtained with 1000 iterations due to the relatively
-                      low number of clusters (22).
+                      Gun Dispatch (Column 2) is restricted to only gun-related 911 call dispatches which
+                      have the following 911 code descriptions:
+                      `person with a gun',
+                  `shots fired', or `person shot'. Non-Gun Dispatch (Column 3) are all other
+                      911 call dispatches that are not related to gun descriptions. In all columns the preferred specification is estimated using
+                      OLS. Wild cluster bootstrap p-values using 999 replications are also reported
+                  since the number of clusters (22) is below the threshold of 30 put forth in
+                  Cameron et al. (2008).
                   
                   "), ~str_remove_all(., "\n"))
 

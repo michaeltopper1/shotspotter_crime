@@ -6,7 +6,7 @@
 \fontsize{11}{13}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{8cm}ccc}
 \toprule
-\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Hours} \\
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Availability} \\
 \cmidrule(l{3pt}r{3pt}){3-4}
 \multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} \\
 \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4}
@@ -31,7 +31,7 @@
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district. In Panel A,                      the table shows regressions on a binary variable equal to                      one if Call-to-On-Scene is missing. Columns 2 and 3 are split by                      district-day medians of officer hours. In Panel B, Call-to-Dispatch                      time is estimated with an additional interaction term in order to show                      that there is no difference in Call-to-Dispatch time when there is                       missing on-scene data. Note that in these specifications, the fixed effects                      are also interacted to get a similar interpretation as if there were two separate                      regressions estimated. All controls utilized in these regressions                      are consistent with the preferred specification and are estimated                      using OLS.                  
+\item Standard errors are clustered by district. All coefficient                      estimates are in seconds. In Panel A,                      the table shows regressions on a binary variable equal to                      one if Call-to-On-Scene is missing. Columns 2 and 3 are split by                      district-day medians of officer hours. In Panel B, Call-to-Dispatch                      time, which contains no missing data, is estimated with an additional interaction term                      which interacts Call-to-Dispatch time with the indicator for whether                      on-scene time is missing. The coefficient estimate on this term shows that                      that there is no difference in Call-to-Dispatch time when there is                       missing on-scene data. Note that in these specifications, the fixed effects                      are also interacted to get a similar interpretation as if there were two separate                      regressions estimated. All controls utilized in these regressions                      are consistent with the preferred specification and are estimated                      using OLS.                  
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

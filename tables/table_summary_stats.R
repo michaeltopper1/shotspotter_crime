@@ -77,7 +77,7 @@ summary_stats_raw <- dispatch_panel_p1 %>%
                 (`Call-to-On-Scene` = entry_to_onscene) +
                 entry_to_onscene_mins + 
                 (`Arrest Made` = arrest_made) +
-                (`Number Dispatches` = number_dispatches) +
+                (`Number 911 Dispatches` = number_dispatches) +
                 (`Number SST Dispatches` = number_sst_dispatches) +
                 (`Officer Hours` = officer_hours) ~ Mean + SD + Min  +Max + N,
               data = .,
@@ -87,25 +87,25 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          the call-level. Call-to-Dispatch represents 
          the amount of time from the 911 call to an officer dispatching
          to the scene. Call-to-On-Scene is the time from a 911 call to
-         when an officer arrives on scene.
-         Call-to-On-Scene is missing approximately 45 percent
+         when an officer arrives on-scene.
+         Priority 1 Call-to-On-Scene is missing approximately 45 percent
          of on-scene times. This is discussed further in Appendix A.
-         Arrest Probability is the probability of
-         an arrest occuring during a dispatch.
-         Victim Injury Probability is the probability of a victim being injured
-         on the 911 dispatch call.
+         Arrest Made is and indicator equal to one if the 911
+         dispatch resulted in an arrest.
+         Victim Injury is an indicator equal to one if the 911
+         dispatch resulted in a victim injury.
          Priority 1 refers to an immediate dispatch, 
-         Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. Officer Hours are the 
-         number of working hours sworn police officers work at the district-day level. 
-         Number of Dispatches is the number of Priority 1 dispatches at the
+         Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. 
+         Number 911 Dispatches is the number of Priority 1 dispatches at the
          district-day level.
          Number of SST Dispatches is the 
-         number of dispatches due to ShotSpotter alerts. Importantly, Number of SST Dispatches is
+         number of dispatches due to ShotSpotter detections. Importantly, Number of SST Dispatches is
          also at the district-by-day level and includes days in which
          ShotSpotter is not implemented. The average daily number of ShotSpotter dispatches across Chicago
          once all 12 districts have implemented ShotSpotter is approximately 70. Note that
          New Years Eve/New Years Day/Fourth of July are excluded from the sample as
-         these days correspond with high amounts of celebratory gunfire. 
+         these days correspond with high amounts of celebratory gunfire. Officer Hours are the 
+         number of working hours sworn police officers work at the district-day level.
                   "), ~str_remove_all(., "\n"))
 
 summary_stats <- summary_stats_raw %>% 

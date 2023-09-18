@@ -11,6 +11,8 @@ dispatch_panel_p1 <- dispatch_panel_p1 %>%
 
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
   mutate(final_dispatch_description_1 = match(final_dispatch_description,unique(final_dispatch_description)))
+
+
 arrest_rate <- 
   feols(arrest_made ~ treatment | district + date +
            hour + final_dispatch_description_1, data = dispatch_panel_p1)

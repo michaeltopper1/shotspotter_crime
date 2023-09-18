@@ -102,7 +102,7 @@ entry_1_sdsc_2sdid <- did2s(es_data_dispatch,
           estimate = 0,
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
-  mutate(type = "Gardner (2022)")
+  mutate(type = "Gardner (2021)")
 
 entry_1_sdsc_es <- entry_1_sdsc %>% 
   bind_rows(entry_1_sdsc_2sdid) %>% 
@@ -139,7 +139,7 @@ eos_1_sdsc_2sdid <- did2s(es_data_dispatch,
           estimate = 0,
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
-  mutate(type = "Gardner (2022)")
+  mutate(type = "Gardner (2021)")
 
 eos_1_sdsc_es <- eos_sdsc_1 %>% 
   bind_rows(eos_1_sdsc_2sdid) %>% 
