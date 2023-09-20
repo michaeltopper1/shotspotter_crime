@@ -1,0 +1,33 @@
+\begin{table}[H]
+
+\caption{\label{arrest_prob_logit}Effect of ShotSpotter Enactment on 911 Arrest Probability (Logit)}
+\centering
+\begin{threeparttable}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lcccccc}
+\toprule
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Gun-Relation} & \multicolumn{3}{c}{Most Frequent Arrest 911 Calls} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-7}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{All} & \multicolumn{1}{c}{Gun} & \multicolumn{1}{c}{Non-Gun} & \multicolumn{1}{c}{\makecell[c]{Domestic\\Disturbance}} & \multicolumn{1}{c}{\makecell[c]{Domestic\\Battery}} & \multicolumn{1}{c}{Robbery} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6} \cmidrule(l{3pt}r{3pt}){7-7}
+  & (1) & (2) & (3) & (4) & (5) & (6)\\
+\midrule
+ShotSpotter Activated & -0.085*** & -0.041 & -0.092*** & -0.144*** & -0.130** & -0.077*\\
+ & (0.022) & (0.060) & (0.024) & (0.040) & (0.055) & (0.042)\\
+Mean of Dependent Variable & 0.025 & 0.034 & 0.024 & 0.062 & 0.020 & 0.042\\
+Observations & 3,523,729 & 312,283 & 3,205,792 & 220,976 & 668,286 & 266,890\\
+\midrule
+FE: Day-by-Month-by-Year & X & X & X & X & X & X\\
+\addlinespace
+FE: District & X & X & X & X & X & X\\
+FE: Call-Type & X & X & X & X & X & X\\
+FE: Hour-of-Day & X & X & X & X & X & X\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district. All estimations are using logit estimation.                      The dependent variable is an indicator equal to one if a 911 call ended in an arrest.                      Column 1 reports the pooled estimates using the entire sample.                  Columns 2 and 3 subset Column 1 by gun-related and non-gun-related 911 calls.                  Gun-related crimes are those corresponding to the following                  911 code descriptions: `person with a gun',                  `shots fired', or `person shot'.                   Columns 4-6 report the three most frequent 911 calls that end in arrest: Domestic Disturbance,                  Domestic Battery, and Robbery. In some cases,                  some observations may be dropped due to no variation                  with certain fixed effects.                  
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

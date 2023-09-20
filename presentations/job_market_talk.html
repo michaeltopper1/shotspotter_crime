@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 # The Effect of ShotSpotter Technology on Police Response Times
 ]
 .subtitle[
-## Applied Micro Lunch
+## Job Market Talk
 ]
 .author[
 ### Michael Topper and Toshio Ferrazares
@@ -28,7 +28,7 @@ class: center, middle, inverse, title-slide
 ### University of California, Santa Barbara
 ]
 .date[
-### 9/8/2023
+### 9/22/2023
 ]
 
 ---
@@ -71,6 +71,8 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
   border-bottom: 2px solid;
   background-color: transparent;
 }
+
+
 /* This removes the odd-even shade on tables */
 .remark-slide thead, .remark-slide tr:nth-child(2n) {
         background-color: white;
@@ -84,7 +86,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 # Motivation:
 
 .pull-left[
-### Rise of AI Technology:
+### AI in the Workforce:
   - Artificial Intelligence (AI) `\(\rightarrow\)` police forces
   - License plate readers, facial recognition, predictive policing
   - AI changes officer production function]
@@ -94,22 +96,39 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 .pull-right[
 ### ShotSpotter Technology
   - Gunshot detection
-  - 12% of gunfire reported (Carr and Doleac, 2017)
-  - Widespread (150+ cities world-wide)
-  - In Chicago: $11 million a year
+  - Police respond to all detections
+  - Rationale: only 12% of gunfire reported (Carr and Doleac, 2017) `\(\rightarrow\)` method to respond to others 
 ]
 
 --
 
 ### &lt;font color="blue"&gt;**Research Question**&lt;/font&gt;: 
-### How does investment in ShotSpotter affect the time allocation of scarce police resources in terms of 911 response times?
-
-- Two outcomes: Priority 1 911 Call-to-Dispatch / Call-to-On-Scene
+### How does the implementation of ShotSpotter technology affect Priority 1 911 call response times?
 
 ---
-# What is ShotSpotter and how does it work?
+# Why would ShotSpotter affect response times?
 
-&lt;img src="libs/figures/shotspot_works.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+.pull-left[
+### Resource-Intensive:
+  - Respond to every detected gunfire 
+  - Chicago: ~70 daily dispatches, 20 min.
+  - Priority 1 - equivalent to active shooter
+  
+### Police Scarcity:
+  - A fixed amount of daily resources
+
+### Unintended consequences?
+ - Does this reallocation affect 911 call response times?
+
+
+]
+
+
+.pull-right[
+
+&lt;img src="figures/macarthurfigure_attempt.jpg" width="500px" height="450px" style="display: block; margin: auto;" /&gt;
+
+]
 
 ---
 # Why do we care about response times?
@@ -120,52 +139,40 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 
 --
 
-### Support for Reponse Times:
-.font110[
+### Evidence:
 - Lower response times results in:
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
     - Less likelihood of an injury (DeAngelo et al. 2023)
 - Response `\(\rightarrow\)` important component of investigation (College of Policing 2013)
 - Health implications
     - Delayed treatment `\(\rightarrow\)` worse patient outcomes (Wilde, 2013, Avdic, 2016)
-]
----
-# Why would ShotSpotter affect response times?
-
-.pull-left[
-
-### Police Forces:
-  - A fixed amount of daily resources
-  
-### ShotSpotter Resource-Intensive:
-  - Respond to every *hypothesized* gunfire 
-    - Known as a *ShotSpotter Alert*
-  - ~60 daily dispatches
-  - ~20 min investigating the scene
-
-### Time Wasted?
- - Costly for other *confirmed* 911 calls from civilians?
-
-
-]
-
---
-.pull-right[
-&lt;img src="libs/figures/ShotSpotter__graphic.png" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
 
 
 ---
 # Summary of the Paper:
 
---
+
 .pull-left[
 ## Setting: 
   - Chicago: 2016-2022
-    - Second largest police force
-    - Third largest city
+    - 2nd largest police force
+    - 3rd largest city
 
+]
+
+
+
+---
+count: false
+# Summary of the Paper:
+
+
+.pull-left[
+## Setting: 
+  - Chicago: 2016-2022
+    - 2nd largest police force
+    - 3rd largest city
+    
 ## Data:
  - All dispatched Priority 1 911 calls for police service
   - Police shifts
@@ -173,7 +180,54 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
   - Victim Injuries
 ]
 
---
+
+
+---
+count: false
+# Summary of the Paper:
+
+
+.pull-left[
+## Setting: 
+  - Chicago: 2016-2022
+    - 2nd largest police force
+    - 3rd largest city
+    
+## Data:
+ - All dispatched Priority 1 911 calls for police service
+  - Police shifts
+  - Arrests
+  - Victim Injuries
+]
+
+
+.pull-right[
+## Empirical Strategy:
+  - Staggered difference-in-differences
+    - Variation: ShotSpotter rollouts across police districts
+  
+
+]
+
+
+---
+count: false
+# Summary of the Paper:
+
+
+.pull-left[
+## Setting: 
+  - Chicago: 2016-2022
+    - 2nd largest police force
+    - 3rd largest city
+    
+## Data:
+ - All dispatched Priority 1 911 calls for police service
+  - Police shifts
+  - Arrests
+  - Victim Injuries
+]
+
 .pull-right[
 ## Empirical Strategy:
   - Staggered difference-in-differences
@@ -186,23 +240,25 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
     - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (8%)
 ]
+
+
 ---
 # Contribution:
-### In-depth, causal analysis on a wide-spread police technology, whose consequences are relatively unknown.
+### In-depth, causal analysis on the unintended consequences of a wide-spread police technology.
 
 --
 #### Related Literature
 
 .panelset.sideways[
 .panel[.panel-name[ShotSpotter Specific]
-&lt;font color="blue"&gt; We find unintended consequences due to large resource investment (increased response times/lower arrest rates). &lt;/font&gt;
+&lt;font color="blue"&gt; We unpack the effects of this wide-spread police technology. &lt;/font&gt;
 - Economics:
   - Use ShotSpotter as data for alternative crime/mistrust measure (Carr and Doleac 2018; Ang et. al 2021)
 - Non-Econonomics: 
   - Better accuracy, little crime impact or case resolution (Piza et al., 2023; Mares and Blackburn, 2012; Choi et al., 2014)
 ]
 .panel[.panel-name[Police Technology]
-&lt;font color="blue"&gt; We find detrimental consequences of an expensive, resource-intensive, technology. &lt;/font&gt;
+&lt;font color="blue"&gt; Unlike others, we find costly unintended consequences of a better police technology. &lt;/font&gt;
 - Benefits of Police Technology:
     - Body Worn Cameras `\(\rightarrow\)` lower use of force/complaints (Zamoff et al. 2021; Braga et al. 2022; Ferrazares 2023)
     - Predictive Policing `\(\rightarrow\)` less crime (Mastrobuoni, 2020; Jabri, 2021; Heller et al., 2022)
@@ -217,7 +273,7 @@ table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
 ]
 
 .panel[.panel-name[AI in Workforce]
-&lt;font color="blue"&gt; Our results imply that artificial intelligence cannot replace police officers. &lt;/font&gt;
+&lt;font color="blue"&gt; The results imply that artificial intelligence cannot replace police officers. &lt;/font&gt;
 - Substitutes:
   - AI operates better than human managers (Hoffman et al., 2018)
 - Complements:
@@ -230,48 +286,54 @@ class: inverse, mline, center, middle
 
 # Institutional Background and Setting
 
+
 ---
 # 911 Dispatch Procedure:
 
-.panelset.sideways[
+.panelset[
 
-.panel[.panel-name[Pipeline:]
-## 911 Dispatch Pipeline:
-
-1. Emergency call is made
-  - .font80[Civilian reports crime to 911.]
-2. Dispatcher dispatches police&lt;/mark&gt;
-  - .font80[Dispatcher records info, finds available police to dispatch.] 
-3. Police travel to crime scene
-  - .font80[Police officer travels to the crime scene.]
-4. Police arrive on-scene
-  - .font80[Officer arrives on-scene; makes case report or arrest if necessary.]
-]
-.panel[.panel-name[Call-to-Dispatch]
-## 911 Dispatch Pipeline:
-
-1. &lt;mark&gt;Emergency call is made&lt;/mark&gt;
-  - .font80[&lt;mark&gt;Civilian reports crime to 911.&lt;/mark&gt;]
-2. &lt;mark&gt;Dispatcher dispatches police&lt;/mark&gt;
-  - .font80[&lt;mark&gt;Dispatcher records info, finds available police to dispatch.&lt;/mark&gt;] 
-3. Police travel to crime scene
-  - .font80[Police officer travels to the crime scene.]
-4. Police arrive on-scene
-  - .font80[Officer arrives on-scene; makes case report or arrest if necessary.]
+.panel[.panel-name[911 Dispatch Pipeline:]
+.center[
+.font110[911 call] `\(\Rightarrow\)`  .font110[Dispatcher Assigns] `\(\Rightarrow\)`  .font110[Officer Travels] `\(\Rightarrow\)`  .font110[Officer Arrives]]
 ]
 
-.panel[.panel-name[Call-to-On-Scene]
-## 911 Dispatch Pipeline:
+.panel[.panel-name[Call-to-Dispatch:]
 
-1. &lt;mark&gt;Emergency call is made&lt;/mark&gt;
-  - .font80[&lt;mark&gt;Civilian reports crime to 911.&lt;/mark&gt;]
-2. &lt;mark&gt;Dispatcher dispatches police&lt;/mark&gt;
-  - .font80[&lt;mark&gt;Dispatcher records info, finds available police to dispatch.&lt;/mark&gt;] 
-3. &lt;mark&gt;Police travel to crime scene&lt;/mark&gt;
-  - .font80[&lt;mark&gt;Police officer travels to the crime scene.&lt;/mark&gt;]
-4. Police arrive on-scene
-  - .font80[Officer arrives on-scene; makes case report or arrest if necessary.]
+.center[
+.font110[&lt;font color = "blue"&gt; &lt;b&gt;911 call &lt;/b&gt;&lt;/font&gt;] `\(\Large\Rightarrow\)`  .font110[&lt;font color = "blue"&gt;&lt;b&gt;Dispatcher Assigns&lt;/b&gt; &lt;/font&gt;] `\(\Large\Rightarrow\)`  .font110[Officer Travels] `\(\Large\Rightarrow\)`  .font110[Officer Arrives]]
+
+#### &lt;font color = "blue"&gt;&lt;b&gt;Call-to-Dispatch&lt;/b&gt;&lt;/font&gt;
+
+* Measure of officer availability
 ]
+
+.panel[.panel-name[Call-to-On-Scene:]
+.center[
+.font110[&lt;font color = "blue"&gt; &lt;b&gt;911 call &lt;/b&gt;&lt;/font&gt;] `\(\Large\Rightarrow\)`  .font110[&lt;font color = "blue"&gt;&lt;b&gt;Dispatcher Assigns&lt;/b&gt; &lt;/font&gt;] `\(\Large\Rightarrow\)`  .font110[&lt;font color = "blue"&gt; &lt;b&gt;Officer Travels &lt;/b&gt;&lt;/font&gt;] `\(\Large\Rightarrow\)`  .font110[Officer Arrives]]
+
+#### Call-to-Dispatch
+* Measure of officer availability
+
+#### &lt;font color = "blue"&gt;&lt;b&gt;Call-to-On-Scene&lt;/b&gt;&lt;/font&gt;
+
+* Measure of officer proximity to crime
+]
+.panel[.panel-name[Arrest Made:]
+.center[
+.font110[911 call] `\(\Large\Rightarrow\)`  .font110[Dispatcher Assigns] `\(\Large\Rightarrow\)`  .font110[Officer Travels] `\(\Large\Rightarrow\)`  .font110[&lt;font color = "blue"&gt;&lt;b&gt;Officer Arrives&lt;/b&gt;&lt;/font&gt;]]
+
+#### Call-to-Dispatch
+* Call to officer being dispatched: measure of officer availability
+
+#### Call-to-On-Scene
+
+* Call to officer arrival: measure of officer proximity to crime
+
+#### &lt;font color = "blue"&gt;&lt;b&gt;Arrest Made:&lt;/b&gt;&lt;/font&gt;
+
+* Only arrests in the 911 call pipeline: implication of rapid response
+]
+
 
 ]
 
@@ -281,19 +343,24 @@ class: inverse, mline, center, middle
 .pull-left[
 
 ### Priority 1 (immediate dispatch):
-  - .font60[Imminent threat to life, bodily injury, or major property damage/loss. Example: 'person with gun' 'domestic battery']
+  - .font80[Imminent threat to life, bodily injury, or major property damage/loss. Example: 'person with gun' 'domestic battery']
 
-### Priority 2 (rapid dispatch):
-  - .font60[Timely police action has the potential to affect the outcome of an incident. Example: 'suspicious auto']
+#### Priority 2 (rapid dispatch):
+  - .font80[Time-sensitive, no threat to life. Example: 'suspicious auto']
   
-### Priority 3 (routine dispatch):
-  - .font60[Does not involve an imminent threat...a reasonable delay in police action will not affect the outcome of the incident. Example: 'parking violation']
+#### Priority 3 (routine dispatch):
+  - .font80[Not time-sensitive. Example: 'parking violation']
 ]
 
 .pull-right[
 
 &lt;img src="figures/priority_fractions.jpeg" width="600px" height="500px" style="display: block; margin: auto;" /&gt;
 ]
+---
+# What is ShotSpotter and how does it work?
+
+&lt;img src="libs/figures/shotspot_works.png" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
+
 ---
 # ShotSpotter in Chicago:
 .pull-left[
