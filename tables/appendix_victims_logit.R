@@ -46,8 +46,9 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       Gun Dispatch is restricted to only gun-related dispatches including
                       'Person with a Gun', 'Person Shot', and 'Shots Fired'. Non-Gun Dispatch are all other
                       dispatches. In all columns the preferred specification is estimated using
-                      OLS. Wild Cluster Bootstrap pvalues are obtained with 1000 iterations due to the relatively
-                      low number of clusters (22).
+                      logistic regressions. In some cases,
+                  some observations may be dropped due to no variation
+                  with certain fixed effects.
                   
                   "), ~str_remove_all(., "\n"))
 
@@ -59,9 +60,7 @@ victim_table_logit <- panelsummary_raw(list(victim_1, victim_gun, victim_no_gun)
                                  fmt = 3,
                                  gof_map = gof_mapping) %>% 
   janitor::clean_names() %>% 
-  add_row(term = "Wild Cluster Bootstrap P-Value", model_1 = '0.245', model_2 = '0.067',
-          model_3 = '0.895', .before = 5) %>% 
-  clean_raw(caption = "\\label{victim_table}Effect of ShotSpotter Implementation on Probablity of 911 Victim Injury (OLS)",
+  clean_raw(caption = "\\label{victim_table_logit}Effect of ShotSpotter Implementation on Probablity of 911 Victim Injury (Logit)",
             pretty_num = T,
             format = "latex") %>% 
   add_header_above(c(" " = 1,"Pooled" = 1, "Gun Dispatch" = 1, "Non-Gun Dispatch" = 1)) %>% 
@@ -69,6 +68,6 @@ victim_table_logit <- panelsummary_raw(list(victim_1, victim_gun, victim_no_gun)
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11) %>% 
   column_spec(1, width = "8cm") %>% 
-  row_spec(5, hline_after = T)
+  row_spec(4, hline_after = T)
 
 writeLines(victim_table_logit, "paper/appendix_tables/victim_table_logit.tex")

@@ -20,17 +20,17 @@ setFixest_fml(..ctrl = ~0| district + date +
 
 ## full sample of time-sensitive calls
 victim_1 <- dispatch_panel_p1 %>% 
-  feols(victim_injury ~ treatment + ..ctrl)
+  feols(victim_injury*100 ~ treatment + ..ctrl)
 
 ## time sensitive call with gun is person with a gun or shots fired
 victim_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report == 1) %>% 
-  feols(victim_injury ~ treatment + ..ctrl)
+  feols(victim_injury*100 ~ treatment + ..ctrl)
 
 ## non-time sensitive stuff is everything else that can be put into the table
 victim_no_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report == 0) %>% 
-  feols(victim_injury ~ treatment + ..ctrl)
+  feols(victim_injury*100~ treatment + ..ctrl)
     
 
 
@@ -45,7 +45,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. All coefficient
-                      estimates are in seconds.
+                      estimates are in percentages.
                       The main variable is the probability of a victim being
                       injured during a 911 call dispatch.
                       The Pooled column reports estimates using the entire sample of Priority 1
@@ -61,6 +61,8 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   
                   "), ~str_remove_all(., "\n"))
 
+
+
 victim_table <- panelsummary_raw(list(victim_1, victim_gun, victim_no_gun),
              mean_dependent = T, stars = "econ",
              coef_map = c( "treatment" = "ShotSpotter Activated",
@@ -71,7 +73,7 @@ victim_table <- panelsummary_raw(list(victim_1, victim_gun, victim_no_gun),
   janitor::clean_names() %>% 
   add_row(term = "Wild Cluster Bootstrap P-Value", model_1 = '0.245', model_2 = '0.067',
           model_3 = '0.895', .before = 5) %>% 
-  clean_raw(caption = "\\label{victim_table}Effect of ShotSpotter Implementation on Probablity of 911 Victim Injury (OLS)",
+  clean_raw(caption = "\\label{victim_table}Effect of ShotSpotter Implementation on Likelihood of 911 Victim Injury (OLS)",
               pretty_num = T,
             format = "latex") %>% 
   add_header_above(c(" " = 1,"Pooled" = 1, "Gun Dispatch" = 1, "Non-Gun Dispatch" = 1)) %>% 

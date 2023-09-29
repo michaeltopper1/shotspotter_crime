@@ -18,27 +18,27 @@ setFixest_fml(..ctrl = ~0| district + date +
 
 
 arrest_rate <- dispatch_panel_p1 %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report == 1) %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_no_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report != 1) %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_domestic_bat <- dispatch_panel_p1 %>%
   filter(final_dispatch_description == "DOMESTIC BATTERY") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
 arrest_rate_domestic_disturb <-  dispatch_panel_p1 %>%
   filter(final_dispatch_description == "DOMESTIC DISTURBANCE") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
 arrest_rate_battery <-  dispatch_panel_p1 %>%
   filter(final_dispatch_description == "BATTERY IP") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
 
 
@@ -52,7 +52,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. All
-                      coefficient estimates are in seconds.
+                      coefficient estimates are in percentages.
                       The dependent variable is an indicator equal to one if a 911 call ended in an arrest.
                       Column 1 reports the pooled estimates using the entire sample.
                   Columns 2 and 3 subset Column 1 by gun-related and non-gun-related 911 calls.
@@ -92,7 +92,7 @@ arrest_prob <- arrest_table_raw %>%
   add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.412",
           model_3 = "0.003", model_4 = "0.003", model_5 = "0.049", model_6 = "0.109", .before = 5) %>%
   clean_raw(pretty_num = T, format = 'latex',
-            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Probability (OLS)") %>% 
+            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Likelihood (OLS)") %>% 
   row_spec(5, hline_after = T) %>% 
   add_header_above(c(" " = 1,
                      "All" = 1,

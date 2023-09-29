@@ -1,0 +1,33 @@
+\begin{table}[H]
+
+\caption{\label{victim_table_logit}Effect of ShotSpotter Implementation on Probablity of 911 Victim Injury (Logit)}
+\centering
+\begin{threeparttable}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{8cm}ccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Probability of Victim Injury} \\
+\cmidrule(l{3pt}r{3pt}){2-4}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{Gun Dispatch} & \multicolumn{1}{c}{Non-Gun Dispatch} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4}
+  & (1) & (2) & (3)\\
+\midrule
+ShotSpotter Activated & -0.039** & -0.115** & -0.025\\
+ & (0.020) & (0.057) & (0.020)\\
+Mean of Dependent Variable & 0.030 & 0.042 & 0.029\\
+Observations & 3,520,402 & 314,375 & 3,202,465\\
+\midrule
+FE: Day-by-Month-by-Year & X & X & X\\
+\addlinespace
+FE: District & X & X & X\\
+FE: Call-Type & X & X & X\\
+FE: Hour-of-Day & X & X & X\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                       The main outcome variable is the probability of a victim being                      injured.                      The Pooled column refers to using the entire sample of time-sensitive Priority 1                      dispatches.                      Gun Dispatch is restricted to only gun-related dispatches including                      'Person with a Gun', 'Person Shot', and 'Shots Fired'. Non-Gun Dispatch are all other                      dispatches. In all columns the preferred specification is estimated using                      logistic regressions. In some cases,                  some observations may be dropped due to no variation                  with certain fixed effects.                                    
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

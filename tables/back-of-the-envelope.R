@@ -6,22 +6,35 @@ if (!exists("dispatch_panel")){
     filter(priority_code ==1)
 }
 
-
-## I am going to be doing a back-of-the-envelope calcuation
-## First I am going to take the average amount of officers on duty
-## when officer hours are above the median
-avg_hour_above_med <- dispatch_panel_p1 %>% 
-  filter(officer_hours_median < officer_hours) %>% 
-  summarize(avg_hours = mean(officer_hours)) %>% pull()
-
-### Now I am going to take the average number of officer hours that
-## are in the main estimates
-
-avg_hour <- dispatch_panel_p1 %>% 
-  # filter(officer_hours_median > officer_hours) %>% 
-  summarize(avg_hours = mean(officer_hours)) %>% pull()
+## dispatch results
+dispatch_panel_p1 %>% 
+  mutate(officers = officer_hours/8) %>% 
+  feols(entry_to_dispatch ~ officers + ..ctrl)
 
 
-## substracting the two and dividing by 8 to give number of additional
-## officers needed
-additional_officers <- (avg_hour_above_med - avg_hour)/8
+
+# marginal effect of officer on on-scene time ------------------------------
+
+
+## these give the marginal effect of an additional police officer
+onscene_estimates <- dispatch_panel_p1 %>% 
+  mutate(officers = officer_hours/8) %>% 
+  feols(entry_to_onscene ~ officers + ..ctrl) %>% 
+  broom::tidy()
+## 1 additional officer reduces on-scene times by 1.02 seconds
+## given that the point estimates show 103.7 second increases this means
+number_officers_needed <- 103.7/onscene_estimates$estimate
+
+
+
+# average officers within district ----------------------------------------
+
+## getting average number of officer hours
+officer_hours_avg <- dispatch_panel_p1 %>% 
+  summarize(mean(officer_hours)) %>% pull()
+
+## getting average number of officers
+officer_avg <- officer_hours_avg/8
+
+##finding percentage of force increase to get mitigate
+number_officers_needed/officer_avg

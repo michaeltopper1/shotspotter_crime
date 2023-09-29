@@ -8,6 +8,21 @@ editor_options:
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = F, message = F, warning = F)
+library(tidyverse)
+library(fixest)
+library(modelsummary)
+library(panelsummary)
+library(kableExtra)
+library(did2s)
+
+rollout_dates <- read_csv("created_data/rollout_dates.csv") %>% 
+  mutate(across(c(-1), ~mdy(.)))
+
+if (!exists("dispatch_panel")){
+  dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
+  dispatch_panel_p1 <- dispatch_panel %>% 
+    filter(priority_code == 1)
+}
 ```
 
 # Notes on ShotSpotter
@@ -83,6 +98,52 @@ victims_overal %>%
   summarize(n = sum(victim_gun, na.rm  = T)) %>% 
   ggplot(aes(year_month, n)) +
   geom_line()
+
+```
+
+
+
+## Percentage of Priority 1
+
+```{r}
+
+sst <- sst %>%
+  mutate(date = ymd_hms(entry_received_date) %>% as_date()) %>% 
+  left_join(rollout_dates) %>% 
+  mutate(treatment = if_else(shotspot_activate <= date, 1, 0), 
+         treatment_sdsc = if_else(sdsc <= date, 1, 0 ),
+         treatment_official = if_else(shotspot_activate_official <= date, 1, 0),
+         treatment_first_shot = if_else(shotspot_activate_first_shot <= date, 1, 0),
+         treatment_cpd = if_else(shotspot_activate_cpd <= date, 1, 0),
+         .by = district) %>% 
+  mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
+  mutate(treatment = if_else(is.na(treatment), 0, treatment
+  ),
+  treatment_sdsc = if_else(is.na(treatment_sdsc), 0 , treatment_sdsc),
+  treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
+  treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
+  .by = district)
+
+
+sst <- sst %>% 
+  mutate(district = parse_number(district),
+         priority_code = parse_number(priority_code))
+sst <- sst %>% 
+  mutate(sst = 1) 
+sst %>% 
+  count(sst)
+x <- dispatch_panel_p1 %>%
+  bind_rows(sst)
+
+x %>% 
+  filter(never_treated == 0) %>% 
+  filter(treatment == 1) %>% 
+  mutate(sst= replace_na(sst, 0)) %>% 
+  summarize(avg = sum(sst), .by = c(district, date)) %>% 
+  summarize(mean(avg))
+  count(sst) %>% 
+  mutate(total = sum(n),
+         n/total)
 
 ```
 

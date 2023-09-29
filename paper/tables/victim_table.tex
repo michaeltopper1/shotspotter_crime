@@ -1,6 +1,6 @@
 \begin{table}[H]
 
-\caption{\label{victim_table}Effect of ShotSpotter Implementation on Probablity of 911 Victim Injury (OLS)}
+\caption{\label{victim_table}Effect of ShotSpotter Implementation on Likelihood of 911 Victim Injury (OLS)}
 \centering
 \begin{threeparttable}
 \fontsize{11}{13}\selectfont
@@ -12,9 +12,9 @@
 \cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4}
   & (1) & (2) & (3)\\
 \midrule
-ShotSpotter Activated & -0.001 & -0.004* & 0.000\\
- & (0.001) & (0.002) & (0.001)\\
-Mean of Dependent Variable & 0.030 & 0.042 & 0.029\\
+ShotSpotter Activated & -0.062 & -0.422* & -0.007\\
+ & (0.051) & (0.211) & (0.054)\\
+Mean of Dependent Variable & 2.990 & 4.185 & 2.874\\
 Observations & 3,582,560 & 317,937 & 3,264,623\\
 Wild Cluster Bootstrap P-Value & 0.245 & 0.067 & 0.895\\
 \midrule
@@ -28,7 +28,7 @@ FE: Hour-of-Day & X & X & X\\
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district. All coefficient                      estimates are in seconds.                      The main variable is the probability of a victim being                      injured during a 911 call dispatch.                      The Pooled column reports estimates using the entire sample of Priority 1                      dispatches.                      Gun Dispatch (Column 2) is restricted to only gun-related 911 call dispatches which                      have the following 911 code descriptions:                      `person with a gun',                  `shots fired', or `person shot'. Non-Gun Dispatch (Column 3) are all other                      911 call dispatches that are not related to gun descriptions. In all columns the preferred specification is estimated using                      OLS. Wild cluster bootstrap p-values using 999 replications are also reported                  since the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008).                                    
+\item Standard errors are clustered by district. All coefficient                      estimates are in percentages.                      The main variable is the probability of a victim being                      injured during a 911 call dispatch.                      The Pooled column reports estimates using the entire sample of Priority 1                      dispatches.                      Gun Dispatch (Column 2) is restricted to only gun-related 911 call dispatches which                      have the following 911 code descriptions:                      `person with a gun',                  `shots fired', or `person shot'. Non-Gun Dispatch (Column 3) are all other                      911 call dispatches that are not related to gun descriptions. In all columns the preferred specification is estimated using                      OLS. Wild cluster bootstrap p-values using 999 replications are also reported                  since the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008).                                    
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
