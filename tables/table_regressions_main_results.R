@@ -159,7 +159,7 @@ main_results <- dispatch_table %>%
           model_5 = "") %>% 
   add_row(term = "Number 911 Dispatches", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
           model_5 = "") %>% 
-  add_row(term = "Gardner (2022) Robust", model_1 = "", model_2 = "", model_3 = "", model_4 = "X",
+  add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "", model_4 = "X",
           model_5 = "") %>% 
   mutate(across(c(2:6), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 
   mutate(across(tidyselect::where(is.character), ~stringr::str_replace(., pattern = "NA", replacement = ""))) %>% 

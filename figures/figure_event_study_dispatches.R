@@ -53,7 +53,7 @@ event_study_graph <- function(x){
                   position = position_dodge(width = 0.5)) +
     geom_hline(yintercept = 0, color = "dark red") +
     labs(x = "Months to Adoption",
-         y = "95% Confidence Interval and Point Estimate",
+         y = "Point Estimate (seconds) and 95% Confidence Interval",
          color = "",
          shape = "") +
     theme_minimal() +

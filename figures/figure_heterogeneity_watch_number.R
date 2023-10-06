@@ -51,19 +51,19 @@ watch_reg <- dispatch_panel_p1 %>%
   mutate(group = "Shift Watch") %>% 
   mutate(outcome = if_else(str_detect(type, "onscene"), "Call-to-On-Scene", "Call-to-Dispatch")) %>% 
   mutate(type = case_when(
-    str_detect(type, "watch3") ~ "Watch 3:\n(4pm - 12am)",
-    str_detect(type, "watch2") ~ "Watch 2:\n(8am - 4pm)",
-    str_detect(type, "watch1") ~ "Watch 1:\n(12am - 8am)"
+    str_detect(type, "watch3") ~ "Watch 3:\n(3pm - 11pm)",
+    str_detect(type, "watch2") ~ "Watch 2:\n(7am - 3pm)",
+    str_detect(type, "watch1") ~ "Watch 1:\n(11pm - 7am)"
   ))
 
 
 hetero_resource <- watch_reg %>% 
-  mutate(type = factor(type, levels = c("Watch 3:\n(4pm - 12am)",
-                                        "Watch 2:\n(8am - 4pm)",
-                                        "Watch 1:\n(12am - 8am)"))) %>% 
+  mutate(type = factor(type, levels = c("Watch 3:\n(3pm - 11pm)",
+                                        "Watch 2:\n(7am - 3pm)",
+                                        "Watch 1:\n(11pm - 7am)"))) %>% 
   mutate(resource_constraint = case_when(
-    type == "Watch 3:\n(4pm - 12am)" ~ "More Resource Constrained",
-    type == "Watch 2:\n(8am - 4pm)" ~ "Lo",
+    type == "Watch 3:\n(3pm - 11pm)" ~ "More Resource Constrained",
+    type == "Watch 2:\n(7am - 3pm)" ~ "Lo",
     .default = "Less Resource Constrained"
   )) %>%
   ggplot(aes(type, estimate, color = resource_constraint)) +
@@ -90,16 +90,16 @@ sst_by_hour <- sst %>%
          hour = hour(entry_received_date)) %>% 
   summarize(n = n(), .by = hour) %>% 
   mutate(watch = case_when(
-    hour < 8 ~ "Watch 1",
-    hour < 16 & hour >=8 ~ "Watch 2",
-    hour >= 16 ~ "Watch 3")) %>% 
+    hour < 7 | hour == 23 ~ "Watch 1",
+    hour < 15 & hour >=7 ~ "Watch 2",
+    hour >= 15 & hour < 23 ~ "Watch 3")) %>% 
   mutate(average_watch = mean(n), .by = watch, .before = 1) %>% 
   ggplot(aes(hour,n, fill = watch)) +
   geom_col(alpha = 0.8) +
-  scale_x_continuous(breaks = c(0, 8, 16, 23),
+  scale_x_continuous(breaks = c(0, 7, 15, 23),
                      labels = c("00:00",
-                                "08:00",
-                                "16:00",
+                                "07:00",
+                                "15:00",
                                 "23:00")) +
   scale_y_continuous(labels = scales::comma) +
   theme_minimal() +

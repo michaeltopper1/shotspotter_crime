@@ -160,9 +160,10 @@ dispatches_filtered <- dispatches_filtered %>%
 
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(time = hms::as_hms(entry_received_date), .before = 1) %>% 
-  mutate(first_watch = if_else(between(time, hms::as_hms("00:00:00"), hms::as_hms("07:59:59")), 1, 0),
-         second_watch = if_else(between(time, hms::as_hms("08:00:00"), hms::as_hms("15:59:59")), 1, 0),
-         third_watch = if_else(between(time, hms::as_hms("16:00:00"), hms::as_hms("23:59:59")), 1, 0),
+  mutate(first_watch = if_else(between(time, hms::as_hms("00:00:00"), hms::as_hms("06:59:59")) |
+                                 between(time, hms::as_hms("23:00:00"), hms::as_hms("23:59:59")) , 1, 0),
+         second_watch = if_else(between(time, hms::as_hms("07:00:00"), hms::as_hms("14:59:59")), 1, 0),
+         third_watch = if_else(between(time, hms::as_hms("15:00:00"), hms::as_hms("22:59:59")), 1, 0),
          .before = 1)
 
 

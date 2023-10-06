@@ -77,7 +77,7 @@ victim_table <- panelsummary_raw(list(victim_1, victim_gun, victim_no_gun),
               pretty_num = T,
             format = "latex") %>% 
   add_header_above(c(" " = 1,"Pooled" = 1, "Gun Dispatch" = 1, "Non-Gun Dispatch" = 1)) %>% 
-  add_header_above(c(" " = 1, "Probability of Victim Injury" = 3)) %>% 
+  add_header_above(c(" " = 1, "Likelihood of Victim Injury" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11) %>% 
   column_spec(1, width = "8cm") %>% 

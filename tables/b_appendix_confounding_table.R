@@ -132,7 +132,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       the treated variable. In addition, the two-stage procedure may drop observations
                       in the first stage if unable to predict values. This happens infrequently as shown
                       in the observation counts, but is worth noting. Finally,
-                      Wild cluster bootstrap p-values using 999 iterations are also reported
+                      wild cluster bootstrap p-values using 999 iterations are also reported
                   as the number of clusters (22) is below the threshold of 30 put forth in
                   Cameron et al. (2008). The bootstrap procedure cannot be performed using the Gardner (2021) estimator.
                       

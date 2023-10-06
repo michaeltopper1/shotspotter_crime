@@ -57,7 +57,7 @@ d1_main_2s <- did2s(dispatch_panel_p1,
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Main Sample",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 
 d1_2020 <- dispatch_panel_p1 %>%
@@ -76,7 +76,7 @@ d1_2020_2s <- did2s(dispatch_panel_p1 %>% filter(year !=2020),
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Omitting 2020",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 d1_nevertreat <- dispatch_panel_p1 %>%
   filter(never_treated == 0) %>% 
@@ -94,7 +94,7 @@ d1_nevertreat_2s <- did2s(dispatch_panel %>% filter(never_treated == 0),
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Omitting Never-Treated",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 d1_outliers <- dispatch_panel_outliers %>% 
   filter(!(month ==7 & day == 4)) %>% 
@@ -116,7 +116,7 @@ d1_outliers_2s <- did2s(dispatch_panel_outliers %>%
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Including Outliers",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 d1_no_shots <- dispatch_panel_p1 %>%
   filter(gun_crime_report != 1) %>% 
@@ -134,7 +134,7 @@ d1_no_shots_2s <- did2s(dispatch_panel_p1 %>%
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Omitting Shots Fired",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 d1_official_treat <- dispatch_panel_p1 %>% 
   feols(entry_to_dispatch ~ treatment_official + ..ctrl, cluster = ~district) %>% 
@@ -150,7 +150,7 @@ d1_official_treat_2s <- did2s(dispatch_panel_p1,
                         cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Official Activate Dates",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 d1_include_nye <- dispatch_panel_outliers %>% 
   filter(entry_to_onscene_outlier != 1) %>% 
@@ -170,7 +170,7 @@ d1_include_nye_2s <- did2s(dispatch_panel_outliers %>%
       cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
            sample = "Including July 4/NYE",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 # call to on scene --------------------------------------------------------
 
@@ -188,7 +188,7 @@ os_main_2s <- did2s(dispatch_panel_p1,
                     cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
           sample = "Main Sample",
-          estimator = "Gardner (2022)")
+          estimator = "Gardner (2021)")
 
 os_2020 <- dispatch_panel_p1 %>%
   filter(year != 2020) %>% 
@@ -206,7 +206,7 @@ os_2020_2s <- did2s(dispatch_panel_p1 %>% filter(year !=2020),
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Omitting 2020",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 os_nevertreat <- dispatch_panel_p1 %>%
   filter(never_treated == 0) %>% 
@@ -223,7 +223,7 @@ os_nevertreat_2s <- did2s(dispatch_panel_p1 %>% filter(never_treated == 0),
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Omitting Never-Treated",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 os_outliers <- dispatch_panel_outliers %>% 
   filter(!(month ==7 & day == 4)) %>% 
@@ -246,7 +246,7 @@ os_outliers_2s <- did2s(dispatch_panel_outliers %>%
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Including Outliers",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 os_no_shots <- dispatch_panel_p1 %>%
   filter(gun_crime_report != 1) %>% 
@@ -264,7 +264,7 @@ os_no_shots_2s <- did2s(dispatch_panel_p1 %>%
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Omitting Shots Fired",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 os_official_treat <- dispatch_panel_p1 %>% 
   feols(entry_to_onscene ~ treatment_official + ..ctrl, cluster = ~district) %>% 
@@ -280,7 +280,7 @@ os_official_treat_2s <- did2s(dispatch_panel_p1,
                         cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Official Activate Dates",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 os_include_nye <- dispatch_panel_outliers %>% 
   filter(entry_to_onscene_outlier != 1) %>% 
@@ -300,7 +300,7 @@ os_include_nye_2s <- did2s(dispatch_panel_outliers %>%
                            cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
            sample = "Including July 4/NYE",
-           estimator = "Gardner (2022)")
+           estimator = "Gardner (2021)")
 
 
 
@@ -338,4 +338,5 @@ forest_sample_plot <- forest_samples %>%
   theme_minimal() +
   theme(legend.position = "bottom")
 
-ggsave(forest_sample_plot, filename = "figures/forest_sample_plot.jpeg")
+ggsave(forest_sample_plot, filename = "paper/appendix_figures/forest_sample_plot.jpeg",
+       width = 7, height = 5)
