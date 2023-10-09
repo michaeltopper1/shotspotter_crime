@@ -83,14 +83,26 @@ onscene_table <- dispatch_raw_os %>%
   mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
                            model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_2 = "0.012",
-            model_3 = "", model_4 = "0.017", .before = 7) %>% 
+            model_3 = "X", model_4 = "0.017", .before = 7) %>% 
   add_row(term = "Gardner (2022) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
+  add_row(term = "Clusters", model_2 = "22", model_3 = "22", model_4 = "22") %>% 
   slice(-c(8:11)) %>% 
-  clean_raw(caption = "Effect of ShotSpotter Enactment on Call-to-On-Scene (OLS)",
-            pretty_num = T) %>% 
+  clean_raw(pretty_num = T,
+            format = "html") %>% 
   row_spec(7, hline_after = T) %>% 
+  add_header_above(c(" " = 1, "Effect on Call-to-On-Scene (seconds)" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+onscene_table_c1 <- onscene_table %>% 
+  column_spec(2, background = "yellow")
+onscene_table_c2 <- onscene_table %>% 
+  column_spec(3, background = "yellow")
+onscene_table_c3 <- onscene_table %>% 
+  column_spec(4, background = "yellow")
+
 write_file(onscene_table, file = "presentations/tables/onscene_table.html")
 
+write_file(onscene_table_c1, file = "presentations/tables/onscene_table_c1.html")
+write_file(onscene_table_c2, file = "presentations/tables/onscene_table_c2.html")
+write_file(onscene_table_c3, file = "presentations/tables/onscene_table_c3.html")

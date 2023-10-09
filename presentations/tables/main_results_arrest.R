@@ -58,9 +58,12 @@ wild_bootstrap_arrest <- c('0.001', '0.412', '0.003', '0.049', 0.109)
 arrest_table <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
   add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.412",
-          model_3 = "0.003", model_4 = "0.003", model_5 = "0.049", model_6 = "0.109", .before = 5) %>%
-  clean_raw(pretty_num = T, format = 'html',
-            caption = "Effect of ShotSpotter Enactment on Arrest Probability (OLS)") %>% 
+          model_3 = "0.003", model_4 = "0.003",
+          model_5 = "0.049", model_6 = "0.109", .before = 5) %>%
+  add_row(term = "Clusters",model_1 = "22", model_2 = "22",
+          model_3 = "22", model_4 = "22",
+          model_5 = "22", model_6 = "22", .before = 6) %>% 
+  clean_raw(pretty_num = T, format = 'html') %>% 
   add_header_above(c(" " = 1,
                      "Pooled" = 1,
                      "Gun" = 1,
@@ -71,8 +74,25 @@ arrest_table <- arrest_table_raw %>%
   add_header_above(c(" " = 2,
                      "Gun-Relation" = 2,
                      "Most Frequent Arrest Types" = 3)) %>% 
+  add_header_above(c(" " = 1, "Effect on Arrest Likelihood (percentage)" = 6)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+arrest_table_pooled_talk <- arrest_table %>% 
+  column_spec(2, background = "yellow") 
+
+arrest_table_gun_talk <- arrest_table %>% 
+  column_spec(3, background = "yellow") %>% 
+  column_spec(4, background = "pink")
+
+arrest_table_type_talk <- arrest_table %>% 
+  column_spec(5, background = "yellow") %>% 
+  column_spec(6, background = "pink") %>% 
+  column_spec(7, background = "lightblue")
+
+
 write_file(arrest_table, file = "presentations/tables/arrest_table.html")
+write_file(arrest_table_pooled_talk, file = "presentations/tables/arrest_table_pooled_talk.html")
+write_file(arrest_table_gun_talk, file = "presentations/tables/arrest_table_gun_talk.html")
+write_file(arrest_table_type_talk, file = "presentations/tables/arrest_table_type_talk.html")
 

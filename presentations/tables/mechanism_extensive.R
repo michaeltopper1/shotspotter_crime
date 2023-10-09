@@ -84,7 +84,9 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "FE: final_dispatch_description", "FE: Call-Type", 3,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
-footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"), ~str_remove_all(., "\n"))
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors clustered by district (22). Estimates are
+                      reported in seconds. Medians are within-district."), ~str_remove_all(., "\n"))
 
 mechanism_table_raw <- panelsummary_raw(list(ed_preferred_1,
                                              ed_above_med, ed_below_med
@@ -105,14 +107,19 @@ mechanism_extensive <- mechanism_table_raw %>%
   slice(-c(5:8)) %>% 
   slice(-c(9:12)) %>% 
   clean_raw(colnames = c(" ","Pooled", "> Median", "<= Median"),
-            pretty_num = T,
-            caption = "Extensive Margin: Effect of ShotSpotter Implementation") %>% 
+            pretty_num = T) %>% 
   pack_rows("Panel A: Call-to-Dispatch",1,4, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 5, 8, italic = T, bold = F) %>% 
   add_header_above(c(" " = 2,
-                     "Officer Hours" = 2)) %>% 
+                     "Officer Availability" = 2)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+
+mechanism_extensive_medians_talk <- mechanism_extensive %>% 
+  column_spec(3, background = "yellow") %>% 
+  column_spec(4, background = "pink")
+
 write_file(mechanism_extensive, file = "presentations/tables/mechanism_extensive.html")
 
+write_file(mechanism_extensive_medians_talk, file = "presentations/tables/mechanism_extensive_medians_talk.html")

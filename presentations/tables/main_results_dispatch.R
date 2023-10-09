@@ -83,15 +83,26 @@ dispatch_table <- dispatch_raw %>%
   mutate(model_3 = if_else(term == "Mean of Dependent Variable", 
                            model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_2 = "0.012",
-          model_3 = "", model_4 = "0.017", .before = 7) %>% 
-  add_row(term = "Gardner (2022) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
+          model_3 = "X", model_4 = "0.017", .before = 7) %>% 
+  add_row(term = "Gardner (2021) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
+  add_row(term = "Clusters", model_2 = "22", model_3 = "22", model_4 = "22") %>% 
   slice(-c(8:11)) %>% 
   clean_raw(pretty_num = T,
-            format = "html",
-            caption = "Effect of ShotSpotter Enactment on Call-to-Dispatch (OLS)") %>% 
+            format = "html") %>% 
   row_spec(7, hline_after = T) %>% 
+  add_header_above(c(" " = 1, "Effect on Call-to-Dispatch (seconds)" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+dispatch_table_col1 <- dispatch_table %>% 
+  column_spec(2, background = "yellow") 
+dispatch_table_col2 <- dispatch_table %>% 
+  column_spec(3, background = "yellow")
+dispatch_table_col3 <- dispatch_table %>% 
+  column_spec(4, background = "yellow") 
+
 write_file(dispatch_table, file = "presentations/tables/dispatch_table.html")
+write_file(dispatch_table_col1, file = "presentations/tables/dispatch_table_c1.html")
+write_file(dispatch_table_col2, file = "presentations/tables/dispatch_table_c2.html")
+write_file(dispatch_table_col3, file = "presentations/tables/dispatch_table_c3.html")
 
