@@ -61,7 +61,8 @@ sst_os_below_med <- dispatch_panel_p1 %>%
         cluster = ~district)
 
 
-footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"), ~str_remove_all(., "\n"))
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors clustered by district (22). Marginal effects are reported in seconds."), ~str_remove_all(., "\n"))
 
 mechanism_intensive_raw <- panelsummary_raw(list(sst_ed_1,
                                              sst_ed_above_med, sst_ed_below_med),
@@ -78,14 +79,18 @@ mechanism_intensive <- mechanism_intensive_raw %>%
   slice(-c(5:8)) %>% 
   slice(-c(9:12)) %>% 
   clean_raw(colnames = c(" ","Pooled", "> Median", "<= Median"),
-            pretty_num = T,
-            caption = "Intensive Margin: Effect of Number of SST Dispatches") %>% 
+            pretty_num = T) %>% 
   pack_rows("Panel A: Call-to-Dispatch",1,4, italic = T, bold = F, hline_after = F) %>% 
   pack_rows("Panel B: Call-to-On-Scene", 5, 8, italic = T, bold = F) %>% 
   add_header_above(c(" " = 2,
-                     "Officer Hours" = 2)) %>% 
+                     "Officer Availability" = 2)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+mechanism_intensive_medians <- mechanism_intensive %>% 
+  column_spec(3, background = "yellow") %>% 
+  column_spec(4, background = "pink")
+
 write_file(mechanism_intensive, file = "presentations/tables/mechanism_intensive.html")
 
+write_file(mechanism_intensive_medians, file = "presentations/tables/mechanism_intensive_medians.html")

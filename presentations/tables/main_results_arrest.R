@@ -54,6 +54,10 @@ gof_map = gof_mapping) %>%
 
 wild_bootstrap_arrest <- c('0.001', '0.412', '0.003', '0.049', 0.109)
 
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors clustered by district. 
+                      "
+), ~str_remove_all(., "\n"))
 
 arrest_table <- arrest_table_raw %>% 
   janitor::clean_names() %>% 

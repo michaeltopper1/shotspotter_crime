@@ -8,6 +8,7 @@ library(tidyverse)
 dispatches_filtered <- read_csv("created_data/dispatches_filtered_cpd.csv")
 
 ## officer hours
+## includes overtime unless you redo the script: create_panel_analysis_shifts_officer
 officer_hours <- read_csv("analysis_data/officer_hours.csv")
 
 ## border districts are those districts adjacent to SST districts

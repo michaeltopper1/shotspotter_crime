@@ -10,7 +10,7 @@ library(tidyverse)
 shifts_1 <- read_csv("created_data/shifts_appended.csv")
 shifts_2 <- read_csv("created_data/shifts_20_23.csv")
 panel <- read_csv("analysis_data/crimes_panel.csv")
-
+overtime_hours <- read_csv("created_data/overtime_hours.csv")
 
 shifts_all <- shifts_1 %>% 
   mutate(unit = as.character(unit)) %>% 
@@ -115,6 +115,16 @@ officer_hours_panel <- officer_hours_panel %>%
   mutate(year = year(date),
          month = month(date),
          year_month = mdy(paste0(month, "-1-", year)))
+
+
+# connecting overtime hours ----------------------------------------------
+
+
+officer_hours_panel <- officer_hours_panel %>% 
+  left_join(overtime_hours) %>% 
+  mutate(officer_hours = officer_hours + overtime_hours) 
+
+
 
 officer_hours_panel %>% 
   write_csv("analysis_data/officer_hours.csv")

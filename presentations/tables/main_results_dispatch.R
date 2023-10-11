@@ -54,7 +54,10 @@ entry_d_4 <- feols(entry_to_dispatch ~ treatment + shotspot_border_treatment| di
 
 
 
-footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors clustered by district. OLS estimates unless noted.
+                      Border District Activated is binary for a police district adjacent 
+                      to a ShotSpotter district."
 ), ~str_remove_all(., "\n"))
 
 gof_mapping <- tribble(~raw, ~clean, ~fmt,

@@ -151,3 +151,24 @@ dispatch_panel_p1 %>%
   summarize(mean(n))
 ```
 
+
+## average number of officers for SST
+
+```{r}
+dispatch <- read_csv("created_data/dispatches.csv")
+dispatch_ev <- read_csv("created_data/dispatches_19_23_eventnumber.csv")
+dispatch <- dispatch %>% 
+  left_join(dispatch_ev, join_by(event_number))
+
+dispatch <- dispatch %>% 
+  filter(event_type == "SST")
+
+dispatch %>% 
+  group_by(event_number) %>% 
+  mutate(n = n()) %>% 
+  ungroup() %>% 
+  distinct(event_number, .keep_all = T) %>% 
+  summarize(avg_number_officers = mean(n, na.rm = T))
+
+```
+

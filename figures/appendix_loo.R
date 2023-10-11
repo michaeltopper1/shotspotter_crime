@@ -64,7 +64,7 @@ loo <- loo %>%
 
 loo_r <- loo_r %>% 
   mutate(id = row_number(),
-         method = "Gardner (2022)",
+         method = "Gardner (2021)",
          outcome = "Call-to-Dispatch")
 
 loo_os <- loo_os %>% 
@@ -74,7 +74,7 @@ loo_os <- loo_os %>%
 
 loo_os_r <- loo_os_r %>% 
   mutate(id = row_number(),
-         method = "Gardner (2022)",
+         method = "Gardner (2021)",
          outcome = "Call-to-On-Scene") 
 
 
@@ -95,4 +95,5 @@ loo_figure <- loo %>%
   theme(legend.position = "bottom",
         panel.grid.major = element_blank())
 
-ggsave(loo_figure, filename = "figures/loo.jpeg")
+ggsave(loo_figure, filename = "paper/appendix_figures/loo.jpeg",
+       width = 7, height = 5)

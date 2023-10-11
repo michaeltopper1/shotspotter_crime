@@ -56,8 +56,30 @@ watch_reg <- dispatch_panel_p1 %>%
     str_detect(type, "watch1") ~ "Watch 1:\n(11pm - 7am)"
   ))
 
+watch_means <- dispatch_panel_p1 %>% 
+  summarize(across(c(entry_to_dispatch_watch1_1,
+                     entry_to_dispatch_watch2_1,
+                     entry_to_dispatch_watch3_1,
+                     entry_to_onscene_watch1_1,
+                     entry_to_onscene_watch2_1,
+                     entry_to_onscene_watch3_1), ~mean(., na.rm = T))) %>% 
+  pivot_longer(cols = everything(), names_to = "term", values_to = "mean_dependent") %>% 
+  mutate(outcome = if_else(str_detect(term, "onscene"), "Call-to-On-Scene", "Call-to-Dispatch")) %>% 
+  mutate(type = case_when(
+    str_detect(term, "watch3") ~ "Watch 3:\n(3pm - 11pm)",
+    str_detect(term, "watch2") ~ "Watch 2:\n(7am - 3pm)",
+    str_detect(term, "watch1") ~ "Watch 1:\n(11pm - 7am)"
+  ))
+
+
+watch_reg <- watch_reg %>% 
+  left_join(watch_means, join_by(type == type, outcome == outcome)) %>% 
+  mutate(percent_change = estimate/mean_dependent %>% round(2)) %>% 
+  mutate(mean_dependent = round(mean_dependent, 2))
 
 hetero_resource <- watch_reg %>% 
+  mutate(percent_change = percent_change %>% round(2) %>% 
+           scales::percent()) %>% 
   mutate(type = factor(type, levels = c("Watch 3:\n(3pm - 11pm)",
                                         "Watch 2:\n(7am - 3pm)",
                                         "Watch 1:\n(11pm - 7am)"))) %>% 
@@ -71,6 +93,7 @@ hetero_resource <- watch_reg %>%
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.1) +
   facet_wrap(~outcome, scales = "free") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  geom_label(aes(label = percent_change), nudge_x = .15) +
   scale_fill_manual(values =c("#808080","#1a476f", "#90353b")) +
   coord_flip() +
   theme_minimal() +

@@ -16,14 +16,14 @@ priority_fractions <- priorities %>%
   mutate(n_comma = n %>% scales::comma()) %>% 
   ggplot(aes(priority_code, n, fill = priority_code)) +
   geom_col(width = .3, alpha = 0.8) +
-  geom_text(aes(label = fraction),hjust = 1.1) +
+  geom_text(aes(label = fraction),hjust = -.1) +
   coord_flip() +
-  scale_y_continuous(label= scales::comma) +
+  scale_y_continuous(label= scales::comma, expand = expand_scale(mult = c(0, 0.2))) +
   ggthemes::scale_fill_wsj() +
   labs(x = "", y = "", title = "911 Calls Resulting in Police Dispatch",
        subtitle = "Chicago (2016-2022)") +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",panel.grid.major =  element_blank())
 
 ggsave(priority_fractions, file = "presentations/figures/priority_fractions.jpeg",
        height = 5, width = 5)

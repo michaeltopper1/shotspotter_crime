@@ -54,7 +54,10 @@ os_d_4 <- feols(entry_to_onscene ~ treatment + shotspot_border_treatment| distri
 
 
 
-footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01"
+footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
+                      "Standard errors clustered by district. OLS estimates unless noted.
+                      Border District Activated is binary for a police district adjacent 
+                      to a ShotSpotter district."
 ), ~str_remove_all(., "\n"))
 
 gof_mapping <- tribble(~raw, ~clean, ~fmt,
@@ -84,7 +87,7 @@ onscene_table <- dispatch_raw_os %>%
                            model_2, model_3)) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_2 = "0.012",
             model_3 = "X", model_4 = "0.017", .before = 7) %>% 
-  add_row(term = "Gardner (2022) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
+  add_row(term = "Gardner (2021) Robust", model_2 = "No", model_3 = "Yes", model_4 = "No") %>% 
   add_row(term = "Clusters", model_2 = "22", model_3 = "22", model_4 = "22") %>% 
   slice(-c(8:11)) %>% 
   clean_raw(pretty_num = T,
