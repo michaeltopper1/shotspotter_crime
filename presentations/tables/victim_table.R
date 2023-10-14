@@ -71,12 +71,16 @@ victim_table <- victim_table_raw %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+
+victim_table_pooled <- victim_table %>% 
+  column_spec(2, background = "yellow")
 victim_table_gun <- victim_table %>% 
   column_spec(3, background = "yellow") %>% 
   column_spec(4, background = "pink")
 
 
 write_file(victim_table, file = "presentations/tables/victim_table.html")
+write_file(victim_table_pooled, file = "presentations/tables/victim_table_pooled.html")
 
 write_file(victim_table_gun, file = "presentations/tables/victim_table_gun.html")
 

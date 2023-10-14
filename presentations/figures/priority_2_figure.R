@@ -29,14 +29,15 @@ tidy_estimates <- function(model, description, priority) {
     filter(term == "treatment") %>% 
     mutate(term = description,
            priority = priority)
-  mean <- model %>% fitstat(., type = "my") %>% as.numeric() %>% 
+  mean <- model %>% fitstat(., type = "my") %>% as.numeric() %>%
+    round(2) %>% 
     as_tibble() %>% rename(mean = value)
   nobs <- model$nobs %>% as_tibble() %>% rename(nobs = value) %>% 
     mutate(nobs = nobs %>% scales::comma())
   results <- estimates %>% 
     mutate(estimate = round(estimate, 2)) %>% 
     bind_cols(nobs, mean) %>% 
-    mutate(term_expand = glue::glue("{term}\nEstimate: {estimate} N: {nobs}")) %>% 
+    mutate(term_expand = glue::glue("{term}\nMean: {mean} N: {nobs}")) %>% 
     mutate(percent_change = estimate/mean)
   return(results)
 }
@@ -46,7 +47,7 @@ tidy_estimates <- function(model, description, priority) {
 
 p1_0 <- dispatch_panel_p2 %>% 
   feols(entry_to_dispatch ~treatment + ..ctrl) %>% 
-  tidy_estimates(description = "Aggregate Estimate", 1)
+  tidy_estimates(description = "Pooled Estimate", 1)
 
 p1_1 <- dispatch_panel_p2 %>%
   filter(final_dispatch_description == "ALARM BURGLAR") %>% 
@@ -83,7 +84,7 @@ p1_5 <- dispatch_panel_p2 %>%
 
 po1_0 <- dispatch_panel_p2 %>% 
   feols(entry_to_onscene ~treatment + ..ctrl) %>% 
-  tidy_estimates(description = "Aggregate Estimate", 1)
+  tidy_estimates(description = "Pooled Estimate", 1)
 
 po1_1 <- dispatch_panel_p2 %>%
   filter(final_dispatch_description == "ALARM BURGLAR") %>% 
@@ -127,13 +128,16 @@ priority_2_graph <- p1_0 %>%
     row_number() <= 6 ~ "Call-to-Dispatch",
     row_number() >6 ~ "Call-to-On-Scene"
   )) %>% 
+  mutate(aggregate = if_else(str_detect(term,"^Agg"), "1", "0")) %>% 
   mutate(across(starts_with("conf"), ~./mean )) %>% 
-  mutate(term_expand = fct_reorder(term_expand, -row_number()), .by = outcome) %>% 
-  ggplot(aes(term_expand, percent_change, shape = outcome,
-             color = outcome)) +
+  mutate(main_estimate = if_else(term == "Pooled Estimate", "Color1", "Color2")) %>% 
+  mutate(term_expand = fct_reorder(term_expand, mean) , .by = c(main_estimate, aggregate)) %>%
+  mutate(term_expand = fct_rev(term_expand)) %>% 
+  ggplot(aes(term_expand, percent_change,
+             color = main_estimate)) +
   geom_point() +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
-                width = .1, linewidth = 0.8) +
+                width = .1, linewidth = .7) +
   geom_hline(aes(yintercept = 0), color = "black",
              linetype = "dashed") +
   coord_flip() +

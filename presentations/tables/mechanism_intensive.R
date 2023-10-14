@@ -87,10 +87,13 @@ mechanism_intensive <- mechanism_intensive_raw %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+mechanism_intensive_pooled <- mechanism_intensive %>% 
+  column_spec(2, background = "yellow") 
 mechanism_intensive_medians <- mechanism_intensive %>% 
   column_spec(3, background = "yellow") %>% 
   column_spec(4, background = "pink")
 
 write_file(mechanism_intensive, file = "presentations/tables/mechanism_intensive.html")
+write_file(mechanism_intensive_pooled, file = "presentations/tables/mechanism_intensive_pooled.html")
 
 write_file(mechanism_intensive_medians, file = "presentations/tables/mechanism_intensive_medians.html")

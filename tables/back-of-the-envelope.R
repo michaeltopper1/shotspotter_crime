@@ -23,7 +23,7 @@ onscene_estimates <- dispatch_panel_p1 %>%
   broom::tidy()
 ## 1 additional officer reduces on-scene times by 1.02 seconds
 ## given that the point estimates show 103.7 second increases this means
-number_officers_needed <- 103.7/onscene_estimates$estimate
+number_officers_needed <- 103.7/-onscene_estimates$estimate
 
 
 

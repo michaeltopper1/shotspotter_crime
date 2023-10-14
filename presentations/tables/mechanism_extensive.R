@@ -115,11 +115,14 @@ mechanism_extensive <- mechanism_table_raw %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
+mechanism_extensive_pooled <- mechanism_extensive %>% 
+  column_spec(2, background = "yellow") 
 
 mechanism_extensive_medians_talk <- mechanism_extensive %>% 
   column_spec(3, background = "yellow") %>% 
   column_spec(4, background = "pink")
 
 write_file(mechanism_extensive, file = "presentations/tables/mechanism_extensive.html")
+write_file(mechanism_extensive_pooled, file = "presentations/tables/mechanism_extensive_pooled.html")
 
 write_file(mechanism_extensive_medians_talk, file = "presentations/tables/mechanism_extensive_medians_talk.html")

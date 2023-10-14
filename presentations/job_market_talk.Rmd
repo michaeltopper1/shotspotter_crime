@@ -13,6 +13,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      slideNumberFormat: "%current%"  
 editor_options: 
   chunk_output_type: console
 ---
@@ -41,6 +42,7 @@ $( document ).ready(function() {
 ```
 
 
+
 ```{css, echo = F}
 /* This changes any table of class regression to 20 size font */
 .regression table {
@@ -59,11 +61,19 @@ table > :is(thead, tbody) > tr > :is(th, td) {
 table > thead > tr > :is(th, td) {
   border-top: 2px solid;
   border-bottom: 1px solid;
-  background-color: transparent;
+  background-color: white;
 }
 table > tbody > tr:last-child > :is(th, td) {
   border-bottom: 2px solid;
-  background-color: transparent;
+  background-color: white;
+}
+table > tfoot > tr > :is(th, td) {
+  padding: 0; /* Set padding to 0 for tfoot cells */
+  background-color: white;
+}
+
+table > tfoot > tr {
+  background-color: transparent !important; /* Remove background stripes from tfoot rows */
 }
 
 
@@ -78,7 +88,7 @@ table > tbody > tr:last-child > :is(th, td) {
 
 ## this code enables the use of panels inside of the presentation
 xaringanExtra::use_panelset()
-xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "white", font_family = "Roboto", 
+xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "white", font_family = "Fira Sans", 
                                    inactive_opacity = 0.5)
 
 ```
@@ -97,8 +107,8 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 .pull-right[
 ### ShotSpotter Technology
   - Gunshot detection
-  - Police respond to all detections
   - Rationale: only 12% of gunfire reported (Carr and Doleac, 2017) $\rightarrow$ method to respond to others 
+  - 150+ cities nationwide
 ]
 
 --
@@ -277,7 +287,7 @@ count: false
 ]
 
 .panel[.panel-name[AI in Workforce]
-<font color="blue"> The results imply that artificial intelligence cannot replace police officers. </font>
+<font color="blue"> The results imply that this artificial intelligence technology cannot replace police officers. </font>
 - Substitutes:
   - AI operates better than human managers (Hoffman et al., 2018)
 - Complements:
@@ -288,10 +298,55 @@ count: false
 ---
 class: inverse, mline, center, middle
 
-# Institutional Background and Setting
+# Background on Chicago Policing
 
 ---
+# Chicago Background:
+
+.pull-left[
+### Chicago Geography:
+* Chicago subset into 22 police districts (population ~100k)
+  - Within districts are beats
+  - Officers generally assigned within districts/beats to patrol
+
+### Chicago Crime:
+* Chicago crime is localized 
+    - Gun-crime is localized to South/West sides
+]
+
+.pull-right[
+```{r, out.width = "400px", out.height = "500px"}
+knitr::include_graphics("figures/map_911.jpeg")
+```
+]
+---
+count: false
+# Chicago Background:
+
+.pull-left[
+### Chicago Geography:
+* Chicago subset into 22 police districts (population ~100k)
+  - Within districts are beats
+  - Officers generally assigned within districts/beats to patrol
+
+### Chicago Crime:
+* Chicago crime is localized 
+    - Gun-crime is localized to South/West sides
+]
+
+.pull-right[
+```{r, out.width = "400px", out.height = "500px"}
+knitr::include_graphics("figures/map_911_gun.jpeg")
+```
+]
+---
 # Policing in Chicago:
+
+## Police Officer Responsibilities:
+* Patrol, respond to incidents, make arrests/stops, complete written reports
+* Gathers info at traffic scenes—preliminary investigation
+* Direct traffic
+* Appear in court/give testimony
 
 ## Police Time Allocation:
 
@@ -299,13 +354,12 @@ class: inverse, mline, center, middle
 
 > "Very busy be ready to answer up to 50 calls for service specialy during Summer season." - CPD Police Officer February 2023 (Indeed.com)
 
-## Duties:
-* Patrol, respond to incidents, make arrests/stops, complete written reports
-* Gathers info at traffic scenes—preliminary investigation
-* Direct traffic
-* Appear in court/give testimony
 
 
+---
+class: inverse, mline, center, middle
+
+# 911 Dispatch Procedure in Chicago
 
 
 
@@ -411,8 +465,14 @@ count: false
 knitr::include_graphics("figures/priority_fractions.jpeg")
 ```
 ]
+
 ---
-# What is ShotSpotter and how does it work?
+class: inverse, mline, center, middle
+
+# ShotSpotter Technology in Chicago
+
+---
+# ShotSpotter Functionality:
 
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("libs/figures/shotspot_works.png")
@@ -434,7 +494,7 @@ knitr::include_graphics("libs/figures/shotspot_works.png")
 
 .pull-right[
 ```{r, out.width = "400px", out.height = "500px"}
-knitr::include_graphics("figures/map.jpeg")
+knitr::include_graphics("figures/map_sst.jpeg")
 ```
 
 ]
@@ -450,6 +510,7 @@ class: inverse, mline, center, middle
 # Data and Empirical Strategy
 
 ---
+name: data
 class: regression
 # Data and Sample Restrictions:
 
@@ -457,15 +518,18 @@ class: regression
 ### Data Overview:
 - Priority 1 911 Calls (2016-2022) with police dispatch
 - ShotSpotter dispatches $\neq$ 911 call
-- Freedom of Information Act
+- Freedom of Information Act: 25 requests, 100+ emails/phone calls,
+1 [lawsuit](#lawsuit) against CPD 
+
 
 ]
 
 .pull-right[
 ### Sample Restrictions:
-- Outliers 3+ Std.Dev. (~1.7%)
+- Response time outliers 3+ Std.Dev. from mean (~1.7%)
 - Negative response times (.03%)
-- January 1/July 4/December 31
+- Days with celebratory gunfire: 
+January 1/July 4/December 31
 ]
 
 --
@@ -517,7 +581,7 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + 
 --
 
 #### 4. OLS with staggered rollouts:
-  * .font80[Two-stage difference-in-differences (Gardner 2022) similar to Borusyak et al. (2021)]
+  * .font80[Two-stage difference-in-differences (Gardner 2021) similar to Borusyak et al. (2021)]
 
 ---
 class: inverse, mline, center, middle
@@ -628,14 +692,14 @@ xfun::file_string('tables/arrest_table_type_talk.html')
 ```
 
 ---
-# Dynamic Effects: Call-to-Dispatch
+# Dynamic Effects: Call-to-Dispatch (seconds)
 
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/entry_1_es.jpeg")
 ```
 
 ---
-# Dynamic Effects: Call-to-On-Scene
+# Dynamic Effects: Call-to-On-Scene (seconds)
 
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/eos_1_es.jpeg")
@@ -645,33 +709,45 @@ name: robustness
 # Robustness:
 
 ## Main Results:
+.pull-left[
+
 - Leave-one-out analysis - [See Figure](#loo)
+  - Both OLS/Gardner (2021)
 - Sample restrictions -  [See Figure](#forest)
   - Omit 2020 (Covid-19) 
+  - Omit 'Shots Fired' calls 
   - Reintroduce outliers
   - Reintroduce omitted days
-  
-## Event Studies:
-- Rambachan and Roth (2023) sensitivity 
-- Robust to varying trend-types
+  - Omit never-treated
+- For arrests:
+  - Logistic regression - [See Figure](#logit)
+  ]
+
+.pull-right[
+
+* Control for CPD initatives - [See Table](#confounding_dispatch)
+    - Body-Worn Cameras
+    - Strategic Decision Support Centers
+* Sensitivity analysis - [See Figure](#roth)
+    - Rambachan and Roth (2023) 
+    - Relax parallel trends
+]
 
 ---
 class: inverse, mline, center, middle
 
-# Mechanism
+# Mechanism: ShotSpotter Incapacitates Officers
 
 
 ---
-# Potential Mechanism:
-
-<font color="blue"><b>ShotSpotter expands an officer's responsibilities and incapacitates them from attending to other tasks.</b></font>
+# Potential Mechanism: Time Constraint
 
 #### 1. Extensive Margin: Estimate most resource-constrained times 
   - .font80[Split by police-district median number of officer hours]
   - .font80[Separate by shift-type]
     
 #### 2. Intensive Margin: Use ShotSpotter dispatches as intensity measure 
-  - .font80[If we can assume the number of alerts within a district day is random, the following will estimate the marginal effect of an extra ShotSpotter dispatch:]
+  - .font80[Using the number of ShotSpotter dispatches as our identifying variation, we estimate the marginal effect of an extra ShotSpotter dispatch:]
 
 $$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$
 
@@ -682,15 +758,21 @@ $$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\ba
 
 ---
 class: regression
-# Extensive Margin: Less Officers
+# Extensive Margin: Less Officers (seconds)
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_extensive.html')
 ```
-
 ---
 count: false
-class: regression
-# Extensive Margin: Less Officers
+class: regression (seconds)
+# Extensive Margin: Less Officers (seconds)
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/mechanism_extensive_pooled.html')
+```
+---
+count: false
+class: regression (seconds)
+# Extensive Margin: Less Officers (seconds)
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_extensive_medians_talk.html')
 ```
@@ -707,6 +789,14 @@ class: regression
 # Intensive Margin: ShotSpotter Dispatches
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/mechanism_intensive.html')
+```
+
+---
+count: false
+class: regression
+# Intensive Margin: ShotSpotter Dispatches
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/mechanism_intensive_pooled.html')
 ```
 ---
 class: regression
@@ -725,14 +815,20 @@ class: inverse, mline, center, middle
 ---
 # Two Types of Heterogeneity Analysis:
 
+--
+
 ## 1. Analyze specific call-types
-  - Analyze a specific call for the most frequent offenses
+  - Analyze specific call-types (call-codes) for the most frequent offenses
   - Large health implications with emergency medical services/domestic calls
 
+--
+
 ## 2. Split by priority of call
-  - A 'trickle down' effect in Priority 2, suggestive for Priority 3
-  - No time for high priority == no time for lower priorities
+  - A 'trickle down' effect in Priority 2
+      - Suggestive for Priority 3 
+  - No time for high priority $\Rightarrow$ no time for lower priorities
   - Lends to the idea that officers are facing more responsibilities than they can handle
+      - Incapacitation effect
   
 
 ---
@@ -740,7 +836,7 @@ class: inverse, mline, center, middle
 
 
 .panelset.sideways[
-.panel[.panel-name[Priority 1 (Immediate)]
+.panel[.panel-name[Priority 1]
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/priority_1_graph.jpeg")
 ```
@@ -777,19 +873,28 @@ class: inverse, mline, center, middle
 
 ## Results: 
 
-* Suggestive (not conclusive!) evidence of lower injury probability, driven by gun-related calls
+* Suggestive (not conclusive!) evidence of lower injury probability for gun-related calls
     - ShotSpotter may corroborate gun-related 911 calls
     - Provide more intelligence
 * No effect on non-gun-related calls
     - Cannot rule out increases
 
 ---
+class: regression
 # Effect on Victim Injury Likelihood (percent):
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/victim_table.html')
 ```
 ---
 count: false
+class: regression
+# Effect on Victim Injury Likelihood (percent):
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/victim_table_pooled.html')
+```
+---
+count: false
+class: regression
 # Effect on Victim Injury Likelihood (percent):
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/victim_table_gun.html')
@@ -800,6 +905,7 @@ xfun::file_string('tables/victim_table_gun.html')
 
 ## Contribution:
 - An in-depth analysis on unintended consequences of ShotSpotter
+- Find a determinant of response times
 
 ## Main Findings: Longer Response
 - Call-to-Dispatch (+1 minute/ 23%)/ Call-to-On-Scene (+2 minutes/ 13%)
@@ -808,7 +914,7 @@ xfun::file_string('tables/victim_table_gun.html')
 ## Mechanism: Incapacitation
 
 - More officers needed to mitigate unintended consequences
-- Back-of-the-evelope: 60% more officers needed
+- Back-of-the-evelope: 2x more officers needed
 
 
 ---
@@ -816,6 +922,13 @@ class: inverse, mline, center, middle
 
 # Thank you
 
+---
+name: lawsuit
+# Lawsuit
+```{r, out.width = "500px", out.height = "500px", fig.align="center"}
+knitr::include_graphics("figures/lawsuit.png")
+```
+[Back to Data](#data)
 ---
 name: loo
 # Leave-one-out
@@ -838,3 +951,49 @@ knitr::include_graphics("appendix_figures/forest_sample_plot.jpeg")
 
 [Back to Robustness](#robustness)
 
+---
+class: regression
+name: logit
+# Effect on Arrest Likelihood (Logit)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/arrest_table_logit.html')
+```
+
+[Back to Robustness](#robustness)
+
+---
+class: regression
+name: confounding_dispatch
+# Controlling for BWC and SDSC (Dispatch)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/confounding_table_dispatch.html')
+```
+
+
+
+---
+class: regression
+name: confounding_onscene
+# Controlling for BWC and SDSC (On-Scene)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/confounding_table_onscene.html')
+```
+
+---
+name: roth
+# Rambachan and Roth 2023: Sensitivity Analysis
+
+```{r, out.width = "700px", out.height = "500px", fig.align="center"}
+knitr::include_graphics("appendix_figures/roth_trends_dispatch.jpeg")
+```
+[Back to Robustness](#robustness)
+---
+# Rambachan and Roth 2023: Sensitivity Analysis
+
+```{r, out.width = "700px", out.height = "500px", fig.align="center"}
+knitr::include_graphics("appendix_figures/roth_trends_onscene.jpeg")
+```
+[Back to Robustness](#robustness)

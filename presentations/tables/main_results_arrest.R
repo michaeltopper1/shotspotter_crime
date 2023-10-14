@@ -18,28 +18,34 @@ setFixest_fml(..ctrl = ~0| district + date +
 
 
 arrest_rate <- dispatch_panel_p1 %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report == 1) %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_no_gun <- dispatch_panel_p1 %>% 
   filter(gun_crime_report != 1) %>% 
-  feols(arrest_made ~ treatment + ..ctrl, data = .)
+  feols(arrest_made*100 ~ treatment + ..ctrl, data = .)
 
 arrest_rate_domestic_bat <- dispatch_panel_p1 %>%
   filter(final_dispatch_description == "DOMESTIC BATTERY") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
 arrest_rate_domestic_disturb <-  dispatch_panel_p1 %>%
   filter(final_dispatch_description == "DOMESTIC DISTURBANCE") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
 arrest_rate_battery <-  dispatch_panel_p1 %>%
   filter(final_dispatch_description == "BATTERY IP") %>% 
-  feols(arrest_made ~ treatment + ..ctrl)
+  feols(arrest_made*100 ~ treatment + ..ctrl)
 
+gof_mapping <- tribble(~raw, ~clean, ~fmt,
+                       "nobs", "Observations", 0,
+                       "FE: date", "FE: Day-by-Month-by-Year", 3,
+                       "FE: district", "FE: District", 3,
+                       "FE: final_dispatch_description", "FE: Call-Type", 3,
+                       "FE: hour", "FE: Hour-of-Day", 3)
 
 arrest_table_raw <- panelsummary_raw(list(arrest_rate, arrest_rate_gun, arrest_rate_no_gun, arrest_rate_domestic_bat,
                   arrest_rate_domestic_disturb, arrest_rate_battery
