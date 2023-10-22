@@ -50,12 +50,16 @@ map_sst <- crime_locations %>%
   geom_sf_label(data = chicago_lines %>% 
                   filter(dist_label != "31ST"), aes(label = dist_label),
                 nudge_x = 0.005,
-                size = 2.3,
+                size = 2.5,
                 alpha = 0.3) +
   scale_fill_gradient(low = "white", high = "dark red") +
   labs(fill = "SST Dispatches") +
   ggthemes::theme_map() +
-  ggtitle("Number of ShotSpotter Dispatches", subtitle = "Chicago (2016-2022)")
+  ggtitle("Number of ShotSpotter Dispatches", subtitle = "Chicago (2016-2022)") +
+  theme(plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 
 
 
@@ -66,12 +70,16 @@ map_911 <- crime_locations %>%
   geom_sf_label(data = chicago_lines %>% 
                   filter(dist_label != "31ST"), aes(label = dist_label),
                 nudge_x = 0.005,
-                size = 2.3,
+                size = 2.5,
                 alpha = 0.3) +
   scale_fill_gradient(low = "white", high = "dark red") +
   labs(fill = "911 Calls") +
   ggthemes::theme_map() +
-  ggtitle("Number of Priority 1 911 Calls", subtitle = "Chicago (2016-2022)")
+  ggtitle("Number of Priority 1 911 Calls", subtitle = "Chicago (2016-2022)") +
+  theme(plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 
 map_911_gun <- crime_locations %>% 
   ggplot() +
@@ -80,12 +88,16 @@ map_911_gun <- crime_locations %>%
   geom_sf_label(data = chicago_lines %>% 
                   filter(dist_label != "31ST"), aes(label = dist_label),
                 nudge_x = 0.005,
-                size = 2.3,
+                size = 2.5,
                 alpha = 0.3) +
   scale_fill_gradient(low = "white", high = "dark red") +
   labs(fill = "Gun-Related Calls") +
   ggthemes::theme_map() +
-  ggtitle("Number of Gun-related 911 Calls", subtitle = "Chicago (2016-2022)")
+  ggtitle("Number of Gun-related 911 Calls", subtitle = "Chicago (2016-2022)") +
+  theme(plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())
 
 ggsave(map_sst, filename = "presentations/figures/map_sst.jpeg",
        width = 5, height = 7)

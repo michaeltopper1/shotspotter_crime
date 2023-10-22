@@ -24,7 +24,7 @@ summary_stats <- dispatch_panel_p1 %>%
   janitor::clean_names() %>% 
   mutate(x = if_else(str_detect(x, "mins$"),
                      "", x)) %>%
-  mutate(across(c(-1), ~if_else(x == "", paste0("(", str_trim(.), " mins)"), .))) %>%
+  mutate(across(c(-1), ~if_else(x == "", paste0("{", str_trim(.), " mins}"), .))) %>%
   mutate(n = if_else(x == "", "", n)) %>% 
   clean_raw(pretty_num = T,
             colnames = c(" ",

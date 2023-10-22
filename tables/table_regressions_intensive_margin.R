@@ -18,9 +18,14 @@ if (!exists("dispatch_panel")){
     filter(priority_code == 1)
 }
 
+officer_hours <- read_csv("analysis_data/officer_hours.csv")
+
+officer_hours_median <- officer_hours %>% 
+  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district) %>% 
+  select(officer_hours_median, date, district)
 
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
-  mutate(officer_hours_median = median(officer_hours, na.rm = T), .by = district)
+  left_join(officer_hours_median, by = join_by(district, date))
 
 
 # Panel A -----------------------------------------------------------------

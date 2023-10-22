@@ -10,28 +10,26 @@
 \midrule
 \addlinespace[0.3em]
 \multicolumn{3}{l}{\textit{Panel A: Number 911 Dispatches}}\\
-\hspace{1em}ShotSpotter Activated & -4.087*** & -4.301***\\
-\hspace{1em} & (0.989) & (1.241)\\
-\hspace{1em}Mean of Dependent Variable & 73.011 & 73.011\\
-\hspace{1em}Observations & 3,582,560 & \vphantom{1} 3,582,528\\
+\hspace{1em}ShotSpotter Activated & -3.378 & -3.521\\
+\hspace{1em} & (2.208) & (2.518)\\
+\hspace{1em}Mean of Dependent Variable & 151.864 & 151.864\\
+\hspace{1em}Observations & 55,792 & \vphantom{1} 55,792\\
 \addlinespace[0.5cm]
 \multicolumn{3}{l}{\textit{Panel B: Officer Availability}}\\
-\hspace{1em}ShotSpotter Activated & -16.782 & -37.153\\
-\hspace{1em} & (21.967) & (26.613)\\
-\hspace{1em}Mean of Dependent Variable & 1,342.215 & 1,342.215\\
-\hspace{1em}Observations & 3,582,560 & 3,582,528\\
+\hspace{1em}ShotSpotter Activated & -23.949 & -42.806+\\
+\hspace{1em} & (22.709) & (25.534)\\
+\hspace{1em}Mean of Dependent Variable & 1,277.860 & 1,277.860\\
+\hspace{1em}Observations & 55,792 & 55,792\\
 \midrule
 FE: Day-by-Month-by-Year & X & X\\
 FE: District & X & X\\
-FE: Call-Type & X & X\\
-FE: Hour-of-Day & X & X\\
 Gardner (2021) Robust &  & X\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district. Coefficient                      estimates are reported in seconds.                      This table shows estimations on two outcome variables,                       Number of 911 Dispatches which are Priority 1 and Officer Availability, which are not                      included in the main specification due to possibly being                      confounding controls.                      Each panel refers to a distinct outcome variable.                  Number 911 Dispatches is the number of Priority 1 911 dispatches.                  Officer Availability is the number of police officer hours.                  ShotSpotter Activated refers to the                  timing in which each district receives ShotSpotter technology. The                  Gardner (2021) estimator is robust to the heterogeneous                  treatment effects in staggered two-way-fixed-effects designs.
+\item Standard errors are clustered by district. Coefficient                      estimates are reported in seconds.                      This table shows estimations on two outcome variables,                       Number of 911 Dispatches and Officer Availability, which are not                      included in the main specification due to the possibility of being                      confounding controls.                      Each panel refers to a distinct outcome variable. Since each outcome variable                      is at the district-day level, we aggregate the call-level data to the district-day.                      Hence, in these models, we cannot control for call-type nor hour of the day.                  Number 911 Dispatches is the number of 911 dispatches.                  Officer Availability is the number of police officer hours within a district.                  ShotSpotter Activated refers to the                  timing in which each district receives ShotSpotter technology. The                  Gardner (2021) estimator is robust to the heterogeneous                  treatment effects in staggered two-way-fixed-effects designs. January 1, July 4, and December 31 are omitted due                  to their correspondance with potential celebratory gunfire.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
