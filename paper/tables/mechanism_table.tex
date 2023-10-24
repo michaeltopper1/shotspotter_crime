@@ -3,44 +3,44 @@
 \caption{\label{mechanism_table}Effect of ShotSpotter on Response Times Mechanisms (OLS)}
 \centering
 \begin{threeparttable}
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{lcccccc}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lcccc}
 \toprule
-\multicolumn{1}{c}{ } & \multicolumn{3}{c}{ShotSpotter Rollout} & \multicolumn{3}{c}{ShotSpotter Dispatches} \\
-\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
-\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Availability} & \multicolumn{1}{c}{ } & \multicolumn{2}{c}{Officer Availability} \\
-\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){6-7}
-\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} \\
-\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5} \cmidrule(l{3pt}r{3pt}){6-6} \cmidrule(l{3pt}r{3pt}){7-7}
-  & (1) & (2) & (3) & (4) & (5) & (6)\\
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{ShotSpotter Rollout} & \multicolumn{1}{c}{ShotSpotter Dispatches} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-5}
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Availability} & \multicolumn{1}{c}{ } \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} & \multicolumn{1}{c}{Pooled} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5}
+  & (1) & (2) & (3) & (4)\\
 \midrule
 \addlinespace[0.3em]
-\multicolumn{7}{l}{\textit{Panel A: Call-to-Dispatch}}\\
-\hspace{1em}ShotSpotter Activated & 64.131*** & 33.661** & 88.896*** &  &  & \\
-\hspace{1em} & (22.379) & (13.563) & (29.255) &  &  & \\
-\hspace{1em}Number SST Dispatches &  &  &  & 5.815*** & 4.368*** & 5.017***\\
-\hspace{1em} &  &  &  & (1.395) & (1.161) & (0.840)\\
-\hspace{1em}Mean of Dependent Variable & 281.890 & 239.316 & 324.409 & 291.300 & 242.505 & 340.021\\
-\hspace{1em}Observations & 3,582,560 & 1,790,130 & 1,792,430 & 2,958,754 & 1,478,258 & 1,480,496\\
+\multicolumn{5}{l}{\textit{Panel A: Call-to-Dispatch}}\\
+\hspace{1em}ShotSpotter Activated & 64.131*** & 34.500** & 85.180*** & \\
+\hspace{1em} & (22.379) & (13.630) & (27.959) & \\
+\hspace{1em}Number SST Dispatches &  &  &  & 6.094***\\
+\hspace{1em} &  &  &  & (1.513)\\
+\hspace{1em}Mean of Dependent Variable & 281.890 & 239.951 & 323.077 & 269.365\\
+\hspace{1em}Observations & 3,582,560 & 1,775,086 & 1,807,474 & 47,933\\
 \addlinespace[0.5cm]
-\multicolumn{7}{l}{\textit{Panel B: Call-to-On-Scene}}\\
-\hspace{1em}ShotSpotter Activated & 102.682*** & 59.737** & 137.872*** &  &  & \\
-\hspace{1em} & (28.724) & (21.193) & (37.072) &  &  & \\
-\hspace{1em}Number SST Dispatches &  &  &  & 7.704*** & 6.063*** & 6.153***\\
-\hspace{1em} &  &  &  & (1.749) & (1.302) & (1.104)\\
-\hspace{1em}Mean of Dependent Variable & 770.863 & 711.092 & 828.977 & 771.964 & 701.935 & 842.234\\
-\hspace{1em}Observations & 1,997,102 & 984,511 & 1,012,591 & 1,732,479 & 867,736 & 864,743\\
+\multicolumn{5}{l}{\textit{Panel B: Call-to-On-Scene}}\\
+\hspace{1em}ShotSpotter Activated & 102.682*** & 59.706*** & 138.102*** & \\
+\hspace{1em} & (28.724) & (21.061) & (37.671) & \\
+\hspace{1em}Number SST Dispatches &  &  &  & 8.023***\\
+\hspace{1em} &  &  &  & (1.842)\\
+\hspace{1em}Mean of Dependent Variable & 770.863 & 711.409 & 827.843 & 770.462\\
+\hspace{1em}Observations & 1,997,102 & 977,332 & 1,019,770 & 47,932\\
 \midrule
-FE: Day-by-Month-by-Year & X & X & X & X & X & X\\
-FE: District & X & X & X & X & X & X\\
-FE: Call-Type & X & X & X & X & X & X\\
-FE: Hour-of-Day & X & X & X & X & X & X\\
+FE: Day-by-Month-by-Year & X & X & X & X\\
+FE: District & X & X & X & X\\
+FE: Call-Type & X & X & X & \\
+FE: Hour-of-Day & X & X & X & \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district.                       ShotSpotter Activated is a binary equal to one when                      a district has ShotSpotter technology (extensive margin).                      Number SST Dispatches refers to the number of                      ShotSpotter dispatches that occur within a district-day (intensive margin).                      All coefficient estimates are in seconds. Panel A reports results for                      Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.                      Officer availability is measured by number of officer hours within a district-day.                       Columns 2 and 5 correspond to district-days that have officer hours above                      their district median (more officer availability), while Columns 3 and 6 correspond to district-days that                      have officer hours below their district median (less officer availability).                  
+\item Standard errors are clustered by district.                       ShotSpotter Activated is a binary equal to one when                      a district has ShotSpotter technology (extensive margin).                      Number SST Dispatches refers to the number of                      ShotSpotter dispatches that occur within a district-day (intensive margin).                      All coefficient estimates are in seconds. Panel A reports results for                      Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.                      Officer availability is measured by number of officer hours within a district-day.                       Column 2 corresponds to district-days that have officer hours above                      their district median (more officer availability), while Column 3 corresponds to district-days that                      have officer hours below their district median (less officer availability). Analyses for                       Columns 1-3 are on the extensive margin, and utilze call-level data. The coefficients for these analyses                      are interpreted as average effects. Analysis for Column 4                      is on the intensive margin, and the data is aggregated to the district-day level. The                      coefficients of interest for Column 4 are interpreted as marginal effects. We                      aggregate to the district-day since the number of ShotSpotter dispatches is measured                      at the district-day. Because of this, we                      cannot use call-level data to correctly identify the marginal effects. Moreover,                      we restrict the sample to only post-implementation days for treated districts to                      ensure that only the intensive margin, rather than extensive margin, is identified. Further explanation                       of this model is                      given in Section 5.3.                   
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

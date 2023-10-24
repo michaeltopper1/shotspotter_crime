@@ -119,7 +119,7 @@ bad_controls <- panelsummary_raw(list(number_dispatches, number_dispatches_2s),
              gof_omit = "^R|A|B|S",
              coef_map = c("treatment" = "ShotSpotter Activated"),
              mean_dependent = T,
-             stars = T) %>% 
+             stars = "econ") %>% 
   mutate(`Model 2` = if_else(term == "Mean of Dependent Variable" |
                                term == "FE: Day-by-Month-by-Year" |
                                term == "FE: District" |

@@ -12,21 +12,65 @@ if (!exists("dispatch_panel")){
     filter(priority_code ==1)
 }
 
+officer_hours <- read_csv("analysis_data/officer_hours.csv")
 
-setFixest_fml(..ctrl = ~0| district + date +
-                final_dispatch_description + hour)
+rollout_dates <- read_csv("created_data/rollout_dates.csv") %>% 
+  mutate(across(c(-1), ~mdy(.)))
+
+sst_alerts <- read_csv("analysis_data/sst_dispatches_cpd.csv") %>% 
+  filter(year < 2023) 
+
+setFixest_fml(..ctrl = ~0| district + date)
+
+
+# aggregate for intensive margin ------------------------------------------
+
+## aggregating to the district-day level
+aggregate_outcomes <- dispatch_panel_p1 %>% 
+  group_by(district, date) %>% 
+  summarize(across(c(entry_to_dispatch,
+                     entry_to_onscene), ~ mean(.,na.rm = T))) %>% 
+  ungroup()
+
+## creating the treatment variables at the district-day level
+aggregate_outcomes <- aggregate_outcomes %>% 
+  left_join(rollout_dates) %>% 
+  mutate(treatment = if_else(shotspot_activate <= date, 1, 0), 
+         treatment_sdsc = if_else(sdsc <= date, 1, 0 ),
+         treatment_official = if_else(shotspot_activate_official <= date, 1, 0),
+         treatment_first_shot = if_else(shotspot_activate_first_shot <= date, 1, 0),
+         treatment_cpd = if_else(shotspot_activate_cpd <= date, 1, 0),
+         .by = district) %>% 
+  mutate(never_treated = if_else(is.na(treatment),1, 0), .by = district) %>% 
+  mutate(treatment = if_else(is.na(treatment), 0, treatment
+  ),
+  treatment_sdsc = if_else(is.na(treatment_sdsc), 0 , treatment_sdsc),
+  treatment_official = if_else(is.na(treatment_official), 0, treatment_official),
+  treatment_first_shot = if_else(is.na(treatment_first_shot), 0, treatment_first_shot),
+  .by = district) 
+
+## merging in the number of officer hours and officer hours median
+aggregate_outcomes <- aggregate_outcomes %>% 
+  left_join(officer_hours) %>% 
+  left_join(sst_alerts,by = join_by(district, date))
+
+## creating the number of sst dispatches variable for 
+## variation 
+aggregate_outcomes <- aggregate_outcomes %>%
+  mutate(number_sst_dispatches = if_else(is.na(number_sst_dispatches), 0, number_sst_dispatches))
+
+
 
 # 
-# dispatch_panel_p1 %>% 
-#   distinct(number_sst_dispatches, district, date) %>% 
-#   filter(number_sst_dispatches != 0) %>% 
+# aggregate_outcomes %>%
+#   filter(number_sst_dispatches != 0) %>%
 #   pull(number_sst_dispatches) %>%
 #   quantile(c(0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1))
 #   count(number_sst_dispatches) %>%
 #   ggplot(aes(number_sst_dispatches, n))+
 #   geom_col()
 
-dispatch_panel_p1 <- dispatch_panel_p1 %>% 
+aggregate_outcomes <- aggregate_outcomes %>% 
   mutate(sst_0 = if_else(number_sst_dispatches == 0, 1, 0),
          sst_1 = if_else(number_sst_dispatches > 0 & 
                            number_sst_dispatches <= 1, 1, 0),
@@ -47,14 +91,16 @@ dispatch_panel_p1 <- dispatch_panel_p1 %>%
          sst_9 = if_else(number_sst_dispatches > 11, 1, 0))
 
 
-decile_dispatch <- dispatch_panel_p1 %>% 
+decile_dispatch <- aggregate_outcomes %>% 
+  filter(treatment == 1 | never_treated == 1) %>% 
   feols(entry_to_dispatch ~ sst_1 + sst_2 + sst_3 + 
-          sst_4 + sst_5 + sst_6 + sst_7 + sst_8 + sst_9 + number_dispatches + ..ctrl) %>% 
+          sst_4 + sst_5 + sst_6 + sst_7 + sst_8 + sst_9  + ..ctrl) %>% 
   broom::tidy(conf.int = T)
 
-decile_onscene <- dispatch_panel_p1 %>% 
+decile_onscene <- aggregate_outcomes %>% 
+  filter(treatment == 1 | never_treated == 1) %>% 
   feols(entry_to_onscene ~ sst_1 + sst_2 + sst_3 + 
-          sst_4 + sst_5 + sst_6 + sst_7 + sst_8 + sst_9 + number_dispatches + ..ctrl) %>% 
+          sst_4 + sst_5 + sst_6 + sst_7 + sst_8 + sst_9 + ..ctrl) %>% 
   broom::tidy(conf.int = T)
 
 

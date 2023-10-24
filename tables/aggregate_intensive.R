@@ -66,5 +66,4 @@ aggregate_outcomes %>%
   filter(officer_hours < officer_hours_median) %>%
   feols(entry_to_dispatch ~ number_sst_dispatches | district + date)
 
-  # filter(officer_hours < officer_hours_median) %>% 
-  feols(entry_to_onscene ~ number_sst_dispatches | district + date)
+
