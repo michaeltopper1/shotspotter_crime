@@ -66,7 +66,7 @@ victim_table <- victim_table_raw %>%
           model_3 = '22') %>% 
   clean_raw(pretty_num = T,
             format = "html") %>% 
-  add_header_above(c(" " = 1,"Pooled" = 1, "Gun Dispatch" = 1, "Non-Gun Dispatch" = 1)) %>% 
+  add_header_above(c(" " = 1,"Pooled" = 1, "Gun Related" = 1, "Non-Gun Related" = 1)) %>% 
   add_header_above(c(" " = 1, "Likelihood of Victim Injury (percent)" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")

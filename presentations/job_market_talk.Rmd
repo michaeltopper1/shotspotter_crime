@@ -1,9 +1,9 @@
 ---
 title: "The Effect of ShotSpotter Technology on Police Response Times"
-subtitle: "Job Market Talk"
+subtitle: ""
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
-date: "10/17/2023"
+date: "11/9/2023"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
@@ -94,13 +94,13 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 ```
 
 
-# Motivation:
+# Motivation
 
 .pull-left[
 ### AI in Police Departments:
   - Substitutes $\rightarrow$ License plate readers, facial recognition 
   - Complements $\rightarrow$ predictive 'hotspot' policing 
-  - AI changes officer production function]
+  - AI changes officer time allocation]
 
 --
 
@@ -108,29 +108,29 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 ### ShotSpotter Technology
   - Gunshot detection
   - Rationale: only 12% of gunfire reported (Carr and Doleac, 2017) $\rightarrow$ method to respond to others 
-  - 150+ cities nationwide
+  - 150+ cities world-wide
 ]
 
 --
 
 ### <font color="blue">**Research Question**</font>: 
-### How does the implementation of ShotSpotter technology affect Priority 1 911 call response times?
+### How does the implementation of ShotSpotter technology affect 911 call response times?
 
-* How does a police officer's production function change s.t. it affects response?
+* How does a police officer's time allocation change s.t. it affects response?
 ---
 # Why would ShotSpotter affect response times?
 
 .pull-left[
-### Resource-Intensive:
+### Resource-Intensive
   - Respond to every detected gunfire 
   - Chicago: ~70 daily dispatches, 20 min.
-  - Priority 1 - equivalent to active shooter
+  - High priority: same as active shooter
   
-### Police Scarcity:
-  - Fixed amount of resources $\Rightarrow$ trade-offs
+### Police Scarcity
+  - Fixed resources $\Rightarrow$ trade-offs
 
 ### Unintended consequences?
- - Does this reallocation affect 911 call response times?
+ - Ex-ante ambigious; does proximity or time allocation prevail?
 
 
 ]
@@ -153,21 +153,21 @@ knitr::include_graphics("figures/macarthurfigure_attempt.jpg")
 
 --
 
-### Evidence:
-- Lower response times results in:
+### Evidence
+- Lower response times results in
     - Higher crime clearance (Blanes i Vidal and Kirchmaier 2018)
     - Less likelihood of an injury (DeAngelo et al. 2023)
-- Response $\rightarrow$ important component of investigation (College of Policing 2013)
+- Rapid response $\rightarrow$ important component of investigation (College of Policing 2013)
 - Health implications
     - Delayed treatment $\rightarrow$ worse patient outcomes (Wilde, 2013, Avdic, 2016)
 
 
 ---
-# Summary of the Paper:
+# Summary of the Paper
 
 
 .pull-left[
-## Setting: 
+## Setting:
   - Chicago: 2016-2022
     - 2nd largest police force
     - 3rd largest city
@@ -178,7 +178,7 @@ knitr::include_graphics("figures/macarthurfigure_attempt.jpg")
 
 ---
 count: false
-# Summary of the Paper:
+# Summary of the Paper
 
 
 .pull-left[
@@ -188,7 +188,7 @@ count: false
     - 3rd largest city
     
 ## Data:
- - All dispatched Priority 1 911 calls for police service
+ - All dispatched 911 calls for police service
   - Police shifts
   - Arrests
   - Victim Injuries
@@ -198,7 +198,7 @@ count: false
 
 ---
 count: false
-# Summary of the Paper:
+# Summary of the Paper
 
 
 .pull-left[
@@ -208,7 +208,7 @@ count: false
     - 3rd largest city
     
 ## Data:
- - All dispatched Priority 1 911 calls for police service
+ - All dispatched 911 calls for police service
   - Police shifts
   - Arrests
   - Victim Injuries
@@ -226,7 +226,7 @@ count: false
 
 ---
 count: false
-# Summary of the Paper:
+# Summary of the Paper
 
 
 .pull-left[
@@ -236,7 +236,7 @@ count: false
     - 3rd largest city
     
 ## Data:
- - All dispatched Priority 1 911 calls for police service
+ - All dispatched 911 calls for police service
   - Police shifts
   - Arrests
   - Victim Injuries
@@ -252,12 +252,18 @@ count: false
   - When a civilian calls 911, a Priority 1 call experiences:
     - +1 minute Call-to-Dispatch (23%)
     - +2 minutes Call-to-On-Scene (13%)
-    - Lower arrest probability (8%)
+    - Lower arrest probability (9%)
 ]
 
+---
+# Mechanism: Resource Constraint/Reallocation
+
+```{r, out.width = "1000px", out.height = "550px", fig.align="center"}
+knitr::include_graphics("figures/watch_graph.jpeg")
+```
 
 ---
-# Contribution:
+# Contribution
 ### In-depth, causal analysis on the unintended consequences of a wide-spread police technology.
 
 --
@@ -301,7 +307,7 @@ class: inverse, mline, center, middle
 # Background on Chicago Policing
 
 ---
-# Chicago Background:
+# Chicago Background
 
 .pull-left[
 ### Chicago Geography:
@@ -321,7 +327,7 @@ knitr::include_graphics("figures/map_911.jpeg")
 ]
 ---
 count: false
-# Chicago Background:
+# Chicago Background
 
 .pull-left[
 ### Chicago Geography:
@@ -340,7 +346,7 @@ knitr::include_graphics("figures/map_911_gun.jpeg")
 ```
 ]
 ---
-# Policing in Chicago:
+# Policing in Chicago
 
 ## Police Officer Responsibilities:
 * Patrol, respond to incidents, make arrests/stops, complete written reports
@@ -364,7 +370,7 @@ class: inverse, mline, center, middle
 
 
 ---
-# 911 Dispatch Procedure:
+# 911 Dispatch Procedure
 
 .panelset[
 
@@ -380,7 +386,7 @@ class: inverse, mline, center, middle
 
 #### <font color = "blue"><b>Call-to-Dispatch</b></font>
 
-* Measure of officer availability
+* Measure of officer availability; officers label themselves as 'available'
 ]
 
 .panel[.panel-name[Call-to-On-Scene:]
@@ -388,7 +394,7 @@ class: inverse, mline, center, middle
 .font110[<font color = "blue"> <b>911 call </b></font>] $\Large\Rightarrow$  .font110[<font color = "blue"><b>Dispatcher Assigns</b> </font>] $\Large\Rightarrow$  .font110[<font color = "blue"> <b>Officer Travels </b></font>] $\Large\Rightarrow$  .font110[Officer Arrives]]
 
 #### Call-to-Dispatch
-* Measure of officer availability
+* Measure of officer availability; officers label themselves as 'available'
 
 #### <font color = "blue"><b>Call-to-On-Scene</b></font>
 
@@ -400,7 +406,7 @@ class: inverse, mline, center, middle
 
 #### Call-to-Dispatch
 
-* Measure of officer availability
+* Measure of officer availability; officers label themselves as 'available'
 
 
 #### Call-to-On-Scene
@@ -416,7 +422,7 @@ class: inverse, mline, center, middle
 ]
 
 ---
-# 911 Call Priorities in Chicago:
+# 911 Call Priorities in Chicago
 
 .pull-left[
 
@@ -442,7 +448,7 @@ knitr::include_graphics("figures/priority_fractions.jpeg")
 
 ---
 count: false
-# 911 Call Priorities in Chicago:
+# 911 Call Priorities in Chicago
 
 .pull-left[
 
@@ -472,14 +478,14 @@ class: inverse, mline, center, middle
 # ShotSpotter Technology in Chicago
 
 ---
-# ShotSpotter Functionality:
+# ShotSpotter Functionality
 
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("libs/figures/shotspot_works.png")
 ```
 
 ---
-# ShotSpotter in Chicago:
+# ShotSpotter in Chicago
 .pull-left[
 ### Staggered Rollout
  - .font80[12 of 22 police districts in 2017-2018]
@@ -499,7 +505,7 @@ knitr::include_graphics("figures/map_sst.jpeg")
 
 ]
 ---
-# ShotSpotter Dispatch Trends (monthly):
+# ShotSpotter Dispatch Trends (monthly)
 
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/shotspotter_trend.jpeg")
@@ -512,7 +518,7 @@ class: inverse, mline, center, middle
 ---
 name: data
 class: regression
-# Data and Sample Restrictions:
+# Data and Sample Restrictions
 
 .pull-left[
 ### Data Overview:
@@ -542,7 +548,7 @@ xfun::file_string('tables/summary_stats.html')
 
 ---
 
-# Estimation Strategy:
+# Estimation Strategy
 ### Specification (OLS):
 
 $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$
@@ -559,12 +565,12 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + 
 
 
 ---
-# Potential Threats to Identification:
+# Potential Threats to Identification
 
 --
 
-#### 1. Violation of Common Trends:
-  * .font80[Event studies] 
+#### 1. Response times increasing prior to rollout:
+  * .font80[Event studies - tests plausibility] 
   * .font80[Rambachan and Roth (2023) sensitivity analysis]
 
 --
@@ -589,7 +595,7 @@ class: inverse, mline, center, middle
 # Raw-Data Preview 
 
 ---
-# Raw Data Preview:
+# Raw Data Preview
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/raw_evidence_figure.jpeg")
 ```
@@ -600,64 +606,47 @@ class: inverse, mline, center, middle
 
 ---
 class: regression
-# Effect on Call-to-Dispatch (seconds)
+# Effect on Response Times (seconds)
 
 ```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/dispatch_table.html')
-```
-
----
-class: regression
-count: false
-# Effect on Call-to-Dispatch (seconds)
-
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/dispatch_table_c1.html')
-```
----
-class: regression
-count: false
-# Effect on Call-to-Dispatch (seconds)
-
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/dispatch_table_c2.html')
-```
----
-class: regression
-count: false
-# Effect on Call-to-Dispatch (seconds)
-
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/dispatch_table_c3.html')
-```
----
-class: regression
-# Effect on Call-to-On-Scene (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/onscene_table.html')
-```
----
-class: regression
-count: false
-# Effect on Call-to-On-Scene (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/onscene_table_c1.html')
-```
----
-class: regression
-count: false
-# Effect on Call-to-On-Scene (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/onscene_table_c2.html')
+xfun::file_string('tables/response_time_table.html')
 ```
 
 ---
 class: regression
 count: false
-# Effect on Call-to-On-Scene (seconds)
+# Effect on Response Times (seconds)
+
 ```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/onscene_table_c3.html')
+xfun::file_string('tables/response_time_table_c1.html')
 ```
+
+---
+class: regression
+count: false
+# Effect on Response Times (seconds)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/response_time_table_c2.html')
+```
+
+---
+class: regression
+count: false
+# Effect on Response Times (seconds)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/response_time_table_c3.html')
+```
+---
+class: regression
+count: false
+# Effect on Response Times (seconds)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/response_time_table_c4.html')
+```
+
 
 ---
 class: regression
@@ -706,55 +695,62 @@ knitr::include_graphics("figures/eos_1_es.jpeg")
 ```
 ---
 name: robustness
-# Robustness:
+# Robustness
 
-## Main Results:
+## Several Tests of Robustness and Sensitivity:
 .pull-left[
 
-- Leave-one-out analysis - [See Figure](#loo)
-  - Both OLS/Gardner (2021)
-- Sample restrictions -  [See Figure](#forest)
-  - Omit 2020 (Covid-19) 
-  - Omit 'Shots Fired' calls 
-  - Reintroduce outliers
-  - Reintroduce omitted days
-  - Omit never-treated
-- For arrests:
-  - Logistic regression - [See Figure](#logit)
+- Not driven by 1 district - [See Figure](#loo)
+  - .font80[Leave-one-out analysis] 
+  - .font80[Both OLS/Gardner (2021)]
+- Sample Restrictions -  [See Figure](#forest)
+  - .font80[Omit 'Shots Fired' calls] 
+  - .font80[Reintroduce outliers]
+  - .font80[Reintroduce omitted days]
+  - .font80[Omit 2020 (Covid-19)] 
+- Consistency across estimators (arrests):
+  - .font80[Logistic regression] - [See Figure](#logit)
   ]
 
 .pull-right[
 
-* Control for CPD initatives - [See Table](#confounding_dispatch)
-    - Body-Worn Cameras
-    - Strategic Decision Support Centers
+- Coinciding rollouts - [See Table](#confounding_dispatch)
+  - .font80[Control for CPD initatives:]
+  - .font80[Body-Worn Cameras]
+  - .font80[Strategic Decision Support Centers]
 * Sensitivity analysis - [See Figure](#roth)
-    - Rambachan and Roth (2023) 
-    - Relax parallel trends
+  - .font80[Rambachan and Roth (2023)] 
+  - .font80[Allow for linear extrapolation of pre-treatment trend]
 ]
 
 ---
 class: inverse, mline, center, middle
 
-# Mechanism: ShotSpotter Incapacitates Officers
+# Mechanism: Resource Constraint of Police Officers
 
 
 ---
-# Potential Mechanism: Time Constraint
+# Mechanism: Resource Constraint
 
 #### 1. Extensive Margin: Estimate most resource-constrained times 
-  - .font80[Split by police-district median number of officer hours]
   - .font80[Separate by shift-type]
+  - .font80[Split by police-district median number of officer hours]
+
     
 #### 2. Intensive Margin: Use ShotSpotter dispatches as intensity measure 
   - .font80[Using the number of ShotSpotter dispatches as our identifying variation, we estimate the marginal effect of an extra ShotSpotter dispatch:]
 
-$$\text{ResponseTime}_{cdt} = \beta \text{NumberSSTDispatches}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$
+$$\text{ResponseTime}_{dt} = \beta \text{NumberSSTDispatches}_{dt} + \delta_{d} + \gamma_t +  \varepsilon_{dt}$$
 
   - $\text{NumberSSTDispatches}_{dt}$ .font80[is number of ShotSpotter dispatches in a police-district]
   - .font80[Restrict to only treated periods]
 
 
+---
+# Extensive Margin: Shift Times
+```{r, out.width = "1000px", out.height = "550px", fig.align="center"}
+knitr::include_graphics("figures/watch_graph.jpeg")
+```
 
 ---
 class: regression
@@ -779,16 +775,10 @@ xfun::file_string('tables/mechanism_extensive_medians_talk.html')
 
 
 ---
-# Extensive Margin: Shift Times
-```{r, out.width = "1000px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/watch_graph.jpeg")
-```
-
----
 class: regression
 # Intensive Margin: ShotSpotter Dispatches
 ```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_intensive.html')
+xfun::file_string('tables/intensive_table.html')
 ```
 
 ---
@@ -796,14 +786,14 @@ count: false
 class: regression
 # Intensive Margin: ShotSpotter Dispatches
 ```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_intensive_pooled.html')
+xfun::file_string('tables/intensive_table_col1.html')
 ```
 ---
 class: regression
 count: false
 # Intensive Margin: ShotSpotter Dispatches
 ```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_intensive_medians.html')
+xfun::file_string('tables/intensive_table_col2.html')
 ```
 
 
@@ -813,7 +803,7 @@ class: inverse, mline, center, middle
 # Heterogeneity 
 
 ---
-# Two Types of Heterogeneity Analysis:
+# Two Types of Heterogeneity Analysis
 
 --
 
@@ -832,7 +822,7 @@ class: inverse, mline, center, middle
   
 
 ---
-# Priority and Call-type Heterogeneity: 
+# Priority and Call-type Heterogeneity 
 
 
 .panelset.sideways[
@@ -881,27 +871,27 @@ class: inverse, mline, center, middle
 
 ---
 class: regression
-# Effect on Victim Injury Likelihood (percent):
+# Effect on Victim Injury Likelihood (percent)
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/victim_table.html')
 ```
 ---
 count: false
 class: regression
-# Effect on Victim Injury Likelihood (percent):
+# Effect on Victim Injury Likelihood (percent)
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/victim_table_pooled.html')
 ```
 ---
 count: false
 class: regression
-# Effect on Victim Injury Likelihood (percent):
+# Effect on Victim Injury Likelihood (percent)
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/victim_table_gun.html')
 ```
 
 ---
-# Conclusion:
+# Conclusion
 
 ## Contribution:
 - An in-depth analysis on unintended consequences of ShotSpotter
@@ -911,10 +901,9 @@ xfun::file_string('tables/victim_table_gun.html')
 - Call-to-Dispatch (+1 minute/ 23%)/ Call-to-On-Scene (+2 minutes/ 13%)
     - Longer response times $\Rightarrow$ lower arrest likelihood  (8% decrease)
     
-## Mechanism: Incapacitation
+## Mechanism: Resource Constraint
 
 - More officers needed to mitigate unintended consequences
-- Back-of-the-evelope: 2x more officers needed
 
 
 ---

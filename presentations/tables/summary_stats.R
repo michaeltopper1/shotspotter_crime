@@ -15,9 +15,9 @@ summary_stats <- dispatch_panel_p1 %>%
   mutate(across(c(entry_to_dispatch,
                   entry_to_onscene
   ), ~./60, .names = "{.col}_mins")) %>% 
-  datasummary((`Call-to-Dispatch` = entry_to_dispatch) +
+  datasummary((`Call-to-Dispatch (seconds)` = entry_to_dispatch) +
                 entry_to_dispatch_mins +
-                (`Call-to-On-Scene` = entry_to_onscene) +
+                (`Call-to-On-Scene (seconds)` = entry_to_onscene) +
                 entry_to_onscene_mins~ Mean + SD + Min  +Max + N,
               data = .,
               output = "data.frame") %>% 
