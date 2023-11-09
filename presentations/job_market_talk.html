@@ -46,6 +46,11 @@ $( document ).ready(function() {
 
 
 &lt;style type="text/css"&gt;
+
+.red {
+  font-weight: bold;
+  color: red;
+}
 /* This changes any table of class regression to 20 size font */
 .regression table {
   font-size: 20px; 
@@ -102,7 +107,7 @@ table &gt; tfoot &gt; tr {
 .pull-right[
 ### ShotSpotter Technology
   - Gunshot detection
-  - Rationale: only 12% of gunfire reported (Carr and Doleac, 2017) `\(\rightarrow\)` method to respond to others 
+  - Rationale: only 12% of gunfire reported (Carr and Doleac, 2017) `\(\rightarrow\)` method to rapidly respond to others 
   - 150+ cities world-wide
 ]
 
@@ -242,16 +247,11 @@ count: false
   
 
 ## Main Results:
-  - When a civilian calls 911, a Priority 1 call experiences:
+  - When a civilian calls 911, a call experiences:
     - +1 minute Call-to-Dispatch (23%)
     - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (9%)
 ]
-
----
-# Mechanism: Resource Constraint/Reallocation
-
-&lt;img src="figures/watch_graph.jpeg" width="1000px" height="550px" style="display: block; margin: auto;" /&gt;
 
 ---
 # Contribution
@@ -500,7 +500,7 @@ class: regression
 .pull-left[
 ### Data Overview:
 - Priority 1 911 Calls (2016-2022) with police dispatch
-- ShotSpotter dispatches `\(\neq\)` 911 call
+- .red[ShotSpotter dispatches] `\(\neq\)` .red[911 call]
 - Freedom of Information Act: 25 requests, 100+ emails/phone calls,
 1 [lawsuit](#lawsuit) against CPD 
 
@@ -570,11 +570,11 @@ January 1/July 4/December 31
 # Estimation Strategy
 ### Specification (OLS):
 
-`$$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotter}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$`
+`$$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotterActivated}_{dt}  + \eta_{\bar{c}} + \delta_{d} + \gamma\mathbb{X}_{f(t)} +  \varepsilon_{cdt}$$`
 --
 
 * `\(\text{ResponseTime}_{cdt}\)` is call `\(c\)` in police district `\(d\)` in time `\(t\)`.
-* `\(\text{ShotSpotter}_{dt}\)` is the binary treatment
+* `\(\text{ShotSpotterActivated}_{dt}\)` is the binary treatment
 * `\(\eta_{\bar{c}}\)` is a call-type fixed effect
 * `\(\delta_{d}\)` is a police district-specific fixed effect
 * `\(\mathbb{X}_{f(t)}\)` is a vector of time-varying controls:

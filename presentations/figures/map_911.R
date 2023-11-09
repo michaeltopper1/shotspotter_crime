@@ -75,7 +75,7 @@ map_911 <- crime_locations %>%
   scale_fill_gradient(low = "white", high = "dark red") +
   labs(fill = "911 Calls") +
   ggthemes::theme_map() +
-  ggtitle("Number of Priority 1 911 Calls", subtitle = "Chicago (2016-2022)") +
+  ggtitle("Number of 911 Calls", subtitle = "Chicago (2016-2022)") +
   theme(plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
         axis.title.x = element_blank(),
