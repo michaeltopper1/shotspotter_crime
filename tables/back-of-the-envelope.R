@@ -1,4 +1,5 @@
 library(tidyverse)
+library(fixest)
 
 if (!exists("dispatch_panel")){
   dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
@@ -53,7 +54,7 @@ aggregate_outcomes <- aggregate_outcomes %>%
 ## dispatch results
 aggregate_outcomes %>% 
   mutate(officers = officer_hours/8) %>% 
-  feols(entry_to_dispatch ~ officers |district + date)
+  feols(entry_to_dispatch ~ officers + officers^2 + officers^3|district + date)
 dispatch_panel_p1 %>% 
   mutate(officers = officer_hours/8) %>% 
   feols(entry_to_dispatch ~ officers + ..ctrl)
@@ -66,11 +67,11 @@ dispatch_panel_p1 %>%
 ## these give the marginal effect of an additional police officer
 onscene_estimates <- aggregate_outcomes %>% 
   mutate(officers = officer_hours/8) %>% 
-  feols(entry_to_onscene ~ officers |district + date) %>% 
+  feols(entry_to_onscene ~ officers + officers^2|district + date) %>% 
   broom::tidy()
 ## 1 additional officer reduces on-scene times by 1.02 seconds
 ## given that the point estimates show 103.7 second increases this means
-number_officers_needed <- 103.7/-onscene_estimates$estimate
+number_officers_needed <- 103.7/-(onscene_estimates$estimate[[1]] +2 *onscene_estimates$estimate[[2]])
 
 
 
