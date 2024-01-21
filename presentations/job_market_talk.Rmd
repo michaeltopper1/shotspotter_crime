@@ -3,7 +3,7 @@ title: "The Effect of ShotSpotter Technology on Police Response Times"
 subtitle: ""
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
-date: "11/9/2023"
+date: "1/25/2025"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
