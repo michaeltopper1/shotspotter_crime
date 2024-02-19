@@ -1,6 +1,6 @@
 ---
 title: "The Effect of ShotSpotter Technology on Police Response Times"
-subtitle: ""
+subtitle: "Job Market Talk"
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
 date: "1/25/2025"
