@@ -1,0 +1,35 @@
+---
+title: "Journal Submission Fee Request: The Unintended Consequeces of Policing Technology: Evidence from ShotSpotter"
+author: "Michael Topper and Toshio Ferrazares"
+output: pdf_document
+date: "`r Sys.Date()`"
+linkcolor: 'blue'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Research Overview
+
+Technology is integral to police departments, automating officer tasks, but inherently changing their time allocation. We investigate this by studying ShotSpotter, a technology that automates gunfire detection. Following a detection, officers are dispatched to the scene, thereby reallocating their time. We leverage this shock to officers’ time allocation using the rollout of ShotSpotter across Chicago police districts to study the effects on 911 call response. We find substantial consequences---officers are dispatched to calls slower (23\%), arrive on-scene later (13\%), and the probability of arrest is decreased 9\%. Consequently, police departments must evaluate their resource capacities prior to implementing technologies.
+
+# Project Objective
+
+The objective of this project is to be a published journal article.  Moreover, this will be a chapter in Michael's dissertation, and possibly Toshio's as well.
+
+# Proposal Narrative
+
+Please see the most recent draft of the working paper which can be found [here](https://michaeltopper.netlify.app/research/jmp_michael_topper.pdf) for all details on the methodology.
+
+# Schedule of Project
+
+This project has been completed and is now awaiting journal submission.
+
+# Detailed Budget
+
+The budget for this proposal is **$200.00.** It is a one-time payment for the journal submission fee at AEJ: Policy. It will be paid at soonest convenience to the Economics Department, although a proposed date is **Friday, April 11, 2024.**
+
+
+
+
