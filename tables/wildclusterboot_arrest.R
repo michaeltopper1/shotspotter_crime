@@ -27,20 +27,17 @@ arrest_rate_no_gun <-
           hour + final_dispatch_description_1, data = dispatch_panel_p1 %>% 
           filter(gun_crime_report != 1) )
 
-arrest_rate_domestic_bat <- 
-  feols(arrest_made ~ treatment |district + date +
-          hour , data = dispatch_panel_p1 %>% 
-          filter(final_dispatch_description == "DOMESTIC BATTERY"))
+misc_p_boot <- 
+  feols(misc_letter_P ~ treatment |district + date +
+          hour , data = dispatch_panel_p1 )
 
-arrest_rate_domestic_disturb <- 
-  feols(arrest_made ~ treatment |district + date +
-          hour , data = dispatch_panel_p1 %>% 
-          filter(final_dispatch_description == "DOMESTIC DISTURBANCE"))
+misc_b_boot <- 
+  feols(misc_letter_B ~ treatment |district + date +
+          hour , data = dispatch_panel_p1 )
 
-arrest_rate_battery <-  
-  feols(arrest_made ~ treatment |district + date +
-          hour , data = dispatch_panel_p1 %>% 
-          filter(final_dispatch_description == "BATTERY IP"))
+misc_f_boot <-  
+  feols(misc_letter_F ~ treatment |district + date +
+          hour , data = dispatch_panel_p1)
 
 
 arrest_1 <- boottest(arrest_rate, clustid = c("district"), 
@@ -53,27 +50,27 @@ arrest_2 <- boottest(arrest_rate_gun, clustid = c("district"),
                        param = "treatment",
                        fe = "date")
 
-arrest_25 <- boottest(arrest_rate_no_gun, clustid = c("district"), 
-                     B = 1499, 
+arrest_3 <- boottest(arrest_rate_no_gun, clustid = c("district"), 
+                     B = 999, 
                      param = "treatment",
                      fe = "date")
 
-arrest_3 <- boottest(arrest_rate_domestic_bat, clustid = c("district"), 
+arrest_4 <- boottest(misc_p_boot, clustid = c("district"), 
                        B = 999, 
                        param = "treatment",
                        fe = "date")
 
-arrest_4 <- boottest(arrest_rate_domestic_disturb, clustid = c("district"), 
+arrest_5 <- boottest(misc_b_boot, clustid = c("district"), 
                        B = 999, 
                        param = "treatment",
                        fe = "date")
 
-arrest_5 <- boottest(arrest_rate_battery, clustid = c("district"), 
+arrest_6 <- boottest(misc_f_boot, clustid = c("district"), 
                       B = 999, 
                       param = "treatment",
                       fe = c("date"))
 
-wild_bootstrap_arrest <- c('0.001', '0.412','0.003', '0.003', '0.049', 0.109)
+wild_bootstrap_arrest <- c('0.001', '0.311','0.005', '0.122', '0.006', '0.005')
 
 
 ## full sample of time-sensitive calls

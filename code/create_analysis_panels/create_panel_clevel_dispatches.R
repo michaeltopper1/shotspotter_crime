@@ -315,5 +315,19 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   drop_na(final_dispatch_description)
 
+
+
+
+# Post-Rejection JPUBE code -----------------------------------------------
+
+
+# adding in further arrests from disposition ------------------------------
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(arrest_made = if_else(str_detect(final_disposition_code, "R") | arrest_made == 1, 1, 0)) %>% 
+  mutate(arrest_made = replace_na(arrest_made, 0)) 
+
+
+
 write_csv(dispatches_filtered, file = "analysis_data/xxdispatches_clevel.csv")
 

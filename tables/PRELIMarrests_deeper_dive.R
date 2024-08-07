@@ -11,25 +11,9 @@ if (!exists("dispatch_panel")){
     filter(priority_code ==1)
 }
 
-## need to add in other arrest mades. This doesn't change the results as far as I have looked.
-## 
-dispatch_panel_p1 <- dispatch_panel_p1 %>% 
-  tidylog::mutate(arrest_made = if_else(str_detect(final_disposition_code, "R") | arrest_made == 1, 1, 0)) %>% 
-  mutate(arrest_made = replace_na(arrest_made, 0)) 
-
-
-dispatch_panel_p1 <- dispatch_panel_p1 %>% 
-  mutate(domestic_battery = if_else(final_disposition_code %in% c("0486", "0488",
-                                                                  "0489", "0496",
-                                                                  "0497", "0498"), 1, 0))
-
 
 ## officers can name an action with several letters attached for miscellaneous events.
 
-dispatch_panel_p1 %>% 
-  filter(str_detect(final_disposition_code, "G")) %>% 
-  count(final_disposition_description, final_disposition_code, sort = T)
-  
 person_not_found_1 <- paste0(c(1:19), "B")
 person_not_found_2 <- paste0(c(1:19), "BZ")
 person_not_found <- c(person_not_found_1, person_not_found_2)
