@@ -16,7 +16,14 @@ arrests <- readxl::read_excel("raw_data/arrests/20237-P833370_Arrest_Records_201
                                 sheet = "DataSet I") %>% 
   janitor::clean_names()
 
+clearance_files <- list.files("raw_data/clearance/")
+clearance_files <- paste0("raw_data/clearance/", clearance_files)
+clearance <- map_df(clearance_files, ~readxl::read_excel(.)) %>% 
+  janitor::clean_names()
+
 crimes <- read_csv("created_data/crimes_cleaned.csv")
+
+victims <- read_csv("raw_data/all_victims.csv")
 
 ## does not have all of the sdscs
 rollout_dates <- read_csv("created_data/rollout_dates.csv")
@@ -89,6 +96,41 @@ victims <- victims %>%
 victims <- victims %>% 
   filter(district < 30) %>% 
   drop_na(district) 
+
+
+# cleaning clearance and crimes------------------------------------------------------
+
+clearance <- clearance %>% 
+  mutate(date = dmy_hm(occ_datetime) %>% as_date()) %>% 
+  filter(year(date) <=2022 & year(date) >=2016)
+
+clearance <- clearance %>% 
+  mutate(gun_case = if_else(str_detect(description, "GUN|FIREARM"), 1, 0)) 
+
+
+crimes <- crimes %>% 
+  mutate(gun_crime = if_else(str_detect(description, "GUN|FIREARM"), 1, 0))
+
+gun_crimes <- crimes %>% 
+  filter(gun_crime == 1)
+
+gun_crimes <- gun_crimes %>% 
+  tidylog::left_join(clearance, join_by(case_number == rd))
+
+gun_crimes <- gun_crimes %>% 
+  mutate(case_cleared = if_else(current_case_status == "5-EX CLEARED CLOSED" |
+                                  current_case_status == "3-CLEARED CLOSED", 1, 0))
+
+gun_crimes <- gun_crimes %>% 
+  filter(district < 30)
+
+gun_crimes <- gun_crimes %>% 
+  rename(date = date.x) %>% 
+  group_by(district, date) %>% 
+  summarize(number_gun_crimes = n(),
+            number_gun_crimes_cleared = sum(case_cleared, na.rm = T)) %>% 
+  ungroup()
+
 
 ## gun involved victims will be those with a gun involved or gun injury.
 victims <- victims %>% 
@@ -165,12 +207,16 @@ arrests <- arrests %>%
   mutate(number_gun_and_sst_calls = number_gun_calls + number_sst_dispatches)
 
 
-# merging victims ---------------------------------------------------------
+# merging victims and crimes---------------------------------------------------------
 
 arrests <- arrests %>% 
   left_join(victims) %>% 
   mutate(across(c(number_victims, number_gun_involved_victims), ~if_else(is.na(.), 0, .)))
 
+arrests <- arrests %>% 
+  left_join(gun_crimes) %>% 
+  mutate(number_gun_crimes = replace_na(number_gun_crimes, 0),
+         number_gun_crimes_cleared = replace_na(number_gun_crimes_cleared, 0))
 
 arrests %>% 
   write_csv("analysis_data/xxaggregate_outcomes.csv")

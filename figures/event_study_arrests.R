@@ -14,8 +14,7 @@ if (!exists("dispatch_panel")){
 }
 
 
-setFixest_fml(..ctrl = ~0| district + date +
-                 final_dispatch_description + hour)
+setFixest_fml(..ctrl = ~0| district + date)
 
 es_data_dispatch <- dispatch_panel_p1 %>% 
   mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
