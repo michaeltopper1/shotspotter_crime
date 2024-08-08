@@ -124,4 +124,4 @@ misc_letters_graph <- misc_letters_regressions %>%
   theme_minimal()
 
 ggsave(misc_letters_graph, filename = "paper/appendix_figures/misc_disposition_letters_.jpeg", width = 7, height = 5)
-  
+

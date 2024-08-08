@@ -57,6 +57,9 @@ dispatch_panel_p1 <- dispatch_panel_p1 %>%
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
   mutate(victim_injury_likely_p = victim_injury_likely * 100)
 
+dispatch_panel_p1 %>% 
+  summarize(mean(victim_injury_likely, na.rm = T))
+
 # regressions -------------------------------------------------------------
 
 setFixest_fml(..ctrl = ~0| district + date +
@@ -77,11 +80,6 @@ victim_no_gun <- dispatch_panel_p1 %>%
   filter(gun_crime_report == 0) %>% 
   feols(victim_injury_likely*100~ treatment + ..ctrl)
 
-
-dispatch_panel_p1 %>% 
-  filter(str_detect(final_disposition_description, "INJ")) %>% 
-  filter(victim_injury_likely == 0) %>% 
-  count(final_disposition_description, final_dispatch_description) %>% View()
 
 # 2sdid -------------------------------------------------------------------
 
