@@ -14,7 +14,7 @@ if (!exists("dispatch_panel")){
 }
 
 
-setFixest_fml(..ctrl = ~0| district + date)
+setFixest_fml(..ctrl = ~0| district + date + hour + final_dispatch_description)
 
 es_data_dispatch <- dispatch_panel_p1 %>% 
   mutate(time_to_treat = time_length(as_date(date) - shotspot_activate,
@@ -41,6 +41,23 @@ event_study_graph <- function(x){
          y = "Point Estimate (seconds) and 95% Confidence Interval",
          color = "",
          shape = "") +
+    theme_minimal() +
+    ggthemes::scale_color_stata() +
+    theme(legend.position = "bottom")
+  return(graph)
+}
+event_study_graph_facet <- function(x){
+  graph <- x %>% 
+    ggplot(aes(periods, estimate)) +
+    geom_point(position = position_dodge(width = 0.5)) +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
+                  position = position_dodge(width = 0.5)) +
+    geom_hline(yintercept = 0, color = "dark red") +
+    labs(x = "Months to Adoption",
+         y = "Point Estimate (seconds) and 95% Confidence Interval",
+         color = "",
+         shape = "") +
+    facet_wrap(~type) +
     theme_minimal() +
     ggthemes::scale_color_stata() +
     theme(legend.position = "bottom")

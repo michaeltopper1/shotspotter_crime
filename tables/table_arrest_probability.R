@@ -113,7 +113,8 @@ arrest_prob <- arrest_table_raw %>%
   add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.311",
           model_3 = "0.005", model_4 = "0.122", model_5 = "0.006", model_6 = "0.005", .before = 5) %>%
   clean_raw(pretty_num = T,
-            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (OLS)") %>% 
+            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (OLS)",
+            format = "latex") %>% 
   row_spec(5, hline_after = T) %>% 
   add_header_above(c(" " = 1,
                      "Total\nArrests" = 1,

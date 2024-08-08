@@ -91,22 +91,39 @@ bwc_o1 <-
         data = dispatch_panel_p1)
 
 
+# Panel C: arrests --------------------------------------------------------
+
+
+sdsc_a1 <- feols(arrest_made*100 ~treatment + treatment_sdsc + ..ctrl,
+        data = dispatch_panel_p1)
+
+
+sdsc_a2 <- feols(arrest_made*100 ~treatment + treatment_sdsc + ..ctrl,
+        data = dispatch_panel_p1 %>% 
+          filter(!district %in% c(7,9)))
+
+
+bwc_a1 <- feols(arrest_made*100 ~treatment + treatment_bwc + ..ctrl,
+        data = dispatch_panel_p1)
+
+
+
 
 # bootstraps --------------------------------------------------------------
 
 
-sdsc_d_1 <- 
-  boottest(sdsc_d1, clustid = c("district"), 
+sdsc_a1_b <- 
+  boottest(sdsc_a1, clustid = c("district"), 
            B = 1000, 
            param = "treatment",
            fe = c("date"))
 
-sdsc_d_2 <- boottest(sdsc_d2, clustid = c("district"), 
+sdsc_a2_b <- boottest(sdsc_a2, clustid = c("district"), 
                      B = 999, 
                      param = "treatment",
                      fe = c("date"))
 
-sdsc_d_3 <- boottest(bwc_d1, clustid = c("district"), 
+bwc_a1_b <- boottest(bwc_a1, clustid = c("district"), 
                      B = 999, 
                      param = "treatment",
                      fe = c("date"))
@@ -121,11 +138,29 @@ sdsc_o_2 <-
            B = 999, 
            param = "treatment",
            fe = c("date"))
-sdsc_o_3 <- 
+bwc_o_3 <- 
   boottest(bwc_o1, clustid = c("district"), 
            B = 999, 
            param = "treatment",
            fe = c("date"))
 
-c("0.006", "0.004", "0.010","0.002",
-  "0.001","0.002")
+sdsc_a_1b <- boottest(sdsc_a1, clustid = c("district"), 
+                      B = 999, 
+                      param = "treatment",
+                      fe = c("date"))
+
+sdsc_a_1b <- boottest(sdsc_a2, clustid = c("district"), 
+                      B = 999, 
+                      param = "treatment",
+                      fe = c("date"))
+
+bwc_a_1b <- boottest(bwc_a1, clustid = c("district"), 
+                      B = 999, 
+                      param = "treatment",
+                      fe = c("date"))
+
+
+
+c("0.006", "0.004", "0.010",
+  "0.002","0.001","0.002",
+  "0.002","0.009","0.003" )

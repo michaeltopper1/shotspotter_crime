@@ -1,5 +1,5 @@
 \begin{table}[H]
-
+\centering
 \caption{\label{confounding_table}Robustness of Estimates Controlling for Other Technologies (OLS)}
 \centering
 \begin{threeparttable}
@@ -21,7 +21,7 @@
 \hspace{1em}BWC Activated &  &  &  &  & -30.735 & \\
 \hspace{1em} &  &  &  &  & (20.755) & \\
 \hspace{1em}Mean of Dependent Variable & 281.890 & 281.890 & 289.018 & 289.018 & 281.890 & 281.890\\
-\hspace{1em}Observations & 3,582,560 & 3,582,528 & 3,198,525 & 3,198,500 & 3,582,560 & 3,582,528\\
+\hspace{1em}Observations & 3,582,560 & 3,582,528 & 3,198,525 & 3,198,500 & 3,582,560 & \vphantom{1} 3,582,528\\
 \hspace{1em}Wild Bootstrap P-Value & 0.006 &  & 0.004 &  & 0.010 & \\
 \addlinespace[0.5cm]
 \multicolumn{7}{l}{\textit{Panel B: Call-to-On-Scene}}\\
@@ -34,6 +34,17 @@
 \hspace{1em}Mean of Dependent Variable & 770.863 & 770.863 & 790.897 & 790.897 & 770.863 & 770.863\\
 \hspace{1em}Observations & 1,997,102 & 1,997,076 & 1,762,676 & 1,762,656 & 1,997,102 & 1,997,076\\
 \hspace{1em}Wild Bootstrap P-Value & 0.002 &  & 0.001 &  & 0.002 & \\
+\addlinespace[0.5cm]
+\multicolumn{7}{l}{\textit{Panel C: Arrest Made}}\\
+\hspace{1em}ShotSpotter Activated & -0.238*** & -0.252*** & -0.248*** & -0.259*** & -0.228*** & -0.249***\\
+\hspace{1em} & (0.073) & (0.063) & (0.079) & (0.071) & (0.065) & (0.065)\\
+\hspace{1em}SDSC Activated & 0.029 &  & 0.014 &  &  & \\
+\hspace{1em} & (0.069) &  & (0.074) &  &  & \\
+\hspace{1em}BWC Activated &  &  &  &  & 0.012 & \\
+\hspace{1em} &  &  &  &  & (0.068) & \\
+\hspace{1em}Mean of Dependent Variable & 2.502 & 2.502 & 2.495 & 2.495 & 2.502 & 2.502\\
+\hspace{1em}Observations & 3,582,560 & 3,582,528 & 3,198,525 & 3,198,500 & 3,582,560 & 3,582,528\\
+\hspace{1em}Wild Bootstrap P-Value & 0.002 &  & 0.009 &  & 0.003 & \\
 \midrule
 Gardner (2021) Robust &  & X &  & X &  & X\\
 \bottomrule
@@ -41,7 +52,7 @@ Gardner (2021) Robust &  & X &  & X &  & X\\
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district.                      Coefficient estimates are in seconds.                      Columns 1 and 2 of Panel A show                       Call-to-Dispatch estimates when controlling for the implementation                      of Strategic                      Decision Support Centers (SDSC). In Columns 3 and 4,                       police districts 7 and 9 are omitted as Kapustin et al. (2022) shows that SDSCs                       affect                      police patrolling in these districts. Panel B is similar to Panel A,                      with the outcome of interest being Call-to-On-Scene times. In Columns 5 and 6,                      we control for Body-Worn Camera (BWC) adoption. Note that in each specification,                      controls are consistent with the preferred specification. OLS estimates are reported                      in odd-numbered columns, while Gardner (2021) robust estimates are reported in even columns.                      The coefficient estimates of controls when using Gardner (2021) estimator are not reported as the                       two-stage method only returns the coefficient estimate of interest on                      the treated variable. In addition, the two-stage procedure may drop observations                      in the first stage if unable to predict values. This happens infrequently as shown                      in the observation counts, but is worth noting. Finally,                      wild cluster bootstrap p-values using 999 iterations are also reported                  as the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008). The bootstrap procedure cannot be performed using the Gardner (2021) estimator.                                                           
+\item Standard errors are clustered by district.                      Coefficient estimates are in seconds for Panel A and B,                      while estimates are in percent for Panel C.                      Columns 1 and 2 of Panel A show                       Call-to-Dispatch estimates when controlling for the implementation                      of Strategic                      Decision Support Centers (SDSC). In Columns 3 and 4,                       police districts 7 and 9 are omitted as Kapustin et al. (2022) shows that SDSCs                       affect                      police patrolling in these districts. Panel B is similar to Panel A,                      with the outcome of interest being Call-to-On-Scene times. In Panel C, the outcome of                      interest is a binary for whether a 911 call ended in an arrest. In Columns 5 and 6,                      we control for Body-Worn Camera (BWC) adoption. Note that in each specification,                      controls are consistent with the preferred specification. OLS estimates are reported                      in odd-numbered columns, while Gardner (2021) robust estimates are reported in even columns.                      The coefficient estimates of controls when using Gardner (2021) estimator are not reported as the                       two-stage method only returns the coefficient estimate of interest on                      the treated variable. In addition, the two-stage procedure may drop observations                      in the first stage if unable to predict values. This happens infrequently as shown                      in the observation counts, but is worth noting. Finally,                      wild cluster bootstrap p-values using 999 iterations are also reported                  as the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008). The bootstrap procedure cannot be performed using the Gardner (2021) estimator.                                                           
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
