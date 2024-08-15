@@ -114,4 +114,4 @@ gardner_arrest_1 <- arrest_1_2sdid %>%
 # saving ------------------------------------------------------------------
 
 ggsave(gardner_arrest_1, filename = "figures/event_study_arrests_gardner.jpeg", width = 7, height = 5)
-ggsave(arrest_1_es, filename = "figures/event_study_arrests_ols_gardner.jpeg", width = 7, height = 5)
+ggsave(arrest_1_es, filename = "paper/appendix_figures/event_study_arrests.jpeg", width = 7, height = 5)

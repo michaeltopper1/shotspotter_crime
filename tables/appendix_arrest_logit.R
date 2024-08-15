@@ -116,7 +116,7 @@ arrest_table_raw <-
 arrest_prob_logit <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
   clean_raw(pretty_num = T,
-            caption = "\\label{arrest_prob_logit}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (OLS)",
+            caption = "\\label{arrest_prob_logit}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (Logit)",
             format = "latex") %>% 
   row_spec(4, hline_after = T) %>% 
   add_header_above(c(" " = 1,
@@ -128,8 +128,8 @@ arrest_prob_logit <- arrest_table_raw %>%
                      "Peace\nRestored" = 1)) %>% 
   add_header_above(c(" " = 1,
                      "911 Arrests" = 3,
-                     "Most Frequent Misc. 911 Dispositions" = 3)) %>% 
+                     "Most Frequent Final 911 Dispositions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
-writeLines(arrest_prob_logit, "paper/tables/appendix_arrest_logit.tex")
+writeLines(arrest_prob_logit, "paper/appendix_tables/appendix_arrest_logit.tex")

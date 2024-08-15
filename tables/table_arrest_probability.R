@@ -125,7 +125,7 @@ arrest_prob <- arrest_table_raw %>%
                      "Peace\nRestored" = 1)) %>% 
   add_header_above(c(" " = 1,
                      "911 Arrests" = 3,
-                     "Most Frequent Misc. 911 Dispositions" = 3)) %>% 
+                     "Most Frequent Final 911 Dispositions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 

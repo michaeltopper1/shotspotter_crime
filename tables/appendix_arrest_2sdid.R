@@ -154,7 +154,7 @@ arrest_table_raw <- arrest_table_raw %>%
           `Model 4` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_P_p, na.rm = T)),
           `Model 5` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_B_p, na.rm = T)),
           `Model 6` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_F_p, na.rm = T))) %>% 
-  add_row(term = "FE: Day-by-Month-by_year",
+  add_row(term = "FE: Day-by-Month-by-Year",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
@@ -193,9 +193,9 @@ arrest_table_raw <- arrest_table_raw %>%
 arrest_prob_2sdid <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
   clean_raw(pretty_num = T,
-            caption = "\\label{arrest_prob}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (Gardner 2021)",
+            caption = "\\label{arrest_prob_2sdid}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (Gardner 2021)",
             format = "latex") %>% 
-  row_spec(5, hline_after = T) %>% 
+  row_spec(4, hline_after = T) %>% 
   add_header_above(c(" " = 1,
                      "Total\nArrests" = 1,
                      "Gun\nArrests" = 1,
@@ -209,4 +209,4 @@ arrest_prob_2sdid <- arrest_table_raw %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
-writeLines(arrest_prob_2sdid, "paper/tables/arrest_prob_2sdid.tex")
+writeLines(arrest_prob_2sdid, "paper/appendix_tables/arrest_prob_2sdid.tex")

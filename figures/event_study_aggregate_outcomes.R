@@ -42,7 +42,7 @@ gun_and_sst_poisson <- agg_outcomes %>%
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
   mutate(type = "Poisson",
-         outcome = "Gun and SST Dispatches")
+         outcome = "Panel D: Gun and ShotSpotter Dispatches")
 
 gun_arrests_poisson <- agg_outcomes %>% 
   fepois(number_gun_arrests ~ i(time_to_treat, ref = c(-1, -1000)) + ..ctrl ,
@@ -53,7 +53,7 @@ gun_arrests_poisson <- agg_outcomes %>%
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
   mutate(type = "Poisson",
-         outcome = "Gun Arrests")
+         outcome = "Panel A: Gun Arrests")
 
 gun_victims_poisson <- agg_outcomes %>% 
   fepois(number_gun_involved_victims ~ i(time_to_treat, ref = c(-1, -1000)) + ..ctrl ,
@@ -64,7 +64,7 @@ gun_victims_poisson <- agg_outcomes %>%
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
   mutate(type = "Poisson",
-         outcome = "Gun Victims")
+         outcome = "Panel B: Gun Victims")
 
 gun_crimes_cleared_poisson <- agg_outcomes %>% 
   fepois(number_gun_crimes_cleared ~ i(time_to_treat, ref = c(-1, -1000)) + ..ctrl ,
@@ -75,11 +75,12 @@ gun_crimes_cleared_poisson <- agg_outcomes %>%
           .before = 12) %>% 
   mutate(periods = c(-12:24)) %>% 
   mutate(type = "Poisson",
-         outcome = "Gun Crimes Cleared")
+         outcome = "Panel C: Gun Crimes Cleared")
 
 es_aggregate_poisson <- gun_and_sst_poisson %>% 
-  bind_rows(gun_arrests_poisson, gun_victims_poisson, gun_crimes_cleared_poisson) %>% 
-  ggplot(aes(periods, estimate, shape = outcome)) +
+  bind_rows(gun_arrests_poisson, gun_victims_poisson, gun_crimes_cleared_poisson) %>%
+  filter(periods %in% c(-11:23)) %>% 
+  ggplot(aes(periods, estimate, shape = outcome, color = outcome)) +
   geom_point(position = position_dodge(width = 0.5)) +
   geom_errorbar(aes(ymin = conf.low, ymax = conf.high),
                 position = position_dodge(width = 0.5),
@@ -90,10 +91,16 @@ es_aggregate_poisson <- gun_and_sst_poisson %>%
        color = "",
        shape = "") +
   theme_minimal() +
-  facet_wrap(~outcome, ncol = 1, scales = "free_y") +
+  geom_vline(aes(xintercept = -1), linetype = 'dashed') +
+  facet_wrap(~outcome, ncol = 1) +
   ggthemes::scale_color_stata() +
   theme(legend.position = "none")
 
+## DID estimate for bounds purposes:
+agg_outcomes %>% 
+  fepois(c(number_gun_arrests, number_gun_crimes_cleared, number_gun_involved_victims) ~ treatment + ..ctrl ,
+         cluster = ~district, data = .)
 
 
-ggsave(es_aggregate_poisson, filename = "figures/event_study_agg_outcomes_poisson.jpeg", width = 7, height = 5)
+
+ggsave(es_aggregate_poisson, filename = "paper/figures/event_study_agg_outcomes_poisson.jpeg", width = 7, height = 5)
