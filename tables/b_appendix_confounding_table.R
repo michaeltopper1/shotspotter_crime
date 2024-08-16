@@ -156,7 +156,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district.
                       Coefficient estimates are in seconds for Panel A and B,
-                      while estimates are in percent for Panel C.
+                      while estimates and means are in percent for Panel C.
                       Columns 1 and 2 of Panel A show
                        Call-to-Dispatch estimates when controlling for the implementation
                       of Strategic

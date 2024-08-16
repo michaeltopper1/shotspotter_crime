@@ -69,7 +69,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. All
-                      coefficient estimates are in percentages.
+                      coefficient estimates and means are in percentages.
                       The dependent variable in Columns 1-3 is an indicator equal to one if a 911 call resulted in an arrest.
                       The dependent variable in Columns 4-6 is an indicator equal to one if a 911 call resulted in 
                       Other Police Service (Column 4), No Person Found (Column 5), or Peace Restored (Column 6).
