@@ -39,11 +39,7 @@ if (!exists("dispatch_panel")){
 #   pull() %>% 
 #   round(2)
 
-victim <- dispatch_panel_p1 %>% 
-  datasummary((`Victim Injury` = victim_injury)~
-                Mean + SD  + Min  +Max + N,
-              data = .,
-              output = "data.frame")
+
 
 onscene_3 <- dispatch_panel %>% 
   filter(priority_code == 3) %>% 
@@ -92,8 +88,6 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          of on-scene times. This is discussed further in Appendix A.
          Arrest Made is and indicator equal to one if the 911
          dispatch resulted in an arrest.
-         Victim Injury is an indicator equal to one if the 911
-         dispatch resulted in a victim injury.
          Priority 1 refers to an immediate dispatch, 
          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. 
          Priority 1 911 Dispatches is the number of Priority 1 dispatches at the
@@ -110,9 +104,8 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
                   "), ~str_remove_all(., "\n"))
 
 summary_stats <- summary_stats_raw %>% 
-  add_row(victim, .before = 6) %>% 
-  add_row(onscene_2, .before = 7) %>% 
-  add_row(onscene_3, .before = 11) %>% 
+  add_row(onscene_2, .before = 6) %>% 
+  add_row(onscene_3, .before = 10) %>% 
   janitor::clean_names() %>% 
   mutate(across(.cols = c(-1), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 
   mutate(x = if_else(str_detect(x, "mins$"),
@@ -124,12 +117,12 @@ summary_stats <- summary_stats_raw %>%
       caption = "\\label{summary_stats}Summary Statistics",
       format = "latex") %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 10) %>% 
-  pack_rows(group_label = "Panel A: Priority 1 Outcomes:", 1, 6,
+  pack_rows(group_label = "Panel A: Priority 1 Outcomes:", 1, 5,
             italic = F, bold = T) %>% 
-  pack_rows(group_label = "Panel B: Secondary Outcomes:", 7, 13,
+  pack_rows(group_label = "Panel B: Secondary Outcomes:", 6, 13,
             latex_gap_space = "0.5cm",
             italic = F, bold = T) %>% 
-  pack_rows(group_label = "Panel C: Other Variables:", 15, 17,
+  pack_rows(group_label = "Panel C: Other Variables:", 14, 16,
             latex_gap_space = "0.3cm") %>% 
   footnote(footnote, threeparttable = T)
 
