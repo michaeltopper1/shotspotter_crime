@@ -15,7 +15,8 @@ sst <- read_csv("created_data/sst_dispatch_cpd.csv")
 ## filtering to only past february which is the first date
 ## of a shotspotter-related arrest
 sst_feb <- sst %>% 
-  filter(date >= as_date("2019-02-19"))
+  mutate(date = as_date(entry_received_date)) %>% 
+  filter(date >= ymd("2019-02-19"))
 
 # shotspotter evidence found ----------------------------------------------
 
