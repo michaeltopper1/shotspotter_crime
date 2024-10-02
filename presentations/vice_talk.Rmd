@@ -3,7 +3,7 @@ title: "The Unintended Consequences of Policing Technology:"
 subtitle: "Evidence from ShotSpotter"
 author: "Michael Topper and Toshio Ferrazares"
 institute: "University of California, Santa Barbara"
-date: "4/11/2024"
+date: "10/10/2024"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
@@ -299,66 +299,6 @@ count: false
 ]
 ]
 
----
-class: inverse, mline, center, middle
-
-# Background on Chicago Policing
-
----
-# Chicago Background
-
-.pull-left[
-### Chicago Geography:
-* Chicago subset into 22 police districts (population ~100k)
-  - Within districts are beats
-  - Officers generally assigned within districts/beats to patrol
-
-### Chicago Crime:
-* Chicago crime is localized 
-    - Gun-crime is localized to South/West sides
-]
-
-.pull-right[
-```{r, out.width = "400px", out.height = "500px"}
-knitr::include_graphics("figures/map_911.jpeg")
-```
-]
----
-count: false
-# Chicago Background
-
-.pull-left[
-### Chicago Geography:
-* Chicago subset into 22 police districts (population ~100k)
-  - Within districts are beats
-  - Officers generally assigned within districts/beats to patrol
-
-### Chicago Crime:
-* Chicago crime is localized 
-    - Gun-crime is localized to South/West sides
-]
-
-.pull-right[
-```{r, out.width = "400px", out.height = "500px"}
-knitr::include_graphics("figures/map_911_gun.jpeg")
-```
-]
----
-# Policing in Chicago
-
-## Police Officer Responsibilities:
-* Patrol, respond to incidents, make arrests/stops, complete written reports
-* Gathers info at traffic scenes—preliminary investigation
-* Direct traffic
-* Appear in court/give testimony
-
-## Police Time Allocation:
-
-> "From the minute you start your shift, radio is non stop calls until backlog. The whole shift you chase radio calls." - CPD Police Officer January 2023 (Indeed.com)
-
-> "Very busy be ready to answer up to 50 calls for service specialy during Summer season." - CPD Police Officer February 2023 (Indeed.com)
-
-
 
 ---
 class: inverse, mline, center, middle
@@ -590,16 +530,6 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotterActivated}_{dt}  + \eta_{\b
 ---
 class: inverse, mline, center, middle
 
-# Raw-Data Preview 
-
----
-# Raw Data Preview
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/raw_evidence_figure.jpeg")
-```
----
-class: inverse, mline, center, middle
-
 # Results
 
 ---
@@ -732,16 +662,17 @@ class: inverse, mline, center, middle
 
 #### 1. Extensive Margin: Estimate most resource-constrained times 
   - .font80[Separate by shift-type]
-  - .font80[Split by police-district median number of officer hours]
+  - .font80[Split by police-district median number of officer hours (see paper)]
 
     
-#### 2. Intensive Margin: Use ShotSpotter dispatches as intensity measure 
+#### 2. Intensive Margin: Use ShotSpotter dispatches as intensity measure (see paper)
   - .font80[Using the number of ShotSpotter dispatches as our identifying variation, we estimate the marginal effect of an extra ShotSpotter dispatch:]
 
 $$\text{ResponseTime}_{dt} = \beta \text{NumberSSTDispatches}_{dt} + \delta_{d} + \gamma_t +  \varepsilon_{dt}$$
 
   - $\text{NumberSSTDispatches}_{dt}$ .font80[is number of ShotSpotter dispatches in a police-district]
   - .font80[Restrict to only treated periods]
+  - .font80[6-8 second increase per dispatch]
 
 
 ---
@@ -750,100 +681,6 @@ $$\text{ResponseTime}_{dt} = \beta \text{NumberSSTDispatches}_{dt} + \delta_{d} 
 knitr::include_graphics("figures/watch_graph.jpeg")
 ```
 
----
-class: regression
-# Extensive Margin: Less Officers (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_extensive.html')
-```
----
-count: false
-class: regression (seconds)
-# Extensive Margin: Less Officers (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_extensive_pooled.html')
-```
----
-count: false
-class: regression (seconds)
-# Extensive Margin: Less Officers (seconds)
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/mechanism_extensive_medians_talk.html')
-```
-
-
----
-class: regression
-# Intensive Margin: ShotSpotter Dispatches
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/intensive_table.html')
-```
-
----
-count: false
-class: regression
-# Intensive Margin: ShotSpotter Dispatches
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/intensive_table_col1.html')
-```
----
-class: regression
-count: false
-# Intensive Margin: ShotSpotter Dispatches
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/intensive_table_col2.html')
-```
-
-
----
-class: inverse, mline, center, middle
-
-# Heterogeneity 
-
----
-# Two Types of Heterogeneity Analysis
-
---
-
-## 1. Analyze specific call-types
-  - Analyze specific call-types (call-codes) for the most frequent offenses
-  - Large health implications with emergency medical services/domestic calls
-
---
-
-## 2. Split by priority of call
-  - A 'trickle down' effect in Priority 2
-      - Suggestive for Priority 3 
-  - No time for high priority $\Rightarrow$ no time for lower priorities
-  - Lends to the idea that officers are facing more responsibilities than they can handle
-      - Incapacitation effect
-  
-
----
-# Priority and Call-type Heterogeneity 
-
-
-.panelset.sideways[
-.panel[.panel-name[Priority 1]
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/priority_1_graph.jpeg")
-```
-]
-
-
-.panel[.panel-name[Priority 2 (Rapid)]
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/priority_2_graph.jpeg")
-```
-]
-
-.panel[.panel-name[Priority 3 (Routine)]
-```{r, out.width = "850px", out.height = "550px", fig.align="center"}
-knitr::include_graphics("figures/priority_3_graph.jpeg")
-```
-]
-
-]
 
 ---
 class: inverse, mline, center, middle
@@ -860,7 +697,7 @@ class: inverse, mline, center, middle
   - Little evidence of ShotSpotter reductions $\rightarrow$ no clear 1st order benefit
     - Corrobates with other descriptive Chicago studies  (Ferguson and Witzburg, 2021; Manes, 2021)
 
-#### 2. Productivity of ShotSpotter Dispatch vs. 911 Calls
+#### 2. Productivity of ShotSpotter Dispatch vs. Gun-related 911 Calls
   - Descriptively compare arrest likelihoods
   - Data limitations: 2019-2022 (post-rollout)
   - <font color="red">2.2%</font> of ShotSpotter end in arrests, <font color="red">3.5%</font> of 911 calls (pre-rollout) 
@@ -884,8 +721,6 @@ knitr::include_graphics("figures/es_aggregate_poisson.jpeg")
 ## Mechanism: Resource Constraint
 
 - More officers needed to mitigate unintended consequences
-
-
 
 
 ---
