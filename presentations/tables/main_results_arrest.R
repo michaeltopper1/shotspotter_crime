@@ -77,8 +77,6 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 arrest_table_raw <- panelsummary_raw(list(
   arrest_rate,
-  arrest_rate_gun,
-  arrest_rate_no_gun,
   misc_p,
   misc_b,
   misc_f
@@ -91,51 +89,49 @@ fmt = 3,
 gof_map = gof_mapping) %>% 
   slice(-c(5:8))
 
-wild_bootstrap_arrest <- c('0.001', '0.311', '0.005', '0.122', '0.006', '0.005')
+wild_bootstrap_arrest <- c('0.001', '0.122', '0.006', '0.005')
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
-                      "Standard errors clustered by district. 
+                      "Standard errors clustered by district.
+                      All outcomes are 0/1 if 911 call ended in corresponding resolution.
+                      Coefficient estimates are multiplied by 100. Gardner (2021) estimates remain consistent, see appendix in paper.
                       "
 ), ~str_remove_all(., "\n"))
 
 arrest_table <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
-  add_row(term = "Wild Bootstrap P-Value",model_1 = "0.001", model_2 = "0.311",
-          model_3 = "0.005", model_4 = "0.122",
-          model_5 = "0.006", model_6 = "0.005", .before = 5) %>%
+  add_row(term = "Wild Bootstrap P-Value",model_1 = "0.002", model_2 = "0.039",
+          model_3 = "0.002", model_4 = "0.001", .before = 5) %>%
   add_row(term = "Clusters",model_1 = "22", model_2 = "22",
-          model_3 = "22", model_4 = "22",
-          model_5 = "22", model_6 = "22", .before = 6) %>% 
+          model_3 = "22", model_4 = "22", .before = 6) %>% 
   clean_raw(pretty_num = T, format = 'html') %>% 
   add_header_above(c(" " = 1,
-                     "Pooled" = 1,
-                     "Gun" = 1,
-                     "Non-Gun" = 1,
+                     "Arrest Made" = 1,
                      "Other\nPolice Service" = 1,
                      "No\nPerson Found" =1,
                      "Peace\nRestored" = 1)) %>% 
-  add_header_above(c(" " = 2,
-                     "Gun-Relation" = 2,
+  add_header_above(c(" " = 1,
+                     " " = 1,
                      "Most Frequent Final Dispositions" = 3)) %>% 
-  add_header_above(c(" " = 1, "Effect on Arrest Likelihood (percentage)" = 6)) %>% 
+  # add_header_above(c(" " = 1, "How 911 Call Resolved (percentage)" = 4)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_classic(full_width = T, html_font = "Cambria")
 
 arrest_table_pooled_talk <- arrest_table %>% 
   column_spec(2, background = "yellow") 
 
-arrest_table_gun_talk <- arrest_table %>% 
-  column_spec(3, background = "yellow") %>% 
-  column_spec(4, background = "pink")
+# arrest_table_gun_talk <- arrest_table %>% 
+#   column_spec(3, background = "yellow") %>% 
+#   column_spec(4, background = "pink")
 
 arrest_table_type_talk <- arrest_table %>% 
-  column_spec(5, background = "yellow") %>% 
-  column_spec(6, background = "pink") %>% 
-  column_spec(7, background = "lightblue")
+  column_spec(3, background = "yellow") %>% 
+  column_spec(4, background = "pink") %>% 
+  column_spec(5, background = "lightblue")
 
 
 write_file(arrest_table, file = "presentations/tables/arrest_table.html")
 write_file(arrest_table_pooled_talk, file = "presentations/tables/arrest_table_pooled_talk.html")
-write_file(arrest_table_gun_talk, file = "presentations/tables/arrest_table_gun_talk.html")
+# write_file(arrest_table_gun_talk, file = "presentations/tables/arrest_table_gun_talk.html")
 write_file(arrest_table_type_talk, file = "presentations/tables/arrest_table_type_talk.html")
 

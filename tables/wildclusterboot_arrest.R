@@ -70,7 +70,8 @@ arrest_6 <- boottest(misc_f_boot, clustid = c("district"),
                       param = "treatment",
                       fe = c("date"))
 
-wild_bootstrap_arrest <- c('0.001', '0.311','0.005', '0.122', '0.006', '0.005')
+## updated since removing shots fired
+wild_bootstrap_arrest <- c('0.002', '0.370','0.003', '0.039', '0.002', '0.001')
 
 
 ## full sample of time-sensitive calls

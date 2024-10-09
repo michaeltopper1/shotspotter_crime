@@ -329,5 +329,13 @@ dispatches_filtered <- dispatches_filtered %>%
 
 
 
-write_csv(dispatches_filtered, file = "analysis_data/xxdispatches_clevel.csv")
+# Post Rejection AEJ: Policy ----------------------------------------------
 
+
+dispatches_filtered_sf <- dispatches_filtered
+
+dispatches_filtered <- dispatches_filtered %>% 
+  filter(final_dispatch_description != "SHOTS FIRED")
+
+write_csv(dispatches_filtered, file = "analysis_data/xxdispatches_clevel.csv")
+write_csv(dispatches_filtered_sf, file = "analysis_data/xxdispatches_clevel_sf.csv")

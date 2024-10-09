@@ -126,9 +126,9 @@ table &gt; tfoot &gt; tr {
 
 .pull-left[
 ### Resource-Intensive
-  - Respond to every detected gunfire 
   - Chicago: ~70 daily dispatches, 20 min.
   - High priority: same as active shooter
+  - Ineffective crime tool .font80[(Connealy et al., 2024; Ferguson and Witzburg, 2021; Manes, 2021)]
   
 ### Police Scarcity
   - Fixed resources `\(\Rightarrow\)` trade-offs
@@ -255,6 +255,7 @@ count: false
     - +1 minute Call-to-Dispatch (23%)
     - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (9%)
+  - No benefits outside 911 system
 ]
 
 ---
@@ -288,7 +289,7 @@ count: false
 ]
 
 .panel[.panel-name[Technology in Workforce]
-&lt;font color="blue"&gt; The results imply that technology not ready to completely replace police officers. &lt;/font&gt;
+&lt;font color="blue"&gt; The results imply that technology should be rigorously evaluated prior to implementation. &lt;/font&gt;
 - General Workforce Productivity:
   - Technology is an effective workforce tool (Hoffman et al., 2018, Bhatt et al., 2023)
 - Implementation and Allocation:
@@ -461,11 +462,12 @@ class: regression
 - Negative response times (.03%)
 - Days with celebratory gunfire: 
 January 1/July 4/December 31
+- Omit `Shots Fired' calls
 ]
 
 --
 
-&lt;table class="table" style="font-family: Cambria; margin-left: auto; margin-right: auto;"&gt;
+&lt;table class="table" style="color: black; font-family: Cambria; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
@@ -479,32 +481,32 @@ January 1/July 4/December 31
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Call-to-Dispatch (seconds) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.89 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 436.53 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.25 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 440.55 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 2.00 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 3,111.00 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; {4.70 mins} &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; {7.28 mins} &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; {4.79 mins} &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; {7.34 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; {0.03 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; {51.85 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Call-to-On-Scene (seconds) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.86 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 784.69 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.21 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 786.87 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 11.00 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 7,671.00 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,142 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; {12.85 mins} &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; {13.08 mins} &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; {12.99 mins} &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; {13.11 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; {0.18 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; {127.85 mins} &lt;/td&gt;
    &lt;td style="text-align:center;"&gt;  &lt;/td&gt;
@@ -544,7 +546,7 @@ January 1/July 4/December 31
 
 #### 2. Change in dispatching procedures/call-types post-implementation:
   * .font80[Standard operating procedures same for Priority 1 911 calls]
-  * .font80[Specific call-type analysis]
+  * .font80[No change in call volume + composition test]
 
 --
 
@@ -565,7 +567,7 @@ class: inverse, mline, center, middle
 class: regression
 # Effect on Response Times (seconds)
 
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
@@ -590,37 +592,37 @@ class: regression
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 72.063*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 120.389*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.356) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (27.913) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,528 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,076 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.018 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -636,7 +638,7 @@ class: regression
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Slide 19.&lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
@@ -645,7 +647,7 @@ class: regression
 count: false
 # Effect on Response Times (seconds)
 
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
@@ -670,37 +672,37 @@ count: false
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 72.063*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 120.389*** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.356) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (27.913) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,528 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,076 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.012 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.018 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -716,7 +718,7 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Slide 19.&lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
@@ -725,7 +727,7 @@ class: regression
 count: false
 # Effect on Response Times (seconds)
 
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
@@ -750,37 +752,37 @@ count: false
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 72.063*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 120.389*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (22.356) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (27.913) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,582,528 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,076 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.018 &lt;/td&gt;
    &lt;td style="text-align:center;background-color: yellow !important;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -796,7 +798,7 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Slide 19.&lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
@@ -805,7 +807,7 @@ class: regression
 count: false
 # Effect on Response Times (seconds)
 
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
@@ -830,37 +832,37 @@ count: false
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 72.063*** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 120.389*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.356) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (27.913) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,528 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1,997,102 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,076 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.018 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.007 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -876,7 +878,7 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Slide 19.&lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 ---
@@ -884,7 +886,7 @@ class: regression
 count: false
 # Effect on Response Times (seconds)
 
-&lt;table style="NAborder-bottom: 0; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
@@ -909,37 +911,37 @@ count: false
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 64.131*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 72.063*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 102.682*** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 120.389*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.379) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (22.356) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (28.724) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (27.913) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 281.890 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 770.863 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 770.863 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,528 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1,997,102 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1,997,076 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.018 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
    &lt;td style="text-align:center;background-color: yellow !important;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -955,34 +957,28 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Slide 19.&lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
-
 ---
 class: regression
-# Effect on Arrest Likelihood (percent)
+count: false
+# Effect on Response Times (seconds)
 
 &lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Effect on Arrest Likelihood (percentage)&lt;/div&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun-Relation&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Most Frequent Final Dispositions&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Call-to-Dispatch&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Call-to-On-Scene&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Pooled&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Other&lt;br&gt;Police Service&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;No&lt;br&gt;Person Found&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Peace&lt;br&gt;Restored&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;OLS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gardner (2021)&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;OLS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gardner (2021)&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
@@ -990,60 +986,46 @@ class: regression
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (6) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.229*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.206 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.226*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1.135* &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.705** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.530** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.074** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 71.696*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.066) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.191) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.069) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.593) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.318) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.209) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.648) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (22.620) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.502 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3.421 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.413 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 41.810 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 21.341 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6.062 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 287.246 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 317,937 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,264,623 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: pink !important;"&gt; Observations &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 3,453,623 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 1,935,116 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.311 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.122 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.006 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
@@ -1055,30 +1037,109 @@ class: regression
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                       &lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
+
+
 ---
 class: regression
 count: false
-# Effect on Arrest Likelihood (percent)
+# Effect on Response Times (seconds)
 
 &lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Effect on Arrest Likelihood (percentage)&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Call-to-Dispatch&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Call-to-On-Scene&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun-Relation&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;OLS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gardner (2021)&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;OLS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gardner (2021)&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 66.409** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 70.312*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.394*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121.020*** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (23.566) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (21.738) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (28.649) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (27.646) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 271.420 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 271.420 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 779.213 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;background-color: pink !important;"&gt; Observations &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;background-color: pink !important;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;background-color: pink !important;"&gt; 1,935,116 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 1,935,142 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 1,935,116 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.018 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; X &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.007 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; X &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;&lt;span style="font-style: italic;"&gt;Note: &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district. Fixed effects include                      hour-of-the-day, day-by-month-by-year,                      district, and call-type. Sample includes only                      Priority 1 911 dispatches. All columns use the                      preferred specification outlined in Estimation Strategy slide.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+
+
+
+
+---
+class: regression
+# Effect on 911 Call Resolutions (percent)
+
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Most Frequent Final Dispositions&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Pooled&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Arrest Made&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Other&lt;br&gt;Police Service&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;No&lt;br&gt;Person Found&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Peace&lt;br&gt;Restored&lt;/div&gt;&lt;/th&gt;
@@ -1089,55 +1150,122 @@ count: false
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (6) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; -0.229*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.206 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.226*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1.135* &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.705** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.530** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.238*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.056* &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.751** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.558** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (0.066) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.191) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.069) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.593) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.318) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.209) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.068) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.592) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.316) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.217) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 2.502 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3.421 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.413 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 41.810 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 21.341 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6.062 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.553 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 41.047 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.367 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.283 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 317,937 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,264,623 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.001 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.311 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.122 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.006 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;&lt;span style="font-style: italic;"&gt;Note: &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                      All outcomes are 0/1 if 911 call ended in corresponding resolution.                      Coefficient estimates are multiplied by 100. Gardner (2021) estimates remain consistent, see appendix in paper.                      &lt;/td&gt;&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+---
+class: regression
+count: false
+# Effect on 911 Call Resolutions (percent)
+
+&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Most Frequent Final Dispositions&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Arrest Made&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Other&lt;br&gt;Police Service&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;No&lt;br&gt;Person Found&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Peace&lt;br&gt;Restored&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; -0.238*** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.056* &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.751** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.558** &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (0.068) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.592) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.316) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.217) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 2.553 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 41.047 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.367 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.283 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
@@ -1145,8 +1273,6 @@ count: false
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;tfoot&gt;
@@ -1154,30 +1280,25 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                       &lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                      All outcomes are 0/1 if 911 call ended in corresponding resolution.                      Coefficient estimates are multiplied by 100. Gardner (2021) estimates remain consistent, see appendix in paper.                      &lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
+
 ---
 class: regression
 count: false
-# Effect on Arrest Likelihood (percent)
+# Effect on 911 Call Resolutions (percent)
 
 &lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
  &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Effect on Arrest Likelihood (percentage)&lt;/div&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun-Relation&lt;/div&gt;&lt;/th&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Most Frequent Final Dispositions&lt;/div&gt;&lt;/th&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Pooled&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Arrest Made&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Other&lt;br&gt;Police Service&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;No&lt;br&gt;Person Found&lt;/div&gt;&lt;/th&gt;
 &lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Peace&lt;br&gt;Restored&lt;/div&gt;&lt;/th&gt;
@@ -1188,159 +1309,46 @@ count: false
    &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
    &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (6) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.229*** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; -0.206 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; -0.226*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1.135* &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.705** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.530** &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; -0.238*** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1.056* &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 0.751** &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; -0.558** &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.066) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (0.191) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; (0.069) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.593) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.318) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.209) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; (0.068) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (0.592) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; (0.316) &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; (0.217) &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.502 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3.421 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 2.413 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 41.810 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 21.341 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6.062 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.553 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 41.047 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 21.367 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 6.283 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 317,937 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 3,264,623 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 3,453,655 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 3,453,655 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.311 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 0.005 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.122 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.006 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: pink !important;"&gt; 0.002 &lt;/td&gt;
+   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 0.001 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;&lt;span style="font-style: italic;"&gt;Note: &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                       &lt;/td&gt;&lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;
----
-class: regression
-count: false
-# Effect on Arrest Likelihood (percent)
-
-&lt;table style="NAborder-bottom: 0; color: black; font-family: Cambria; margin-left: auto; margin-right: auto;" class=" lightable-classic"&gt;
- &lt;thead&gt;
-&lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Effect on Arrest Likelihood (percentage)&lt;/div&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="2"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun-Relation&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Most Frequent Final Dispositions&lt;/div&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Pooled&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Non-Gun&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Other&lt;br&gt;Police Service&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;No&lt;br&gt;Person Found&lt;/div&gt;&lt;/th&gt;
-&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Peace&lt;br&gt;Restored&lt;/div&gt;&lt;/th&gt;
-&lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (1) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (2) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (3) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (4) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (5) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; (6) &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; ShotSpotter Activated &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.229*** &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.206 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; -0.226*** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 1.135* &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 0.705** &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; -0.530** &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.066) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.191) &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; (0.069) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; (0.593) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; (0.318) &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; (0.209) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Mean of Dependent Variable &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.502 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3.421 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2.413 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 41.810 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 21.341 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 6.062 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Observations &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 317,937 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 3,264,623 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 3,582,560 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 3,582,560 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Wild Bootstrap P-Value &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.001 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.311 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.005 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: yellow !important;"&gt; 0.122 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: pink !important;"&gt; 0.006 &lt;/td&gt;
-   &lt;td style="text-align:center;background-color: lightblue !important;"&gt; 0.005 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Clusters &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;background-color: yellow !important;"&gt; 22 &lt;/td&gt;
    &lt;td style="text-align:center;background-color: pink !important;"&gt; 22 &lt;/td&gt;
@@ -1352,7 +1360,7 @@ count: false
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
 &lt;sup&gt;&lt;/sup&gt; * p &amp;lt; 0.1, ** p &amp;lt; 0.05, *** p &amp;lt; 0.01&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="padding: 0; " colspan="100%"&gt;
-&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                       &lt;/td&gt;&lt;/tr&gt;
+&lt;sup&gt;&lt;/sup&gt; Standard errors clustered by district.                      All outcomes are 0/1 if 911 call ended in corresponding resolution.                      Coefficient estimates are multiplied by 100. Gardner (2021) estimates remain consistent, see appendix in paper.                      &lt;/td&gt;&lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
 
@@ -1365,35 +1373,6 @@ count: false
 # Dynamic Effects: Call-to-On-Scene (seconds)
 
 &lt;img src="figures/eos_1_es.jpeg" width="850px" height="550px" style="display: block; margin: auto;" /&gt;
----
-name: robustness
-# Robustness
-
-## Several Tests of Robustness and Sensitivity:
-.pull-left[
-
-- Not driven by 1 district - [See Figure](#loo)
-  - .font80[Leave-one-out analysis] 
-  - .font80[Both OLS/Gardner (2021)]
-- Sample Restrictions -  [See Figure](#forest)
-  - .font80[Omit 'Shots Fired' calls] 
-  - .font80[Reintroduce outliers]
-  - .font80[Reintroduce omitted days]
-  - .font80[Omit 2020 (Covid-19)] 
-- Consistency across estimators (arrests):
-  - .font80[Logistic regression] - [See Figure](#logit)
-  ]
-
-.pull-right[
-
-- Coinciding rollouts - [See Table](#confounding_dispatch)
-  - .font80[Control for CPD initatives:]
-  - .font80[Body-Worn Cameras]
-  - .font80[Strategic Decision Support Centers]
-* Sensitivity analysis - [See Figure](#roth)
-  - .font80[Rambachan and Roth (2023)] 
-  - .font80[Allow for linear extrapolation of pre-treatment trend]
-]
 
 ---
 class: inverse, mline, center, middle
@@ -1437,7 +1416,7 @@ class: inverse, mline, center, middle
 #### 1. Use aggregate-level counts of gun-related arrests/victimization/clearance 
   - Event-study analysis (Poisson Regression)
   - Little evidence of ShotSpotter reductions `\(\rightarrow\)` no clear 1st order benefit
-    - Corrobates with other descriptive Chicago studies  (Ferguson and Witzburg, 2021; Manes, 2021)
+    - Corrobates with other Chicago studies  (Connealy et al., 2024; Ferguson and Witzburg, 2021; Manes, 2021)
 
 #### 2. Productivity of ShotSpotter Dispatch vs. Gun-related 911 Calls
   - Descriptively compare arrest likelihoods
@@ -1452,7 +1431,7 @@ class: inverse, mline, center, middle
 
 ## Contribution:
 - An in-depth analysis on unintended consequences of ShotSpotter
-- Technology in the workforce: implementation/evaluation for desired outcomes
+- Workforce Tech: implementation/evaluation for desired outcomes
 
 ## Main Findings: Longer Response
 - Call-to-Dispatch (+1 minute/ 23%)/ Call-to-On-Scene (+2 minutes/ 13%)
@@ -1849,6 +1828,13 @@ name: roth
 
 &lt;img src="appendix_figures/roth_trends_onscene.jpeg" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
 [Back to Robustness](#robustness)
+
+---
+# Call Composition Test: FDR P-values
+
+&lt;img src="figures/pvalue_hist.jpeg" width="700px" height="500px" style="display: block; margin: auto;" /&gt;
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

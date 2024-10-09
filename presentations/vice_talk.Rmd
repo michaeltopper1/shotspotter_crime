@@ -127,9 +127,9 @@ xaringanExtra::style_panelset_tabs(active_foreground = "blue", background = "whi
 
 .pull-left[
 ### Resource-Intensive
-  - Respond to every detected gunfire 
   - Chicago: ~70 daily dispatches, 20 min.
   - High priority: same as active shooter
+  - Ineffective crime tool .font80[(Connealy et al., 2024; Ferguson and Witzburg, 2021; Manes, 2021)]
   
 ### Police Scarcity
   - Fixed resources $\Rightarrow$ trade-offs
@@ -258,6 +258,7 @@ count: false
     - +1 minute Call-to-Dispatch (23%)
     - +2 minutes Call-to-On-Scene (13%)
     - Lower arrest probability (9%)
+  - No benefits outside 911 system
 ]
 
 ---
@@ -291,7 +292,7 @@ count: false
 ]
 
 .panel[.panel-name[Technology in Workforce]
-<font color="blue"> The results imply that technology not ready to completely replace police officers. </font>
+<font color="blue"> The results imply that technology should be rigorously evaluated prior to implementation. </font>
 - General Workforce Productivity:
   - Technology is an effective workforce tool (Hoffman et al., 2018, Bhatt et al., 2023)
 - Implementation and Allocation:
@@ -474,6 +475,7 @@ class: regression
 - Negative response times (.03%)
 - Days with celebratory gunfire: 
 January 1/July 4/December 31
+- Omit `Shots Fired' calls
 ]
 
 --
@@ -515,7 +517,7 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotterActivated}_{dt}  + \eta_{\b
 
 #### 2. Change in dispatching procedures/call-types post-implementation:
   * .font80[Standard operating procedures same for Priority 1 911 calls]
-  * .font80[Specific call-type analysis]
+  * .font80[No change in call volume + composition test]
 
 --
 
@@ -575,10 +577,32 @@ count: false
 xfun::file_string('tables/response_time_table_c4.html')
 ```
 
+---
+class: regression
+count: false
+# Effect on Response Times (seconds)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/response_time_table_r1.html')
+```
+
 
 ---
 class: regression
-# Effect on Arrest Likelihood (percent)
+count: false
+# Effect on Response Times (seconds)
+
+```{r,results='asis', echo=FALSE}
+xfun::file_string('tables/response_time_table_r2.html')
+```
+
+
+
+
+
+---
+class: regression
+# Effect on 911 Call Resolutions (percent)
 
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/arrest_table.html')
@@ -586,23 +610,16 @@ xfun::file_string('tables/arrest_table.html')
 ---
 class: regression
 count: false
-# Effect on Arrest Likelihood (percent)
+# Effect on 911 Call Resolutions (percent)
 
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/arrest_table_pooled_talk.html')
 ```
----
-class: regression
-count: false
-# Effect on Arrest Likelihood (percent)
 
-```{r,results='asis', echo=FALSE}
-xfun::file_string('tables/arrest_table_gun_talk.html')
-```
 ---
 class: regression
 count: false
-# Effect on Arrest Likelihood (percent)
+# Effect on 911 Call Resolutions (percent)
 
 ```{r,results='asis', echo=FALSE}
 xfun::file_string('tables/arrest_table_type_talk.html')
@@ -621,35 +638,6 @@ knitr::include_graphics("figures/entry_1_es.jpeg")
 ```{r, out.width = "850px", out.height = "550px", fig.align="center"}
 knitr::include_graphics("figures/eos_1_es.jpeg")
 ```
----
-name: robustness
-# Robustness
-
-## Several Tests of Robustness and Sensitivity:
-.pull-left[
-
-- Not driven by 1 district - [See Figure](#loo)
-  - .font80[Leave-one-out analysis] 
-  - .font80[Both OLS/Gardner (2021)]
-- Sample Restrictions -  [See Figure](#forest)
-  - .font80[Omit 'Shots Fired' calls] 
-  - .font80[Reintroduce outliers]
-  - .font80[Reintroduce omitted days]
-  - .font80[Omit 2020 (Covid-19)] 
-- Consistency across estimators (arrests):
-  - .font80[Logistic regression] - [See Figure](#logit)
-  ]
-
-.pull-right[
-
-- Coinciding rollouts - [See Table](#confounding_dispatch)
-  - .font80[Control for CPD initatives:]
-  - .font80[Body-Worn Cameras]
-  - .font80[Strategic Decision Support Centers]
-* Sensitivity analysis - [See Figure](#roth)
-  - .font80[Rambachan and Roth (2023)] 
-  - .font80[Allow for linear extrapolation of pre-treatment trend]
-]
 
 ---
 class: inverse, mline, center, middle
@@ -695,7 +683,7 @@ class: inverse, mline, center, middle
 #### 1. Use aggregate-level counts of gun-related arrests/victimization/clearance 
   - Event-study analysis (Poisson Regression)
   - Little evidence of ShotSpotter reductions $\rightarrow$ no clear 1st order benefit
-    - Corrobates with other descriptive Chicago studies  (Ferguson and Witzburg, 2021; Manes, 2021)
+    - Corrobates with other Chicago studies  (Connealy et al., 2024; Ferguson and Witzburg, 2021; Manes, 2021)
 
 #### 2. Productivity of ShotSpotter Dispatch vs. Gun-related 911 Calls
   - Descriptively compare arrest likelihoods
@@ -712,7 +700,7 @@ knitr::include_graphics("figures/es_aggregate_poisson.jpeg")
 
 ## Contribution:
 - An in-depth analysis on unintended consequences of ShotSpotter
-- Technology in the workforce: implementation/evaluation for desired outcomes
+- Workforce Tech: implementation/evaluation for desired outcomes
 
 ## Main Findings: Longer Response
 - Call-to-Dispatch (+1 minute/ 23%)/ Call-to-On-Scene (+2 minutes/ 13%)
@@ -803,3 +791,12 @@ knitr::include_graphics("appendix_figures/roth_trends_dispatch.jpeg")
 knitr::include_graphics("appendix_figures/roth_trends_onscene.jpeg")
 ```
 [Back to Robustness](#robustness)
+
+---
+# Call Composition Test: FDR P-values
+
+```{r, out.width = "700px", out.height = "500px", fig.align="center"}
+knitr::include_graphics("figures/pvalue_hist.jpeg")
+```
+
+
