@@ -35,26 +35,26 @@ entry_d <- feols(entry_to_dispatch ~ treatment | district + date,
                   data = dispatch_panel_p1)
 
 entry_d_1 <- feols(entry_to_dispatch ~ treatment | district + date +
-                     hour + final_dispatch_code,
+                     hour + final_dispatch_description,
                     cluster = ~district,
                     data = dispatch_panel_p1)
 
-entry_d_2 <- feols(entry_to_dispatch ~ treatment  +
-                      officer_hours + number_dispatches| district + date +
-                      final_dispatch_code + hour,
+entry_d_2 <- feols(entry_to_dispatch ~ treatment| district + date +
+                     final_dispatch_description + hour,
                     cluster = ~district,
-                    data = dispatch_panel_p1)
+                    data = dispatch_panel_p1 %>% 
+                     drop_na(entry_to_onscene))
 
 entry_d_3 <- did2s(data = dispatch_panel_p1,
                     yname = "entry_to_dispatch",
                     first_stage = ~0|district + date + 
-                      final_dispatch_code + hour,
+                     final_dispatch_description + hour,
                     second_stage = ~treatment,
                     treatment = "treatment",
                     cluster_var = "district")
 
 entry_d_4 <- feols(entry_to_dispatch ~ treatment + shotspot_border_treatment| district + date +
-                      final_dispatch_code + hour,
+                     final_dispatch_description + hour,
                     cluster = ~district,
                     data = dispatch_panel_p1)
 
@@ -70,26 +70,25 @@ entry_os <- feols(entry_to_onscene ~ treatment | district + date,
                   data = dispatch_panel_p1)
 
 entry_os_1 <- feols(entry_to_onscene ~ treatment | district + date +
-                      final_dispatch_code + hour,
+                      final_dispatch_description + hour,
                  cluster = ~district,
                  data = dispatch_panel_p1)
 
-entry_os_2 <- feols(entry_to_onscene ~ treatment  +
-                      officer_hours + number_dispatches| district + date +
-                      final_dispatch_code + hour,
+entry_os_2 <- feols(entry_to_onscene ~ treatment | district + date +
+                      final_dispatch_description + hour,
                  cluster = ~district,
                  data = dispatch_panel_p1)
 
 entry_os_3 <- did2s(data = dispatch_panel_p1,
                  yname = "entry_to_onscene",
                  first_stage = ~0|district + date + 
-                   final_dispatch_code + hour,
+                   final_dispatch_description + hour,
                  second_stage = ~treatment,
                  treatment = "treatment",
                  cluster_var = "district")
 
 entry_os_4 <- feols(entry_to_onscene ~ treatment + shotspot_border_treatment| district + date +
-                      final_dispatch_code + hour,
+                      final_dispatch_description + hour,
                     cluster = ~district,
                     data = dispatch_panel_p1)
 
@@ -103,7 +102,7 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
                        "nobs", "Observations", 0,
                        "FE: date", "FE: Day-by-Month-by-Year", 3,
                        "FE: district", "FE: District", 3,
-                       "FE: final_dispatch_code", "FE: Call-Type", 3,
+                       "FE: final_dispatch_description", "FE: Call-Type", 3,
                        "FE: hour", "FE: Hour-of-Day", 3)
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
@@ -114,9 +113,8 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   Panel B shows results for Call-to-On-Scene. Column 1 reports
                   only time and group fixed effects. Column 2 reports the preferred
                   specification from Equation 1, which includes hour-of-day and
-                  call-type fixed effects. Column 3 includes number of Priority 1 dispatches and
-                  Officer Hours as controls. However, considering these may be correlated with treatment,
-                  we do not consider this the preferred specification.
+                  call-type fixed effects. Column 3 includes only observations where both
+                  Call-to-Dispatch and Call-to-On-Scene can be observed.
                   Column 4 reports estimates using
                   the Gardner (2021) estimator which is robust to 
                   heterogeneous treatment effects across groups and time periods
@@ -151,14 +149,10 @@ main_results <- dispatch_table %>%
                              term == "FE: Hour-of-Day", "X", model_4)) %>% 
   mutate(model_4 = if_else(term == "Mean of Dependent Variable", 
                              model_2, model_4)) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.015", model_2 = "0.012",
-          model_3 = "0.015", model_4 = "", model_5 = "0.017", .before = 7) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.005", model_2 = "0.001",
-          model_3 = "0.002", model_4 = "", model_5 = "0.001", .before = 14) %>% 
-  add_row(term = "Officer Hours", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
-  add_row(term = "Number 911 Dispatches", model_1 = "", model_2 = "", model_3 = "X", model_4 = "",
-          model_5 = "") %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.012", model_2 = "0.018",
+          model_3 = "0.014", model_4 = "", model_5 = "0.015", .before = 7) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.003", model_2 = "0.007",
+          model_3 = "0.004", model_4 = "", model_5 = "0.009", .before = 14) %>% 
   add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "", model_3 = "", model_4 = "X",
           model_5 = "") %>% 
   mutate(across(c(2:6), ~prettyNum(.,digits = 2, big.mark = ",", format = "f"))) %>% 

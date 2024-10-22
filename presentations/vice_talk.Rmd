@@ -485,6 +485,39 @@ xfun::file_string('tables/summary_stats.html')
 ## put in Summary stats table
 ```
 
+---
+class: regression
+# Data and Sample Restrictions
+
+.pull-left[
+### Data Overview:
+- Priority 1 911 Calls (2016-2022) with police dispatch
+- .red[ShotSpotter dispatches] $\neq$ .red[911 call]
+- Freedom of Information Act: 25 requests, 100+ emails/phone calls,
+1 [lawsuit](#lawsuit) against CPD 
+
+
+]
+
+.pull-right[
+### Sample Restrictions:
+- Response time outliers 3+ Std.Dev. from mean (~1.7%)
+- Negative response times (.03%)
+- Days with celebratory gunfire: 
+January 1/July 4/December 31
+- Omit `Shots Fired' calls
+]
+
+
+```{r, results='asis', echo=FALSE}
+xfun::file_string('tables/summary_stats_n.html')
+## put in Summary stats table
+```
+
+
+
+
+
 
 ---
 
@@ -505,24 +538,25 @@ $$\text{ResponseTime}_{cdt} = \beta \text{ShotSpotterActivated}_{dt}  + \eta_{\b
 
 
 ---
+name: assumptions
 # Potential Threats to Identification
 
 --
 
 #### 1. Response times increasing prior to rollout:
   * .font80[Event studies - tests plausibility] 
-  * .font80[Rambachan and Roth (2023) sensitivity analysis]
+  * .font80[Rambachan and Roth (2023) [sensitivity analysis](#roth)]
 
 --
 
 #### 2. Change in dispatching procedures/call-types post-implementation:
   * .font80[Standard operating procedures same for Priority 1 911 calls]
-  * .font80[No change in call volume + composition test]
+  * .font80[No change in call volume + [composition test](#composition)]
 
 --
 
 #### 3. Other policies that coincide that may affect response times:
-  * .font80[Strategic Decision Support Centers (SDSC) and Body-Worn Cameras (BWC)]
+  * .font80[[Strategic Decision Support Centers (SDSC)](#confounding_dispatch) and [Body-Worn Cameras (BWC)](#confounding_dispatch)]
 
 --
 
@@ -660,7 +694,7 @@ $$\text{ResponseTime}_{dt} = \beta \text{NumberSSTDispatches}_{dt} + \delta_{d} 
 
   - $\text{NumberSSTDispatches}_{dt}$ .font80[is number of ShotSpotter dispatches in a police-district]
   - .font80[Restrict to only treated periods]
-  - .font80[6-8 second increase per dispatch]
+  - .font80[6 (8) second increase per dispatch for Call-to-Dispatch (On-Scene)]
 
 
 ---
@@ -678,7 +712,7 @@ class: inverse, mline, center, middle
 ---
 # Effective Gun-Violence Reduction?
 
-### <font color="blue">**Are there benefits that outweigh the costs?**</font>: 
+### <font color="blue">**Are there benefits that outweigh the costs?**</font> 
 
 #### 1. Use aggregate-level counts of gun-related arrests/victimization/clearance 
   - Event-study analysis (Poisson Regression)
@@ -700,7 +734,7 @@ knitr::include_graphics("figures/es_aggregate_poisson.jpeg")
 
 ## Contribution:
 - An in-depth analysis on unintended consequences of ShotSpotter
-- Workforce Tech: implementation/evaluation for desired outcomes
+- Workforce techology: prior evaluation for desired outcomes
 
 ## Main Findings: Longer Response
 - Call-to-Dispatch (+1 minute/ 23%)/ Call-to-On-Scene (+2 minutes/ 13%)
@@ -783,20 +817,21 @@ name: roth
 ```{r, out.width = "700px", out.height = "500px", fig.align="center"}
 knitr::include_graphics("appendix_figures/roth_trends_dispatch.jpeg")
 ```
-[Back to Robustness](#robustness)
+[Back to Robustness](#assumptions)
 ---
 # Rambachan and Roth 2023: Sensitivity Analysis
 
 ```{r, out.width = "700px", out.height = "500px", fig.align="center"}
 knitr::include_graphics("appendix_figures/roth_trends_onscene.jpeg")
 ```
-[Back to Robustness](#robustness)
+[Back to Robustness](#assumptions)
 
 ---
+name: composition
 # Call Composition Test: FDR P-values
 
 ```{r, out.width = "700px", out.height = "500px", fig.align="center"}
 knitr::include_graphics("figures/pvalue_hist.jpeg")
 ```
-
+[Back to Assumptions](#assumptions)
 

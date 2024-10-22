@@ -32,4 +32,9 @@ summary_stats <- dispatch_panel_p1 %>%
             format = "html") %>% 
   kable_styling(full_width = T, html_font = "Cambria")
 
+summary_stats_n <- summary_stats %>% 
+  column_spec(6, background = "yellow")
+
 write_file(summary_stats, file = "presentations/tables/summary_stats.html")
+write_file(summary_stats_n, file = "presentations/tables/summary_stats_n.html")
+

@@ -118,17 +118,17 @@ kpr <- f_eff$kpr$stat[1,1] %>% sprintf("%.3f",.)
 
 
 ar_1 <- AR_test(dispatch_panel_p1, 
-                Y = "arrest_made_p", 
-                D = "entry_to_dispatch", 
-                Z = "treatment",
-                controls = NULL, 
-                FE = c("final_dispatch_description", 
-                       "hour",
-                       "date",
-                       "district"), 
-                cl = "district", 
-                weights = NULL, 
-                prec = 3, CI = TRUE, alpha = 0.05, parallel = NULL, cores = NULL)
+        Y = "arrest_made_p", 
+        D = "entry_to_dispatch", 
+        Z = "treatment",
+        controls = NULL, 
+        FE = c("final_dispatch_description", 
+                                "hour",
+                                "date",
+                                "district"), 
+        cl = "district", 
+        weights = NULL, 
+        prec = 3, CI = TRUE, alpha = 0.05, parallel = NULL, cores = NULL)
 
 ar_2 <- AR_test(dispatch_panel_p1, 
                 Y = "misc_letter_p_p", 
@@ -230,12 +230,12 @@ wild_bootstrap_arrest <- c('0.002', '0.039', '0.002', '0.001')
 
 
 arrest_table_raw <- panelsummary_raw(reduced_form, iv_regs, mean_dependent = T,
-                                     stars = 'econ', gof_map = gof_mapping,
-                                     coef_map = c(
-                                       "treatment" = "ShotSpotter Activated",
-                                       "fit_entry_to_dispatch" = "Call-to-Dispatch"
-                                     ),
-                                     gof_omit = "^R|A|B|S")
+                 stars = 'econ', gof_map = gof_mapping,
+                 coef_map = c(
+                   "treatment" = "ShotSpotter Activated",
+                   "fit_entry_to_dispatch" = "Call-to-Dispatch"
+                 ),
+                 gof_omit = "^R|A|B|S")
 
 arrest_prob <- arrest_table_raw %>% 
   slice(-c(5:8)) %>% 
@@ -250,7 +250,7 @@ arrest_prob <- arrest_table_raw %>%
           model_2 = ar_2_pvalue, model_3 = ar_3_pvalue, model_4 = ar_4_pvalue, .before = 12) %>% 
   clean_raw(pretty_num = T,
             caption = "\\label{arrest_prob}Effect of ShotSpotter on 911 Call Resolutions (OLS)",
-            format = "latex") %>% 
+            format = "html") %>% 
   group_rows(group_label = "Panel A: Reduced Form", 1, 5) %>% 
   group_rows(group_label = 'Panel B: 2SLS (Second Stage)', 6, 12, hline_after = T) %>% 
   add_header_above(c(" " = 1,
@@ -262,11 +262,4 @@ arrest_prob <- arrest_table_raw %>%
                      "Most Frequent Final 911 Dispositions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
-
-writeLines(arrest_prob, "paper/tables/arrest_prob.tex")
-
-
-
-# making appendix table here with first stage -----------------------------
-
-
+  

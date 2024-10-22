@@ -10,7 +10,7 @@ dispatch_panel_p1 <- dispatch_panel_p1 %>%
   mutate(date = as.integer(date))
 
 dispatch_panel_p1 <- dispatch_panel_p1 %>% 
-  mutate(final_dispatch_code = as.factor(final_dispatch_code) %>% 
+  mutate(final_dispatch_description = as.factor(final_dispatch_description) %>% 
            as.numeric()) 
 
 dispatch_1 <- boottest(entry_d, clustid = c("district"), 
@@ -60,7 +60,7 @@ dispatch_boot <- c(dispatch_1$p_val,
                    dispatch_2$p_val,
                    dispatch_3$p_val,
                    dispatch_4$p_val)
-dispatch_boot_values <- c(0.012012012, 0.018018018 ,0.007007007, 0.016016016)
+dispatch_boot_values <- c(0.01201201, 0.01801802, 0.01401401, 0.01501502)
 onscene_boot <- c(onscene_1$p_val,
                   onscene_2$p_val,
                   onscene_3$p_val,

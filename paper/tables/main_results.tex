@@ -1,5 +1,5 @@
 \begin{table}[H]
-
+\centering
 \caption{\label{main_results}Effect of ShotSpotter on Response Times (OLS)}
 \centering
 \begin{threeparttable}
@@ -10,36 +10,34 @@
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\textit{Panel A: Call-to-Dispatch}}\\
-\hspace{1em}ShotSpotter Activated & 64.142*** & 64.058*** & 65.659*** & 71.929*** & 61.373***\\
-\hspace{1em} & (21.541) & (22.394) & (21.888) & (22.405) & (21.641)\\
-\hspace{1em}Border District Activated &  &  &  &  & 21.406\\
-\hspace{1em} &  &  &  &  & (16.503)\\
-\hspace{1em}Mean of Dependent Variable & 281.890 & 281.890 & 281.890 & 281.890 & 281.890\\
-\hspace{1em}Observations & 3,582,560 & 3,582,560 & 3,582,560 & 3,582,528 & 3,582,560\\
-\hspace{1em}Wild Bootstrap P-Value & 0.015 & 0.012 & 0.015 &  & 0.017\\
+\hspace{1em}ShotSpotter Activated & 61.319** & 64.074** & 66.409** & 71.696*** & 61.363**\\
+\hspace{1em} & (21.840) & (22.648) & (23.566) & (22.620) & (21.892)\\
+\hspace{1em}Border District Activated &  &  &  &  & 21.535\\
+\hspace{1em} &  &  &  &  & (16.663)\\
+\hspace{1em}Mean of Dependent Variable & 287.246 & 287.246 & 271.420 & 287.246 & 287.246\\
+\hspace{1em}Observations & 3,453,655 & 3,453,655 & 1,935,142 & 3,453,623 & 3,453,655\\
+\hspace{1em}Wild Bootstrap P-Value & 0.012 & 0.018 & 0.014 &  & 0.015\\
 \addlinespace[0.5cm]
 \multicolumn{6}{l}{\textit{Panel B: Call-to-On-Scene}}\\
-\hspace{1em}ShotSpotter Activated & 101.813*** & 103.107*** & 105.146*** & 120.721*** & 101.392***\\
-\hspace{1em} & (26.205) & (28.801) & (28.269) & (27.992) & (28.167)\\
-\hspace{1em}Border District Activated &  &  &  &  & 24.407\\
-\hspace{1em} &  &  &  &  & (17.882)\\
-\hspace{1em}Mean of Dependent Variable & 770.863 & 770.863 & 770.863 & 770.863 & 770.863\\
-\hspace{1em}Observations & 1,997,102 & 1,997,102 & 1,997,102 & 1,997,075 & 1,997,102\\
-\hspace{1em}Wild Bootstrap P-Value & 0.005 & 0.001 & 0.002 &  & 0.001\\
+\hspace{1em}ShotSpotter Activated & 96.750*** & 102.394*** & 102.394*** & 121.020*** & 100.664***\\
+\hspace{1em} & (26.077) & (28.649) & (28.649) & (27.646) & (28.035)\\
+\hspace{1em}Border District Activated &  &  &  &  & 24.366\\
+\hspace{1em} &  &  &  &  & (17.710)\\
+\hspace{1em}Mean of Dependent Variable & 779.213 & 779.213 & 779.213 & 779.213 & 779.213\\
+\hspace{1em}Observations & 1,935,142 & 1,935,142 & 1,935,142 & 1,935,116 & 1,935,142\\
+\hspace{1em}Wild Bootstrap P-Value & 0.003 & 0.007 & 0.004 &  & 0.009\\
 \midrule
 FE: Day-by-Month-by-Year & X & X & X & X & X\\
 FE: District & X & X & X & X & X\\
 FE: Call-Type &  & X & X & X & X\\
 FE: Hour-of-Day &  & X & X & X & X\\
-Officer Hours &  &  & X &  & \\
-Number 911 Dispatches &  &  & X &  & \\
 Gardner (2021) Robust &  &  &  & X & \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district. All                      coefficient estimates are in seconds.                  Shotspotter is activated in 12 of the 22 police districts in Chicago.                  Panel A shows results for Call-to-Dispatch while                  Panel B shows results for Call-to-On-Scene. Column 1 reports                  only time and group fixed effects. Column 2 reports the preferred                  specification from Equation 1, which includes hour-of-day and                  call-type fixed effects. Column 3 includes number of Priority 1 dispatches and                  Officer Hours as controls. However, considering these may be correlated with treatment,                  we do not consider this the preferred specification.                  Column 4 reports estimates using                  the Gardner (2021) estimator which is robust to                   heterogeneous treatment effects across groups and time periods                  in staggered designs. Due to its two-stage method, some observations are dropped if                  unable to predict values in the first stage. Column 5 includes Border District Activated                  which is an indicator for when a district is adjacent to a ShotSpotter                  implemented district. Wild cluster bootstrap p-values using 999 iterations are also reported                  as the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008). The bootstrap cannot be performed using the Gardner (2021) estimator.                                    
+\item Standard errors are clustered by district. All                      coefficient estimates are in seconds.                  Shotspotter is activated in 12 of the 22 police districts in Chicago.                  Panel A shows results for Call-to-Dispatch while                  Panel B shows results for Call-to-On-Scene. Column 1 reports                  only time and group fixed effects. Column 2 reports the preferred                  specification from Equation 1, which includes hour-of-day and                  call-type fixed effects. Column 3 includes only observations where both                  Call-to-Dispatch and Call-to-On-Scene can be observed.                  Column 4 reports estimates using                  the Gardner (2021) estimator which is robust to                   heterogeneous treatment effects across groups and time periods                  in staggered designs. Due to its two-stage method, some observations are dropped if                  unable to predict values in the first stage. Column 5 includes Border District Activated                  which is an indicator for when a district is adjacent to a ShotSpotter                  implemented district. Wild cluster bootstrap p-values using 999 iterations are also reported                  as the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008). The bootstrap cannot be performed using the Gardner (2021) estimator.                                    
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
