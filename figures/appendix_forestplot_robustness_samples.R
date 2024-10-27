@@ -19,6 +19,10 @@ if (!exists("dispatch_panel")){
 
 dispatch_panel_outliers <- read_csv(here::here("analysis_data/xxdispatches_clevel_outliers.csv")) %>% 
   filter(priority_code == 1)
+dispatch_panel_with_shots <- read_csv("analysis_data/xxdispatches_clevel_sf.csv")
+dispatch_panel_with_shots_1 <- dispatch_panel_with_shots %>% 
+  filter(priority_code == 1)
+
 
 dispatch_panel_outliers <- dispatch_panel_outliers %>% 
   mutate(date = as_date(entry_received_date),
@@ -118,22 +122,20 @@ d1_outliers_2s <- did2s(dispatch_panel_outliers %>%
            sample = "Including Outliers",
            estimator = "Gardner (2021)")
 
-d1_no_shots <- dispatch_panel_p1 %>%
-  filter(gun_crime_report != 1) %>% 
+d1_shots <- dispatch_panel_with_shots_1 %>%
   feols(entry_to_dispatch ~ treatment + ..ctrl, cluster = ~district) %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
-           sample = "Omitting Shots Fired",
+           sample = "Including Shots Fired",
            estimator = "OLS")
 
-d1_no_shots_2s <- did2s(dispatch_panel_p1 %>%
-                          filter(gun_crime_report != 1),
+d1_shots_2s <- did2s(dispatch_panel_with_shots_1,
                yname = "entry_to_dispatch",
                first_stage = ~ ..ctrl,
                second_stage = ~treatment,
                treatment = "treatment",
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-Dispatch",
-           sample = "Omitting Shots Fired",
+           sample = "Including Shots Fired",
            estimator = "Gardner (2021)")
 
 d1_official_treat <- dispatch_panel_p1 %>% 
@@ -248,22 +250,20 @@ os_outliers_2s <- did2s(dispatch_panel_outliers %>%
            sample = "Including Outliers",
            estimator = "Gardner (2021)")
 
-os_no_shots <- dispatch_panel_p1 %>%
-  filter(gun_crime_report != 1) %>% 
+os_shots <- dispatch_panel_with_shots_1 %>% 
   feols(entry_to_onscene ~ treatment + ..ctrl, cluster = ~district) %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
-           sample = "Omitting Shots Fired",
+           sample = "Including Shots Fired",
            estimator = "OLS")
 
-os_no_shots_2s <- did2s(dispatch_panel_p1 %>%
-                          filter(gun_crime_report != 1) ,
+os_shots_2s <- did2s(dispatch_panel_with_shots_1,
                yname = "entry_to_onscene",
                first_stage = ~..ctrl,
                second_stage = ~treatment,
                treatment = "treatment",
                cluster_var = "district") %>% 
   tidy_reg(outcome = "Call-to-On-Scene",
-           sample = "Omitting Shots Fired",
+           sample = "Including Shots Fired",
            estimator = "Gardner (2021)")
 
 os_official_treat <- dispatch_panel_p1 %>% 
@@ -307,18 +307,16 @@ os_include_nye_2s <- did2s(dispatch_panel_outliers %>%
 
 forest_samples <- d1_main %>% 
   bind_rows(d1_main_2s, d1_2020, d1_2020_2s,
-            d1_no_shots, d1_no_shots_2s,
+            d1_shots, d1_shots_2s,
             d1_outliers, d1_outliers_2s,
             d1_official_treat, d1_official_treat_2s,
             d1_include_nye, d1_include_nye_2s,
-            d1_nevertreat, d1_nevertreat_2s,
             os_main, os_main_2s,
             os_2020, os_2020_2s,
-            os_no_shots, os_no_shots_2s,
+            os_shots, os_shots_2s,
             os_outliers, os_outliers_2s,
             os_official_treat, os_official_treat_2s,
-            os_include_nye, os_include_nye_2s,
-            os_nevertreat, os_nevertreat_2s) %>% 
+            os_include_nye, os_include_nye_2s) %>% 
   mutate(estimate = round(estimate, 2)) %>%
   mutate(estimate_label = sprintf("%.3f", estimate))
 
@@ -339,4 +337,7 @@ forest_sample_plot <- forest_samples %>%
   theme(legend.position = "bottom")
 
 ggsave(forest_sample_plot, filename = "paper/appendix_figures/forest_sample_plot.jpeg",
+       width = 7, height = 5)
+
+ggsave(forest_sample_plot, filename = "presentations/appendix_figures/forest_sample_plot.jpeg",
        width = 7, height = 5)

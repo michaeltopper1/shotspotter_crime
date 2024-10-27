@@ -85,11 +85,14 @@ footnote <- map(list( "Units are in seconds unless otherwise noted. Data is at
          to the scene. Call-to-On-Scene is the time from a 911 call to
          when an officer arrives on-scene.
          Priority 1 Call-to-On-Scene is missing approximately 45 percent
-         of on-scene times. This is discussed further in Appendix A.
+         of on-scene times, although the results
+         remain consistent when we can observe both response times. This is discussed further in Appendix A.
          Arrest Made is and indicator equal to one if the 911
-         dispatch resulted in an arrest.
+         call resulted in an arrest.
          Priority 1 refers to an immediate dispatch, 
-         Priority 2 a rapid dispatch, and Priority 3 a routine dispatch. 
+         Priority 2 a rapid dispatch, and Priority 3 a routine dispatch.
+         Priority 2 and 3 analysis, while not in the main text, is available
+         in Appendix E.
          Priority 1 911 Dispatches is the number of Priority 1 dispatches at the
          district-day level.
          ShotSpotter Dispatches is the 

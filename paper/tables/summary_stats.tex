@@ -10,31 +10,31 @@
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\textbf{Panel A: Priority 1 Outcomes:}}\\
-\hspace{1em}Call-to-Dispatch & 281.89 & 436.53 & 2.00 & 3,111.00 & 3,582,560\\
-\hspace{1em} & (4.70 mins) & (7.28 mins) & (0.03 mins) & (51.85 mins) & \\
-\hspace{1em}Call-to-On-Scene & 770.86 & 784.69 & 11.00 & 7,671.00 & 1,997,102\\
-\hspace{1em} & (12.85 mins) & (13.08 mins) & (0.18 mins) & (127.85 mins) & \\
-\hspace{1em}Arrest Made & 0.03 & 0.16 & 0.00 & 1.00 & 3,582,560\\
+\hspace{1em}Call-to-Dispatch & 287.25 & 440.55 & 2.00 & 3,111.00 & 3,453,655\\
+\hspace{1em} & (4.79 mins) & (7.34 mins) & (0.03 mins) & (51.85 mins) & \\
+\hspace{1em}Call-to-On-Scene & 779.21 & 786.87 & 11.00 & 7,671.00 & 1,935,142\\
+\hspace{1em} & (12.99 mins) & (13.11 mins) & (0.18 mins) & (127.85 mins) & \\
+\hspace{1em}Arrest Made & 0.03 & 0.16 & 0.00 & 1.00 & 3,453,655\\
 \addlinespace[0.5cm]
 \multicolumn{6}{l}{\textbf{Panel B: Secondary Outcomes:}}\\
-\hspace{1em}Call-to-Dispatch (Priority 2) & 362.04 & 524.78 & 2.00 & 3,577.00 & 1,604,709\\
+\hspace{1em}Call-to-Dispatch (Priority 2) & 362.04 & 524.78 & 2.00 & 3,577.00 & 1,604,670\\
 \hspace{1em} & (6.03 mins) & (8.75 mins) & (0.03 mins) & (59.62 mins) & \\
-\hspace{1em}Call-to-On-Scene (Priority 2) & 964.45 & 901.10 & 14.00 & 6,615.00 & 776,304\\
+\hspace{1em}Call-to-On-Scene (Priority 2) & 964.45 & 901.10 & 14.00 & 6,615.00 & 776,284\\
 \hspace{1em} & (16.07 mins) & (15.02 mins) & (0.23 mins) & (110.25 mins) & \\
-\hspace{1em}Call-to-Dispatch (Priority 3) & 1,012.99 & 1,258.17 & 2.00 & 6,550.00 & 3,284,127\\
+\hspace{1em}Call-to-Dispatch (Priority 3) & 1,013.00 & 1,258.18 & 2.00 & 6,550.00 & 3,283,969\\
 \hspace{1em} & (16.88 mins) & (20.97 mins) & (0.03 mins) & (109.17 mins) & \\
-\hspace{1em}Call-to-On-Scene (Priority 3) & 1,915.35 & 1,820.17 & 10.00 & 11,702.00 & 1,226,135\\
+\hspace{1em}Call-to-On-Scene (Priority 3) & 1,915.38 & 1,820.18 & 10.00 & 11,702.00 & 1,226,065\\
 \hspace{1em} & (31.92 mins) & (30.34 mins) & (0.17 mins) & (195.03 mins) & \\
 \addlinespace[0.3cm]
 \multicolumn{6}{l}{\textbf{Panel C: Other Variables:}}\\
-\hspace{1em}Priority 1 911 Dispatches & 73.01 & 24.63 & 8.00 & 223.00 & 3,582,560\\
-\hspace{1em}ShotSpotter Dispatches & 2.96 & 4.19 & 0.00 & 57.00 & 3,582,560\\
-\hspace{1em}Officer Hours & 1,342.21 & 395.08 & 231.00 & 6,558.10 & 3,582,560\\
+\hspace{1em}Priority 1 911 Dispatches & 72.90 & 24.59 & 8.00 & 223.00 & 3,453,655\\
+\hspace{1em}ShotSpotter Dispatches & 2.95 & 4.17 & 0.00 & 57.00 & 3,453,655\\
+\hspace{1em}Officer Hours & 1,342.61 & 393.43 & 231.00 & 6,558.10 & 3,453,655\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Note: } 
-\item Units are in seconds unless otherwise noted. Data is at         the call-level. Call-to-Dispatch represents          the amount of time from the 911 call to an officer dispatching         to the scene. Call-to-On-Scene is the time from a 911 call to         when an officer arrives on-scene.         Priority 1 Call-to-On-Scene is missing approximately 45 percent         of on-scene times. This is discussed further in Appendix A.         Arrest Made is and indicator equal to one if the 911         dispatch resulted in an arrest.         Priority 1 refers to an immediate dispatch,          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch.          Priority 1 911 Dispatches is the number of Priority 1 dispatches at the         district-day level.         ShotSpotter Dispatches is the          number of dispatches due to ShotSpotter detections. Importantly, ShotSpotter Dispatches is         also at the district-by-day level and includes days in which         ShotSpotter is not implemented. The average number of ShotSpotter dispatches         on post-implementation days is approximately 6. The average daily number of ShotSpotter dispatches across Chicago         once all 12 districts have implemented ShotSpotter is approximately 70. Note that         New Years Eve/New Years Day/Fourth of July are excluded from the sample as         these days correspond with high amounts of celebratory gunfire. Officer Hours are the          number of working hours sworn police officers work at the district-day level.                  
+\item Units are in seconds unless otherwise noted. Data is at         the call-level. Call-to-Dispatch represents          the amount of time from the 911 call to an officer dispatching         to the scene. Call-to-On-Scene is the time from a 911 call to         when an officer arrives on-scene.         Priority 1 Call-to-On-Scene is missing approximately 45 percent         of on-scene times, although the results         remain consistent when we can observe both response times. This is discussed further in Appendix A.         Arrest Made is and indicator equal to one if the 911         call resulted in an arrest.         Priority 1 refers to an immediate dispatch,          Priority 2 a rapid dispatch, and Priority 3 a routine dispatch.         Priority 2 and 3 analysis, while not in the main text, is available         in Appendix E.         Priority 1 911 Dispatches is the number of Priority 1 dispatches at the         district-day level.         ShotSpotter Dispatches is the          number of dispatches due to ShotSpotter detections. Importantly, ShotSpotter Dispatches is         also at the district-by-day level and includes days in which         ShotSpotter is not implemented. The average number of ShotSpotter dispatches         on post-implementation days is approximately 6. The average daily number of ShotSpotter dispatches across Chicago         once all 12 districts have implemented ShotSpotter is approximately 70. Note that         New Years Eve/New Years Day/Fourth of July are excluded from the sample as         these days correspond with high amounts of celebratory gunfire. Officer Hours are the          number of working hours sworn police officers work at the district-day level.                  
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

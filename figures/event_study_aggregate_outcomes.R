@@ -77,6 +77,36 @@ gun_crimes_cleared_poisson <- agg_outcomes %>%
   mutate(type = "Poisson",
          outcome = "Panel C: Gun Crimes Cleared")
 
+
+# DiD estimates -----------------------------------------------------------
+
+agg_outcomes %>% 
+  fepois(number_gun_and_sst_calls ~ treatment + ..ctrl ,
+         cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T)
+
+
+agg_outcomes %>% 
+  fepois(number_gun_arrests ~ treatment + ..ctrl ,
+         cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T)
+
+
+agg_outcomes %>% 
+  fepois(number_gun_involved_victims ~ treatment + ..ctrl ,
+         cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T)
+
+
+agg_outcomes %>% 
+  fepois(number_gun_crimes_cleared ~ treatment + ..ctrl ,
+         cluster = ~district, data = .) %>% 
+  broom::tidy(conf.int = T)
+
+
+
+
+
 es_aggregate_poisson <- gun_and_sst_poisson %>% 
   bind_rows(gun_arrests_poisson, gun_victims_poisson, gun_crimes_cleared_poisson) %>%
   filter(periods %in% c(-11:23)) %>% 

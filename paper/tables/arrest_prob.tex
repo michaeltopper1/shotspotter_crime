@@ -13,15 +13,14 @@
   & (1) & (2) & (3) & (4)\\
 \midrule
 \addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{Panel A: Reduced Form}}\\
+\multicolumn{5}{l}{\textit{Panel A: Reduced Form}}\\
 \hspace{1em}ShotSpotter Activated & -0.238*** & 1.056* & 0.751** & -0.558**\\
 \hspace{1em} & (0.068) & (0.592) & (0.316) & (0.217)\\
 \hspace{1em}Mean of Dependent Variable & 2.553 & 41.047 & 21.367 & \vphantom{1} 6.283\\
 \hspace{1em}Observations & 3,453,655 & 3,453,655 & 3,453,655 & \vphantom{1} 3,453,655\\
 \hspace{1em}Wild Bootstrap P-Value & 0.002 & 0.039 & 0.002 & 0.001\\
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{Panel B: 2SLS (Second Stage)}}\\
-\hline
+\addlinespace[0.5cm]
+\multicolumn{5}{l}{\textit{Panel B: 2SLS (Second Stage)}}\\
 \hspace{1em}Call-to-Dispatch & -0.004** & 0.016 & 0.012** & -0.009*\\
 \hspace{1em} & (0.002) & (0.013) & (0.005) & (0.004)\\
 \hspace{1em}Mean of Dependent Variable & 2.553 & 41.047 & 21.367 & 6.283\\
@@ -29,6 +28,7 @@
 \hspace{1em}Eff F-Stat & 8.004 & 8.004 & 8.004 & 8.004\\
 \hspace{1em}AR Conf.Int & {}[-0.012, -0.002] & {}[-0.001, 0.092] & {}[0.003, 0.029] & {}[-0.031, -0.002]\\
 \hspace{1em}AR P-Value & 0.000 & 0.074 & 0.018 & 0.010\\
+\midrule
 FE: Day-by-Month-by-Year & X & X & X & X\\
 FE: District & X & X & X & X\\
 FE: Call-Type & X & X & X & X\\
@@ -38,7 +38,7 @@ FE: Hour-of-Day & X & X & X & X\\
 \begin{tablenotes}
 \item \textit{Note: } 
 \item * p < 0.1, ** p < 0.05, *** p < 0.01
-\item Standard errors are clustered by district. All                      coefficient estimates and means are in percentages.                        The dependent variable in Column 1 is an indicator equal to one if a 911 call resulted in an arrest.                      The dependent variable in Columns 2-4 is an indicator equal to one if a 911 call resulted in                       Other Police Service (Column 2), No Person Found (Column 3), or Peace Restored (Column 4).                  Columns 2-4 report the three most frequent 911 final dispositions: Other Police Service, No Person Found,                   and Peace Restored. The final disposition is the final result of                  what happened on the 911 call.                   Panel A shows the reduced form estimates of the ShotSpotter implementation, while                       Panel B shows the second stage of a 2SLS regression where Call-to-Dispatch time is the                      endogenous variable, and ShotSpotter implementation is the instrument.                                    In Panel A, Wild cluster bootstrap p-values using 999 replications are also reported                  since the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008).                  In Panel B, we report the effective F-statistic (Eff F-Stat) from Olea and Pflueger (2013), and the confidence intervals and corresponding                  p-values from the Anderson and Rubin (1949) test which is robust to weak instruments.                  
+\item Standard errors are clustered by district. All                      coefficient estimates and means are in percentages.                        The dependent variable in Column 1 is an indicator equal to one if a 911 call resulted in an arrest.                      The dependent variable in Columns 2-4 is an indicator equal to one if a 911 call resulted in                       Other Police Service (Column 2), No Person Found (Column 3), or Peace Restored (Column 4).                  Columns 2-4 report the three most frequent 911 final dispositions: Other Police Service, No Person Found,                   and Peace Restored. The final disposition is the final result of                  what happened on the 911 call.                   Panel A shows the reduced form estimates of the ShotSpotter implementation, while                       Panel B shows the second stage of a 2SLS regression where Call-to-Dispatch time is the                      endogenous variable, and ShotSpotter implementation is the instrument.                  Hence, Panel B estimates show the marginal effect of an extra second of Call-to-Dispatch on                  arrest probability for calls that are induced to have longer Call-to-Dispatch times by ShotSpotter (compliers).                  First stage estimates are shown in the main results table, where ShotSpotter implementation results in \textasciitilde{}60                  second increase for Call-to-Dispatch times on average.                  In Panel A, Wild cluster bootstrap p-values using 999 replications are also reported                  since the number of clusters (22) is below the threshold of 30 put forth in                  Cameron et al. (2008).                  In Panel B, we report the effective F-statistic (Eff F-Stat) from Olea and Pflueger (2013), and the confidence intervals and corresponding                  p-values from the Anderson and Rubin (1949) test which is robust to weak instruments.                  
 \end{tablenotes}
 \end{threeparttable}
 \end{table}

@@ -7,6 +7,10 @@ library(kableExtra)
 library(did2s)
 library(ivDiag)
 
+## WARNING FOR THIS SCRIPT:
+## run reach of the AR tests by itself: do not run the entire script (eg Source)
+## for some reason, the parallelization hangs and never completes if Sourcing
+
 if (!exists("dispatch_panel")){
   dispatch_panel <- read_csv(here::here("analysis_data/xxdispatches_clevel.csv"))
   dispatch_panel_p1 <- dispatch_panel %>% 
@@ -115,7 +119,8 @@ kpr <- f_eff$kpr$stat[1,1] %>% sprintf("%.3f",.)
 # correcting for weak instrument inference --------------------------------
 
 
-
+## run reach of these by itself: do not run the entire script
+## for some reason, the parallelization hangs and never completes if Sourcing
 
 ar_1 <- AR_test(dispatch_panel_p1, 
                 Y = "arrest_made_p", 
@@ -218,7 +223,10 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                   Panel A shows the reduced form estimates of the ShotSpotter implementation, while 
                       Panel B shows the second stage of a 2SLS regression where Call-to-Dispatch time is the
                       endogenous variable, and ShotSpotter implementation is the instrument.
-                  
+                  Hence, Panel B estimates show the marginal effect of an extra second of Call-to-Dispatch on
+                  arrest probability for calls that are induced to have longer Call-to-Dispatch times by ShotSpotter (compliers).
+                  First stage estimates are shown in the main results table, where ShotSpotter implementation results in ~60
+                  second increase for Call-to-Dispatch times on average.
                   In Panel A, Wild cluster bootstrap p-values using 999 replications are also reported
                   since the number of clusters (22) is below the threshold of 30 put forth in
                   Cameron et al. (2008).
@@ -251,8 +259,9 @@ arrest_prob <- arrest_table_raw %>%
   clean_raw(pretty_num = T,
             caption = "\\label{arrest_prob}Effect of ShotSpotter on 911 Call Resolutions (OLS)",
             format = "latex") %>% 
-  group_rows(group_label = "Panel A: Reduced Form", 1, 5) %>% 
-  group_rows(group_label = 'Panel B: 2SLS (Second Stage)', 6, 12, hline_after = T) %>% 
+  pack_rows(group_label = "Panel A: Reduced Form", 1, 5, italic = T, bold = F) %>% 
+  pack_rows(group_label = 'Panel B: 2SLS (Second Stage)', 6, 12, hline_after = F,
+             latex_gap_space = "0.5cm", italic = T, bold = F) %>% 
   add_header_above(c(" " = 1,
                      "Arrest\nMade" = 1,
                      "Other\nPolice Service" = 1,
@@ -260,6 +269,7 @@ arrest_prob <- arrest_table_raw %>%
                      "Peace\nRestored" = 1)) %>% 
   add_header_above(c(" " = 2,
                      "Most Frequent Final 911 Dispositions" = 3)) %>% 
+  row_spec(12, hline_after = TRUE) %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
