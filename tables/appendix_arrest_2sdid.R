@@ -52,23 +52,6 @@ arrest_rate <- did2s(data = dispatch_panel_p1,
                      treatment = "treatment",
                      cluster_var = "district") 
 
-arrest_rate_gun <- did2s(data = dispatch_panel_p1 %>% 
-                           filter(gun_crime_report == 1),
-                         yname = "arrest_made_p",
-                         first_stage = ~0|district + date + 
-                           final_dispatch_code + hour,
-                         second_stage = ~treatment,
-                         treatment = "treatment",
-                         cluster_var = "district") 
-
-arrest_rate_no_gun <- did2s(data = dispatch_panel_p1 %>% 
-                              filter(gun_crime_report == 0),
-                            yname = "arrest_made_p",
-                            first_stage = ~0|district + date + 
-                              final_dispatch_code + hour,
-                            second_stage = ~treatment,
-                            treatment = "treatment",
-                            cluster_var = "district") 
 
 misc_p <- did2s(data = dispatch_panel_p1,
                 yname = "misc_letter_P_p",
@@ -107,28 +90,18 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district. All
                       coefficient estimates and means are in percentages. All estimates
                       are computed using the Gardner (2021) estimator. 
-                      The dependent variable in Columns 1-3 is an indicator equal to one if a 911 call resulted in an arrest.
-                      The dependent variable in Columns 4-6 is an indicator equal to one if a 911 call resulted in 
+                      The dependent variable in Columns 1 is an indicator equal to one if a 911 call resulted in an arrest.
+                      The dependent variable in Columns 2-4 is an indicator equal to one if a 911 call resulted in 
                       Other Police Service (Column 4), No Person Found (Column 5), or Peace Restored (Column 6).
-                      Column 1 reports the estimates using the entire sample.
-                  Columns 2 and 3 subset Column 1 by gun-related and non-gun-related 911 calls.
-                  Gun-related crimes are those corresponding to the following
-                  911 code descriptions: `person with a gun',
-                  `shots fired', or `person shot'. 
-                  Columns 4-6 report the three most frequent 911 final dispositions: Other Police Service, No Person Found, 
+                  Columns 2-4 report the three most frequent 911 final dispositions: Other Police Service, No Person Found, 
                   and Peace Restored. The final disposition is the final result of
-                  what happened on the 911 call. 
-                  Wild cluster bootstrap p-values using 999 replications are also reported
-                  since the number of clusters (22) is below the threshold of 30 put forth in
-                  Cameron et al. (2008).
+                  what happened on the 911 call.
                   "), ~str_remove_all(., "\n"))
 
 arrest_table_raw <-
   panelsummary_raw(
     list(
       arrest_rate,
-      arrest_rate_gun,
-      arrest_rate_no_gun,
       misc_p,
       misc_b,
       misc_f
@@ -147,65 +120,48 @@ arrest_table_raw <-
 arrest_table_raw <- arrest_table_raw %>% 
   add_row(term = "Mean of Dependent Variable",
           `Model 1` = sprintf("%.3f",mean(dispatch_panel_p1$arrest_made_p, na.rm = T)),
-          `Model 2` = sprintf("%.3f", dispatch_panel_p1 %>% filter(gun_crime_report == 1) %>% 
-                                           summarize(mean(arrest_made_p, na.rm = T)) %>% pull()),
-          `Model 3` = sprintf("%.3f", dispatch_panel_p1 %>% filter(gun_crime_report == 0) %>% 
-                                summarize(mean(arrest_made_p, na.rm = T)) %>% pull()),
-          `Model 4` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_P_p, na.rm = T)),
-          `Model 5` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_B_p, na.rm = T)),
-          `Model 6` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_F_p, na.rm = T))) %>% 
+          `Model 2` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_P_p, na.rm = T)),
+          `Model 3` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_B_p, na.rm = T)),
+          `Model 4` = sprintf("%.3f",mean(dispatch_panel_p1$misc_letter_F_p, na.rm = T))) %>% 
   add_row(term = "FE: Day-by-Month-by-Year",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
-          `Model 4` = "X",
-          `Model 5` = "X",
-          `Model 6` = "X") %>% 
+          `Model 4` = "X") %>% 
   add_row(term = "FE: Distrct",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
-          `Model 4` = "X",
-          `Model 5` = "X",
-          `Model 6` = "X") %>% 
+          `Model 4` = "X") %>% 
   add_row(term = "FE: Call-Type",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
-          `Model 4` = "X",
-          `Model 5` = "X",
-          `Model 6` = "X") %>% 
+          `Model 4` = "X") %>% 
   add_row(term = "FE: Hour-of-Day",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
-          `Model 4` = "X",
-          `Model 5` = "X",
-          `Model 6` = "X") %>% 
+          `Model 4` = "X") %>% 
   add_row(term = "Gardner (2021)",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 
-          `Model 4` = "X",
-          `Model 5` = "X",
-          `Model 6` = "X")
+          `Model 4` = "X")
 
 arrest_prob_2sdid <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
   clean_raw(pretty_num = T,
-            caption = "\\label{arrest_prob_2sdid}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (Gardner 2021)",
+            caption = "\\label{arrest_prob_2sdid}Effect of ShotSpotter on 911 Call Resolutions (Gardner 2021)",
             format = "latex") %>% 
   row_spec(4, hline_after = T) %>% 
   add_header_above(c(" " = 1,
-                     "Total\nArrests" = 1,
-                     "Gun\nArrests" = 1,
-                     "Non-Gun\nArrests" = 1,
+                     "Arrest\nMade" = 1,
                      "Other\nPolice Service" = 1,
                      "No\nPerson Found" =1,
                      "Peace\nRestored" = 1)) %>% 
-  add_header_above(c(" " = 1,
-                     "911 Arrests" = 3,
-                     "Most Frequent Misc. 911 Dispositions" = 3)) %>% 
+  add_header_above(c(" " = 2,
+                     "Most Frequent Final 911 Dispositions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 

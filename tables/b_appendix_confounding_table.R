@@ -207,12 +207,12 @@ confounding_table <- confounding_table_raw %>%
                            model_1, model_2),
          model_6 = if_else(term == "Mean of Dependent Variable", 
                            model_5, model_6)) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.002", model_2 = "",
+          model_3 = "0.007", model_4 = "", model_5 = "0.003", model_6 = "", .before = 9) %>% 
+  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.001", model_2 = "",
+          model_3 = "0.002", model_4 = "", model_5 = "0.003", model_6 = "", .before = 18) %>% 
   add_row(term = "Wild Bootstrap P-Value", model_1 = "0.006", model_2 = "",
-          model_3 = "0.004", model_4 = "", model_5 = "0.010", model_6 = "", .before = 9) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.002", model_2 = "",
-          model_3 = "0.001", model_4 = "", model_5 = "0.002", model_6 = "", .before = 18) %>% 
-  add_row(term = "Wild Bootstrap P-Value", model_1 = "0.002", model_2 = "",
-          model_3 = "0.009", model_4 = "", model_5 = "0.003", model_6 = "") %>% 
+          model_3 = "0.006", model_4 = "", model_5 = "0.002", model_6 = "") %>% 
   add_row(term = "Gardner (2021) Robust", model_1 = "", model_2 = "X", model_3 = "", model_4 = "X",
           model_5 = "", model_6 = "X") %>% 
   clean_raw(pretty_num =  T, caption = "\\label{confounding_table}Robustness of Estimates Controlling for Other Technologies (OLS)",

@@ -42,15 +42,6 @@ arrest_rate <- dispatch_panel_p1 %>%
   feglm(arrest_made ~ treatment + ..ctrl, data = .,
         family = "logit")
 
-arrest_rate_gun <- dispatch_panel_p1 %>% 
-  filter(gun_crime_report == 1) %>% 
-  feglm(arrest_made ~ treatment + ..ctrl, data = .,
-        family = "logit")
-
-arrest_rate_no_gun <- dispatch_panel_p1 %>% 
-  filter(gun_crime_report != 1) %>% 
-  feglm(arrest_made ~ treatment + ..ctrl, data = .,
-        family = "logit")
 
 misc_p <- dispatch_panel_p1 %>%
   feglm(misc_letter_P ~ treatment + ..ctrl,
@@ -75,28 +66,18 @@ gof_mapping <- tribble(~raw, ~clean, ~fmt,
 
 footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       "Standard errors are clustered by district.
-                      The dependent variable in Columns 1-3 is an indicator equal to one if a 911 call resulted in an arrest.
-                      The dependent variable in Columns 4-6 is an indicator equal to one if a 911 call resulted in 
-                      Other Police Service (Column 4), No Person Found (Column 5), or Peace Restored (Column 6).
-                      Column 1 reports the estimates using the entire sample.
-                  Columns 2 and 3 subset Column 1 by gun-related and non-gun-related 911 calls.
-                  Gun-related crimes are those corresponding to the following
-                  911 code descriptions: `person with a gun',
-                  `shots fired', or `person shot'. 
-                  Columns 4-6 report the three most frequent 911 final dispositions: Other Police Service, No Person Found, 
+                      The dependent variable in Column 1 is an indicator equal to one if a 911 call resulted in an arrest.
+                      The dependent variable in Columns 2-4 is an indicator equal to one if a 911 call resulted in 
+                      Other Police Service (Column 2), No Person Found (Column 3), or Peace Restored (Column 4).
+                  Columns 2-4 report the three most frequent 911 final dispositions: Other Police Service, No Person Found, 
                   and Peace Restored. The final disposition is the final result of
-                  what happened on the 911 call. 
-                  Wild cluster bootstrap p-values using 999 replications are also reported
-                  since the number of clusters (22) is below the threshold of 30 put forth in
-                  Cameron et al. (2008).
+                  what happened on the 911 call.
                   "), ~str_remove_all(., "\n"))
 
 arrest_table_raw <-
   panelsummary_raw(
     list(
       arrest_rate,
-      arrest_rate_gun,
-      arrest_rate_no_gun,
       misc_p,
       misc_b,
       misc_f
@@ -116,18 +97,15 @@ arrest_table_raw <-
 arrest_prob_logit <- arrest_table_raw %>% 
   janitor::clean_names() %>% 
   clean_raw(pretty_num = T,
-            caption = "\\label{arrest_prob_logit}Effect of ShotSpotter Enactment on 911 Arrest Likelihood and Final Dispositions (Logit)",
+            caption = "\\label{arrest_prob_logit}Effect of ShotSpotter on 911 Call Resolutions (Logit)",
             format = "latex") %>% 
   row_spec(4, hline_after = T) %>% 
   add_header_above(c(" " = 1,
-                     "Total\nArrests" = 1,
-                     "Gun\nArrests" = 1,
-                     "Non-Gun\nArrests" = 1,
+                     "Arrest\nMade" = 1,
                      "Other\nPolice Service" = 1,
                      "No\nPerson Found" =1,
                      "Peace\nRestored" = 1)) %>% 
-  add_header_above(c(" " = 1,
-                     "911 Arrests" = 3,
+  add_header_above(c(" " = 2,
                      "Most Frequent Final 911 Dispositions" = 3)) %>% 
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
