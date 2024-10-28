@@ -128,7 +128,7 @@ arrest_table_raw <- arrest_table_raw %>%
           `Model 2` = "X",
           `Model 3` = "X", 
           `Model 4` = "X") %>% 
-  add_row(term = "FE: Distrct",
+  add_row(term = "FE: District",
           `Model 1` = "X",
           `Model 2` = "X",
           `Model 3` = "X", 

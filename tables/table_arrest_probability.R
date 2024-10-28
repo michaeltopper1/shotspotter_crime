@@ -225,7 +225,7 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       endogenous variable, and ShotSpotter implementation is the instrument.
                   Hence, Panel B estimates show the marginal effect of an extra second of Call-to-Dispatch on
                   arrest probability for calls that are induced to have longer Call-to-Dispatch times by ShotSpotter (compliers).
-                  First stage estimates are shown in the main results table, where ShotSpotter implementation results in ~60
+                  First stage estimates are shown in the main results table where ShotSpotter implementation results in ~60
                   second increase for Call-to-Dispatch times on average.
                   In Panel A, Wild cluster bootstrap p-values using 999 replications are also reported
                   since the number of clusters (22) is below the threshold of 30 put forth in
