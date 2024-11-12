@@ -150,6 +150,17 @@ dispatches_filtered <- dispatches_filtered %>%
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(arrest_made = if_else(!is.na(arrest), 1, 0)) 
 
+other_arrests_from_pivot <- dispatches_filtered %>% 
+  distinct(rd, event_number) %>% 
+  drop_na(rd) %>% 
+  separate_rows(rd, sep = ",") %>% 
+  mutate(arrest_made = if_else(rd %in% arrests$case_number, 1,0)) %>% 
+  filter(arrest_made == 1)
+
+dispatches_filtered <- dispatches_filtered %>% 
+  mutate(arrest_made = if_else(arrest_made == 0 & event_number %in% other_arrests_from_pivot$event_number,
+                               1, arrest_made)) 
+
 dispatches_filtered <- dispatches_filtered %>% 
   mutate(gun_crime_arrest = if_else(gun_crime_report ==1 & arrest_made ==1, 1, 0)) %>%
   mutate(non_gun_crime_arrest = if_else(gun_crime_report == 0 & arrest_made ==1, 1, 0)) %>% 
