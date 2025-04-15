@@ -13,6 +13,14 @@ if (!exists("dispatch_panel")){
     filter(priority_code == 1)
 }
 
+means <- dispatch_panel_p1 %>% 
+  select(entry_to_dispatch, entry_to_onscene) %>% 
+  pivot_longer(cols = everything(),names_to = "outcome", values_to = "time") %>% 
+  mutate(mean = mean(time, na.rm = T), .by = outcome) %>% 
+  distinct(mean) %>% pull()
+
+mean_call_dispatch <- means[1]
+mean_call_onscene <- means[2]
 
 distribution_outcomes <- dispatch_panel_p1 %>% 
   select(entry_to_dispatch, entry_to_onscene) %>% 
@@ -26,8 +34,8 @@ distribution_outcomes <- dispatch_panel_p1 %>%
   geom_histogram(position = "identity", alpha = 0.6) +
   geom_vline(aes(xintercept = mean, color = outcome), linetype = "dashed") +
   scale_y_continuous(labels = scales::comma) +
-  scale_x_continuous(breaks = c(0, 281, 770,1000,  2000, 3000),
-                     labels = c("0","281","770","1000", "2000", "3000+")) +
+  scale_x_continuous(breaks = c(0, round(mean_call_dispatch,0), round(mean_call_onscene,0),1000,  2000, 3000),
+                     labels = c("0",round(mean_call_dispatch,0),round(mean_call_onscene,0),"1000", "2000", "3000+")) +
   ggthemes::scale_fill_stata() +
   ggthemes::scale_color_stata() +
   labs(x = "Response Time (seconds)", y = "Count",
