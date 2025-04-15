@@ -300,6 +300,65 @@ count: false
 ]
 ]
 
+---
+class: inverse, mline, center, middle
+
+# Background on Chicago Policing
+
+---
+# Chicago Background
+
+.pull-left[
+### Chicago Geography:
+* Chicago subset into 22 police districts (population ~100k)
+  - Within districts are beats
+  - Officers generally assigned within districts/beats to patrol
+
+### Chicago Crime:
+* Chicago crime is localized 
+    - Gun-crime is localized to South/West sides
+]
+
+.pull-right[
+```{r, out.width = "400px", out.height = "500px"}
+knitr::include_graphics("figures/map_911.jpeg")
+```
+]
+---
+count: false
+# Chicago Background
+
+.pull-left[
+### Chicago Geography:
+* Chicago subset into 22 police districts (population ~100k)
+  - Within districts are beats
+  - Officers generally assigned within districts/beats to patrol
+
+### Chicago Crime:
+* Chicago crime is localized 
+    - Gun-crime is localized to South/West sides
+]
+
+.pull-right[
+```{r, out.width = "400px", out.height = "500px"}
+knitr::include_graphics("figures/map_911_gun.jpeg")
+```
+]
+---
+# Policing in Chicago
+
+## Police Officer Responsibilities:
+* Patrol, respond to incidents, make arrests/stops, complete written reports
+* Gathers info at traffic scenes—preliminary investigation
+* Direct traffic
+* Appear in court/give testimony
+
+## Police Time Allocation:
+
+> "From the minute you start your shift, radio is non stop calls until backlog. The whole shift you chase radio calls." - CPD Police Officer January 2023 (Indeed.com)
+
+> "Very busy be ready to answer up to 50 calls for service specialy during Summer season." - CPD Police Officer February 2023 (Indeed.com)
+
 
 ---
 class: inverse, mline, center, middle
@@ -674,6 +733,36 @@ knitr::include_graphics("figures/eos_1_es.jpeg")
 ```
 
 ---
+name: robustness
+# Robustness
+
+## Several Tests of Robustness and Sensitivity:
+.pull-left[
+
+- Not driven by 1 district - [See Figure](#loo)
+  - .font80[Leave-one-out analysis] 
+  - .font80[Both OLS/Gardner (2021)]
+- Sample Restrictions -  [See Figure](#forest)
+  - .font80[Omit 'Shots Fired' calls] 
+  - .font80[Reintroduce outliers]
+  - .font80[Reintroduce omitted days]
+  - .font80[Omit 2020 (Covid-19)] 
+- Consistency across estimators (arrests):
+  - .font80[Logistic regression] - [See Figure](#logit)
+  ]
+
+.pull-right[
+
+- Coinciding rollouts - [See Table](#confounding_dispatch)
+  - .font80[Control for CPD initatives:]
+  - .font80[Body-Worn Cameras]
+  - .font80[Strategic Decision Support Centers]
+* Sensitivity analysis - [See Figure](#roth)
+  - .font80[Rambachan and Roth (2023)] 
+  - .font80[Allow for linear extrapolation of pre-treatment trend]
+]
+
+---
 class: inverse, mline, center, middle
 
 # Mechanism: Resource Constraint of Police Officers
@@ -694,7 +783,7 @@ $$\text{ResponseTime}_{dt} = \beta \text{NumberSSTDispatches}_{dt} + \delta_{d} 
 
   - $\text{NumberSSTDispatches}_{dt}$ .font80[is number of ShotSpotter dispatches in a police-district]
   - .font80[Restrict to only treated periods]
-  - .font80[6 (8) second increase per dispatch for Call-to-Dispatch (On-Scene)]
+  - .font80[<font color = "red"> <b>Increase </b></font> of <font color = "blue"> <b> 6 (8) seconds per dispatch </b></font> for Call-to-Dispatch (On-Scene)]
 
 
 ---

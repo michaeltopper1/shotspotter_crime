@@ -1,9 +1,9 @@
 ---
-title: "The Effect of ShotSpotter Technology on Police Response Times"
+title: "How does ShotSpotter Technology Affect 911 Response Times?"
 subtitle: "Research Preview"
-author: "Michael Topper and Toshio Ferrazares"
-institute: "University of California, Santa Barbara"
-date: "1/25/2025"
+author: "Michael Topper"
+institute: ""
+date: "2/5/2025"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
@@ -174,7 +174,7 @@ knitr::include_graphics("figures/macarthurfigure_attempt.jpg")
  - .font80[All 911 calls in Chicago from 2016-2022]
  
 ### Main Findings
-  - .font80[Decreases in rapid response time by ~2 minutes!]
+  - .font80[Increases in rapid response time by ~2 minutes!]
   - .font80[Less likelihood of arresting perpetrators because of this delay]
 ]
 

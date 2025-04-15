@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Arnold Ventures BRIDGE Day:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Michael Topper" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Arnold Ventures BRIDGE Day:
+]
+.subtitle[
+## Policing Technology
+]
+.author[
+### Michael Topper
+]
+.institute[
+### SSRC Criminal Justice Fellow
+]
+.date[
+### 2/24/2025
+]
+
+---
+
+&lt;style type="text/css"&gt;
+.remark-slide-content {
+    font-size: 25px;
+    padding: 1em 4em 1em 4em;
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+$( document ).ready(function() {
+  $(".lightable-classic").removeClass("table").css("display", "table");
+});
+&lt;/script&gt;
+
+
+
+&lt;style type="text/css"&gt;
+
+.red {
+  font-weight: bold;
+  color: red;
+}
+/* This changes any table of class regression to 20 size font */
+.regression table {
+  font-size: 20px; 
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-spacing: unset;
+}
+
+table &gt; :is(thead, tbody) &gt; tr &gt; :is(th, td) {
+  padding: 3px;
+  text-align: left;
+  background-color: transparent;
+}
+table &gt; thead &gt; tr &gt; :is(th, td) {
+  border-top: 2px solid;
+  border-bottom: 1px solid;
+  background-color: white;
+}
+table &gt; tbody &gt; tr:last-child &gt; :is(th, td) {
+  border-bottom: 2px solid;
+  background-color: white;
+}
+table &gt; tfoot &gt; tr &gt; :is(th, td) {
+  padding: 0; /* Set padding to 0 for tfoot cells */
+  background-color: white;
+}
+
+table &gt; tfoot &gt; tr {
+  background-color: transparent !important; /* Remove background stripes from tfoot rows */
+}
+
+
+/* This removes the odd-even shade on tables */
+.remark-slide thead, .remark-slide tr:nth-child(2n) {
+        background-color: white;
+    }
+&lt;/style&gt;
+
+
+<style>:root{--panel-tab-background:white;--panel-tab-active-foreground:blue;--panel-tab-inactive-opacity:0.5;--panel-tab-font-family:Fira Sans;}</style>
+
+
+# Motivation
+
+.pull-left[
+### Technology in Police Departments:
+  - Substitutes `\(\rightarrow\)` License plate readers, facial recognition 
+  - Complements `\(\rightarrow\)` predictive 'hotspot' policing 
+  - Technology changes functionality]
+
+--
+
+.pull-right[
+### Main Issue:
+  - Technologies implemented w/o evaluation
+  - Unintended consequences, we did not foresee?
+  - Benefits outweight the costs?
+]
+
+--
+
+### &lt;font color="blue"&gt;**Objective of this Presentation**&lt;/font&gt;: 
+### How can we rigorously evaluate these technologies to understand their effects on crime/policing?
+
+* Overview of technologies: know/don't know/want to know/how to evaluate.
+
+---
+# How can we find causal effects?
+
+## Thought Experiment: 
+- In a perfect world, how would we experimentally find whether X causes Y?
+
+--
+
+.center[ .font120[ &lt;font color="blue"&gt;**Random assignment of the treatment is the key to causal effects** &lt;/font&gt;]]
+
+--
+.pull-left[
+### Randomized Control Trials (RCT)
+- The Gold Standard
+- Pilot Programs
+- Problem: Expensive, direct collaboration, bias of who selects in.
+     - What happens at scale?
+]
+--
+.pull-right[
+### Natural Experiments
+- A great alternative; leverages randomness in the world
+- Trade off: less expensive, more potential for confounders
+- Departments may already be doing this!
+
+]
+
+---
+# Examples of how to find causal effects
+
+.panelset[
+.panel[.panel-name[Randomized Control Trial]
+.pull-left[
+### Construct a lab
+- Randomly assign a population to a treated group and control group
+- Randomness of treatment assignment allows for causal effects
+  - Average out differences in treatment and control
+- Example: pilot studies, randomly assign treatment to one group, and not another one
+]
+
+.pull-right[
+### A perfect experiment:
+&lt;img src="figure_av/rct.jpeg" width="100%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
+.panel[.panel-name[Regression Discontinuity]
+
+.pull-left[
+### How do we get randomness necessary for causal effects?
+- Leverage an arbitrary cutoff 
+  - Intuition: compare individuals slightly above and slightly below the cutoff
+- Example: Passing minimum legal drinking age results in more arrests
+- Requires many observations
+
+]
+
+.pull-right[
+
+&lt;img src="figure_av/rd_drink.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+.panel[.panel-name[Difference-in-Differences]
+.pull-left[
+### How do we get randomness necessary for causal effects?
+- Timing of when assignment of treatment occurs
+- Intuition: Compare the trends of treated places to untreated places
+- Example: Adoption of gunshot detectors at different points
+- Can be hard to isolate if many changes
+]
+
+.pull-right[
+
+&lt;img src="figure_av/gunshot.png" width="70%" style="display: block; margin: auto;" /&gt;
+]
+]
+]
+
+---
+# Getting causal effects in crime setting
+
+## What makes studying crime particularly challenging?
+
+--
+
+.pull-left[
+### Challenge 1: Measurement
+ - Changes in reporting
+ - Example: Streetlights and 911 calls
+]
+
+--
+
+.pull-right[
+### Challenge 2: Changes
+- New tech -&gt; new policies coincide
+]
+
+--
+
+.pull-left[
+### Challenge 3: Data 
+- Freedom of Information Acts (FOIA)
+  - Downfall: Costly, slow, inefficient
+- Collaborations are easier!
+
+]
+
+--
+
+.pull-right[
+### Challenge 4: Finding collaborators
+- Collaborators are great but how to find them?
+  - Cold calling does not work
+]
+
+
+---
+class: inverse, mline, center, middle
+
+# Automation of Reporting 
+
+Motivation: Reduce reliance on civilians and police staffing
+---
+# Automation of Reporting
+
+### How have we studied it?
+
+- Traffic Cameras
+  - Reduced red-light running (Wong 2014)
+  - Trade-off: increased rear-ending (Wong 2014, Gallager and Fisher, 2020)
+- Automated Gunshot Technology
+  - 12% of gunfire goes reported (Carr and Doleac, 2018)
+  - Measure of police mistrust (Ang et. al, 2021)
+
+.pull-left[
+### What can we still learn?
+- Facial recognition
+  - Increase deterrence?
+  - Requires knowledge; cilivian pushback
+]
+
+.pull-right[
+&lt;img src="figure_av/traffic_camera.jpeg" width="75%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: inverse, mline, center, middle
+
+# Predictive Policing
+
+Motivation: Prevention and Deterrence of Crime
+
+---
+# Patrol Software and Risk Scores
+
+### Have we studied it?
+
+- Assisting patrols (Hunchlab/PredPol/KeyStats):
+  - Increases in clearance rates (Mastrobuoni, 2020)
+  - Decreases serious violent/property crimes (Jabri, 2023)
+  - Evidence of some officers not taking suggestions (Kapustin et al. 2022)
+- Algorithmic risk scores/prediction of victims:
+  - Good candidates for regression discontinuity!
+  - Effective in finding at-risk victims and can prevent victimization (Heller
+et al., 2024)
+  - Could bake-in bias (Angwin et al., 2016; Lum and Isaac, 2016; Richardson et al., 2019; Mehrabi et al., 2021, Jabri, 2023)
+
+### What can we still learn?
+
+- Do criminals get smarter? Spillovers, criminals acting more randomly?
+- How can we motivate officers to take the suggestions?
+
+---
+# Case Study: Jabri 2023
+
+.pull-left[
+### The natural experiment:
+- PredPol technology: unexpected change in how the 'hotspot' boxes are created
+- Comparison: can old predictive boxes (control), and new predictive boxes (treatment)
+]
+
+.pull-right[
+&lt;img src="figure_av/jabri.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+### Results:
+- Decreases serious violent and property crimes
+- Exacerbates racial disparities in arrests in traffic incidents and
+serious violent crime
+---
+class: inverse, mline, center, middle
+# Police Oversight:
+
+Motivation: Increase policing accountability to change behavior
+
+
+---
+# Body-Worn Cameras
+
+.pull-left[
+### How have we studied it?
+
+- RCTs: Mixed evidence on use-of-force; Null (Yokum et. al, 2019) Significant reductions (Braga et. al, 2018)
+- Difference-in-Differences
+  - Lower complaints (Ferrazares, 2024), police-involved homicides (Kim, 2024)
+]
+
+.pull-right[
+&lt;img src="figure_av/bwc.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+### What could be done?
+- Videos = untapped data source; source of measurement, senitment, citizen relations
+- Truleo (new!): Uses AI to automate transcripts/sentiment of officer
+  - Upcoming studies (Adams et al., 2024)
+
+
+---
+# GPS Trackers
+
+.pull-left[
+### Have we studied it?
+
+- Difficult to get high-frequency data
+- Descriptive work: Smartphone data (Chen et al., 2023)
+  - Officers patrol in high Black density more, controlling for crime/density/demand
+  
+]
+
+.pull-right[
+&lt;img src="figure_av/avl.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+### What we still learn?
+
+- Can these be used to increase oversight?
+  - CCTV cameras shown to stop officers from shirking in India (Conover et al., 2023)
+- Can these be used to improve data quality?
+  - Example: improve 911 response time reporting
+
+---
+class: inverse, mline, center, middle
+
+# Police Response: 
+
+Motivation: Reactive policing
+
+
+---
+# Automated Gunshot Technology
+
+### How have we studied it?
+- Difference-in-Differences 
+- No clear evidence of reductions in crime (Manes, 2021; Ferguson and Witzburg, 2021; Connealy et al., 2024, Topper and Ferrazares, 2024)
+- Evidence of better locational accuracy (Piza et al., 2023), faster gun-related dispatch (Choi et al., 2014)
+- High trade-off in resource-constrained environment (Topper and Ferrazares, 2024)
+
+
+### What can we still learn?
+
+- Does this help gunshot victims? (Upcoming work)
+  - Do benefits outweigh costs?
+- Can we leverage this data for other purposes?
+  - Ex: Better method of understanding crime (Carr and Doleac, 2018)
+
+
+
+---
+class: inverse, mline, center, middle
+
+# Information Technology:
+
+Motivation: More information can increases likelihood of criminal being caught
+
+
+---
+# Ring Doorbells
+
+.pull-left[
+### Have we studied it?
+
+- Only study: attempts to create a Ring map in LA (Calacci et al., 2022)
+  - Descriptively does not find much evidence of crime reduction
+]
+
+.pull-right[
+
+
+&lt;img src="figure_av/ring.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+### What can we still learn?
+
+- Need collaborators and data!
+- Could utilize timing of Ring rollouts for a natural experiment
+  - Discontinuity in city boundaries on legality?
+- Deterrence effects? Increase in clearance rates?
+
+---
+# Main takeaways
+
+## Policing technology can be effective
+- We can study it causally by using:
+  - Randomized Control Trials
+  - Natural Experiments
+
+
+## How should we implement?
+
+- Thoughtful evaluation considering costs/benefits first
+  - ShotSpotter creating a costly trade-off
+  - Traffic cameras change composition, but not total accidents
+  - PredPol decreasing crime, but increasing racial discrimination
+  
+---
+# Solutions to challenges in causal crime analysis:
+
+--
+
+.pull-left[
+### Challenge 1: Measurement
+ - Leverage technological data sources
+ - Ex: ShotSpotter, Truleo, GPS tracking
+
+]
+
+--
+
+.pull-right[
+### Challenge 2: Changes
+- Implement changes progressively, rather than immediately
+- Proposition: transparency with operating procedures and changes
+]
+
+--
+
+.pull-left[
+### Challenge 3: Data 
+- Open Data has been a big success
+- Bypass the FOIA process
+- Negotiate contracts with firms to allow open data
+
+
+]
+
+--
+
+.pull-right[
+### Challenge 4: Finding collaborators
+- If you build it, they will come
+- Post information; point-of-contact
+- Young scholars will (likely) do it for free
+]
+
+---
+class: inverse, mline, center, middle
+
+# Thank you
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
