@@ -1,0 +1,37 @@
+\begin{table}[H]
+\centering
+\caption{\label{arrest_mechanism_table}Effect of ShotSpotter on Arrest Made Mechanisms (OLS)}
+\centering
+\begin{threeparttable}
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lcccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{ShotSpotter Rollout} & \multicolumn{1}{c}{ShotSpotter Dispatches} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-5}
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Officer Availability} & \multicolumn{1}{c}{ } \\
+\cmidrule(l{3pt}r{3pt}){3-4}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Pooled} & \multicolumn{1}{c}{> Median} & \multicolumn{1}{c}{<= Median} & \multicolumn{1}{c}{Pooled} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-4} \cmidrule(l{3pt}r{3pt}){5-5}
+  & (1) & (2) & (3) & (4)\\
+\midrule
+ShotSpotter Activated & -0.262*** & -0.205** & -0.299*** & \\
+ & (0.069) & (0.077) & (0.078) & \\
+Number SST Dispatches &  &  &  & -0.014**\\
+ &  &  &  & (0.006)\\
+Mean of Dependent Variable & 2.670 & 2.938 & 2.406 & 2.567\\
+\addlinespace
+Observations & 3,453,655 & 1,714,369 & 1,739,286 & 47,933\\
+\midrule\\
+FE: Day-by-Month-by-Year & X & X & X & X\\
+FE: District & X & X & X & X\\
+FE: Call-Type & X & X & X & \\
+FE: Hour-of-Day & X & X & X & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item * p < 0.1, ** p < 0.05, *** p < 0.01
+\item Standard errors are clustered by district.                       ShotSpotter Activated is a binary equal to one when                      a district has ShotSpotter technology (extensive margin).                      Number SST Dispatches refers to the number of                      ShotSpotter dispatches that occur within a district-day (intensive margin).                      The dependent variable in Columns 1-3 is an indicator equal to one if a 911 call resulted in an arrest, while the outcome                      in Column 4 is the proportion of 911 calls that end in an arrest in a district-day. All                      coefficient estimates and means are in percentages.                      Officer availability is measured by number of officer hours within a district-day. Column 1                      corresponds to the reduced form results shown in Table 4.                      Column 2 corresponds to district-days that have officer hours above                      their district median (more officer availability), while Column 3 corresponds to district-days that                      have officer hours below their district median (less officer availability). Analyses for                       Columns 1-3 are on the extensive margin, and utilze call-level data. The coefficients for these analyses                      are interpreted as average percentage point changes. Analysis for Column 4                      is on the intensive margin, and the data is aggregated to the district-day level. The                      coefficients of interest for Column 4 are interpreted as marginal effects. We                      aggregate to the district-day since the number of ShotSpotter dispatches is measured                      at the district-day. Because of this, we                      cannot use call-level data to correctly identify the marginal effects. Moreover,                      we restrict the sample to only post-implementation days for treated districts to                      ensure that only the intensive margin, rather than extensive margin, is identified. Further explanation                       of this model is                      given in Section 5.2.                   
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

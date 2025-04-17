@@ -79,83 +79,44 @@ aggregate_outcomes <- aggregate_outcomes %>%
 
 
 
+# getting number of arrests made by day -----------------------------------
+
+arrests_by_day <- dispatch_panel_p1 %>% 
+  group_by(district, date) %>% 
+  summarize(number_arrest_made =  sum(arrest_made,na.rm = T),
+            avg_arrest_made = mean(arrest_made, na.rm = T)) %>% 
+  ungroup()
+
+## merging to the aggregate outcomes
+aggregate_outcomes <- aggregate_outcomes %>% 
+  left_join(arrests_by_day)
+
+
+
 # Panel A -----------------------------------------------------------------
 
-ed_preferred_1 <- feols(entry_to_dispatch ~ treatment | district + date +
-                          final_dispatch_description + hour,
-                        cluster = ~district,
-                        data = dispatch_panel_p1)
+arrest_pool <- dispatch_panel_p1 %>%
+  feols(arrest_made*100 ~ treatment |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
 
-sst_ed_1 <- feols(entry_to_dispatch ~ number_sst_dispatches | district + date,
+arrest_above_med <- dispatch_panel_p1 %>%
+  filter(officer_hours > officer_hours_median) %>%
+  feols(arrest_made*100 ~ treatment |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
+arrest_below_med <- dispatch_panel_p1 %>%
+  filter(officer_hours <= officer_hours_median) %>%
+  feols(arrest_made*100 ~ treatment |district + date +
+          final_dispatch_description + hour,
+        cluster = ~district)
+
+## this gives the average change in the proportion of arrests made 
+arrest_intensive <- feols(avg_arrest_made*100 ~ number_sst_dispatches | district + date,
                   cluster = ~district,
                   data = aggregate_outcomes %>% 
                     filter(treatment == 1 | never_treated == 1))
-
-ed_above_med <- dispatch_panel_p1 %>%
-  filter(officer_hours > officer_hours_median) %>%
-  feols(entry_to_dispatch ~ treatment |district + date +
-          final_dispatch_description + hour,
-        cluster = ~district)
-
-## this ensures the median is after the restriction
-sst_ed_above_med <- aggregate_outcomes %>%
-  filter(treatment == 1 | never_treated == 1) %>% 
-  filter(officer_hours > officer_hours_median) %>%
-  feols(entry_to_dispatch ~ number_sst_dispatches |district + date,
-        cluster = ~district)
-
-ed_below_med <- dispatch_panel_p1 %>%
-  filter(officer_hours <= officer_hours_median) %>%
-  feols(entry_to_dispatch ~ treatment |district + date,
-        cluster = ~district)
-
-sst_ed_below_med <- aggregate_outcomes %>%
-  filter(treatment == 1 | never_treated == 1) %>% 
-  filter(officer_hours <= officer_hours_median) %>%
-  feols(entry_to_dispatch ~ number_sst_dispatches |district + date ,
-        cluster = ~district)
-
-# Panel B -----------------------------------------------------------------
-
-
-
-os_preferred_1 <- feols(entry_to_onscene ~ treatment | district + date +
-                          final_dispatch_description + hour,
-                      cluster = ~district,
-                      data = dispatch_panel_p1)
-
-sst_os_1 <- feols(entry_to_onscene ~ number_sst_dispatches | district + date ,
-                  cluster = ~district,
-                  data = aggregate_outcomes %>% 
-                    filter(treatment == 1 | never_treated == 1) )
-
-
-os_above_med <- dispatch_panel_p1 %>%
-  filter(officer_hours > officer_hours_median) %>%
-  feols(entry_to_onscene ~ treatment |district + date +
-          final_dispatch_description + hour,
-        cluster = ~district)
-
-sst_os_above_med <- aggregate_outcomes %>%
-  filter(treatment == 1 | never_treated == 1) %>% 
-  filter(officer_hours > officer_hours_median) %>%
-  feols(entry_to_onscene ~ number_sst_dispatches |district + date,
-        cluster = ~district)
-
-os_below_med <- dispatch_panel_p1 %>%
-  filter(officer_hours <= officer_hours_median) %>%
-  feols(entry_to_onscene ~ treatment |district + date +
-          final_dispatch_description + hour,
-        cluster = ~district)
-
-sst_os_below_med <- aggregate_outcomes %>%
-  filter(treatment == 1 | never_treated == 1) %>% 
-  filter(officer_hours <= officer_hours_median) %>%
-  feols(entry_to_onscene ~ number_sst_dispatches |district + date,
-        cluster = ~district)
-
-
-
 
 
 # table -------------------------------------------------------------------
@@ -173,14 +134,16 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       a district has ShotSpotter technology (extensive margin).
                       Number SST Dispatches refers to the number of
                       ShotSpotter dispatches that occur within a district-day (intensive margin).
-                      All coefficient estimates are in seconds. Panel A reports results for
-                      Call-to-Dispatch while Panel B reports results for Call-to-On-Scene.
-                      Officer availability is measured by number of officer hours within a district-day. 
+                      The dependent variable in Columns 1-3 is an indicator equal to one if a 911 call resulted in an arrest, while the outcome
+                      in Column 4 is the proportion of 911 calls that end in an arrest in a district-day. All
+                      coefficient estimates and means are in percentages.
+                      Officer availability is measured by number of officer hours within a district-day. Column 1
+                      corresponds to the reduced form results shown in Table 4.
                       Column 2 corresponds to district-days that have officer hours above
                       their district median (more officer availability), while Column 3 corresponds to district-days that
                       have officer hours below their district median (less officer availability). Analyses for 
                       Columns 1-3 are on the extensive margin, and utilze call-level data. The coefficients for these analyses
-                      are interpreted as average effects. Analysis for Column 4
+                      are interpreted as average percentage point changes. Analysis for Column 4
                       is on the intensive margin, and the data is aggregated to the district-day level. The
                       coefficients of interest for Column 4 are interpreted as marginal effects. We
                       aggregate to the district-day since the number of ShotSpotter dispatches is measured
@@ -192,28 +155,23 @@ footnotes <- map(list("* p < 0.1, ** p < 0.05, *** p < 0.01",
                       given in Section 5.2. 
                   "), ~str_remove_all(., "\n"))
 
-mechanism_table_raw <- panelsummary_raw(list(ed_preferred_1,
-                                             ed_above_med, ed_below_med,
-                                             sst_ed_1),
-                                        list(os_preferred_1,
-                                             os_above_med, os_below_med,sst_os_1),
-                                        stars = "econ",
-                                        mean_dependent = T,
-                                        coef_map = c("treatment" = "ShotSpotter Activated",
-                                                     "number_sst_dispatches" = "Number SST Dispatches"),
-                                        gof_omit = "^R|A|B|S",
-                                        gof_map = gof_mapping) 
 
+arrest_mechanism_raw <- panelsummary_raw(list(arrest_pool,
+                      arrest_above_med, arrest_below_med,
+                      arrest_intensive),
+                 stars = "econ",
+                 mean_dependent = T,
+                 coef_map = c("treatment" = "ShotSpotter Activated",
+                              "number_sst_dispatches" = "Number SST Dispatches"),
+                 gof_omit = "^R|A|B|S",
+                 gof_map = gof_mapping) 
 
-mechanism_table <- mechanism_table_raw %>% 
+arrest_mechanism_table <- arrest_mechanism_raw %>% 
   janitor::clean_names() %>% 
-  slice(-c(7:10)) %>% 
-  clean_raw(caption = "\\label{mechanism_table}Effect of ShotSpotter on Response Times Mechanisms (OLS)",
+  clean_raw(caption = "\\label{arrest_mechanism_table}Effect of ShotSpotter on Arrest Made Mechanisms (OLS)",
             pretty_num = T,
             format = "latex") %>% 
-  pack_rows("Panel A: Call-to-Dispatch",1,6, italic = T, bold = F, hline_after = F) %>% 
-  pack_rows("Panel B: Call-to-On-Scene", 7, 12, italic = T, bold = F,latex_gap_space = "0.5cm") %>% 
-  row_spec(12, hline_after = TRUE) %>% 
+  row_spec(6, hline_after = TRUE) %>% 
   add_header_above(c(" " = 1, "Pooled" = 1, "> Median" = 1, "<= Median" = 1,
                      "Pooled" = 1)) %>% 
   add_header_above(c(" " = 2,
@@ -225,4 +183,4 @@ mechanism_table <- mechanism_table_raw %>%
   footnote(footnotes, threeparttable = T) %>% 
   kable_styling(latex_options = "HOLD_position", font_size = 11)
 
-writeLines(mechanism_table, "paper/tables/mechanism_table.tex")
+writeLines(arrest_mechanism_table, "paper/appendix_tables/arrest_mechanism_table.tex")
