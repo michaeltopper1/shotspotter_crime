@@ -61,7 +61,8 @@ sum_stats_descriptions_onscene <- dispatch_panel_p1 %>%
          fraction = n/total)
 
 sum_stats_descriptions <- sum_stats_descriptions_dispatch %>% 
-  left_join(sum_stats_descriptions_onscene, join_by(final_dispatch_description)) %>% 
+  left_join(sum_stats_descriptions_onscene, join_by(final_dispatch_description
+                                                    )) %>% 
   select(-starts_with("total"))
 
 
@@ -82,12 +83,10 @@ onscene_p1_types <- map_df(dispatch_descriptions, function(description) {dispatc
   mutate(outcome = "Call-to-On-Scene")
 
 
+
+
 results <- dispatch_p1_types %>% 
   bind_rows(onscene_p1_types) %>% 
-  left_join(sum_stats_descriptions,
-            join_by(outcome == outcome,
-                    dispatch_type == final_dispatch_description)) %>% 
-  mutate(percent_change = estimate/mean) %>% 
   mutate(dispatch_type = str_to_title(dispatch_type)) %>% 
   mutate(dispatch_type = str_replace(dispatch_type, "Jo", "JO"),
          dispatch_type = str_replace(dispatch_type, "Ip", "IP"))
@@ -96,7 +95,8 @@ results <- dispatch_p1_types %>%
 # table -------------------------------------------------------------------
 
 footnote <- map(list( "Units are in seconds. Data is at
-         the call-level. Call-to-Dispatch represents 
+         the call-level. These 20 call types represent approximately 88 percent of all calls.
+         Call-to-Dispatch represents 
          the amount of time from the 911 call to an officer dispatching
          to the scene. Call-to-On-Scene is the time from a 911 call to
          when an officer arrives on-scene.
@@ -104,7 +104,7 @@ footnote <- map(list( "Units are in seconds. Data is at
          of on-scene times, although the results
          remain consistent when we can observe both response times. The Fraction
          Column
-         represents the fraction of the total amount of each outcome. Any description
+         represents the fraction of the total amount of each call type for each outcome. Any description
          ending with IP stands for `in progress.'
                   "), ~str_remove_all(., "\n"))
 
@@ -115,13 +115,15 @@ sum_stats_descriptions_table <- sum_stats_descriptions %>%
   mutate(across(matches("mean|sd|fraction"), ~sprintf("%.2f", .))) %>% 
   mutate(n.x = scales::comma(n.x),
          n.y = scales::comma(n.y)) %>% 
-  kbl(col.names = c("Dispatch Description", "Mean", "SD", "N", "Fraction","Mean", "SD", "N", "Fraction"),
+  select(-c(n.x,n.y)) %>% 
+  kbl(col.names = c("Dispatch Description", "Mean", "SD", "Fraction","Mean", "SD", "Fraction"),
       booktabs = T,
-      caption = "\\label{}") %>% 
+      caption = "\\label{summy_stats_descriptions}Summary Statistics on 20 Most Frequent Dispatch Descriptions",
+      format = 'latex') %>% 
   kable_styling() %>% 
   add_header_above(c(' ' = 1,
-                     'Call-to-Dispatch' = 4,
-                     'Call-to-On-Scene' = 4)) %>% 
+                     'Call-to-Dispatch' = 3,
+                     'Call-to-On-Scene' = 3)) %>% 
   footnote(footnote, threeparttable = T)
 
 
@@ -139,3 +141,7 @@ priority_1_descriptions <- results %>%
   labs(x = "Point Estimate and 95% Confidence Interval",
        y = "") +
   theme_minimal()
+
+
+ggsave(priority_1_descriptions, filename = "paper/appendix_figures/referee_priority_1_descriptions.jpeg", width = 7, height = 5)
+writeLines(sum_stats_descriptions_table, "paper/appendix_tables/referee_summary_stats_descriptions.tex")

@@ -1,0 +1,42 @@
+\begin{table}
+\centering
+\caption{\label{summy_stats_descriptions}Summary Statistics on 20 Most Frequent Dispatch Descriptions}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lllllll}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Call-to-Dispatch} & \multicolumn{3}{c}{Call-to-On-Scene} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7}
+Dispatch Description & Mean & SD & Fraction & Mean & SD & Fraction\\
+\midrule
+Burglary IP & 183.82 & 340.73 & 0.01 & 550.96 & 647.66 & 0.02\\
+Suspicious Person & 263.75 & 400.64 & 0.07 & 753.33 & 681.53 & 0.06\\
+Check Well Being & 321.28 & 461.77 & 0.10 & 858.73 & 769.38 & 0.10\\
+Domestic Disturbance & 325.64 & 476.40 & 0.20 & 821.72 & 763.76 & 0.22\\
+Alarm Panic & 251.69 & 397.04 & 0.02 & 722.07 & 644.59 & 0.02\\
+\addlinespace
+Disturbance Mental & 244.24 & 350.88 & 0.01 & 836.30 & 832.67 & 0.01\\
+Domestic Battery & 314.62 & 464.84 & 0.06 & 840.48 & 828.85 & 0.07\\
+Person Calling For Help & 226.59 & 383.47 & 0.01 & 645.37 & 673.21 & 0.01\\
+Assault IP & 290.21 & 441.69 & 0.06 & 744.10 & 749.86 & 0.06\\
+Dui Driver & 347.92 & 509.26 & 0.01 & 958.74 & 893.45 & 0.01\\
+\addlinespace
+Battery IP & 231.46 & 388.08 & 0.08 & 628.63 & 692.93 & 0.08\\
+Ems & 327.94 & 460.47 & 0.07 & 793.64 & 844.21 & 0.06\\
+Robbery JO & 209.96 & 369.81 & 0.01 & 859.98 & 1061.80 & 0.02\\
+Person With A Gun & 167.87 & 313.74 & 0.05 & 561.87 & 696.81 & 0.05\\
+Criminal Trespass IP & 311.54 & 453.64 & 0.04 & 802.96 & 753.95 & 0.03\\
+\addlinespace
+Crim Dam. To Prop IP & 295.16 & 451.21 & 0.01 & 768.08 & 766.23 & 0.01\\
+Theft IP & 266.61 & 425.56 & 0.01 & 750.02 & 781.78 & 0.01\\
+Person With A Knife & 236.30 & 399.73 & 0.02 & 659.78 & 746.16 & 0.02\\
+Structrual Fire & 302.50 & 446.92 & 0.01 & 699.17 & 629.32 & 0.01\\
+Voop - Cindy Bischof' Law & 359.04 & 507.47 & 0.01 & 868.36 & 729.27 & 0.01\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item Units are in seconds. Data is at         the call-level. These 20 call types represent approximately 88 percent of all calls.         Call-to-Dispatch represents          the amount of time from the 911 call to an officer dispatching         to the scene. Call-to-On-Scene is the time from a 911 call to         when an officer arrives on-scene.         Priority 1 Call-to-On-Scene is missing approximately 45 percent         of on-scene times, although the results         remain consistent when we can observe both response times. The Fraction         Column         represents the fraction of the total amount of each call type for each outcome. Any description         ending with IP stands for `in progress.'                  
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
