@@ -126,12 +126,14 @@ arrest_table <- arrest_rate_table_raw %>%
       "Excluding MISC"),
       booktabs = T,
       caption = "\\label{referee_arrest_rates}Arrest Rates for 20 Most Frequent Call-Types",
-      format = "latex") %>% 
+      format = "latex",
+      linesep = "") %>% 
   kable_styling() %>% 
   add_header_above(c(' ' = 2,
                      'Fraction Arrested' = 2)) %>% 
   row_spec(row = 20, hline_after = T) %>% 
   row_spec(row = 21, bold = F, italic = T) %>% 
+  column_spec(1, width = "6cm") %>% 
   footnote(footnote, threeparttable = T)
 
 writeLines(arrest_table, "paper/appendix_tables/referee_arrest_rate.tex")
